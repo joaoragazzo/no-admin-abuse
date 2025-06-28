@@ -1,75 +1,24 @@
-import { FaShieldAlt, FaSkull } from "react-icons/fa"
-import { Header } from "./components/Header"
+import { FaSkull } from "react-icons/fa"
+import { Header } from "./components/layout/Header"
 import { Section } from "./components/template/Section"
 import { RatedServer } from "./components/cards/RatedServer"
-import { Footer } from "./components/Footer"
+import { Footer } from "./components/layout/Footer"
+import { HeroSection } from "./components/sections/HeroSection"
+import { Metrics } from "./components/sections/metrics/Metrics"
 
 function App() {
   return (
     <>
       <Header />
-      <Section className="mt-10 mb-10">
-        <div className="flex flex-row gap-10">
-          <div className="w-200 h-100  flex flex-col justify-center items-center">
-            <div className="flex flex-col p-20 gap-8">
-              <div className="font-extrabold text-4xl/8">
-                <span className="text-red-700">Justiça</span><br/>
-                <span>nos servidores</span>
-              </div>
-              
-              <span className="text-gray-100 text-lg/6 font-normal">
-                Denuncie abusos de autoridade, avalie servidores e 
-                ajude a comunidade a encontrar ambientes de jogo 
-                justos e seguros. 
-              </span>
-
-              <div className="flex flex-row gap-5">
-                <button className="px-7 py-2 cursor-pointer font-semibold bg-blue-500 hover:bg-blue-600 text-white rounded-md">Fazer uma denúncia</button>
-                <button className="px-7 py-2 cursor-pointer border-1 border-blue-400 rounded-md">Ver lista de servidores</button>
-              </div>
-
-            </div>
-          </div>
-          <div className="w-200 h-100 flex justify-center items-center p-20">
-            <FaShieldAlt size={200}/>
-          </div>
-
-        </div>
+      <Section className="py-20 bg-[url('/topography.svg')] bg-repeat bg-center bg-[length:500px]">
+        <HeroSection />
       </Section>
 
-      <Section className="mb-20">
-        <div className="flex flex-row items-center justify-center gap-20">
-          <div className="flex flex-col w-fit gap-4 items-center">
-            <div className="text-indigo-500 text-5xl font-extrabold">
-              1.9K
-            </div>
-            <div className=" font-bold">
-              Denúncias feitas
-            </div>
-          </div>
-
-          <div className="flex flex-col w-fit gap-4 items-center">
-            <div className="text-indigo-500 text-5xl font-extrabold">
-              324
-            </div>
-            <div className=" font-bold">
-              Servidores registrados
-            </div>
-          </div>
-
-          <div className="flex flex-col w-fit gap-4 items-center">
-            <div className="text-indigo-500 text-5xl font-extrabold">
-              70%
-            </div>
-            <div className=" font-bold">
-              Casos Resolvidos
-            </div>
-          </div>
-        </div>
-        
+      <Section className="mb-20 bg-gray-900 py-20">
+        <Metrics />
       </Section>
 
-      <Section className="mb-20">
+      <Section className="mb-20 px-30">
         <div
           className="flex justify-center text-3xl font-bold mb-10"
         >

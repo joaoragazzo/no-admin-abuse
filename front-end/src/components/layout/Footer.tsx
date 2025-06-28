@@ -1,10 +1,10 @@
 import type React from "react";
-import { Brand } from "./Brand";
+import { Brand } from "../Brand";
 import { FaDiscord, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
 export const Footer: React.FC = () => {
     return (
-        <div className="items-center w-full px-7 py-3 border-t-1 border-gray-700/60 bg-blue-980 flex flex-col gap-3">
+        <div className="items-center w-full px-7 py-3 border-t-1 border-gray-700/60 bg-gray-950 flex flex-col gap-3">
             <div className="items-center flex flex-row justify-between w-full">
                 <div>
                     <Brand />

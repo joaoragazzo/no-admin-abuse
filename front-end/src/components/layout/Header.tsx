@@ -1,8 +1,8 @@
 import { FaBars, FaServer } from "react-icons/fa"
-import { LoginSteamButton } from "./button/LoginSteamButton"
+import { LoginSteamButton } from "../button/LoginSteamButton"
 import { FaFileShield, FaFileSignature } from "react-icons/fa6"
 import { useState } from "react";
-import { Brand } from "./Brand";
+import { Brand } from "../Brand";
 
 
 export const Header: React.FC = () => {
