@@ -1,7 +1,17 @@
 @import "tailwindcss";
 
+html, body, #root {
+  height: 100%;
+}
+
+@theme {
+  --color-defaultbackground: #0f1219;
+  --color-blue-980: #11182b;
+}
+
 body {
   background-color: #0f1219;
+  color: white;
 }
 
 * {

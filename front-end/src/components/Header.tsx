@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
     
     return (
     <>
-        <header className="items-center text-white flex justify-between w-full border-gray-700 border-b p-5 px-10">
+        <header className="items-center flex justify-between w-full border-gray-700 border-b p-5 px-10">
             <div className="text-2xl font-extrabold flex flex-row items-center">
                 <FaShield className="mr-4"/> No Admin Abuse
             </div>
@@ -39,14 +39,13 @@ export const Header: React.FC = () => {
                 <FaBars size={24}/>
             </div>
         </header>
-        <div className={`${menuOpen ? 'flex' : 'hidden'} lg:hidden flex-col absolute w-full bg-blue-950/30 text-white`}>
+
+        <div className={`${menuOpen ? 'flex' : 'hidden'} lg:hidden flex-col absolute w-full bg-blue-980`}>
             {items.map((content, key) => (
                 <div key={key} className="flex flex-row items-center gap-3 w-full border-b-1 border-gray-950/30 py-4 px-10 hover:bg-blue-950/50 hover:text-blue-400 cursor-pointer">
                     {content.content}
                 </div>
             ))}
-            <div>
-            </div>
         </div>
     </>
         
