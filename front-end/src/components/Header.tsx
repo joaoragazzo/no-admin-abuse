@@ -1,7 +1,8 @@
 import { FaBars, FaServer } from "react-icons/fa"
 import { LoginSteamButton } from "./button/LoginSteamButton"
-import { FaFileShield, FaFileSignature, FaShield } from "react-icons/fa6"
+import { FaFileShield, FaFileSignature } from "react-icons/fa6"
 import { useState } from "react";
+import { Brand } from "./Brand";
 
 
 export const Header: React.FC = () => {
@@ -25,9 +26,7 @@ export const Header: React.FC = () => {
     return (
     <>
         <header className="items-center flex justify-between w-full border-gray-700 border-b p-5 px-10">
-            <div className="text-2xl font-extrabold flex flex-row items-center">
-                <FaShield className="mr-4"/> No Admin Abuse
-            </div>
+            <Brand />
             <div className="hidden lg:flex items-center font-semibold font-1x1 flex-row gap-8">
                 {items.map((content, key) => (
                     <div key={key} className="flex flex-row items-center gap-3 hover:text-blue-400 cursor-pointer">

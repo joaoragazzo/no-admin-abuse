@@ -1,7 +1,8 @@
-import { FaArrowRight, FaShieldAlt, FaSkull, FaStar } from "react-icons/fa"
+import { FaShieldAlt, FaSkull } from "react-icons/fa"
 import { Header } from "./components/Header"
 import { Section } from "./components/template/Section"
 import { RatedServer } from "./components/cards/RatedServer"
+import { Footer } from "./components/Footer"
 
 function App() {
   return (
@@ -36,13 +37,45 @@ function App() {
         </div>
       </Section>
 
+      <Section className="mb-20">
+        <div className="flex flex-row items-center justify-center gap-20">
+          <div className="flex flex-col w-fit gap-4 items-center">
+            <div className="text-indigo-500 text-5xl font-extrabold">
+              1.9K
+            </div>
+            <div className=" font-bold">
+              Denúncias feitas
+            </div>
+          </div>
+
+          <div className="flex flex-col w-fit gap-4 items-center">
+            <div className="text-indigo-500 text-5xl font-extrabold">
+              324
+            </div>
+            <div className=" font-bold">
+              Servidores registrados
+            </div>
+          </div>
+
+          <div className="flex flex-col w-fit gap-4 items-center">
+            <div className="text-indigo-500 text-5xl font-extrabold">
+              70%
+            </div>
+            <div className=" font-bold">
+              Casos Resolvidos
+            </div>
+          </div>
+        </div>
+        
+      </Section>
+
       <Section className="h-200">
         <div
           className="flex justify-center text-3xl font-bold mb-10"
         >
           Servidores&nbsp;<span className="text-blue-500">Avaliados</span>
         </div>
-        {/* Cards */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-center items-center">
           <RatedServer 
             serverName="BioZ"
@@ -89,6 +122,9 @@ function App() {
           
         
       </Section>
+
+      <Footer />
+
     </>
   )
 }
