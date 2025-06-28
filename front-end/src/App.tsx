@@ -69,7 +69,7 @@ function App() {
         
       </Section>
 
-      <Section className="h-200">
+      <Section className="mb-20">
         <div
           className="flex justify-center text-3xl font-bold mb-10"
         >
