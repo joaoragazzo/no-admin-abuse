@@ -17,7 +17,7 @@ export const HeroSection: React.FC = () => {
               </span>
               <div className="flex flex-row gap-5">
                 <button className="px-7 py-2 cursor-pointer font-semibold bg-blue-500 hover:bg-blue-600 text-white rounded-md">Fazer uma denúncia</button>
-                <button className="px-7 py-2 cursor-pointer border-1 border-blue-400 rounded-md">Ver lista de servidores</button>
+                <button className="px-7 py-2 cursor-pointer border-1 border-blue-500 rounded-md">Ver lista de servidores</button>
               </div>
             </div>
           </div>

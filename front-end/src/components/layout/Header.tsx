@@ -1,8 +1,9 @@
-import { FaBars, FaServer } from "react-icons/fa"
+import { FaBars, FaGamepad } from "react-icons/fa"
 import { LoginSteamButton } from "../button/LoginSteamButton"
 import { FaFileShield, FaFileSignature } from "react-icons/fa6"
 import { useState } from "react";
 import { Brand } from "../Brand";
+import { Link } from "react-router-dom";
 
 
 export const Header: React.FC = () => {
@@ -10,7 +11,7 @@ export const Header: React.FC = () => {
     
     const items = [
         {
-            content: <><FaServer />Servidores</>
+            content: <Link to="/games" className="flex flex-row items-center gap-3"><FaGamepad />Jogos</Link> 
         },
         {
             content: <><FaFileShield />Termos de Uso</>
@@ -25,7 +26,7 @@ export const Header: React.FC = () => {
     
     return (
     <>
-        <header className="items-center flex justify-between w-full border-gray-700 border-b p-5 px-10">
+        <header className="items-center flex justify-between w-full bg-gray-950 border-gray-700 border-b p-5 px-10">
             <Brand />
             <div className="hidden lg:flex items-center font-semibold font-1x1 flex-row gap-8">
                 {items.map((content, key) => (
