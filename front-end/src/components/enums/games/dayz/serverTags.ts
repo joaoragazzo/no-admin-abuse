@@ -1,0 +1,20 @@
+export enum ServerTags {
+    PVP = "PvP",
+    PVE = "PvE",
+    VANILLA = "Vanilla",
+    VANILLAP = "Vanilla+",
+    VANILAPP = "Vanilla++",
+    FULLPVP = "Full PvP",
+    FULLMOD = "Full Mod",
+    DEATHMATCH = "DeathMatch",
+    NORAID = "NoRaid",
+    FPP = "1PP",
+    TPP = "3PP",
+    ROLEPLAY = "Roleplay",
+    NOBASE = "No Base",
+    HELICOPTER = "Helicopter",
+    SOLO = "Solo",
+    DUO = "Duo",
+    TRIO = "Trio",
+    SQUAD = "Squad"
+}

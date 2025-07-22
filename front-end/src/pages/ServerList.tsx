@@ -1,8 +1,10 @@
 import type React from "react";
-import { FaClock, FaCrown, FaGlobe, FaInfoCircle, FaMedal, FaSearch, FaServer, FaStar, FaWifi } from "react-icons/fa";
+import { FaCrown, FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { ServerCard } from "../components/cards/ServerCard";
+import { BestServerCard } from "../components/cards/BestServerCard";
+import { Regions } from "../components/enums/regions";
 
 
 export const ServerList: React.FC = () => {
@@ -16,8 +18,6 @@ export const ServerList: React.FC = () => {
                 return "Unknown"
         }
     }
-
-
 
     return (
         <>
@@ -124,6 +124,10 @@ export const ServerList: React.FC = () => {
                         <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Roleplay</div>
                         <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">No Base</div>
                         <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Helicoptero</div>
+                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Solo</div>
+                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Duo</div>
+                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Trio</div>
+                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Squad</div>
                     </div>
                 </div>
             </div>
@@ -187,136 +191,24 @@ export const ServerList: React.FC = () => {
             </div>
             
             <div className="flex flex-row items-center mx-10 gap-3 font-bold my-2.5">
-                <FaCrown className="text-yellow-400 text-2xl"/>Servidor em Destaque
+                <FaCrown className="text-yellow-400 text-2xl animate-swing"/>Servidor em Destaque
             </div>
 
-            <div className="border-1 border-blue-500 mx-10 flex flex-row rounded p-5 mb-10">
-                <div className="flex flex-col h-full">
-                    <div className="w-25 mb-2 py-0.5 rounded bg-purple-700 flex flex-row justify-center text-sm font-semibold">
-                        DESTAQUE
-                    </div>
-                    <div className="h-60 w-60 font-bold rounded bg-blue-950 flex items-center justify-center">
-                        DayZ Apocalypse
-                    </div>
-                </div>
-
-                <div className="ml-8 flex flex-col justify-between">
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-row items-center">
-                            <div className="p-3 bg-yellow-600 rounded-full mr-2">
-                                <FaMedal className="text-yellow-200" />
-                            </div>
-                            <div className="flex flex-col">
-                                <div className="font-bold">
-                                    DayZ Apocalypse
-                                </div>
-                                <div className="font-extralight text-sm">
-                                    apocalypse.dayz-serfers.com:2302
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-row gap-2">
-                            <div className="flex flex-row gap-1">
-                                <FaStar className="text-yellow-400" />
-                                <FaStar className="text-yellow-400" />
-                                <FaStar className="text-yellow-400" />
-                                <FaStar className="text-yellow-400" />
-                                <FaStar className="text-yellow-400" />
-                            </div>
-                            
-                            <div className="text-xs text-gray-300">
-                                4.7 (1.245 avaliações)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="text-sm">
-                        Servidor hardcore PvP com economia balanceada, eventos semanais e uma
-                        comunidade ativa. Mods cuidadosamente selecionados para melhorar a 
-                        experiência sem comprometer a essência do DayZ.
-                    </div>
-
-                    <div className="flex flex-row gap-2">
-                        <div className="items-center rounded-full text-xs px-2 py-0.5 bg-blue-950 text-blue-400">
-                            PvP
-                        </div>
-
-                        <div className="items-center rounded-full text-xs px-2 py-0.5 bg-green-950 text-green-400">
-                            Modded
-                        </div>
-
-                        <div className="items-center rounded-full text-xs px-2 py-0.5 bg-purple-950 text-purple-400">
-                            Alta População
-                        </div>
-
-                        <div className="items-center rounded-full text-xs px-2 py-0.5 bg-yellow-950 text-yellow-400">
-                            Eventos
-                        </div>
-                        
-                        <div className="items-center rounded-full text-xs px-2 py-0.5 bg-red-950 text-red-400">
-                            HardCore
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row gap-3">
-                        <div className="rounded bg-gray-800 p-3 flex flex-col gap-1  w-full">
-                            <div className="text-xs text-gray-300">
-                                Região
-                            </div>
-                            <div className="flex flex-row gap-2 items-center text-sm">
-                                <FaGlobe className="text-blue-400" />
-                                Europa
-                            </div>
-                        </div>
-
-                        <div className="rounded bg-gray-800 p-3 flex flex-col gap-1  w-full">
-                            <div className="text-xs text-gray-300">
-                                Jogadores
-                            </div>
-                            <div className="flex flex-row gap-2 items-center text-sm">
-                                <FaPeopleGroup className="text-green-400" />
-                                98/100
-                            </div>
-                        </div>
-
-                        <div className="rounded bg-gray-800 p-3 flex flex-col gap-1  w-full">
-                            <div className="text-xs text-gray-300">
-                                Ping Médio
-                            </div>
-                            <div className="flex flex-row gap-2 items-center text-sm">
-                                <FaWifi className="text-yellow-400" />
-                                42ms
-                            </div>
-                        </div>
-
-                        <div className="rounded bg-gray-800 p-3 flex flex-col gap-1  w-full">
-                            <div className="text-xs text-gray-300">
-                                Uptime
-                            </div>
-                            <div className="flex flex-row gap-2 items-center text-sm">
-                                <FaClock className="text-purple-400" />
-                                99.8%
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-row items-center text-gray-300 text-sm">
-                            <div className="mr-2 p-2 bg-blue-600 text-white text-xs font-bold rounded-full">
-                                DA
-                            </div>
-                            Administrado por DayZ Apocalypse Team
-                        </div>
-
-                        <div>
-                            <button className="flex flex-row rounded cursor-pointer hover:bg-gray-600 items-center bg-gray-800 text-xs font-bold py-1.5 px-2.5">
-                                <FaInfoCircle className="mr-2" />  Detalhes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <BestServerCard 
+                name="DayZ Apocalypse"
+                ip="apocalypse.dayz-serfers.com:2302"
+                rating={5}
+                ratings={1.245}
+                description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
+                tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
+                maxPlayer={100}
+                onlinePlayers={96}
+                region={Regions.EUROPE}
+                uptime={99.4}
+                administrationTeam="DayZ Administration Team"
+                ms={32}
+                verified
+            />
 
             <div className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
                 Top Servidores de DayZ

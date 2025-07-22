@@ -58,7 +58,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
                         </div>
                     </div>
                                     
-                    <div className="text-xs">
+                    <div className="text-xs text-gray-300">
                         {ip}
                     </div>
                 </div>
