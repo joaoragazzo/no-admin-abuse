@@ -16,12 +16,24 @@ export const ServerList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [tags, setTags] = useState<string[]>([]);
+    const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
+
+    const toggleTag = (tag: string) => {
+        const temp = new Set<string>(activeTags);
+        if (temp.has(tag)) {
+            temp.delete(tag)
+        } else {
+            temp.add(tag);
+        }
+        setActiveTags(temp);
+    }
 
     useEffect(() => {
-        serverService.fetchAllServers({page: currentPage}).then(
+        serverService.fetchAllServers({page: currentPage, tags: Array.from(activeTags)}).then(
             response => setServerList(response)
         );
-    }, [currentPage]);
+    }, [currentPage, activeTags]);
 
     const getGameName = (name: string | undefined): string => {
         switch (name) {
@@ -31,6 +43,14 @@ export const ServerList: React.FC = () => {
                 return "Unknown"
         }
     }
+
+    useEffect(() => {
+        serverService.fetchAllTags().then(
+            response => {
+                setTags(response.tags);
+            }
+        )
+    }, []);
 
     return (
         <>
@@ -123,24 +143,14 @@ export const ServerList: React.FC = () => {
                         Tags
                     </div>
                     <div className="flex flex-wrap text-nowrap flex-row gap-2">
-                        <div className="cursor-pointer text-xs bg-blue-700 py-0.5 px-3 rounded-full">PvP</div>
-                        <div className="cursor-pointer text-xs bg-blue-700 py-0.5 px-3 rounded-full">PvE</div>
-                        <div className="cursor-pointer text-xs bg-blue-700 py-0.5 px-3 rounded-full">Vanilla</div>
-                        <div className="cursor-pointer text-xs bg-blue-700 py-0.5 px-3 rounded-full">Vanilla+</div>
-                        <div className="cursor-pointer text-xs bg-blue-700 py-0.5 px-3 rounded-full">Vanilla++</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Full PvP</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Full Mod</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Deathmatch</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">No raid</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">1PP</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">3PP</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Roleplay</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">No Base</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Helicoptero</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Solo</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Duo</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Trio</div>
-                        <div className="cursor-pointer text-xs bg-gray-700 py-0.5 px-3 rounded-full">Squad</div>
+                        {tags.map((value, key) => (
+                            <div
+                                key={key} 
+                                onClick={() => {toggleTag(value)}}
+                                className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}>
+                                    {value}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
