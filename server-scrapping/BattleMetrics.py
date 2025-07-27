@@ -49,7 +49,6 @@ class BattleMetrics:
         return [ServerInfo(
             server['attributes']['id'],
             server['attributes']['name'],
-            server['attributes']['address'],
             server['attributes']['ip'],
             server['attributes']['port'],
         ) for server in servers]

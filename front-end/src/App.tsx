@@ -4,6 +4,7 @@ import { GameList } from "./pages/GameList"
 import { Header } from "./components/layout/Header"
 import { Footer } from "./components/layout/Footer"
 import { ServerList } from "./pages/ServerList"
+import { LLMTrain } from "./pages/LLMTrain"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<GameList />} />
           <Route path="/servers/:game" element={<ServerList />} />
+          <Route path="/llm-train" element={<LLMTrain />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

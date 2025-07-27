@@ -1,11 +1,10 @@
 from typing import List
 
 class ServerInfo:
-    def __init__(self, id, name, address, 
+    def __init__(self, id, name, 
                  ip, port):
         self.id: str = id
         self.name: str = name
-        self.address: str = address,
         self.ip: str = ip
         self.port: str = port
 
@@ -18,3 +17,4 @@ class ServerInfo:
         self.wiped: bool = None
         self.map: str = None
         self.canonicalName: str = None
+        self.normalizedTags: List[str] = []

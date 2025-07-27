@@ -1,20 +1,64 @@
 from BattleMetrics import BattleMetrics
 from Normalizer import Normalizer
 from Fingerprinter import Fingerprinter
+from TagNormalizer import TagNormalizer
+from RegionNormalizer import RegionNormalizer
+import json
+import requests
+
+def normalize_all(groups):
+    for group in groups:
+        for server in groups[group]:
+            server.tags = tagNormalizer.normalize_tags(server.tags)
+            server.regionTags = regionNormalizer.normalize_tags(server.regionTags)
+    return groups
+
+def print_all(groups):
+    for group in groups:
+        print(f"=========={group}==========")
+        for server in groups[group]:
+            print(f"\t=> {server.name}")
+            print(f"\t   {server.tags}")
+            print(f"\t   {server.regionTags}")
+        print("\n\n")
+
+def to_java_style_json(groups):
+    result = []
+
+    for group in groups:
+        group_data = {
+            "name": group,
+            "servers": []
+        }
+
+        for server in groups[group]:
+            server_data = {
+                "name": server.name,
+                "ip": server.ip,
+                "port": server.port,
+                "tags": server.tags, 
+                "region": server.regionTags[0] if len(server.regionTags) > 0 else None
+            }
+            group_data["servers"].append(server_data)
+
+        result.append(group_data)
+
+    return result
 
 if __name__ == '__main__':
     bm = BattleMetrics()
     normalizer = Normalizer()
     fingerprinter = Fingerprinter()
+    tagNormalizer = TagNormalizer()
+    regionNormalizer = RegionNormalizer()
 
-    servers = bm.fetchServers(size=400)
+    servers = bm.fetchServers(size=1000)
     normalized = normalizer.bulk(servers)
     groups = fingerprinter.fingerprint_servers(normalized)
-    
-    
-    group = "Origemz"
-    print(f"========{group}========")
-    for server in groups[group]:
-        print(f"|=> {server.name}")
-    
-    print("\n")
+
+    normalized = normalize_all(groups)
+
+    java_dto_payload = to_java_style_json(normalized)
+
+    response = requests.put("http://localhost:8080/server/bulk", data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
+    print(response.text)

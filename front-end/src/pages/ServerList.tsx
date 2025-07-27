@@ -5,11 +5,24 @@ import { useParams } from "react-router-dom";
 import { ServerCard } from "../components/cards/ServerCard";
 import { BestServerCard } from "../components/cards/BestServerCard";
 import { Regions } from "../components/enums/regions";
+import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
+import { useEffect, useState } from "react";
+import serverService from "@services/ServerService";
+import type { Pageable } from "@/interfaces/Pageable";
+import { Pagination } from "@/components/table/Pagination";
 
 
 export const ServerList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
-    
+    const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+    useEffect(() => {
+        serverService.fetchAllServers({page: currentPage}).then(
+            response => setServerList(response)
+        );
+    }, [currentPage]);
+
     const getGameName = (name: string | undefined): string => {
         switch (name) {
             case 'dayz':
@@ -196,7 +209,6 @@ export const ServerList: React.FC = () => {
 
             <BestServerCard 
                 name="DayZ Apocalypse"
-                ip="apocalypse.dayz-serfers.com:2302"
                 rating={5}
                 ratings={1.245}
                 description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
@@ -216,53 +228,23 @@ export const ServerList: React.FC = () => {
             
             <div className="flex flex-col mx-10 gap-5 mb-5">
 
-                <ServerCard
-                    name="DayZ UnderGround"
-                    ip="underground.dayz-servers.com:2302"
-                    tags={["PvP", "1PP", "FullMod"]}
-                    description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
-                    rating={4.0}
-                    feedbackCount={327}
-                    onlinePlayers={87}
-                    maxPlayers={100}
-                    region="NA"
-                />
+                {serverList?.content.map((content, key) => (
+                    <ServerCard
+                        key={key}
+                        name={content.name}
+                        description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
+                        rating={4.0}
+                        feedbackCount={327}
+                        onlinePlayers={87}
+                        maxPlayers={100}
+                        servers={content.servers}
+                    />
+                ))}
 
-                <ServerCard
-                    name="Spaggie's Server"
-                    ip="spaggie.dayz-servers.com:2302"
-                    tags={["Vanilla", "PvP", "Oficial"]}
-                    description=" Experiência vanilla pura com configurações oficiais. Servidor gerenciado por um dos streamers mais conhecidos da comunidade DayZ, garantindo administração justa e consistente."
-                    rating={4.0}
-                    feedbackCount={742}
-                    onlinePlayers={92}
-                    maxPlayers={100}
-                    region="EU"
-                />
+            
+                <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={(number) => {setCurrentPage(number)}}/>
 
-                <ServerCard
-                    name="The Running Man Z"
-                    ip="runningmanz.dayz-servers.com:2302"
-                    tags={["Vanilla+", "PvP", "1PP"]}
-                    description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
-                    rating={3}
-                    feedbackCount={651}
-                    onlinePlayers={78}
-                    maxPlayers={100}
-                    region="EU"
-                />
-
-                <ServerCard
-                    name="DayZ PvE Paradise"
-                    ip="pve-paradise.dayz-servers.com:2302"
-                    tags={["PvP", "1PP", "FullMod"]}
-                    description=" Servidor PvE com foco em construção de bases e cooperação entre jogadores. Mods que adicionam mais zumbis e ameaças ambientais para compensar a ausência de PvP."
-                    rating={3.6}
-                    feedbackCount={327}
-                    onlinePlayers={87}
-                    maxPlayers={100}
-                    region="SA"
-                />
+                
 
             </div>
 

@@ -11,9 +11,9 @@ class Normalizer:
         
         # Tags mais abrangentes e organizadas por categoria
         self.gameplayTagsRegex = re.compile(
-            r'\b(no-?raid|vanilla\+{0,2}|v\+{1,2}|deathmatch|dm|pvp\+?|pve\+?|pvevp|rp|roleplay|'
-            r'hardcore\+{0,2}|hc|survival|adventure|quest|quests|trader|trading|'
-            r'friendly|modded|vanilla|casual|softcore|no pvp|fpp|tpp|3pp|1pp|no-base|lite|no base)\b', 
+            r'(vanilla\+{2}|vanilla\+(?!\+)|vanilla(?!\+)|no-?raid|v\+{2}|v\+(?!\+)|deathmatch|dm|pvp\+?|pve\+?|pvevp|rp|roleplay|'
+            r'hardcore\+{2}|hardcore\+(?!\+)|hardcore(?!\+)|hc|survival|adventure|quest|quests|trader|trading|'
+            r'friendly|modded|casual|softcore|no pvp|fpp|tpp|3pp|1pp|no-base|lite|no base|solo/duo/trio|solo-duo-trio|solo|duo|trio)',
             re.IGNORECASE
         )
         
@@ -64,7 +64,7 @@ class Normalizer:
         self._extract_urls(serverInfo)
         
         # 2. Remover colchetes e normalizar case
-        serverInfo.canonicalName = re.sub(r'[\[\]]', '', serverInfo.canonicalName)
+        serverInfo.canonicalName = re.sub(r'[\[\]]', ' ', serverInfo.canonicalName)
         serverInfo.canonicalName = serverInfo.canonicalName.lower()
         
         # 3. Extrair número da instância
@@ -120,9 +120,10 @@ class Normalizer:
 
     def _extract_map_tags(self, serverInfo: ServerInfo):
         """Extrai nome do mapa"""
+
         match = self.mapRegex.search(serverInfo.canonicalName)
         if match:
-            serverInfo.mapTags = match.group(0).lower()
+            serverInfo.map = match.group(0).lower()
             serverInfo.canonicalName = self.mapRegex.sub('', serverInfo.canonicalName).strip()
 
     def _extract_tags_by_separators(self, serverInfo: ServerInfo):
@@ -139,15 +140,16 @@ class Normalizer:
                     serverInfo.tags.extend([tag for tag in parts[1:] if tag and len(tag) > 1])
                 break
 
-    def _extract_gameplay_tags(self, serverInfo: ServerInfo):
-        """Extrai tags relacionadas ao gameplay"""
-        if not hasattr(serverInfo, 'tags'):
-            serverInfo.tags = []
-            
-        gameplay_tags = self.gameplayTagsRegex.findall(serverInfo.canonicalName)
-        if gameplay_tags:
-            serverInfo.tags.extend(gameplay_tags)
+    def _extract_gameplay_tags(self, serverInfo):
+        """Extrai e normaliza tags relacionadas ao gameplay"""
+        
+        # Extrai tags brutas do nome
+        raw_tags = self.gameplayTagsRegex.findall(serverInfo.canonicalName)
+        if raw_tags:                        
+            # Remove tags do nome canônico
             serverInfo.canonicalName = self.gameplayTagsRegex.sub('', serverInfo.canonicalName).strip()
+            serverInfo.canonicalName = re.sub(r'\s+', ' ', serverInfo.canonicalName)  # Remove espaços extras
+        serverInfo.tags.extend(raw_tags)
 
     def _extract_technical_tags(self, serverInfo: ServerInfo):
         """Extrai tags técnicas (loot, bots, etc.)"""

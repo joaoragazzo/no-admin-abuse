@@ -1,4 +1,4 @@
-import { FaClock, FaGlobe, FaInfoCircle, FaMedal, FaStar, FaWifi } from "react-icons/fa"
+import { FaArrowRight, FaClock, FaGlobe, FaInfoCircle, FaMedal, FaStar, FaWifi } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 import type { Regions } from "../enums/regions"
 import { MdVerified } from "react-icons/md"
@@ -12,7 +12,6 @@ interface BestServerCardProps {
     onlinePlayers: number,
     region: Regions,
     tags: string[],
-    ip: string,
     rating: number
     ratings: number,
     description: string,
@@ -28,7 +27,6 @@ export const BestServerCard: React.FC<BestServerCardProps> = ({
     onlinePlayers,
     region,
     tags,
-    ip,
     rating,
     ratings,
     description,
@@ -56,8 +54,8 @@ export const BestServerCard: React.FC<BestServerCardProps> = ({
                             <div className="font-bold flex flex-row items-center gap-2">
                                 {name} {verified && <MdVerified />}
                             </div>
-                            <div className="font-extralight text-sm">
-                                {ip}
+                            <div className="flex flex-row items-center font-extralight text-sm cursor-pointer hover:underline underline-offset-3 decoration-gray-200 hover:font-light">
+                                2 servidores <FaArrowRight className="ml-2 text-gray-400 hover:text-red-200"/>
                             </div>
                         </div>
                     </div>
