@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
 
             <div className="text-gray-500 text-xs pt-2 border-t-1 border-gray-700/40 w-full justify-between flex flex-row">
                 <div>
-                    © No Admin Abuse | Powered by BattleMetrics
+                    © No Admin Abuse | Powered by BattleMetrics 
                 </div>
                 <div className="flex flex-row gap-10">
                     <div className="cursor-pointer hover:underline flex flex-row gap-1 items-center"><FaExternalLinkAlt /> Termos de Uso</div>
