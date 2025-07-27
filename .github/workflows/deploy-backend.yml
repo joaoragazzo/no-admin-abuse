@@ -1,0 +1,52 @@
+name: Deploy Spring Boot App
+
+on:
+  push:
+    paths:
+      - 'back-end/**'
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Spring Boot app
+        working-directory: back-end/alpha/
+        run: |
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
+
+      - name: Upload via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASS }}
+          port: 22
+          source: "back-end/alpha/target/*.jar"
+          target: "/var/www/no-admin-abuse/back-end/"
+          overwrite: true
+          strip_components: 2
+
+      - name: Renomear arquivo e reiniciar serviço
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASS }}
+          port: 22
+          script: |
+            sudo rm -f /var/www/no-admin-abuse/back-end/backend.jar
+            sudo mv /var/www/no-admin-abuse/back-end/noadminabuse-0.0.1-SNAPSHOT.jar /var/www/no-admin-abuse/back-end/backend.jar
+            sudo systemctl restart no-admin-abuse-back-end.service
