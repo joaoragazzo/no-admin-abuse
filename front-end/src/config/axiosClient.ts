@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://no-admin-abuse.joaoragazzo.dev/",
+    baseURL: "https://no-admin-abuse.joaoragazzo.dev/api/v1/",
     timeout: 10000,
     withCredentials: true,
     headers: {
