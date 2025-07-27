@@ -48,5 +48,5 @@ jobs:
           port: 22
           script: |
             sudo rm -f /var/www/no-admin-abuse/back-end/backend.jar
-            sudo mv /var/www/no-admin-abuse/back-end/noadminabuse-0.0.1-SNAPSHOT.jar /var/www/no-admin-abuse/back-end/backend.jar
+            sudo mv /var/www/no-admin-abuse/back-end/alpha-0.0.1-SNAPSHOT.jar /var/www/no-admin-abuse/back-end/backend.jar
             sudo systemctl restart no-admin-abuse-back-end.service
