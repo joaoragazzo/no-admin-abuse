@@ -31,7 +31,7 @@ jobs:
 
       - name: Criar pacote de deploy
         run: |
-          cd frontend/dist
+          cd front-end/dist
           tar --ignore-failed-read --warning=no-file-changed -zcf deploy.tar.gz .
 
       - name: Upload do pacote via SCP
