@@ -1,0 +1,21 @@
+{
+    "VANILLA": "Vanilla",
+    "VANILLAP": "Vanilla+",
+    "VANILLAPP": "Vanilla++",
+    "HARDCORE": "Hardcore",
+    "FPP": "1PP", 
+    "TPP": "3PP",
+    "PVP": "PvP",
+    "PVE": "PvE",
+    "SOLO": "Solo",
+    "DUO": "Duo",
+    "TRIO": "Trio",
+    "SQUAD": "Squad",
+    "FULLMOD": "Full Mod",
+    "FULLPVP": "Full PvP",
+    "DEATHMATCH": "Deathmatch",
+    "NOBASE": "Sem bases",
+    "NORAID": "Sem raid",
+    "WIPE": "Wipe",
+    "ROLEPLAY": "Roleplay"
+}

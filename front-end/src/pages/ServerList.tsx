@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import serverService from "@services/ServerService";
 import type { Pageable } from "@/interfaces/Pageable";
 import { Pagination } from "@/components/table/Pagination";
+import { useTranslation } from "react-i18next";
 
 
 export const ServerList: React.FC = () => {
@@ -18,6 +19,7 @@ export const ServerList: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [tags, setTags] = useState<string[]>([]);
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
+    const { t } = useTranslation('common');
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -148,7 +150,7 @@ export const ServerList: React.FC = () => {
                                 key={key} 
                                 onClick={() => {toggleTag(value)}}
                                 className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}>
-                                    {value}
+                                    {t(value)}
                             </div>
                         ))}
                     </div>
