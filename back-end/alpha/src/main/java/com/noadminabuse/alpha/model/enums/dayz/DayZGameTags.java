@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.model.enums.dayz;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum DayZGameTagsEnum {
+public enum DayZGameTags {
     VANILLA("Vanilla"),
     VANILLAP("Vanilla+"),
     VANILLAPP("Vanilla++"),
@@ -26,7 +26,7 @@ public enum DayZGameTagsEnum {
 
     private final String label;
 
-    DayZGameTagsEnum(String label) {
+    DayZGameTags(String label) {
         this.label = label;
     }
 
@@ -36,10 +36,10 @@ public enum DayZGameTagsEnum {
     }
 
     @JsonCreator
-    public static DayZGameTagsEnum fromValue(String value) {
+    public static DayZGameTags fromValue(String value) {
         if (value == null) return null;
 
-        for (DayZGameTagsEnum tag : values()) {
+        for (DayZGameTags tag : values()) {
             if (tag.label.equalsIgnoreCase(value)) {
                 return tag;
             }
@@ -49,4 +49,5 @@ public enum DayZGameTagsEnum {
         }
         throw new IllegalArgumentException("Tag inválida: " + value);
     }
+
 }

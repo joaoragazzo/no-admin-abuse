@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.ServerMapper;
 import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.model.enums.general.Region;
 import com.noadminabuse.alpha.service.ServerService;
+import com.noadminabuse.alpha.web.dto.DayZFiltersDTO;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
 
 import lombok.AllArgsConstructor;
@@ -41,6 +44,12 @@ public class ServerController {
         Page<ServerGroup> servers = serversService.findAll(page, size);
         Page<ServerGroupDTO> response = servers.map(serverMapper::toServerGroupDTO);
         return ResponseEntity.ok().body(response);
+    }
+    
+    @GetMapping("/filters")
+    public ResponseEntity<DayZFiltersDTO> fetchDayZFilters() {
+        DayZFiltersDTO filters = new DayZFiltersDTO(DayZGameTags.values(), Region.values());
+        return ResponseEntity.ok().body(filters);
     }
     
 }

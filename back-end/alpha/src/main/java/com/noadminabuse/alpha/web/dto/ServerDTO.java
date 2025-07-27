@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.web.dto;
 import java.util.List;
 import java.util.UUID;
 
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTagsEnum;
+import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.enums.general.Region;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +14,6 @@ public record ServerDTO(
     @NotBlank String name,
     @NotBlank String ip,
     @NotBlank String port,
-    @NotBlank List<DayZGameTagsEnum> tags,
+    @NotBlank List<DayZGameTags> tags,
     @NotEmpty Region region
 ) {}
