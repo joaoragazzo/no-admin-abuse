@@ -6,14 +6,17 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.ServerGroupNotFound;
 import com.noadminabuse.alpha.mapper.ServerMapper;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.repository.ServerGroupRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
+import com.noadminabuse.alpha.specification.ServerSearchSpecification;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
 
@@ -64,5 +67,13 @@ public class ServerService {
     public Page<ServerGroup> findAll(Integer page, Integer size) {
         Pageable pageagle = PageRequest.of(page, size);
         return serverGroupRepository.findAllOrderByServerCountDest(pageagle);
+    }
+
+    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags) {
+        Pageable pageagle = PageRequest.of(page, size);
+        Specification<ServerGroup> spec = Specification
+            .where(ServerSearchSpecification.hasTags(tags));
+
+        return serverGroupRepository.findAll(spec, pageagle);
     }
 }

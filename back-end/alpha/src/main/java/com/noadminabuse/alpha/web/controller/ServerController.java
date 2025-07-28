@@ -12,15 +12,16 @@ import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.enums.general.Region;
 import com.noadminabuse.alpha.service.ServerService;
 import com.noadminabuse.alpha.web.dto.DayZFiltersDTO;
+import com.noadminabuse.alpha.web.dto.SearchFiltersDTO;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
 
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -36,12 +37,11 @@ public class ServerController {
         return ResponseEntity.ok().body("ok");
     }
 
-    @GetMapping("/")
+    @PostMapping("/")
     public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(
-        @RequestParam(defaultValue = "0") Integer page,
-        @RequestParam(defaultValue = "10") Integer size
+        @RequestBody SearchFiltersDTO filter
     ) {
-        Page<ServerGroup> servers = serversService.findAll(page, size);
+        Page<ServerGroup> servers = serversService.findAll(filter.page(), filter.size(), filter.tags());
         Page<ServerGroupDTO> response = servers.map(serverMapper::toServerGroupDTO);
         return ResponseEntity.ok().body(response);
     }

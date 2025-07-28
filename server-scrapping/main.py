@@ -60,5 +60,8 @@ if __name__ == '__main__':
 
     java_dto_payload = to_java_style_json(normalized)
 
-    response = requests.put("https://no-admin-abuse.joaoragazzo.dev/api/v1/server/bulk", data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
+    PROD="https://no-admin-abuse.joaoragazzo.dev/api/v1/server/bulk"
+    DEV="http://localhost:8080/server/bulk"
+
+    response = requests.put(DEV, data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
     print(response.text)

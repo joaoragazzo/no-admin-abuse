@@ -32,7 +32,7 @@ export const ServerList: React.FC = () => {
     }
 
     useEffect(() => {
-        serverService.fetchAllServers({page: currentPage, tags: Array.from(activeTags)}).then(
+        serverService.fetchAllServers({page: currentPage - 1, tags: Array.from(activeTags)}).then(
             response => setServerList(response)
         );
     }, [currentPage, activeTags]);
@@ -252,11 +252,8 @@ export const ServerList: React.FC = () => {
                         servers={content.servers}
                     />
                 ))}
-
             
                 <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={(number) => {setCurrentPage(number)}}/>
-
-                
 
             </div>
 

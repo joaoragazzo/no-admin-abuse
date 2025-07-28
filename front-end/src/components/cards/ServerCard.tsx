@@ -1,5 +1,6 @@
 import type { ServerDTO } from "@/interfaces/ServerDTO"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { FaCopy, FaStar } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 
@@ -23,7 +24,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
     servers
 }) => {
     const [showServers, setShowServers] = useState(false);
-
+    const { t } = useTranslation('common');
     return (
         <div className="flex flex-row border-1 border-blue-500 p-4 rounded">
             <div className="mr-3 font-bold w-50 h-30 bg-blue-950 rounded items-center flex justify-center text-center">
@@ -97,7 +98,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
                             {server.tags.length > 0 && 
                                 <div className="flex flex-row gap-1 mt-3">
                                     {server.tags.map((tag, index) => (
-                                        <div key={index} className="text-xs w-fit rounded-full bg-blue-800 text-blue-300 py-0.5 px-2">{tag}</div>
+                                        <div key={index} className="text-xs w-fit rounded-full bg-blue-800 text-blue-300 py-0.5 px-2">{t(tag)}</div>
                                     ))}
                                 </div>
                             }
