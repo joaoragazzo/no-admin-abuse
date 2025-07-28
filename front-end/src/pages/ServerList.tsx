@@ -20,6 +20,8 @@ export const ServerList: React.FC = () => {
     const [tags, setTags] = useState<string[]>([]);
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
     const { t } = useTranslation('common');
+    const [tagsLoading, setTagsLoading] = useState<boolean>(true);
+    const [searchText, setSearchText] = useState<string>("");
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -32,10 +34,10 @@ export const ServerList: React.FC = () => {
     }
 
     useEffect(() => {
-        serverService.fetchAllServers({page: currentPage - 1, tags: Array.from(activeTags)}).then(
+        serverService.fetchAllServers({page: currentPage - 1, tags: Array.from(activeTags), search: searchText}).then(
             response => setServerList(response)
         );
-    }, [currentPage, activeTags]);
+    }, [currentPage, activeTags, searchText]);
 
     const getGameName = (name: string | undefined): string => {
         switch (name) {
@@ -50,6 +52,7 @@ export const ServerList: React.FC = () => {
         serverService.fetchAllTags().then(
             response => {
                 setTags(response.tags);
+                setTagsLoading(false);
             }
         )
     }, []);
@@ -99,7 +102,7 @@ export const ServerList: React.FC = () => {
                             Buscar Servidor
                         </div>
                         <div className="relative">
-                            <input className="border-1 border-gray-700 text-sm px-4 py-2 pl-10 bg-gray-800 rounded w-full" placeholder="Nome ou IP do servidor..." />
+                            <input onChange={(e) => (setSearchText(e.target.value))} className="border-1 border-gray-700 text-sm px-4 py-2 pl-10 bg-gray-800 rounded w-full" placeholder="Nome ou IP do servidor..." />
                             <div className="text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3" >
                                 <FaSearch />
                             </div>
@@ -145,14 +148,21 @@ export const ServerList: React.FC = () => {
                         Tags
                     </div>
                     <div className="flex flex-wrap text-nowrap flex-row gap-2">
-                        {tags.map((value, key) => (
-                            <div
-                                key={key} 
-                                onClick={() => {toggleTag(value)}}
-                                className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}>
+                        {
+                            tagsLoading ? 
+                                [...Array(10)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
+                            : 
+                            tags.map((value, key) => (
+                                <div
+                                    key={key} 
+                                    onClick={() => {toggleTag(value)}}
+                                    className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}
+                                >
                                     {t(value)}
-                            </div>
-                        ))}
+                                </div>
+                            ))
+                        }
+                        
                     </div>
                 </div>
             </div>

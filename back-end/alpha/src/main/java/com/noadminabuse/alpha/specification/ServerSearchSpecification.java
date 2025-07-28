@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.ServerGroup;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 
@@ -40,6 +41,21 @@ public class ServerSearchSpecification {
             }
             
             return builder.and(predicates);
+        };
+    }
+
+    public static Specification<ServerGroup> hasSearch(String search) {
+        return (root, query, builder) -> {
+            if (search == null || search.isBlank()) {
+                return null;
+            }
+
+            Join<ServerGroup, Server> serverJoin = root.join("servers", JoinType.INNER);
+
+            return builder.like(
+                builder.lower(serverJoin.get("name"))
+                , "%" + search.toLowerCase() + "%"
+            );
         };
     }
 }

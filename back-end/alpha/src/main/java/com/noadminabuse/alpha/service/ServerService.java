@@ -69,10 +69,11 @@ public class ServerService {
         return serverGroupRepository.findAllOrderByServerCountDest(pageagle);
     }
 
-    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags) {
+    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search) {
         Pageable pageagle = PageRequest.of(page, size);
         Specification<ServerGroup> spec = Specification
-            .where(ServerSearchSpecification.hasTags(tags));
+            .where(ServerSearchSpecification.hasTags(tags))
+            .and(ServerSearchSpecification.hasSearch(search));
 
         return serverGroupRepository.findAll(spec, pageagle);
     }

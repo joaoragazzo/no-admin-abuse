@@ -4,8 +4,8 @@ import type { ServerGroupDTO } from "@interfaces/ServerGroupDTO"
 import type { FiltersDTO } from "@/interfaces/FiltersDTO";
 
 
-const fetchAllServers = async ({ page, tags } : { page: number, tags: string[] }): Promise<Pageable<ServerGroupDTO>> => {
-    const response =  await api.post<Pageable<ServerGroupDTO>>(`/server/`, {page: page, tags: tags});
+const fetchAllServers = async ({ page, tags, search } : { page: number, tags: string[], search: string }): Promise<Pageable<ServerGroupDTO>> => {
+    const response =  await api.post<Pageable<ServerGroupDTO>>(`/server/`, {page: page, tags: tags, search: search});
     return response.data;
 }
 

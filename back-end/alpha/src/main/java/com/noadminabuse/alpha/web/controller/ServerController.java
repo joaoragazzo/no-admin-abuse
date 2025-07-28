@@ -11,9 +11,9 @@ import com.noadminabuse.alpha.model.ServerGroup;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.enums.general.Region;
 import com.noadminabuse.alpha.service.ServerService;
-import com.noadminabuse.alpha.web.dto.DayZFiltersDTO;
-import com.noadminabuse.alpha.web.dto.SearchFiltersDTO;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
+import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
+import com.noadminabuse.alpha.web.dto.dayz.DayZSearchDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -38,10 +38,13 @@ public class ServerController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(
-        @RequestBody SearchFiltersDTO filter
-    ) {
-        Page<ServerGroup> servers = serversService.findAll(filter.page(), filter.size(), filter.tags());
+    public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(@RequestBody DayZSearchDTO filter) {
+        Page<ServerGroup> servers = serversService.findAll(
+            filter.page(), 
+            filter.size(), 
+            filter.tags(), 
+            filter.search()
+        );
         Page<ServerGroupDTO> response = servers.map(serverMapper::toServerGroupDTO);
         return ResponseEntity.ok().body(response);
     }
