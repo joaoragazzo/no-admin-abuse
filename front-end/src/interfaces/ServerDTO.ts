@@ -4,5 +4,5 @@ export interface ServerDTO {
     ip: string,
     port: string,
     tags: string[],
-    region: string,
+    country: string,
 }

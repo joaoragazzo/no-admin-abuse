@@ -1,7 +1,7 @@
 import type { ServerDTO } from "@/interfaces/ServerDTO"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FaCopy, FaStar } from "react-icons/fa"
+import { FaCopy, FaGlobeAmericas, FaStar } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 
 interface ServerCardProps {
@@ -21,10 +21,11 @@ export const ServerCard: React.FC<ServerCardProps> = ({
     rating,
     feedbackCount,
     description,
-    servers
+    servers,
 }) => {
     const [showServers, setShowServers] = useState(false);
     const { t: tagsTranslation } = useTranslation('tags');
+    const { t: countryTranslation } = useTranslation('countries');
     return (
         <div className="flex flex-row border-1 border-blue-500 p-4 rounded">
             <div className="mr-3 font-bold w-50 h-30 bg-blue-950 rounded items-center flex justify-center text-center">
@@ -88,9 +89,15 @@ export const ServerCard: React.FC<ServerCardProps> = ({
                                 <div className="font-bold">
                                     {server.name}
                                 </div>
-                                <div className="text-green-500 flex-row flex items-center gap-1 text-sm">
-                                    <FaPeopleGroup /> {onlinePlayers}/{maxPlayers}
+                                <div className="flex flex-row gap-4 items-center">
+                                    <div className="text-blue-100 flex flex-row items-center gap-1 font-bold">
+                                        <FaGlobeAmericas /> {countryTranslation(server.country)}
+                                    </div>
+                                    <div className="text-green-500 flex-row flex items-center gap-1 text-sm">
+                                        <FaPeopleGroup /> {onlinePlayers}/{maxPlayers}
+                                    </div>
                                 </div>
+                                
                             </div>
                             <div className="text-xs flex flex-row items-center gap-2">
                                 {server.ip}:{server.port} <FaCopy onClick={async () => {await navigator.clipboard.writeText(`${server.ip}:${server.port}`)}} size={11} className="text-gray-200 cursor-pointer"/>
