@@ -65,10 +65,19 @@ public class ServerSearchSpecification {
         return (root, query, builder) -> {
             if (region == null) return null;
             
-            Join<ServerGroup, Server> serverJoin = root.join("servers", JoinType.INNER);
-            Join<Server, Country> countryJoin = serverJoin.join("country", JoinType.INNER);
-
-            return builder.equal(countryJoin.get("region"), region);
+            Subquery<Long> subquery = query.subquery(Long.class);
+            Root<Server> serverRoot = subquery.from(Server.class);
+            Join<Server, Country> countryJoin = serverRoot.join("country", JoinType.INNER);
+            
+            subquery.select(builder.literal(1L))
+                    .where(
+                        builder.and(
+                            builder.equal(serverRoot.get("serverGroup"), root),
+                            builder.equal(countryJoin.get("region"), region)
+                        )
+                    );
+            
+            return builder.exists(subquery);
         };
     }
 }
