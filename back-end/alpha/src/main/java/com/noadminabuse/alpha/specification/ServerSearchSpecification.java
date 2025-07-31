@@ -72,7 +72,7 @@ public class ServerSearchSpecification {
             subquery.select(builder.literal(1L))
                     .where(
                         builder.and(
-                            builder.equal(serverRoot.get("serverGroup"), root),
+                            builder.equal(serverRoot.get("group"), root),
                             builder.equal(countryJoin.get("region"), region)
                         )
                     );
