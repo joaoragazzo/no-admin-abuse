@@ -1,6 +1,6 @@
+import type { Region } from "@/enums/Region"
 import { FaArrowRight, FaClock, FaGlobe, FaInfoCircle, FaMedal, FaStar, FaWifi } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
-import type { Regions } from "../enums/regions"
 import { MdVerified } from "react-icons/md"
 
 interface BestServerCardProps {
@@ -10,7 +10,7 @@ interface BestServerCardProps {
     ms: number,
     maxPlayer: number,
     onlinePlayers: number,
-    region: Regions,
+    region: Region,
     tags: string[],
     rating: number
     ratings: number,
