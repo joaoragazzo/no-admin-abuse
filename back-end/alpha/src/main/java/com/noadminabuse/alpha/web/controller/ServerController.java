@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noadminabuse.alpha.mapper.ServerMapper;
 import com.noadminabuse.alpha.model.ServerGroup;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
-import com.noadminabuse.alpha.model.enums.general.Region;
+import com.noadminabuse.alpha.model.enums.Region;
 import com.noadminabuse.alpha.service.ServerService;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZSearchDTO;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,18 +33,19 @@ public class ServerController {
     private final ServerMapper serverMapper;
 
     @PutMapping("/bulk")
-    public ResponseEntity<String> bulk(@RequestBody List<ServerGroupDTO> dto) {
+    public ResponseEntity<String> bulk(@RequestBody @Valid List<ServerGroupDTO> dto) {
         serversService.createServerGroup(dto);
         return ResponseEntity.ok().body("ok");
     }
 
     @PostMapping("/")
-    public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(@RequestBody DayZSearchDTO filter) {
+    public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(@RequestBody @Valid DayZSearchDTO filter) {
         Page<ServerGroup> servers = serversService.findAll(
             filter.page(), 
             filter.size(), 
             filter.tags(), 
-            filter.search()
+            filter.search(),
+            filter.region()
         );
         Page<ServerGroupDTO> response = servers.map(serverMapper::toServerGroupDTO);
         return ResponseEntity.ok().body(response);

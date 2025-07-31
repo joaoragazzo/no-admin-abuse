@@ -37,7 +37,7 @@ def to_java_style_json(groups):
                 "ip": server.ip,
                 "port": server.port,
                 "tags": server.tags, 
-                "region": server.regionTags[0] if len(server.regionTags) > 0 else None
+                "country": server.country
             }
             group_data["servers"].append(server_data)
 
@@ -53,8 +53,11 @@ if __name__ == '__main__':
     regionNormalizer = RegionNormalizer()
 
     servers = bm.fetchServers(size=1000)
+    print("=== Servers done")
     normalized = normalizer.bulk(servers)
+    print("=== Normalized servers done")
     groups = fingerprinter.fingerprint_servers(normalized)
+    print("=== Groups done")
 
     normalized = normalize_all(groups)
 

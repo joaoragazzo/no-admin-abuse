@@ -46,9 +46,14 @@ class BattleMetrics:
             if not page_key:
                 break
 
+        for server in servers:
+            if server['attributes']['country'] == None or server['attributes']['country']=="" or not server['attributes']['country']:
+                print("?")
+
         return [ServerInfo(
             server['attributes']['id'],
             server['attributes']['name'],
             server['attributes']['ip'],
             server['attributes']['port'],
+            server['attributes']['country']
         ) for server in servers]

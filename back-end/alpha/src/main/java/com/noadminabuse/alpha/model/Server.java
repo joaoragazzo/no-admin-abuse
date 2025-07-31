@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.hibernate.annotations.UuidGenerator;
 
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
-import com.noadminabuse.alpha.model.enums.general.Region;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -42,18 +41,19 @@ public class Server {
     @Enumerated(EnumType.STRING)
     private List<DayZGameTags> tags = new ArrayList<>();
 
-    private Region region;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
     private ServerGroup group;
 
-    public Server(UUID id, String name, String ip, String port, List<DayZGameTags> tags, Region region) {
+    public Server(UUID id, String name, String ip, String port, List<DayZGameTags> tags, Country country) {
         this.id=id;
         this.name=name;
         this.ip=ip;
         this.port=port;
         this.tags=tags;
-        this.region=region;
     }
 }

@@ -3,9 +3,10 @@ package com.noadminabuse.alpha.web.dto;
 import java.util.List;
 import java.util.UUID;
 
+import com.noadminabuse.alpha.model.enums.CountryCode;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
-import com.noadminabuse.alpha.model.enums.general.Region;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -14,6 +15,6 @@ public record ServerDTO(
     @NotBlank String name,
     @NotBlank String ip,
     @NotBlank String port,
-    @NotBlank List<DayZGameTags> tags,
-    @NotEmpty Region region
+    @NotEmpty List<DayZGameTags> tags,
+    @NonNull CountryCode country
 ) {}

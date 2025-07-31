@@ -2,11 +2,12 @@ from typing import List
 
 class ServerInfo:
     def __init__(self, id, name, 
-                 ip, port):
+                 ip, port, country):
         self.id: str = id
         self.name: str = name
         self.ip: str = ip
         self.port: str = port
+        self.country: str = country
 
         """For normalizing server names"""
         self.tags: List[str] = []

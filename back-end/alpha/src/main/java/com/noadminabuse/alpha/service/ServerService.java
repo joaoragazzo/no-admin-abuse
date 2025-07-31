@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.ServerGroupNotFound;
 import com.noadminabuse.alpha.mapper.ServerMapper;
+import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.enums.CountryCode;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.model.enums.Region;
 import com.noadminabuse.alpha.repository.ServerGroupRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
@@ -26,22 +29,33 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ServerService {
     private final ServerRepository serverRepository;
+    private final CountryService countryService;
     private final ServerGroupRepository serverGroupRepository;
     private final ServerMapper serverMapper;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
-        Server server = serverMapper.toServerEntity(serverDTO);
+        Country country = countryService.findOrCreate(serverDTO.country());
+        
+        Server server = serverMapper.toServerEntity(serverDTO, country);
         ServerGroup group = serverGroupRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
         server.setGroup(group);
         return serverRepository.save(server);
     }
 
     public List<Server> createServer(UUID groupId, List<ServerDTO> serverDTOs) {
+        List<CountryCode> countryCodes = serverDTOs
+            .stream()
+            .map(ServerDTO::country)
+            .toList();
+
+        countryService.findOrCreate(countryCodes);
+        
         ServerGroup group = serverGroupRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
 
         List<Server> servers = serverDTOs.stream().map(
             dto -> {
-                Server server = serverMapper.toServerEntity(dto);
+                Country c = new Country(dto.country());
+                Server server = serverMapper.toServerEntity(dto, c);
                 server.setGroup(group);
                 return server;
             }
@@ -57,11 +71,9 @@ public class ServerService {
     }
 
     public List<ServerGroup> createServerGroup(List<ServerGroupDTO> serverGroupDTOs) {
-        return serverGroupDTOs.stream().map(
-            dto -> {
-                return this.createServerGroup(dto);
-            }
-        ).toList();
+        return serverGroupDTOs
+            .stream()
+            .map(this::createServerGroup).toList();
     }
 
     public Page<ServerGroup> findAll(Integer page, Integer size) {
@@ -69,11 +81,12 @@ public class ServerService {
         return serverGroupRepository.findAllOrderByServerCountDest(pageagle);
     }
 
-    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search) {
+    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
         Pageable pageagle = PageRequest.of(page, size);
         Specification<ServerGroup> spec = Specification
             .where(ServerSearchSpecification.hasTags(tags))
-            .and(ServerSearchSpecification.hasSearch(search));
+            .and(ServerSearchSpecification.hasSearch(search))
+            .and(ServerSearchSpecification.hasRegion(region));
 
         return serverGroupRepository.findAll(spec, pageagle);
     }

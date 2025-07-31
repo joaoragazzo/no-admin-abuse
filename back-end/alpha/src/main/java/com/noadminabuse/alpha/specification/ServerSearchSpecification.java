@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.ServerGroup;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.model.enums.Region;
 
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
@@ -56,6 +58,17 @@ public class ServerSearchSpecification {
                 builder.lower(serverJoin.get("name"))
                 , "%" + search.toLowerCase() + "%"
             );
+        };
+    }
+
+    public static Specification<ServerGroup> hasRegion(Region region) {
+        return (root, query, builder) -> {
+            if (region == null) return null;
+            
+            Join<ServerGroup, Server> serverJoin = root.join("servers", JoinType.INNER);
+            Join<Server, Country> countryJoin = serverJoin.join("country", JoinType.INNER);
+
+            return builder.equal(countryJoin.get("region"), region);
         };
     }
 }
