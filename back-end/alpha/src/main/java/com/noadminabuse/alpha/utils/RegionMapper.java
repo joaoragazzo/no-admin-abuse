@@ -205,6 +205,6 @@ public class RegionMapper {
     );
 
     public static Region getRegionForIso(CountryCode isoCode) {
-        return isoToRegionMap.getOrDefault(isoCode, Region.UNKNOWN);
+        return isoToRegionMap.get(isoCode);
     }
 }

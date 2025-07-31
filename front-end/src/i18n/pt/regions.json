@@ -1,0 +1,10 @@
+{
+    "AFRICA" : "África",
+    "ASIA" : "Ásia",
+    "EUROPE" : "Europa",
+    "NORTH_AMERICA" : "América do Norte",
+    "SOUTH_AMERICA" : "América do Sul",
+    "OCEANIA" : "Oceania",
+    "ANTARCTICA": "Antártida",
+    "ALL_REGIONS": "Todas as regiões"
+}

@@ -55,5 +55,6 @@ public class Server {
         this.ip=ip;
         this.port=port;
         this.tags=tags;
+        this.country=country;
     }
 }

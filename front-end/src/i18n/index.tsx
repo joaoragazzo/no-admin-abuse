@@ -1,20 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import ptAuth from "./pt/common.json"
+import ptTags from "./pt/tags.json"
+import ptRegions from "./pt/regions.json";
 
 i18n
     .use(initReactI18next)
     .init({
         resources: {
             pt: {
-                common: ptAuth 
+                tags: ptTags,
+                regions: ptRegions
             }
         },
         lng: 'pt',
         fallbackLng: 'en',
-        ns: ['common'],
-        defaultNS: 'common',
+        ns: ['tags', 'regions'],
+        defaultNS: 'tags',
         interpolation: { 
             escapeValue: false
         }

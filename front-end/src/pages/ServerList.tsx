@@ -4,24 +4,31 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { ServerCard } from "../components/cards/ServerCard";
 import { BestServerCard } from "../components/cards/BestServerCard";
-import { Regions } from "../components/enums/regions";
 import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
 import { useEffect, useState } from "react";
 import serverService from "@services/ServerService";
 import type { Pageable } from "@/interfaces/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
+import { Region } from "@/enums/Region";
 
 
 export const ServerList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [isFilterChange, setIsFilterChange] = useState<boolean>(false);
+
     const [tags, setTags] = useState<string[]>([]);
-    const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
-    const { t } = useTranslation('common');
+    
+    const { t: tagsTranslation } = useTranslation('tags');
+    const { t: regionsTranslation } = useTranslation('regions');
     const [tagsLoading, setTagsLoading] = useState<boolean>(true);
+    
     const [searchText, setSearchText] = useState<string>("");
+    const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
+    const [region, setRegion] = useState<string|null>(null);
+
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -34,10 +41,24 @@ export const ServerList: React.FC = () => {
     }
 
     useEffect(() => {
-        serverService.fetchAllServers({page: currentPage - 1, tags: Array.from(activeTags), search: searchText}).then(
-            response => setServerList(response)
-        );
-    }, [currentPage, activeTags, searchText]);
+        setIsFilterChange(true)
+        setCurrentPage(1);
+    }, [activeTags, searchText, region]);
+
+    useEffect(() => {
+        if (isFilterChange) {
+            setIsFilterChange(false);
+            return;
+          }
+
+        serverService.fetchAllServers({
+            page: currentPage - 1,
+            tags: Array.from(activeTags),
+            search: searchText,
+            region: region
+        }).then(response => setServerList(response));
+
+    }, [currentPage, activeTags, searchText, region, isFilterChange]);
 
     const getGameName = (name: string | undefined): string => {
         switch (name) {
@@ -115,13 +136,25 @@ export const ServerList: React.FC = () => {
                             Região
                         </div>
                         <div>
-                            <select className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" value={"aaa"}>
-                                <option value="all">Todas as regiões</option>
-                                <option value="all">América do Norte</option>
-                                <option value="all">América do Sul</option>
-                                <option value="all">Europa</option>
-                                <option value="all">Ásia</option>
-                                <option value="all">Oceania</option>
+                            <select 
+                                onChange={
+                                    (e) => {
+                                        const value = e.target.value;
+                                        setRegion(value === "" ? null : value)}
+                                } 
+                                className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" 
+                                value={region!} 
+                            >
+                                <option value="">{regionsTranslation("ALL_REGIONS")}</option>
+                                {
+                                Object.values(Region)
+                                .filter(value => typeof value === 'string')
+                                .map(region => (
+                                  <option value={region} key={region}>
+                                    {regionsTranslation(region)}
+                                  </option>
+                                ))
+                                }
                             </select>
                         </div>
 
@@ -158,7 +191,7 @@ export const ServerList: React.FC = () => {
                                     onClick={() => {toggleTag(value)}}
                                     className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}
                                 >
-                                    {t(value)}
+                                    {tagsTranslation(value)}
                                 </div>
                             ))
                         }
@@ -237,7 +270,7 @@ export const ServerList: React.FC = () => {
                 tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
                 maxPlayer={100}
                 onlinePlayers={96}
-                region={Regions.EUROPE}
+                region={Region.EUROPE}
                 uptime={99.4}
                 administrationTeam="DayZ Administration Team"
                 ms={32}
