@@ -12,6 +12,6 @@ import com.noadminabuse.alpha.model.Network;
 
 public interface NetworkRepository extends JpaRepository<Network, UUID>, JpaSpecificationExecutor<Network> {
    
-    @Query("SELECT g FROM ServerGroup g LEFT JOIN g.servers s GROUP BY g ORDER BY COUNT(s) DESC")
+    @Query("SELECT g FROM Network g LEFT JOIN g.servers s GROUP BY g ORDER BY COUNT(s) DESC")
     Page<Network> findAllOrderByServerCountDest(Pageable pageable);
 }

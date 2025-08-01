@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
-import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.enums.Region;
 
@@ -17,7 +17,7 @@ import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Subquery;
 
 public class ServerSearchSpecification {
-    public static Specification<ServerGroup> hasTags(List<DayZGameTags> tags) {
+    public static Specification<Network> hasTags(List<DayZGameTags> tags) {
         return (root, query, builder) -> {
             if (tags == null || tags.isEmpty()) {
                 return null;
@@ -29,7 +29,7 @@ public class ServerSearchSpecification {
                 DayZGameTags tag = tags.get(i);
                 
                 Subquery<Long> subquery = query.subquery(Long.class);
-                Root<ServerGroup> subRoot = subquery.from(ServerGroup.class);
+                Root<Network> subRoot = subquery.from(Network.class);
                 Join<Object, Object> subServers = subRoot.join("servers", JoinType.INNER);
                 Join<Object, String> subTagsJoin = subServers.join("tags", JoinType.INNER);
                 
@@ -46,13 +46,13 @@ public class ServerSearchSpecification {
         };
     }
 
-    public static Specification<ServerGroup> hasSearch(String search) {
+    public static Specification<Network> hasSearch(String search) {
         return (root, query, builder) -> {
             if (search == null || search.isBlank()) {
                 return null;
             }
 
-            Join<ServerGroup, Server> serverJoin = root.join("servers", JoinType.INNER);
+            Join<Network, Server> serverJoin = root.join("servers", JoinType.INNER);
 
             return builder.like(
                 builder.lower(serverJoin.get("name"))
@@ -61,7 +61,7 @@ public class ServerSearchSpecification {
         };
     }
 
-    public static Specification<ServerGroup> hasRegion(Region region) {
+    public static Specification<Network> hasRegion(Region region) {
         return (root, query, builder) -> {
             if (region == null) return null;
             
@@ -72,7 +72,7 @@ public class ServerSearchSpecification {
             subquery.select(builder.literal(1L))
                     .where(
                         builder.and(
-                            builder.equal(serverRoot.get("group"), root),
+                            builder.equal(serverRoot.get("network"), root),
                             builder.equal(countryJoin.get("region"), region)
                         )
                     );

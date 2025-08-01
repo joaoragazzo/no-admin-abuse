@@ -8,7 +8,7 @@ import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
-import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
+import com.noadminabuse.alpha.web.dto.NetworkDTO;
 
 @Component
 public class ServerMapper {
@@ -39,13 +39,13 @@ public class ServerMapper {
         return entities.stream().map(this::toServerDTO).toList();
     }
 
-    public ServerGroupDTO toServerGroupDTO(Network entity) {
+    public NetworkDTO toNetworkDTO(Network entity) {
         List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
-        return new ServerGroupDTO(entity.getId(), entity.getName(), serverDTOs);
+        return new NetworkDTO(entity.getId(), entity.getName(), serverDTOs);
     }
 
-    public List<ServerGroupDTO> toServerGroupDTO(List<Network> entities) {
-        return entities.stream().map(this::toServerGroupDTO).toList();
+    public List<NetworkDTO> toNetworkDTO(List<Network> entities) {
+        return entities.stream().map(this::toNetworkDTO).toList();
     }
 
 }

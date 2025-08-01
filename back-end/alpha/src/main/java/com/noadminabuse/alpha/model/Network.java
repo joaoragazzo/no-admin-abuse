@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ServerGroup {
+public class Network {
     
     @Id
     @GeneratedValue
@@ -32,12 +32,12 @@ public class ServerGroup {
     @OneToMany(mappedBy = "network")
     private List<Server> servers = new ArrayList<>();
 
-    public ServerGroup(UUID id,String name) {
+    public Network(UUID id,String name) {
         this.id = id;
         this.name = name;
     }
 
-    public ServerGroup(String name) {
+    public Network(String name) {
         this.name = name;
     }
 }

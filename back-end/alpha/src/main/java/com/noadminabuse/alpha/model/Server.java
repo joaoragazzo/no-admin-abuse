@@ -47,7 +47,7 @@ public class Server {
 
     @ManyToOne
     @JoinColumn(name = "network_id")
-    private Network group;
+    private Network network;
 
     public Server(UUID id, String name, String ip, String port, List<DayZGameTags> tags, Country country) {
         this.id=id;

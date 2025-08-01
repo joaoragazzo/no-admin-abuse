@@ -13,15 +13,15 @@ import com.noadminabuse.alpha.errors.ServerGroupNotFound;
 import com.noadminabuse.alpha.mapper.ServerMapper;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
-import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.enums.CountryCode;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.enums.Region;
-import com.noadminabuse.alpha.repository.ServerGroupRepository;
+import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
-import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
+import com.noadminabuse.alpha.web.dto.NetworkDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -30,15 +30,15 @@ import lombok.AllArgsConstructor;
 public class ServerService {
     private final ServerRepository serverRepository;
     private final CountryService countryService;
-    private final ServerGroupRepository serverGroupRepository;
+    private final NetworkRepository networkRepository;
     private final ServerMapper serverMapper;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
         Country country = countryService.findOrCreate(serverDTO.country());
         
         Server server = serverMapper.toServerEntity(serverDTO, country);
-        ServerGroup group = serverGroupRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
-        server.setGroup(group);
+        Network network = networkRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
+        server.setNetwork(network);
         return serverRepository.save(server);
     }
 
@@ -50,13 +50,13 @@ public class ServerService {
 
         countryService.findOrCreate(countryCodes);
         
-        ServerGroup group = serverGroupRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
+        Network network = networkRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
 
         List<Server> servers = serverDTOs.stream().map(
             dto -> {
                 Country c = new Country(dto.country());
                 Server server = serverMapper.toServerEntity(dto, c);
-                server.setGroup(group);
+                server.setNetwork(network);
                 return server;
             }
         ).toList();
@@ -64,30 +64,30 @@ public class ServerService {
         return serverRepository.saveAll(servers);
     }
 
-    public ServerGroup createServerGroup(ServerGroupDTO serverGroupDTO) {
-        ServerGroup serverGroup = serverGroupRepository.save(new ServerGroup(serverGroupDTO.name()));
-        this.createServer(serverGroup.getId(), serverGroupDTO.servers());
-        return serverGroup;
+    public Network createNetwork(NetworkDTO networkDTOs) {
+        Network network = networkRepository.save(new Network(networkDTOs.name()));
+        this.createServer(network.getId(), networkDTOs.servers());
+        return network;
     }
 
-    public List<ServerGroup> createServerGroup(List<ServerGroupDTO> serverGroupDTOs) {
-        return serverGroupDTOs
+    public List<Network> createNetwork(List<NetworkDTO> networkDTOss) {
+        return networkDTOss
             .stream()
-            .map(this::createServerGroup).toList();
+            .map(this::createNetwork).toList();
     }
 
-    public Page<ServerGroup> findAll(Integer page, Integer size) {
+    public Page<Network> findAll(Integer page, Integer size) {
         Pageable pageagle = PageRequest.of(page, size);
-        return serverGroupRepository.findAllOrderByServerCountDest(pageagle);
+        return networkRepository.findAllOrderByServerCountDest(pageagle);
     }
 
-    public Page<ServerGroup> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
+    public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
         Pageable pageagle = PageRequest.of(page, size);
-        Specification<ServerGroup> spec = Specification
+        Specification<Network> spec = Specification
             .where(ServerSearchSpecification.hasTags(tags))
             .and(ServerSearchSpecification.hasSearch(search))
             .and(ServerSearchSpecification.hasRegion(region));
 
-        return serverGroupRepository.findAll(spec, pageagle);
+        return networkRepository.findAll(spec, pageagle);
     }
 }

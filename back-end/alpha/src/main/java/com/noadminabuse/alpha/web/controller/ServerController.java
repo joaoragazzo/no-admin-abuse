@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.ServerMapper;
-import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.service.ServerService;
-import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
+import com.noadminabuse.alpha.web.dto.NetworkDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZSearchDTO;
 
@@ -32,21 +32,21 @@ public class ServerController {
     private final ServerMapper serverMapper;
 
     @PutMapping("/bulk")
-    public ResponseEntity<String> bulk(@RequestBody @Valid List<ServerGroupDTO> dto) {
-        serversService.createServerGroup(dto);
+    public ResponseEntity<String> bulk(@RequestBody @Valid List<NetworkDTO> dtos) {
+        serversService.createNetwork(dtos);
         return ResponseEntity.ok().body("ok");
     }
 
     @PostMapping("/")
-    public ResponseEntity<Page<ServerGroupDTO>> fetchAllServers(@RequestBody @Valid DayZSearchDTO filter) {
-        Page<ServerGroup> servers = serversService.findAll(
+    public ResponseEntity<Page<NetworkDTO>> fetchAllServers(@RequestBody @Valid DayZSearchDTO filter) {
+        Page<Network> servers = serversService.findAll(
             filter.page(), 
             filter.size(), 
             filter.tags(), 
             filter.search(),
             filter.region()
         );
-        Page<ServerGroupDTO> response = servers.map(serverMapper::toServerGroupDTO);
+        Page<NetworkDTO> response = servers.map(serverMapper::toNetworkDTO);
         return ResponseEntity.ok().body(response);
     }
     
