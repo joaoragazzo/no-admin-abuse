@@ -1,6 +1,6 @@
 import type { ServerDTO } from "./ServerDTO";
 
-export interface ServerGroupDTO {
+export interface NetworkDTO {
     id: string,
     name: string,
     servers: ServerDTO[]

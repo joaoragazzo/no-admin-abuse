@@ -4,7 +4,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
 import { BestServerCard } from "../components/cards/BestServerCard";
-import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
+import type { NetworkDTO } from "@/interfaces/NetworkDTO";
 import { useEffect, useState } from "react";
 import serverService from "@services/ServerService";
 import type { Pageable } from "@/interfaces/Pageable";
@@ -15,7 +15,7 @@ import { Region } from "@/enums/Region";
 
 export const ServerList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
-    const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
+    const [serverList, setServerList] = useState<Pageable<NetworkDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isFilterChange, setIsFilterChange] = useState<boolean>(false);
 
