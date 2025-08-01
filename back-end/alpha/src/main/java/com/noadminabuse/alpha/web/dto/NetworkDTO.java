@@ -6,7 +6,7 @@ import java.util.UUID;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-public record ServerGroupDTO(
+public record NetworkDTO(
     UUID id,
     @NotBlank String name,
     @NotEmpty List<ServerDTO> servers

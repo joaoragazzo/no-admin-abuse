@@ -2,7 +2,7 @@ import type React from "react";
 import { FaCrown, FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import { GroupServer } from "../components/cards/BannerServers/BannerGroup";
+import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
 import { BestServerCard } from "../components/cards/BestServerCard";
 import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { Region } from "@/enums/Region";
 
 
-export const BannerGroup: React.FC = () => {
+export const ServerList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -284,7 +284,7 @@ export const BannerGroup: React.FC = () => {
             <div className="flex flex-col mx-10 gap-5 mb-5">
 
                 {serverList?.content.map((content, key) => (
-                    <GroupServer
+                    <NetworkBanner
                         key={key}
                         name={content.name}
                         description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."

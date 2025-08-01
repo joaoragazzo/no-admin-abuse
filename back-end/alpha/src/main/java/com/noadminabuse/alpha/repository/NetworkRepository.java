@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.Network;
 
-public interface ServerGroupRepository extends JpaRepository<ServerGroup, UUID>, JpaSpecificationExecutor<ServerGroup> {
+public interface NetworkRepository extends JpaRepository<Network, UUID>, JpaSpecificationExecutor<Network> {
    
     @Query("SELECT g FROM ServerGroup g LEFT JOIN g.servers s GROUP BY g ORDER BY COUNT(s) DESC")
-    Page<ServerGroup> findAllOrderByServerCountDest(Pageable pageable);
+    Page<Network> findAllOrderByServerCountDest(Pageable pageable);
 }

@@ -29,7 +29,7 @@ public class ServerGroup {
 
     private String name;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "network")
     private List<Server> servers = new ArrayList<>();
 
     public ServerGroup(UUID id,String name) {

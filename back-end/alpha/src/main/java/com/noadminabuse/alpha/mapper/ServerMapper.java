@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
-import com.noadminabuse.alpha.model.ServerGroup;
+import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
 import com.noadminabuse.alpha.web.dto.ServerGroupDTO;
 
@@ -39,12 +39,12 @@ public class ServerMapper {
         return entities.stream().map(this::toServerDTO).toList();
     }
 
-    public ServerGroupDTO toServerGroupDTO(ServerGroup entity) {
+    public ServerGroupDTO toServerGroupDTO(Network entity) {
         List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
         return new ServerGroupDTO(entity.getId(), entity.getName(), serverDTOs);
     }
 
-    public List<ServerGroupDTO> toServerGroupDTO(List<ServerGroup> entities) {
+    public List<ServerGroupDTO> toServerGroupDTO(List<Network> entities) {
         return entities.stream().map(this::toServerGroupDTO).toList();
     }
 

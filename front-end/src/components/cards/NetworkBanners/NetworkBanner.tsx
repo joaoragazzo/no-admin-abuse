@@ -5,9 +5,9 @@ import { FaPeopleGroup, FaX } from "react-icons/fa6"
 import { BsInfoCircle } from "react-icons/bs"
 import Popup from "reactjs-popup"
 import { BiInfoCircle } from "react-icons/bi"
-import { UniqueServer } from "./BannerServer"
+import { NetworkServer } from "./NetworkServer"
 
-interface GroupServerProps {
+interface NetworkBannerProps {
     name: string,
     maxPlayers: number,
     onlinePlayers: number,
@@ -17,7 +17,7 @@ interface GroupServerProps {
     servers: ServerDTO[]
 }
 
-export const GroupServer: React.FC<GroupServerProps> = ({
+export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     name,
     maxPlayers,
     onlinePlayers,
@@ -126,7 +126,7 @@ export const GroupServer: React.FC<GroupServerProps> = ({
                     `}
                 >
                     {servers.map((server, index) => (
-                        <UniqueServer key={index} server={server} />
+                        <NetworkServer key={index} server={server} />
                     ))}
                 </div>
             </div>
@@ -140,7 +140,7 @@ export const GroupServer: React.FC<GroupServerProps> = ({
             <div className="min-w-2xl max-w-2xl">
                 <div className="rounded-t-xl bg-gray-800 px-5 py-2 flex items-center justify-between">
                     <div>
-                        Reportar conteúdo do grupo <strong>{name}</strong>  
+                        Reportar conteúdo do rede de servidores <strong>{name}</strong>  
                     </div>
                     <div>
                         <FaX className="cursor-pointer" onClick={() => {setReportPopup(false)}}/>
@@ -159,7 +159,7 @@ export const GroupServer: React.FC<GroupServerProps> = ({
                                     Esta secção é utilizada apenas para realizar denúncias{" "}
                                     <strong>sobre o conteúdo apresentado exclusivamente 
                                     nesse site</strong>. Você pode fazer uma avaliação ou denúncia 
-                                    da administração desta grupo <span className="cursor-pointer text-blue-500 hover:text-blue-400">clicando aqui</span>.
+                                    desta rede de servidores desta grupo <span className="cursor-pointer text-blue-500 hover:text-blue-400">clicando aqui</span>.
                                 </div>
                             </div>
                         </div>

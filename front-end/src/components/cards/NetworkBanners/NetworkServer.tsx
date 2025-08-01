@@ -5,12 +5,12 @@ import { useTranslation } from "react-i18next"
 import { FaGlobeAmericas } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 
-interface UniqueServerProps { 
+interface NetworkServerProps { 
     server: ServerDTO
 }
 
 
-export const UniqueServer: React.FC<UniqueServerProps> = ({ server }) => { 
+export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => { 
     const { t: countryTranslation} = useTranslation('countries');
     const { t: tagsTranslation } = useTranslation('tags');
 
