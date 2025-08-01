@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 justify-center items-center">
             <RatedServer 
-              serverName="BioZ"
+              serverName="Lorem Ipsum"
               serverIcon={<FaSkull />}
               online={false}
               description="Diversas avaliações falam sobre atraso em suporte, wipes muito rápidos e administrador autoritário"
@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
             />
 
             <RatedServer 
-              serverName="FavelaZ"
+              serverName="Lorem Ipsum"
               serverIcon={<FaSkull />}
               online={true}
               description="Diversas denúncias de ataques em outros servidores, administrador autoritário e ausência de suporte"
@@ -45,21 +45,21 @@ export const Home: React.FC = () => {
             />
 
             <RatedServer 
-              serverName="OrigemZ"
+              serverName="Lorem Ipsum"
               serverIcon={<FaSkull />}
               online={true}
-              description="Apesar do suporte lento e demorado, há relatos de staff imparcial e cooperativa, além de diversidade de eventos"
+              description="Lorem Ipsum"
               badTags={["Suporte ruim"]}
               goodTags={["Eventos", "Staff imparcial"]}
               rating={4}
             />
 
             <RatedServer 
-              serverName="O Refúgio"
+              serverName="Lorem Ipsum"
               serverIcon={<FaSkull />}
               online={true}
-              description="kkkkkkkkkkkkkkkkkkkkkkkk"
-              badTags={["Tem backdoor no site"]}
+              description="Lorem Ipsum"
+              badTags={["Lorem Ipsum"]}
               goodTags={[]}
               rating={1}
             /> 
