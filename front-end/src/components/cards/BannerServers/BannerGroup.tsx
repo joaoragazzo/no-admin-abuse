@@ -5,7 +5,7 @@ import { FaPeopleGroup, FaX } from "react-icons/fa6"
 import { BsInfoCircle } from "react-icons/bs"
 import Popup from "reactjs-popup"
 import { BiInfoCircle } from "react-icons/bi"
-import { UniqueServer } from "./UniqueServer"
+import { UniqueServer } from "./BannerServer"
 
 interface GroupServerProps {
     name: string,

@@ -2,7 +2,7 @@ import type React from "react";
 import { FaCrown, FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import { GroupServer } from "../components/cards/ServerCard/GroupServer";
+import { GroupServer } from "../components/cards/BannerServers/BannerGroup";
 import { BestServerCard } from "../components/cards/BestServerCard";
 import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { Region } from "@/enums/Region";
 
 
-export const ServerList: React.FC = () => {
+export const BannerGroup: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const [serverList, setServerList] = useState<Pageable<ServerGroupDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
