@@ -2,7 +2,7 @@ import type React from "react";
 import { FaCrown, FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import { ServerCard } from "../components/cards/ServerCard";
+import { GroupServer } from "../components/cards/ServerCard/GroupServer";
 import { BestServerCard } from "../components/cards/BestServerCard";
 import type { ServerGroupDTO } from "@/interfaces/ServerGroupDTO";
 import { useEffect, useState } from "react";
@@ -284,7 +284,7 @@ export const ServerList: React.FC = () => {
             <div className="flex flex-col mx-10 gap-5 mb-5">
 
                 {serverList?.content.map((content, key) => (
-                    <ServerCard
+                    <GroupServer
                         key={key}
                         name={content.name}
                         description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."

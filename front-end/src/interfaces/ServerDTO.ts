@@ -5,4 +5,6 @@ export interface ServerDTO {
     port: string,
     tags: string[],
     country: string,
+    maxPlayers: number,
+    onlinePlayers: number
 }
