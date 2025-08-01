@@ -36,6 +36,8 @@ public class Server {
     private String name;
     private String ip;
     private String port;
+    private Integer maxPlayers;
+    private Integer onlinePlayers;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -49,12 +51,22 @@ public class Server {
     @JoinColumn(name = "network_id")
     private Network network;
 
-    public Server(UUID id, String name, String ip, String port, List<DayZGameTags> tags, Country country) {
+    public Server(UUID id, 
+        String name, 
+        String ip, 
+        String port, 
+        List<DayZGameTags> tags, 
+        Country country,
+        Integer onlinePlayers,
+        Integer maxPlayers) {
+
         this.id=id;
         this.name=name;
         this.ip=ip;
         this.port=port;
         this.tags=tags;
         this.country=country;
+        this.maxPlayers = maxPlayers;
+        this.onlinePlayers = onlinePlayers;
     }
 }

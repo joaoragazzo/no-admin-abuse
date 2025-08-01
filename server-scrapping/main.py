@@ -37,7 +37,9 @@ def to_java_style_json(groups):
                 "ip": server.ip,
                 "port": server.port,
                 "tags": server.tags, 
-                "country": server.country
+                "country": server.country,
+                "maxPlayers": server.maxPlayers,
+                "onlinePlayers": server.onlinePlayers
             }
             group_data["servers"].append(server_data)
 

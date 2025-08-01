@@ -20,7 +20,9 @@ public class ServerMapper {
             serverDTO.ip(),
             serverDTO.port(),
             serverDTO.tags(),
-            country    
+            country,
+            serverDTO.maxPlayers(),
+            serverDTO.onlinePlayers()
         );
     }
 
@@ -31,7 +33,9 @@ public class ServerMapper {
             entity.getIp(), 
             entity.getPort(),
             entity.getTags(),
-            entity.getCountry().getCode()
+            entity.getCountry().getCode(),
+            entity.getMaxPlayers(),
+            entity.getOnlinePlayers()
         );
     }
 

@@ -9,6 +9,7 @@ import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 
 public record ServerDTO(
     UUID id,
@@ -16,5 +17,7 @@ public record ServerDTO(
     @NotBlank String ip,
     @NotBlank String port,
     @NotEmpty List<DayZGameTags> tags,
-    @NonNull CountryCode country
+    @NonNull CountryCode country,
+    @Positive Integer maxPlayers,
+    @Positive Integer onlinePlayers
 ) {}
