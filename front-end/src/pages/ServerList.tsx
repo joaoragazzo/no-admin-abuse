@@ -29,6 +29,8 @@ export const ServerList: React.FC = () => {
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
     const [region, setRegion] = useState<string|null>(null);
 
+    
+    useEffect(() => {console.log(serverList)},[serverList])
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -268,8 +270,6 @@ export const ServerList: React.FC = () => {
                 ratings={1.245}
                 description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
                 tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
-                maxPlayer={100}
-                onlinePlayers={96}
                 region={Region.EUROPE}
                 uptime={99.4}
                 administrationTeam="DayZ Administration Team"
@@ -290,8 +290,6 @@ export const ServerList: React.FC = () => {
                         description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
                         rating={4.0}
                         feedbackCount={327}
-                        onlinePlayers={87}
-                        maxPlayers={100}
                         servers={content.servers}
                     />
                 ))}

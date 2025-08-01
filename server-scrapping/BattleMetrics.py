@@ -55,5 +55,7 @@ class BattleMetrics:
             server['attributes']['name'],
             server['attributes']['ip'],
             server['attributes']['port'],
-            server['attributes']['country']
+            server['attributes']['country'],
+            server['attributes']['maxPlayers'],
+            server['attributes']['players']
         ) for server in servers]

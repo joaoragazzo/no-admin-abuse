@@ -9,8 +9,6 @@ import { NetworkServer } from "./NetworkServer"
 
 interface NetworkBannerProps {
     name: string,
-    maxPlayers: number,
-    onlinePlayers: number,
     rating: number,
     feedbackCount: number,
     description: string,
@@ -19,8 +17,6 @@ interface NetworkBannerProps {
 
 export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     name,
-    maxPlayers,
-    onlinePlayers,
     rating,
     feedbackCount,
     description,
@@ -75,7 +71,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
             
                             <div className="flex flex-row gap-4">
                                 <div className="text-green-500 flex-row flex items-center gap-1 text-sm">
-                                    <FaPeopleGroup /> {onlinePlayers}/{maxPlayers}
+                                    <FaPeopleGroup /> {servers.reduce((acc, curr) => acc + curr.onlinePlayers, 0)}/{servers.reduce((acc, curr) => acc + curr.maxPlayers, 0)}
                                 </div>
                             </div>
                         </div>

@@ -57,8 +57,8 @@ public class Server {
         String port, 
         List<DayZGameTags> tags, 
         Country country,
-        Integer onlinePlayers,
-        Integer maxPlayers) {
+        Integer maxPlayers,
+        Integer onlinePlayers) {
 
         this.id=id;
         this.name=name;

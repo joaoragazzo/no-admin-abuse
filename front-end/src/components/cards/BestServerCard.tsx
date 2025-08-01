@@ -8,8 +8,6 @@ interface BestServerCardProps {
     administrationTeam?: string,
     uptime: number,
     ms: number,
-    maxPlayer: number,
-    onlinePlayers: number,
     region: Region,
     tags: string[],
     rating: number
@@ -23,8 +21,6 @@ export const BestServerCard: React.FC<BestServerCardProps> = ({
     administrationTeam,
     uptime,
     ms,
-    maxPlayer,
-    onlinePlayers,
     region,
     tags,
     rating,
@@ -102,7 +98,7 @@ export const BestServerCard: React.FC<BestServerCardProps> = ({
                         </div>
                         <div className="flex flex-row gap-2 items-center text-sm">
                             <FaPeopleGroup className="text-green-400" />
-                            {onlinePlayers}/{maxPlayer}
+                            {/* {onlinePlayers}/{maxPlayer} */}
                         </div>
                     </div>
 
