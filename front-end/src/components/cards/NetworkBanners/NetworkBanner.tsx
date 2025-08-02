@@ -1,11 +1,12 @@
 import type { ServerDTO } from "@/interfaces/ServerDTO"
 import { useState } from "react"
-import { FaAngleRight, FaCrown, FaFlag, FaHammer, FaServer, FaStar } from "react-icons/fa"
+import { FaAngleRight, FaCrown, FaFlag, FaHammer, FaServer } from "react-icons/fa"
 import { FaPeopleGroup, FaX } from "react-icons/fa6"
 import { BsInfoCircle } from "react-icons/bs"
 import Popup from "reactjs-popup"
 import { BiInfoCircle } from "react-icons/bi"
 import { NetworkServer } from "./NetworkServer"
+import { Rating } from "@/components/misc/Rating"
 
 interface NetworkBannerProps {
     name: string,
@@ -81,24 +82,10 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                         </div>
                     </div>
                                 
-                    <div className="flex flex-row gap-2 text-sm">
-                        <div className="flex flex-row gap-1 items-center">
-                            {[...Array(5)].map((_, i) => (
-                                <FaStar 
-                                    key={i}
-                                    className={
-                                        i < Math.floor(rating) ? "text-amber-300" : "text-gray-400/40"
-                                    }
-                                />
-                            ))}
-                        </div>
-                                        
-                        <div className=" text-xs flex items-center flex-row gap-2">
-                            {rating} 
-                            <div className="text-blue-500 flex flex-row items-center border-b-1 mb-0.5 cursor-pointer">
-                                ({feedbackCount} avaliações) <FaAngleRight size={11} />
-                            </div>
-
+                    <div className="flex flex-row gap-2 text-xs">
+                       <Rating rating={1} />
+                        <div className="text-blue-500 flex flex-row items-center border-b-1 mb-0.5 cursor-pointer">
+                            ({feedbackCount} avaliações) <FaAngleRight size={11} />
                         </div>
                     </div>
                     
