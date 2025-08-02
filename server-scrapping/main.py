@@ -68,5 +68,5 @@ if __name__ == '__main__':
     PROD="https://no-admin-abuse.joaoragazzo.dev/api/v1/server/bulk"
     DEV="http://localhost:8080/server/bulk"
 
-    response = requests.put(PROD, data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
+    response = requests.put(DEV, data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
     print(response.text)

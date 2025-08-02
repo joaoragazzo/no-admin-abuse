@@ -76,17 +76,13 @@ public class ServerService {
             .map(this::createNetwork).toList();
     }
 
-    public Page<Network> findAll(Integer page, Integer size) {
-        Pageable pageagle = PageRequest.of(page, size);
-        return networkRepository.findAllOrderByServerCountDest(pageagle);
-    }
-
     public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
         Pageable pageagle = PageRequest.of(page, size);
         Specification<Network> spec = Specification
             .where(ServerSearchSpecification.hasTags(tags))
             .and(ServerSearchSpecification.hasSearch(search))
-            .and(ServerSearchSpecification.hasRegion(region));
+            .and(ServerSearchSpecification.hasRegion(region))
+            .and(ServerSearchSpecification.withPopularityOrder());
 
         return networkRepository.findAll(spec, pageagle);
     }

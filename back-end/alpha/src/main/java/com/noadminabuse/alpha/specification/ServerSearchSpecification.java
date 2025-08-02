@@ -80,4 +80,33 @@ public class ServerSearchSpecification {
             return builder.exists(subquery);
         };
     }
+
+    public static Specification<Network> withPopularityOrder() {
+        return (root, query, builder) -> {
+            if (Long.class.equals(query.getResultType())) {
+                return builder.conjunction();
+            }
+
+            Subquery<Long> popularitySubquery = query.subquery(Long.class);
+            Root<Server> serverRoot = popularitySubquery.from(Server.class);
+
+            popularitySubquery.select(
+                builder.coalesce(
+                    builder.sum(serverRoot.get("onlinePlayers")), 
+                    0L
+                )
+            ).where(
+                builder.equal(serverRoot.get("network"), root)
+            ).groupBy(
+                serverRoot.get("network")
+            );
+
+            query.orderBy(
+                builder.desc(popularitySubquery.getSelection()),
+                builder.asc(root.get("name"))
+            );
+
+            return builder.conjunction();
+        };
+    }
 }
