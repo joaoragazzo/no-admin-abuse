@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,9 @@ public class Network {
 
     @OneToMany(mappedBy = "network")
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToOne(mappedBy = "network")
+    private User owner;
 
     public Network(UUID id,String name) {
         this.id = id;
