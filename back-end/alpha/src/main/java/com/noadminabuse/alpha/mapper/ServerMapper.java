@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
 import com.noadminabuse.alpha.web.dto.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
 
 @Component
 public class ServerMapper {
@@ -27,7 +29,6 @@ public class ServerMapper {
     }
 
     public ServerDTO toServerDTO(Server entity) {
-
         return new ServerDTO(entity.getId(), 
             entity.getName(), 
             entity.getIp(), 
@@ -52,4 +53,18 @@ public class ServerMapper {
         return entities.stream().map(this::toNetworkDTO).toList();
     }
 
+    public NetworkDetailsDTO toNetworkDetailsDTO(Network network) {
+        List<ServerDTO> servers = this.toServerDTO(network.getServers());
+        
+        return new NetworkDetailsDTO(
+            network.getId(), 
+            network.getDescription(), 
+            new ArrayList<>(), 
+            new ArrayList<>(), 
+            servers, 
+            network.getDiscord(), 
+            network.getInstagram(), 
+            network.getWebsite()
+        );
+    }
 }

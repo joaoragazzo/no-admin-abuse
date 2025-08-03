@@ -8,6 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,10 +34,19 @@ public class Server {
     @UuidGenerator
     private UUID id;
 
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = false)
     private String ip;
+    
+    @Column(nullable = false)
     private String port;
+    
+    @Column(nullable = false)
     private Integer maxPlayers;
+    
+    @Column(nullable = false)
     private Integer onlinePlayers;
 
     @ElementCollection

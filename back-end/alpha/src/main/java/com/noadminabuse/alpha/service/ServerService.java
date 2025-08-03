@@ -9,7 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.noadminabuse.alpha.errors.ServerGroupNotFound;
+import com.noadminabuse.alpha.errors.NotFound;
+import com.noadminabuse.alpha.errors.enums.ErrorMessages;
 import com.noadminabuse.alpha.mapper.ServerMapper;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
@@ -22,6 +23,7 @@ import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
 import com.noadminabuse.alpha.web.dto.ServerDTO;
 import com.noadminabuse.alpha.web.dto.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -37,7 +39,11 @@ public class ServerService {
         Country country = countryService.findOrCreate(serverDTO.country());
         
         Server server = serverMapper.toServerEntity(serverDTO, country);
-        Network network = networkRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
+        Network network = networkRepository
+            .findById(groupId)
+            .orElseThrow(
+                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+            );
         server.setNetwork(network);
         return serverRepository.save(server);
     }
@@ -50,7 +56,11 @@ public class ServerService {
 
         countryService.findOrCreate(countryCodes);
         
-        Network network = networkRepository.findById(groupId).orElseThrow(ServerGroupNotFound::new);
+        Network network = networkRepository
+            .findById(groupId)
+            .orElseThrow(
+                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+            );
 
         List<Server> servers = serverDTOs.stream().map(
             dto -> {
@@ -85,5 +95,14 @@ public class ServerService {
             .and(ServerSearchSpecification.withPopularityOrder());
 
         return networkRepository.findAll(spec, pageagle);
+    }
+
+    public NetworkDetailsDTO fetchNetworkDetails(UUID id) {
+        Network network = networkRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+            );
+        return serverMapper.toNetworkDetailsDTO(network);
     }
 }

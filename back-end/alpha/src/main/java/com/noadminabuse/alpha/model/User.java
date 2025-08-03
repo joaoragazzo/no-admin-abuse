@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.model;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,33 +22,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Network {
+public class User {
     
     @Id
     @GeneratedValue
     @UuidGenerator
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    private String steamId;
+    private String username;
+    private String avatarUrl;
 
-    private String description;
-    private String discord;
-    private String instagram;
-    private String website;
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
-    @OneToMany(mappedBy = "network")
-    private List<Server> servers = new ArrayList<>();
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean isBanned = false;
+    
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean isSysAdmin = false;
 
-    @OneToMany(mappedBy = "network")
+    @OneToMany(mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();
-
-    public Network(UUID id,String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Network(String name) {
-        this.name = name;
-    }
 }
