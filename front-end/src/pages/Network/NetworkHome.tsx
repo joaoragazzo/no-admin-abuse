@@ -6,10 +6,10 @@ import { FaAngleDown, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, F
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { ImBubbles } from "react-icons/im";
 import { MdVerified } from "react-icons/md";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 export const NetworkHome: React.FC = () => {
-    const { networkId } = useParams<{ networkId: string }>();
+    // const { networkId } = useParams<{ networkId: string }>();
     
     return (
     <>   

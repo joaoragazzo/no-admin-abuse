@@ -18,7 +18,7 @@ interface NetworkBannerProps {
 
 export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     name,
-    rating,
+    // rating,
     feedbackCount,
     description,
     servers,

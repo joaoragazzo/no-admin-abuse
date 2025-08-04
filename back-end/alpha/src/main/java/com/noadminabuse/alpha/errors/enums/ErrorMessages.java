@@ -1,10 +1,10 @@
 package com.noadminabuse.alpha.errors.enums;
 
-public enum ServerMessageErrors {
+public enum ErrorMessages {
     NETWORK_NOT_FOUND("NETWORK_NOT_FOUND");
 
     private String message;
-    ServerMessageErrors(String message) {
+    ErrorMessages(String message) {
         this.message = message;
     }
 
