@@ -8,7 +8,7 @@ import { FaSkull } from "react-icons/fa";
 export const Home: React.FC = () => {
     return (
     <>
-        <Section className="py-20 bg-[url('/topography.svg')] bg-repeat bg-center bg-[length:500px]">
+        <Section className="py-20 bg-[url('/topography.svg')] bg-repeat bg-center bg-[length:500px] flex justify-center">
           <HeroSection />
         </Section>
 
