@@ -49,6 +49,16 @@ def to_java_style_json(groups):
 
 if __name__ == '__main__':
     bm = BattleMetrics()
+
+    # servers = bm.fetchServers(size=10000)
+
+    # data = []
+    # for server in servers:
+    #     data.append({'name':server.name})
+
+    # with open('output.json', 'w') as f:
+    #     f.write(json.dumps(data, indent=2))
+
     normalizer = Normalizer()
     fingerprinter = Fingerprinter()
     tagNormalizer = TagNormalizer()
@@ -68,5 +78,5 @@ if __name__ == '__main__':
     PROD="https://no-admin-abuse.joaoragazzo.dev/api/v1/server/bulk"
     DEV="http://localhost:8080/server/bulk"
 
-    response = requests.put(PROD, data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
+    response = requests.put(DEV, data=json.dumps(java_dto_payload), headers={"Content-Type": "application/json"})
     print(response.text)

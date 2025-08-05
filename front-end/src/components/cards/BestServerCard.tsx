@@ -40,7 +40,7 @@ export const BestServerCard: React.FC<BestServerCardProps> = ({
                 </div>
             </div>
 
-            <div className="ml-8 flex flex-col justify-between">
+            <div className="ml-8 flex flex-col justify-between w-full">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-row items-center">
                         <div className="p-3 bg-yellow-600 rounded-full mr-2">
