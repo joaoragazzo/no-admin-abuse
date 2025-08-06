@@ -13,7 +13,7 @@ import com.noadminabuse.alpha.web.dto.NetworkDTO;
 import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
 
 @Component
-public class ServerMapper {
+public class NetworkMapper {
     
     public Server toServerEntity(ServerDTO serverDTO, Country country) {        
         return new Server(
@@ -57,13 +57,15 @@ public class ServerMapper {
         List<ServerDTO> servers = this.toServerDTO(network.getServers());
         
         return new NetworkDetailsDTO(
-            network.getId(), 
+            network.getId(),
+            network.getName(),
             network.getDescription(), 
             new ArrayList<>(), 
             new ArrayList<>(), 
             servers, 
             network.getDiscord(), 
             network.getInstagram(), 
+            network.getYoutube(),
             network.getWebsite()
         );
     }

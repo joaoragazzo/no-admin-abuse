@@ -8,11 +8,13 @@ import jakarta.validation.constraints.NotEmpty;
 
 public record NetworkDetailsDTO(
     UUID id,
+    @NotBlank String name,
     @NotBlank String description,
     List<String> positiveTags,
     List<String> negativeTags,
     @NotEmpty List<ServerDTO> servers,
-    String discordLink,
-    String instagramLink,
-    String siteLink
+    String discord,
+    String instagram,
+    String youtube,
+    String website
 ) {}

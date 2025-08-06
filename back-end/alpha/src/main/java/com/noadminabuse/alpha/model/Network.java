@@ -35,6 +35,7 @@ public class Network {
     private String description;
     private String discord;
     private String instagram;
+    private String youtube;
     private String website;
 
     @OneToMany(mappedBy = "network")

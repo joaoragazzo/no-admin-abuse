@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.ErrorMessages;
-import com.noadminabuse.alpha.mapper.ServerMapper;
+import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
@@ -29,16 +29,16 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ServerService {
+public class NetworkService {
     private final ServerRepository serverRepository;
     private final CountryService countryService;
     private final NetworkRepository networkRepository;
-    private final ServerMapper serverMapper;
+    private final NetworkMapper networkMapper;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
         Country country = countryService.findOrCreate(serverDTO.country());
         
-        Server server = serverMapper.toServerEntity(serverDTO, country);
+        Server server = networkMapper.toServerEntity(serverDTO, country);
         Network network = networkRepository
             .findById(groupId)
             .orElseThrow(
@@ -65,7 +65,7 @@ public class ServerService {
         List<Server> servers = serverDTOs.stream().map(
             dto -> {
                 Country c = new Country(dto.country());
-                Server server = serverMapper.toServerEntity(dto, c);
+                Server server = networkMapper.toServerEntity(dto, c);
                 server.setNetwork(network);
                 return server;
             }
@@ -103,6 +103,6 @@ public class ServerService {
             .orElseThrow(
                 () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
             );
-        return serverMapper.toNetworkDetailsDTO(network);
+        return networkMapper.toNetworkDetailsDTO(network);
     }
 }
