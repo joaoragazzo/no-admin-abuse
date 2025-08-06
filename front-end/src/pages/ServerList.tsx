@@ -286,6 +286,7 @@ export const ServerList: React.FC = () => {
                 {serverList?.content.map((content, key) => (
                     <NetworkBanner
                         key={key}
+                        id={content.id}
                         name={content.name}
                         description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
                         rating={4.0}

@@ -7,8 +7,10 @@ import Popup from "reactjs-popup"
 import { BiInfoCircle } from "react-icons/bi"
 import { NetworkServer } from "./NetworkServer"
 import { Rating } from "@/components/misc/Rating"
+import { useNavigate } from "react-router-dom"
 
 interface NetworkBannerProps {
+    id: string,
     name: string,
     rating: number,
     feedbackCount: number,
@@ -17,12 +19,14 @@ interface NetworkBannerProps {
 }
 
 export const NetworkBanner: React.FC<NetworkBannerProps> = ({
+    id,
     name,
     // rating,
     feedbackCount,
     description,
     servers,
 }) => {
+    const navigate = useNavigate();
     const [showServers, setShowServers] = useState<boolean>(false);
     const [moreOptions, setMoreOptions] = useState<boolean>(false);
     const [reportPopup, setReportPopup] = useState<boolean>(false);
@@ -40,7 +44,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                             <div className="font-bold text-md flex items-center gap-2">
                                 {name} 
                                 <Popup
-                                    trigger={<BsInfoCircle size={13} className="text-gray-300 hover:text-white cursor-pointer" /> }
+                                    trigger={<BsInfoCircle size={13} className="text-gray-300 hover:text-white cursor-pointer" onClick={() => { navigate(`/network/${id}`) }}/> }
                                     position={'top center'}
                                     on={['hover']}
                                 >

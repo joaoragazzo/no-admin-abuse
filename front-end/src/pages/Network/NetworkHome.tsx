@@ -1,16 +1,35 @@
 import { NetworkServer } from "@/components/cards/NetworkBanners/NetworkServer";
 import { Rating } from "@/components/misc/Rating";
+import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
+import { fetchNetworkDetails } from "@/services/NetworkService";
 import type React from "react";
+import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import { FaAngleDown, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { ImBubbles } from "react-icons/im";
 import { MdVerified } from "react-icons/md";
-// import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const NetworkHome: React.FC = () => {
-    // const { networkId } = useParams<{ networkId: string }>();
-    
+    const navigate = useNavigate();
+    const { networkId } = useParams<{ networkId: string }>();
+    const [ networkDetails, setNetworkDetails ] = useState<NetworkDetailsDTO>();
+    const [ visibleCount, setVisibleCount ] = useState<number>(3);
+
+    const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
+    const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
+
+    useEffect(() => {
+        if (!networkId) {
+            navigate("/");
+            return;
+        }
+
+        fetchNetworkDetails({id: networkId})
+            .then(response => setNetworkDetails(response));
+    }, [])
+
     return (
     <>   
         <div className="px-10 md:px-20 xl:px-50 w-full bg-gray-950 flex flex-row gap-5 py-20">
@@ -18,7 +37,7 @@ export const NetworkHome: React.FC = () => {
                 <FaSkullCrossbones size={33}/>
             </div>
             <div className="flex flex-col gap-2.5">
-                <h2 className="font-extrabold text-3xl">DayZ Apocalypse Network</h2>
+                <h2 className="font-extrabold text-3xl">{networkDetails?.name}</h2>
                 <div className="flex flex-row gap-4 text-sm">
                     <div className="flex flex-row gap-3">
                         <Rating rating={4}/>
@@ -37,7 +56,7 @@ export const NetworkHome: React.FC = () => {
                         <div className="p-1 bg-green-600 rounded-full w-fit h-fit">
                         </div>
                         <div className="text-green-600 flex items-center">
-                            93/482 jogadores online
+                            {onlinePlayersCount}/{maxPlayersCount} jogadores online
                         </div>
                     </div>
                     
@@ -119,37 +138,20 @@ export const NetworkHome: React.FC = () => {
                         </div>
 
                         <div className="flex flex-col gap-3">
-                            <div className="border-1 rounded-md border-gray-600">
-                                <NetworkServer 
-                                    server={{
-                                        ip: "123",
-                                        name: "123",
-                                        tags: ["123"],
-                                        port: "123",
-                                        onlinePlayers: 123, 
-                                        maxPlayers: 123,
-                                        country: "BR"
-                                    }}
-                                />
-                            </div>
-                            
-                            <div className="border-1 rounded-md border-gray-600">
-                                <NetworkServer 
-                                    server={{
-                                        ip: "123",
-                                        name: "123",
-                                        tags: ["123"],
-                                        port: "123",
-                                        onlinePlayers: 123, 
-                                        maxPlayers: 123,
-                                        country: "BR"
-                                    }}
-                                />
-                            </div>
+                            {networkDetails?.servers.slice(0, visibleCount).map((content, key) => (
+                                <div className="border-1 rounded-md border-gray-600">
+                                    <NetworkServer
+                                        key={key}
+                                        server={content}
+                                    />
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="bg-blue-950 font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
-                            Ver mais <FaAngleDown />
+                        <div 
+                            onClick={() => {setVisibleCount(prev => prev === 3 ? 999 : 3)}}
+                            className="cursor-pointer hover:bg-blue-700 bg-blue-800 transition-all font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
+                            Ver {visibleCount === 3 ? <>mais <FaAngleDown /></> : <>menos <FaAngleUp /></>}
                         </div>
                         
                     </div>
@@ -237,7 +239,7 @@ export const NetworkHome: React.FC = () => {
                                     <FaUserGroup /> Jogadores online:
                                 </span>
                                 <span>
-                                    93/482
+                                    {onlinePlayersCount}/{maxPlayersCount}
                                 </span>
                             </div>
                             <div className="flex flex-row justify-between">
