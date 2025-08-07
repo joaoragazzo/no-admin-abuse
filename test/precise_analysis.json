@@ -1,0 +1,204 @@
+[
+  {
+    "original_name": "OrigemZ Vanilla+ |Solo-Duo-Trio|RAIDTOKEN|1PP|NOVA SEASON",
+    "canonical_name": "Origemz Vanilla",
+    "tags": [
+      "Solo",
+      "DUO",
+      "Trio",
+      "Raidtoken",
+      "1PP",
+      "NOVA",
+      "Season"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "OrigemZ Vanilla+ |GROUP|RAIDTOKEN|FPS++|NOVA SEASON",
+    "canonical_name": "Origemz Vanilla",
+    "tags": [
+      "Group",
+      "Raidtoken",
+      "FPS",
+      "NOVA",
+      "Season"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "Rearmed US4 | Solo/Duo/Trio",
+    "canonical_name": "Rearmed US4",
+    "tags": [
+      "Solo",
+      "DUO",
+      "Trio"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "Rearmed US Main",
+    "canonical_name": "Rearmed US4",
+    "tags": [],
+    "pattern_type": "main_server",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "The Project Main - Chernarus | 4 Group Limit",
+    "canonical_name": "THE",
+    "tags": [
+      "Project",
+      "Main",
+      "Chernarus",
+      "Group",
+      "Limit"
+    ],
+    "pattern_type": "fallback",
+    "confidence": 0.5,
+    "group_size": 2
+  },
+  {
+    "original_name": "[BR] THELINEZ | PVP/PVE | NORAID | CHERNO | HELI | WIPE 25/07",
+    "canonical_name": "THE",
+    "tags": [
+      "PVP",
+      "PVE",
+      "Noraid",
+      "Cherno",
+      "Heli",
+      "Wipe"
+    ],
+    "pattern_type": "fallback",
+    "confidence": 0.5,
+    "group_size": 2
+  },
+  {
+    "original_name": "heybarmby's Livonia - Organic RP",
+    "canonical_name": "Heybarmby's Livonia",
+    "tags": [
+      "Organic",
+      "RP"
+    ],
+    "pattern_type": "dash_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "MAG MiddleAgedGamers #1 PVE |FRESH-WIPED 3 June|",
+    "canonical_name": "MAG Middleagedgamers #1 PVE",
+    "tags": [
+      "Fresh",
+      "Wiped",
+      "JUNE"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "[WIPED 18.07] BattleGroundZ :: Chernarus [3PP][EU] | Vanilla++",
+    "canonical_name": "WIPED 18.07] Battlegroundz",
+    "tags": [
+      "Chernarus",
+      "3PP",
+      "EU",
+      "Vanilla"
+    ],
+    "pattern_type": "colon_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "Rearmed EU4 | Solo Duo Trio",
+    "canonical_name": "Rearmed EU4",
+    "tags": [
+      "Solo",
+      "DUO",
+      "Trio"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "[BR] EPIDEMIC Z BRASIL VANILLA-1PP-SOLO-DUO-TRIO-WIPOU",
+    "canonical_name": "BR] EPIDEMIC Z BRASIL VANILLA",
+    "tags": [
+      "1PP",
+      "Solo",
+      "DUO",
+      "Trio"
+    ],
+    "pattern_type": "dash_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "MIDNIGHT PLUS 3PP | CHERNARUS | WIPE 19.07",
+    "canonical_name": "MIDNIGHT PLUS 3PP",
+    "tags": [
+      "Chernarus",
+      "Wipe",
+      "19",
+      "07"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "MIDNIGHT PLUS 3PP | n2 | CHERNARUS | WIPE 19.07",
+    "canonical_name": "MIDNIGHT PLUS 3PP",
+    "tags": [
+      "N2",
+      "Chernarus",
+      "Wipe",
+      "19",
+      "07"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.95,
+    "group_size": 2
+  },
+  {
+    "original_name": "Rearmed US3 | 5 Man Max",
+    "canonical_name": "Rearmed US3",
+    "tags": [
+      "MAN",
+      "MAX"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "Sunnyvale #11 | Chernarus | PvE w/ PvP Zones",
+    "canonical_name": "Sunnyvale #11",
+    "tags": [
+      "Chernarus",
+      "PVE",
+      "PVP",
+      "Zones"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  },
+  {
+    "original_name": "DayZ Aftermath Chernarus 3 | Max Group 3",
+    "canonical_name": "Aftermath Chernarus 3",
+    "tags": [
+      "MAX",
+      "Group"
+    ],
+    "pattern_type": "pipe_bracket_delimiter",
+    "confidence": 0.9,
+    "group_size": 1
+  }
+]
