@@ -25,7 +25,7 @@ public class SecurityConfig {
             .formLogin(login -> login.disable())
             .httpBasic(httpBasic -> httpBasic.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+            
         return http.build();
     }
 

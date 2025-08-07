@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.NotFound;
-import com.noadminabuse.alpha.errors.enums.ErrorMessages;
+import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
 import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
@@ -42,7 +42,7 @@ public class NetworkService {
         Network network = networkRepository
             .findById(groupId)
             .orElseThrow(
-                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
         server.setNetwork(network);
         return serverRepository.save(server);
@@ -59,7 +59,7 @@ public class NetworkService {
         Network network = networkRepository
             .findById(groupId)
             .orElseThrow(
-                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
 
         List<Server> servers = serverDTOs.stream().map(
@@ -101,7 +101,7 @@ public class NetworkService {
         Network network = networkRepository
             .findById(id)
             .orElseThrow(
-                () -> new NotFound(ErrorMessages.NETWORK_NOT_FOUND)
+                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
         return networkMapper.toNetworkDetailsDTO(network);
     }

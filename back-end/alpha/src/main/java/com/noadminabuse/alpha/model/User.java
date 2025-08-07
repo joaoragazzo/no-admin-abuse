@@ -31,6 +31,7 @@ public class User {
     @UuidGenerator
     private UUID id;
 
+    @Column(unique = true)
     private String steamId;
     private String username;
     private String avatarUrl;

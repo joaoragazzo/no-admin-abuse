@@ -2,8 +2,8 @@ package com.noadminabuse.alpha.errors;
 
 import com.noadminabuse.alpha.errors.enums.ErrorMessage;
 
-public class NotFound extends RuntimeException {
-    public NotFound(ErrorMessage message) {
+public class UnprocessableEntity extends RuntimeException {
+    public UnprocessableEntity(ErrorMessage message) {
         super(message.getMessage());
     }
 }
