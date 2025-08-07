@@ -9,17 +9,19 @@ export const GameList: React.FC = () => {
                     Selecione um&nbsp;<span className="text-blue-500">Jogo</span>
                 </div>
                 <div className="flex font-light w-150 text-center text-gray-300 text-sm">
-                    Escolha um jogo para ver a lista de servidores, estatísticas de denúncias e avaliações da comunidade
+                    Escolha um jogo para ver a lista de redes de servidores, estatísticas de denúncias e avaliações da comunidade
                 </div>
             </div>
 
-            <GameCard 
-                id="dayz"
-                gameName="DayZ"
-                serverCount="12"
-                reportsCount="453"
-                bgImage="dayz.png"
-            />
+            <div className="grid grid-cols-3 gap-3 mx-30 mb-10 max-w-280 min-w-250">
+                <GameCard 
+                    id="dayz"
+                    gameName="DayZ"
+                    networkCount="12"
+                    ratingCount="453"
+                    bgImage="dayz.png"
+                />
+            </div>
         </>
     )
 }

@@ -56,7 +56,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                                     </div>
                                 </Popup>
                                 <div 
-                                    className={`${moreOptions ? "max-w-[1000px] opacity-100" : "max-w-0 opacity-0"} flex flex-row gap-2 text-xs font-semibold overflow-hidden transition-all duration-800 ease-in-out`}>
+                                    className={`${moreOptions ? "max-w-[1000px] opacity-100" : "max-w-0 opacity-0"} flex flex-row gap-2 text-xs font-semibold overflow-hidden transition-all duration-800 ease-in-out ml-4`}>
                                     <button className="text-nowrap rounded bg-red-700 px-3 flex items-center gap-1.5 py-1 cursor-pointer hover:bg-red-800" onClick={() => {setReportPopup(true)}}>
                                         <FaX /> Reportar servidor
                                     </button>

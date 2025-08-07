@@ -6,7 +6,7 @@ import { fetchNetworkDetails } from "@/services/NetworkService";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube, FaYoutubeSquare } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube, FaYoutubeSquare } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { ImBubbles } from "react-icons/im";
 import { MdVerified } from "react-icons/md";
@@ -37,16 +37,25 @@ export const NetworkHome: React.FC = () => {
         return;
     }
 
-    console.log((networkDetails.discord || networkDetails.youtube || networkDetails.website || networkDetails.instagram) != null);
-
     return (
     <>   
         <div className="px-10 md:px-20 xl:px-50 w-full bg-gray-950 flex flex-row gap-5 py-20">
             <div className="border-2 text-blue-800 border-blue-800 bg-blue-980 w-fit h-fit p-8 rounded-md">
                 <FaSkullCrossbones size={33}/>
             </div>
-            <div className="flex flex-col gap-2.5">
-                <h2 className="font-extrabold text-3xl">{networkDetails?.name}</h2>
+            <div className="flex flex-col gap-2.5 w-full">
+                <div className="flex flex-row justify-between items-center">
+                    <h2 className="font-extrabold text-3xl">
+                        {networkDetails?.name}
+                    </h2>
+                    <h2 
+                        onClick={() => {navigate(-1)}}
+                        className="font-bold text-1xl flex items-center gap-2 cursor-pointer text-gray-200 hover:text-white">
+                        Voltar <FaArrowRight />
+                    </h2>
+                </div>
+                
+                
                 <div className="flex flex-row gap-4 text-sm">
                     <div className="flex flex-row gap-3">
                         <Rating rating={4}/>
