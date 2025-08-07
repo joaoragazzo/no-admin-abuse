@@ -6,7 +6,7 @@ import { fetchNetworkDetails } from "@/services/NetworkService";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube, FaYoutubeSquare } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { ImBubbles } from "react-icons/im";
 import { MdVerified } from "react-icons/md";
