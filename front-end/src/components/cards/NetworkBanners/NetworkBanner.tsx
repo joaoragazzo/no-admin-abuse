@@ -2,7 +2,6 @@ import type { ServerDTO } from "@/interfaces/ServerDTO"
 import { useState } from "react"
 import { FaAngleRight, FaCrown, FaFlag, FaHammer, FaServer } from "react-icons/fa"
 import { FaPeopleGroup, FaX } from "react-icons/fa6"
-import { BsInfoCircle } from "react-icons/bs"
 import Popup from "reactjs-popup"
 import { BiInfoCircle } from "react-icons/bi"
 import { NetworkServer } from "./NetworkServer"
@@ -41,20 +40,14 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                 <div className="flex flex-col justift-between gap-3">
                     <div>
                         <div className="flex flex-row justify-between">
-                            <div className="font-bold text-md flex items-center gap-2">
-                                {name} 
-                                <Popup
-                                    trigger={<BsInfoCircle size={13} className="text-gray-300 hover:text-white cursor-pointer" onClick={() => { navigate(`/network/${id}`) }}/> }
-                                    position={'top center'}
-                                    on={['hover']}
-                                >
-                                    <div className="text-xs px-2 py-0.5 bg-white rounded text-black">
-                                        Mais informações
-                                    </div>
-                                </Popup>
+                            <div className="font-bold text-md flex items-center">
+                                <div className="flex items-center text-gray-200 hover:text-white cursor-pointer" onClick={() => { navigate(`/network/${id}`) }}>
+                                    {name} 
+                                    <FaAngleRight size={13} className="ml-1"/>
+                                </div>
                                 
                                 <Popup
-                                    trigger={<FaFlag  onClick={() => {setMoreOptions(!moreOptions)}} size={13} className="text-gray-300 hover:text-white cursor-pointer"/>}
+                                    trigger={<FaFlag  onClick={() => {setMoreOptions(!moreOptions)}} size={13} className="ml-3 text-gray-300 hover:text-white cursor-pointer"/>}
                                     position={'top center'}
                                     on={['hover']}
                                 >

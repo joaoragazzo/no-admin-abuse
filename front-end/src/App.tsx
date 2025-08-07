@@ -6,6 +6,7 @@ import { Footer } from "./components/layout/Footer"
 import { ServerList } from "./pages/ServerList"
 import { LLMTrain } from "./pages/LLMTrain"
 import { NetworkHome } from "./pages/Network/NetworkHome"
+import { ScrollToTop } from "./utils/ScrollToTop"
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<GameList />} />
