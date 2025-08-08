@@ -27,7 +27,7 @@ export const AuthProvider = ({ children } : {children: ReactNode}) => {
         if (stored) {
             AuthenticationService.steamLoginProfile()
             .then(res => setUser(res.user))
-            .catch(err => logout())
+            .catch(_ => logout())
         }
     },[])
 
