@@ -1,6 +1,6 @@
 import type { UserInfoDTO } from "./UserInfoDTO";
 
 export interface AuthenticationDTO {
-    jwt: string,
+    token: string,
     user: UserInfoDTO
 }
