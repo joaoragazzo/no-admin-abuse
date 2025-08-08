@@ -2,12 +2,18 @@ package com.noadminabuse.alpha.service;
 
 import java.util.Base64;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.errors.Unauthorized;
+import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -46,13 +52,17 @@ public class JwtService {
 
     public boolean isTokenValid(String token) {
         try {
-            Jwts.parser()
+            Claims claims = Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
-                .parseSignedClaims(token);
-            return true;
+                .parseSignedClaims(token)
+                .getPayload();
+            Date expiration = claims.getExpiration();
+            return !Objects.isNull(expiration) && expiration.after(new Date());
+        } catch (ExpiredJwtException e) {
+            throw new Unauthorized(AuthErrorMessage.EXPIRED_JWT);
         } catch (Exception e) {
-            return false;
+            throw new Unauthorized(AuthErrorMessage.INVALID_JWT);
         }
     }
 }

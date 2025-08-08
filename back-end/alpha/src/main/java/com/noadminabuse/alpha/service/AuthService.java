@@ -63,6 +63,16 @@ public class AuthService {
         );
     }
 
+    public SuccessLoginDTO refreshSteamLogin(String steamId) {
+        String jwt = jwtService.generateToken(steamId);
+        SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(steamId).block();
+
+        return new SuccessLoginDTO(
+            jwt,
+            new UserInfoDTO(null, steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+        );
+    }
+
     private void confirmOpenIdSignature(HttpServletRequest request) {
         Map<String, String> params = new HashMap<>();
         request.getParameterMap().forEach((key, values) -> {

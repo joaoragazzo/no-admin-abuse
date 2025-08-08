@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.noadminabuse.alpha.errors.Unauthorized;
+import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
 import com.noadminabuse.alpha.service.JwtService;
 
 import jakarta.servlet.FilterChain;
@@ -40,7 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         );
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                throw new Unauthorized(AuthErrorMessage.INVALID_JWT);
+            }
         }
 
         filterChain.doFilter(request, response);

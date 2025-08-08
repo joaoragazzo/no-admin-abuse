@@ -1,4 +1,5 @@
 import type { UserInfoDTO } from "@/interfaces/UserInfoDTO"
+import AuthenticationService from "@/services/AuthenticationService";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 interface AuthContextType {
@@ -14,15 +15,11 @@ export const AuthProvider = ({ children } : {children: ReactNode}) => {
     const [user, setUser] = useState<UserInfoDTO|undefined>(undefined);
 
     useEffect(() => {
-        // const stored = localStorage.getItem("user");
-        // if (stored) setUser(JSON.parse(stored));
-
-        // setUser({
-        //     id: "123",
-        //     username: "aaa",
-        //     avatarUrl: "https://avatars.akamai.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f.jpg",
-        //     steam64id: "123"
-        // })
+        const stored = localStorage.getItem("token");
+        if (stored) {
+            AuthenticationService.steamLoginProfile()
+            .then(res => setUser(res.user))
+        }
     },[])
 
     const logout = () => {
