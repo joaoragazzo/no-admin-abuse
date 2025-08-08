@@ -32,4 +32,10 @@ public class GlobalExceptionHandler {
         ErrorDTO error = feedbackMapper.toErrorDTO(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     }
+
+    @ExceptionHandler(Unauthorized.class)
+    public ResponseEntity<ErrorDTO> handleUnauthorized(Unauthorized ex) {
+        ErrorDTO error = feedbackMapper.toErrorDTO(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
 }
