@@ -16,9 +16,18 @@ export const AuthProvider = ({ children } : {children: ReactNode}) => {
 
     useEffect(() => {
         const stored = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user");
+
+        if (storedUser) {
+            const userTip = JSON.parse(storedUser);
+            setUser(userTip)
+        }
+
+
         if (stored) {
             AuthenticationService.steamLoginProfile()
             .then(res => setUser(res.user))
+            .catch(err => logout())
         }
     },[])
 

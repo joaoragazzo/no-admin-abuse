@@ -14,8 +14,9 @@ export const SteamLogin = () => {
         AuthenticationService.steamLoginCallback({params: queryParams})
             .then(res => {
                 localStorage.setItem("token", res.token);
-                navigate("/");
+                localStorage.setItem("user", JSON.stringify(res.user))
                 setUser(res.user);
+                navigate("/");
             })        
     },[])
 
