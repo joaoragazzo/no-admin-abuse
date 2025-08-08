@@ -7,12 +7,14 @@ import { ServerList } from "./pages/ServerList"
 import { LLMTrain } from "./pages/LLMTrain"
 import { NetworkHome } from "./pages/Network/NetworkHome"
 import { ScrollToTop } from "./utils/ScrollToTop"
+import { AuthProvider } from "./contexts/AuthContext"
 
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+    <AuthProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header />
       <main className="flex-grow">
         <ScrollToTop />
         <Routes>
@@ -24,8 +26,9 @@ function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </AuthProvider>
   )
 }
 

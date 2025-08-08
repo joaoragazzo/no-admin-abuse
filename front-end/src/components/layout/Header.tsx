@@ -4,10 +4,12 @@ import { FaFileShield, FaFileSignature } from "react-icons/fa6"
 import { useState } from "react";
 import { Brand } from "../Brand";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 
 export const Header: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const { user, isAuthenticated } = useAuth();
     
     const items = [
         {
@@ -20,7 +22,7 @@ export const Header: React.FC = () => {
             content: <><FaFileSignature /> Nosso Manifesto</>
         },
         {
-            content: <LoginSteamButton />
+            content: <>{isAuthenticated ? <img src={user?.avatarUrl} width={40} className="rounded-md"></img> : <LoginSteamButton />}</>
         }
     ]
     
