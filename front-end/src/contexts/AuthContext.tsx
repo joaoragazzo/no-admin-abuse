@@ -1,9 +1,6 @@
-import { CustomToast } from "@/components/toast/CustomToast";
 import type { UserInfoDTO } from "@/interfaces/UserInfoDTO"
 import AuthenticationService from "@/services/AuthenticationService";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { FaX } from "react-icons/fa6";
-import { toast } from "react-toastify";
 
 interface AuthContextType {
     user: UserInfoDTO | undefined,
