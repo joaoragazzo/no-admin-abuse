@@ -8,6 +8,7 @@ import { LLMTrain } from "./pages/LLMTrain"
 import { NetworkHome } from "./pages/Network/NetworkHome"
 import { ScrollToTop } from "./utils/ScrollToTop"
 import { AuthProvider } from "./contexts/AuthContext"
+import { SteamLogin } from "./pages/SteamLogin"
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/games" element={<GameList />} />
           <Route path="/servers/:game" element={<ServerList />} />
           <Route path="/network/:networkId" element={<NetworkHome />} />
+          <Route path="/auth/steam/callback" element={<SteamLogin />} />
           <Route path="/llm-train" element={<LLMTrain />} />
           <Route path="*" element={<Home />} />
         </Routes>
