@@ -13,8 +13,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.noadminabuse.alpha.errors.BadRequest;
 import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
+import com.noadminabuse.alpha.web.dto.auth.SteamQueryDTO;
 
 import reactor.core.publisher.Mono;
 
@@ -68,4 +70,23 @@ public class SteamApiClient {
 
         return !Objects.isNull(response) && response.contains("is_valid:true");
     }   
+
+    public Mono<SteamQueryDTO> getBasicInfo(String steamId) {
+        String url = String.format("/ISteamUser/GetPlayerSummaries/v0002/?key=%s&steamids=%s", apiKey, steamId);
+    
+        return webClient.get()
+            .uri(url)
+            .retrieve()
+            .bodyToMono(JsonNode.class)
+            .map(json -> {
+                JsonNode players = json.path("response").path("players");
+                if(!players.isArray() || players.isEmpty()) {
+                    throw new BadRequest(AuthErrorMessage.INVALID_STEAM_RESPONSE);
+                }
+                JsonNode player = players.get(0);
+                String nickname = player.path("personaname").asText();
+                String avatarUrl = player.path("avatarfull").asText();
+                return new SteamQueryDTO(nickname, avatarUrl);
+            });
+    }
 }

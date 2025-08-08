@@ -13,6 +13,7 @@ import com.noadminabuse.alpha.errors.BadRequest;
 import com.noadminabuse.alpha.errors.Unauthorized;
 import com.noadminabuse.alpha.errors.UnprocessableEntity;
 import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
+import com.noadminabuse.alpha.web.dto.auth.SteamQueryDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 import com.noadminabuse.alpha.web.dto.auth.UserInfoDTO;
 
@@ -54,10 +55,11 @@ public class AuthService {
         confirmOpenIdSignature(request);
         String steamId = confirmClaimedSteamId(request);
         String jwt = jwtService.generateToken(steamId);
+        SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(steamId).block();
 
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(null, steamId, steamId, jwt)
+            new UserInfoDTO(null, steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 
