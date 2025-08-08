@@ -1,13 +1,14 @@
 import type React from "react";
 
 export const LoginSteamButton: React.FC = () => {
+    
     const handleLogin = () => {
-        alert("Not yet implemented");
+        window.location.href="/api/v1/auth/steam";
     }
 
     return (
         <button onClick={handleLogin} className="cursor-pointer">
-            <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_large_noborder.png" alt="Logar com Steam"/>
+            <img src="https://community.akamai.steamstatic.com/public/images/signinthroughsteam/sits_01.png" alt="Logar com Steam"/>
         </button>
     )
 }

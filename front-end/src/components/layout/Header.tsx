@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
             content: <><FaFileSignature /> Nosso Manifesto</>
         },
         {
-            content: <>{isAuthenticated ? <img src={user?.avatarUrl} width={40} className="rounded-md"></img> : <LoginSteamButton />}</>
+            content: <>{isAuthenticated ? <img src={user?.avatarUrl} width={40} className="rounded-md"></img> : <LoginSteamButton/>}</>
         }
     ]
     
