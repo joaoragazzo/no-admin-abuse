@@ -9,11 +9,19 @@ import { NetworkHome } from "./pages/Network/NetworkHome"
 import { ScrollToTop } from "./utils/ScrollToTop"
 import { AuthProvider } from "./contexts/AuthContext"
 import { SteamLogin } from "./pages/SteamLogin"
-
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <AuthProvider>
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeButton
+        theme="dark"
+      />
       <div className="flex flex-col min-h-screen">
         <Header />
       <main className="flex-grow">
