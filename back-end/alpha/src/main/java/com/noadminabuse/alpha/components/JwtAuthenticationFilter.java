@@ -46,8 +46,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             } catch (ExpiredJwtException e) {
                 jwtAuthEntryPoint.commence(request, response, new AuthenticationException(AuthErrorMessage.EXPIRED_JWT.getMessage()) {});
+                return;
             } catch (Exception e) {
                 jwtAuthEntryPoint.commence(request, response, new AuthenticationException(AuthErrorMessage.INVALID_JWT.getMessage()) {});
+                return;
             }
         }
 

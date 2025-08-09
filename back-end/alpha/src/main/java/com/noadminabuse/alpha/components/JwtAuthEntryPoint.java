@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     private final FeedbackMapper feedbackMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void commence(HttpServletRequest request,
@@ -25,8 +26,9 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     AuthenticationException authenticationException) throws IOException {
         ErrorDTO error = feedbackMapper.toErrorDTO(authenticationException.getMessage());
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        new ObjectMapper().writeValue(response.getOutputStream(), error);
-        
+        objectMapper.writeValue(response.getWriter(), error);
+        response.getWriter().flush();
     }
 }
