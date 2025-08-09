@@ -1,5 +1,5 @@
 package com.noadminabuse.alpha.web.dto.feedback;
 
-public record SuccessDTO(
+public record SuccessDTO<T>(
     String message
 ) {}
