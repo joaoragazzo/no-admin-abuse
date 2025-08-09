@@ -9,9 +9,6 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.noadminabuse.alpha.errors.Unauthorized;
-import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -50,19 +47,13 @@ public class JwtService {
             .getSubject();
     }
 
-    public boolean isTokenValid(String token) {
-        try {
-            Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-            Date expiration = claims.getExpiration();
-            return !Objects.isNull(expiration) && expiration.after(new Date());
-        } catch (ExpiredJwtException e) {
-            throw new Unauthorized(AuthErrorMessage.EXPIRED_JWT);
-        } catch (Exception e) {
-            throw new Unauthorized(AuthErrorMessage.INVALID_JWT);
-        }
+    public boolean isTokenValid(String token) throws ExpiredJwtException {
+        Claims claims = Jwts.parser()
+            .verifyWith(getSigningKey())
+            .build()
+            .parseSignedClaims(token)
+            .getPayload();
+        Date expiration = claims.getExpiration();
+        return !Objects.isNull(expiration) && expiration.after(new Date());
     }
 }
