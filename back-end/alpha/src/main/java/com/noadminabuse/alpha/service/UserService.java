@@ -24,11 +24,10 @@ public class UserService {
             existingUser.setLastLoginAt(Instant.now());
             existingUser.setUsername(username);
             existingUser.setAvatarUrl(avatarUrl);
-            return existingUser;
+            return userRepository.save(existingUser);
         }
         
         User newUser = new User(steamId, username, avatarUrl);
-        userRepository.save(newUser);
-        return newUser;
+        return userRepository.save(newUser);
     }   
 }
