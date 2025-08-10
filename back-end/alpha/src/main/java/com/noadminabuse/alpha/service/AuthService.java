@@ -13,6 +13,7 @@ import com.noadminabuse.alpha.errors.BadRequest;
 import com.noadminabuse.alpha.errors.Unauthorized;
 import com.noadminabuse.alpha.errors.UnprocessableEntity;
 import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
+import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.web.dto.auth.SteamQueryDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 import com.noadminabuse.alpha.web.dto.auth.UserInfoDTO;
@@ -29,10 +30,12 @@ public class AuthService {
 
     private final SteamApiClient steamApiClient;
     private final JwtService jwtService;
+    private final UserService userService;
 
-    public AuthService(SteamApiClient steamApiClient, JwtService jwtService) {
+    public AuthService(SteamApiClient steamApiClient, JwtService jwtService, UserService userService) {
         this.steamApiClient = steamApiClient;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
 
     private static final String STEAM_OPENID = "https://steamcommunity.com/openid/login";
@@ -56,10 +59,10 @@ public class AuthService {
         String steamId = confirmClaimedSteamId(request);
         String jwt = jwtService.generateToken(steamId);
         SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(steamId).block();
-
+        User user = userService.createOrUpdate(steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull());
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(null, steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserInfoDTO(user.getId(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 

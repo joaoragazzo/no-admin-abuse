@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,12 @@ public class User {
     private String username;
     private String avatarUrl;
 
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean acceptedEula;
+    
+    private Instant acceptedEulaAt;
+    private Instant lastLoginAt;
+    
     @OneToOne
     @JoinColumn(name = "network_id")
     private Network network;
@@ -51,4 +58,18 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();
+
+    public User(String steamId, String username, String avatarUrl) {
+        this.steamId = steamId;
+        this.username = username;
+        this.avatarUrl = avatarUrl;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = Instant.now();
+            lastLoginAt = Instant.now();
+        }
+    }
 }
