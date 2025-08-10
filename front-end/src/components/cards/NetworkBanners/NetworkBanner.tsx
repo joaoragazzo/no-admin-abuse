@@ -7,6 +7,7 @@ import { NetworkServer } from "./NetworkServer"
 import { Rating } from "@/components/misc/Rating"
 import { useNavigate } from "react-router-dom"
 import { ReportNetworkPopup } from "@/components/popups/ReportNetworkPopup"
+import { usePopup } from "@/hooks/usePopup"
 
 interface NetworkBannerProps {
     id: string,
@@ -28,7 +29,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     const navigate = useNavigate();
     const [showServers, setShowServers] = useState<boolean>(false);
     const [moreOptions, setMoreOptions] = useState<boolean>(false);
-    const [reportPopup, setReportPopup] = useState<boolean>(false);
+    const reportPopup = usePopup();
     return (
         <>
         <div className="flex flex-row border-1 border-blue-500 p-4 rounded">
@@ -55,8 +56,9 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                                     </div>
                                 </Popup>
                                 <div 
-                                    className={`${moreOptions ? "max-w-[1000px] opacity-100" : "max-w-0 opacity-0"} flex flex-row gap-2 text-xs font-semibold overflow-hidden transition-all duration-800 ease-in-out ml-4`}>
-                                    <button className="text-nowrap rounded bg-red-700 px-3 flex items-center gap-1.5 py-1 cursor-pointer hover:bg-red-800" onClick={() => {setReportPopup(true)}}>
+                                    className={`${moreOptions ? "max-w-[1000px] opacity-100" : "max-w-0 opacity-0"} flex flex-row gap-2 text-xs font-semibold overflow-hidden transition-all duration-800 ease-in-out ml-4`}
+                                >
+                                    <button className="text-nowrap rounded bg-red-700 px-3 flex items-center gap-1.5 py-1 cursor-pointer hover:bg-red-800" onClick={reportPopup.openPopup}>
                                         <FaX /> Reportar servidor
                                     </button>
                                     <button className="text-nowrap rounded bg-green-500 px-3 flex items-center gap-1.5 py-1 cursor-pointer hover:bg-green-600">
@@ -112,8 +114,8 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
         </div>
 
         <ReportNetworkPopup 
-            open={reportPopup}
-            close={setReportPopup}
+            open={reportPopup.open}
+            onClose={reportPopup.closePopup}
             name={name}
         />
         </>

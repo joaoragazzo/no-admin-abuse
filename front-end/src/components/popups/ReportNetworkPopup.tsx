@@ -2,34 +2,24 @@ import { useState } from "react"
 import { BiInfoCircle } from "react-icons/bi"
 import { FaHammer } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
-import Popup from "reactjs-popup"
+import { PopupSkeleton } from "./PopupSkeleton"
 
 interface ReportNetworkPopup {
-    open: boolean
-    close: React.Dispatch<React.SetStateAction<boolean>>
-    name: string
+    open: boolean;
+    onClose: () => void;
+    name: string;
 }
 
-export const ReportNetworkPopup: React.FC<ReportNetworkPopup> = ({open, close, name}) => {
+export const ReportNetworkPopup: React.FC<ReportNetworkPopup> = ({open, onClose, name}) => {
     const [characters, setCharacters] = useState<number>(0);
     
     return (
-        <Popup
+        <PopupSkeleton
+            title={<>Reportar conteúdo do rede de servidores <strong>{name}</strong></>}
             open={open}
-            overlayStyle={{ backgroundColor: 'rgba(0,0,0,0.28)'}}
-            onClose={() => {close(false)}}
+            onClose={onClose}
         >
-            <div className="min-w-2xl max-w-2xl">
-                <div className="rounded-t-xl bg-gray-800 px-5 py-2 flex items-center justify-between">
-                    <div>
-                        Reportar conteúdo do rede de servidores <strong>{name}</strong>  
-                    </div>
-                    <div>
-                        <FaX className="cursor-pointer" onClick={() => {close(false)}}/>
-                    </div> 
-                </div>
-                <div className="rounded-b-xl bg-gray-900 px-5 py-4 flex flex-col">
-                    <div className="mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">
+            <div className="mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">
                         <div className="absolute -top-2.5 left-3 bg-gray-900 px-2 text-white text-xs">
                             Considerações importantes
                         </div>
@@ -80,9 +70,7 @@ export const ReportNetworkPopup: React.FC<ReportNetworkPopup> = ({open, close, n
                             </button>
                         </div>
                     </div>
-                    
-                </div>
-            </div>
-        </Popup>
+        </PopupSkeleton>
+
     )
 }
