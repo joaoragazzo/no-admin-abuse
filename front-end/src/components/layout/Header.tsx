@@ -1,18 +1,21 @@
-import { FaBars, FaGamepad, FaUser } from "react-icons/fa"
+import { FaBars, FaGamepad } from "react-icons/fa"
 import { LoginSteamButton } from "../button/LoginSteamButton"
-import { FaFileShield, FaFileSignature, FaGear } from "react-icons/fa6"
+import { FaFileShield, FaFileSignature, FaShield } from "react-icons/fa6"
 import { useState } from "react";
 import { Brand } from "../Brand";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Popup from "reactjs-popup";
-import { ImExit } from "react-icons/im";
+import { LoginPopup } from "./LoginPopup";
+import { SafeLoginPopup } from "../popups/SafeLoginPopup";
 
 
 export const Header: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
-    const { logout, user, isAuthenticated } = useAuth();
+    const [safeLoginPopup, setSafeLoginPopup] = useState<boolean>(false);
+    const { user, isAuthenticated } = useAuth();
     
+
     const items = [
         {
             content: <Link to="/games" className="flex flex-row items-center gap-3"><FaGamepad />Jogos</Link> 
@@ -31,19 +34,12 @@ export const Header: React.FC = () => {
                     trigger={<img src={user?.avatarUrl} width={40} className="rounded-md" />}
                     position={"bottom right"}
                 >
-                    <div className="text-sm flex flex-col bg-white rounded-md text-black">
-                        <div className="rounded-t-md cursor-pointer hover:bg-gray-100 px-3 py-1 flex flex-row gap-2.5 items-center">
-                            <FaUser /> Perfil
-                        </div>
-                        <div className="cursor-pointer hover:bg-gray-100 px-3 flex flex-row py-1 gap-2.5 items-center">
-                            <FaGear /> Configurações
-                        </div>
-                        <div onClick={() => {logout()}} className="rounded-b-md cursor-pointer hover:bg-gray-100 px-3 py-1 flex flex-row gap-2.5 items-center">
-                            <ImExit /> Logout
-                        </div>
-                    </div>
+                    <LoginPopup />
                 </Popup> : 
-                <LoginSteamButton/>
+                <div className="flex gap-3 items-center">
+                    <LoginSteamButton />
+                    <FaShield onClick={() => {setSafeLoginPopup(true)}} className="text-black hover:bg-white bg-gray-100 hover:scale-115 transition-all w-6 h-6 p-1.5 rounded-md"/>
+                </div>
             }
             </>
         }
@@ -71,7 +67,13 @@ export const Header: React.FC = () => {
                     {content.content}
                 </div>
             ))}
+            
         </div>
+    
+        <SafeLoginPopup 
+            open={safeLoginPopup}
+            onClose={() => {setSafeLoginPopup(false)}}
+        />
     </>
         
     )
