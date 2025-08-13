@@ -3,6 +3,7 @@ package com.noadminabuse.alpha.service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -57,22 +58,23 @@ public class AuthService {
         confirmOpenIdMode(request);
         confirmOpenIdSignature(request);
         String steamId = confirmClaimedSteamId(request);
-        String jwt = jwtService.generateToken(steamId);
         SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(steamId).block();
         User user = userService.createOrUpdate(steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull());
+        String jwt = jwtService.generateToken(user.getId());
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(user.getId(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserInfoDTO(user.getId(), user.isAcceptedEula(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 
-    public SuccessLoginDTO refreshSteamLogin(String steamId) {
-        String jwt = jwtService.generateToken(steamId);
-        SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(steamId).block();
+    public SuccessLoginDTO refreshSteamLogin(UUID uuid) {
+        String jwt = jwtService.generateToken(uuid);
+        User user = userService.getUser(uuid);
+        SteamQueryDTO steamQueryDTO = steamApiClient.getBasicInfo(user.getSteamId()).block();
 
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(null, steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserInfoDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 

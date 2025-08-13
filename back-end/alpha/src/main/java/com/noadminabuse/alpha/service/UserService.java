@@ -2,9 +2,12 @@ package com.noadminabuse.alpha.service;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.errors.NotFound;
+import com.noadminabuse.alpha.errors.enums.UserErrorMessage;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.UserRepository;
 
@@ -29,5 +32,20 @@ public class UserService {
         
         User newUser = new User(steamId, username, avatarUrl);
         return userRepository.save(newUser);
-    }   
+    }
+
+    public User getUser(UUID uuid) {
+        return userRepository.findById(uuid).orElseThrow(
+            () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
+        );
+    }
+
+    public void userConsentEula(UUID uuid) {
+        User user = getUser(uuid);
+        user.setAcceptedEula(true);
+        user.setAcceptedEulaAt(Instant.now());
+        userRepository.save(user);
+    }
+
+    
 }

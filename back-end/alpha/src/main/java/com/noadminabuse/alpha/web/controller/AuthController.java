@@ -1,14 +1,15 @@
 package com.noadminabuse.alpha.web.controller;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 import com.noadminabuse.alpha.service.AuthService;
+import com.noadminabuse.alpha.utils.SecurityUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -42,12 +43,10 @@ public class AuthController {
 
     @GetMapping("/steam/profile")
     public ResponseEntity<SuccessLoginDTO> fetchUserInfo() {
-        String steamId = SecurityContextHolder
-            .getContext()
-            .getAuthentication()
-            .getName();
+        UUID uuid = SecurityUtils.getCurrentUserId();
+        
         // TODO: Make a refresh token for security
-        SuccessLoginDTO successLoginDTO = authService.refreshSteamLogin(steamId);
+        SuccessLoginDTO successLoginDTO = authService.refreshSteamLogin(uuid);
         return ResponseEntity.ok(successLoginDTO);
     }
     

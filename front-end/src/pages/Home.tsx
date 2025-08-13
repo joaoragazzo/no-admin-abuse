@@ -4,6 +4,7 @@ import { HeroSection } from "../components/sections/HeroSection";
 import { Metrics } from "../components/sections/metrics/Metrics";
 import { RatedServer } from "../components/cards/RatedServer";
 import { FaSkull } from "react-icons/fa";
+import { EulaPopup } from "@/components/popups/EulaPopup";
 
 export const Home: React.FC = () => {
     return (
@@ -66,6 +67,8 @@ export const Home: React.FC = () => {
 
           </div>
         </Section>
+
+        <EulaPopup />
     </>
         
     )

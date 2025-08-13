@@ -3,6 +3,7 @@ package com.noadminabuse.alpha.service;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
@@ -29,9 +30,9 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(String steamId) {
+    public String generateToken(UUID uuid) {
         return Jwts.builder()
-            .subject(steamId)
+            .subject(uuid.toString())
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(getSigningKey())

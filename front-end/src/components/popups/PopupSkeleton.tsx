@@ -15,7 +15,7 @@ export const PopupSkeleton: React.FC<PopupSkeletonProps> = ({ title, children, o
         <>
             <Popup
                 open={open}
-                overlayStyle={{ backgroundColor: 'rgba(0,0,0,0.28)'}}
+                overlayStyle={{ backgroundColor: 'rgba(0,0,0,0.5)'}}
                 onClose={onClose}
             >
                 <div className="min-w-2xl max-w-2xl">
