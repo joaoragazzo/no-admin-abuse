@@ -28,7 +28,6 @@ export const EulaPopup: React.FC = () => {
     return <PopupSkeleton
         title={<><FaFile /> Termos de Uso e Políticas de Privacidade</>}
         open={openedPopup}
-        onClose={() => {}}
         closeDocumentOnClick={false}
     >
         <div className="mb-5 mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">

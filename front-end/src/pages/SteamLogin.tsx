@@ -1,6 +1,7 @@
 import { useAuth } from "@/contexts/AuthContext";
 import AuthenticationService from "@/services/AuthenticationService";
 import { useEffect } from "react"
+import { BiLoaderCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,7 +21,14 @@ export const SteamLogin = () => {
             })        
     },[])
 
-    return <>
-        Carregando...
-    </>
+    return (
+        <div className="w-full h-100 flex flex-grow flex-col items-center justify-center">
+            <div className="flex flex-col gap-3 items-center">
+                <BiLoaderCircle size={40} className="spinner" />
+                <div>
+                    Aguarde enquanto confirmamos o seu login com a Steam...
+                </div>
+            </div>
+        </div>
+    )
 }
