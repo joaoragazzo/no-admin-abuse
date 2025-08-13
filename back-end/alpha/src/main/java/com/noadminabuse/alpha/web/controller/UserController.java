@@ -25,9 +25,9 @@ public class UserController {
     @PostMapping("/consent")
     public ResponseEntity<MessageDTO> consentEula() {
         UUID uuid = SecurityUtils.getCurrentUserId();
-        userService.userConsentEula(uuid);
+        MessageDTO message = userService.userConsentEula(uuid);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(message);
     }
     
 }
