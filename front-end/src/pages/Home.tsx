@@ -5,10 +5,8 @@ import { Metrics } from "../components/sections/metrics/Metrics";
 import { RatedServer } from "../components/cards/RatedServer";
 import { FaSkull } from "react-icons/fa";
 import { EulaPopup } from "@/components/popups/EulaPopup";
-import { useAuth } from "@/contexts/AuthContext";
 
 export const Home: React.FC = () => {
-    const { user } = useAuth();
   
     return (
     <>
@@ -71,7 +69,7 @@ export const Home: React.FC = () => {
           </div>
         </Section>
 
-        <EulaPopup open={!(user?.eula)}/>
+        <EulaPopup />
     </>
         
     )

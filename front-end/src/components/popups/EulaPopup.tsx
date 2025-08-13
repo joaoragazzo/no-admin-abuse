@@ -3,14 +3,14 @@ import { PopupSkeleton } from "./PopupSkeleton";
 import { FaFile } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import UserService from "@/services/UserService";
+import { useAuth } from "@/contexts/AuthContext";
 
-interface EulaPopup {
-    open: boolean;
-} 
 
-export const EulaPopup: React.FC<EulaPopup> = ({open}) => {
+export const EulaPopup: React.FC = () => {
+    const { user } = useAuth();
+
     useEffect(() => {
-        if (open) {
+        if (!!user && !user.eula) {
           document.body.style.overflow = 'hidden';
         } else {
           document.body.style.overflow = '';
@@ -19,11 +19,11 @@ export const EulaPopup: React.FC<EulaPopup> = ({open}) => {
         return () => {
           document.body.style.overflow = '';
         }
-      }, [open]
+      }, [user]
     );
 
     const [acceptedEula, setAcceptedEula] = useState<boolean>(false);
-    const [openedPopup, setOpenedPopup] = useState<boolean>(open);
+    const [openedPopup, setOpenedPopup] = useState<boolean>(!!user && !user.eula);
 
     return <PopupSkeleton
         title={<><FaFile /> Termos de Uso e Políticas de Privacidade</>}
