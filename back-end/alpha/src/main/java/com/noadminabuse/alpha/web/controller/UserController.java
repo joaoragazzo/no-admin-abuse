@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.service.UserService;
 import com.noadminabuse.alpha.utils.SecurityUtils;
+import com.noadminabuse.alpha.web.dto.MessageDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -22,9 +23,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/consent")
-    public ResponseEntity<Void> consentEula() {
+    public ResponseEntity<MessageDTO> consentEula() {
         UUID uuid = SecurityUtils.getCurrentUserId();
-        
+        userService.userConsentEula(uuid);
+
         return ResponseEntity.ok().build();
     }
     

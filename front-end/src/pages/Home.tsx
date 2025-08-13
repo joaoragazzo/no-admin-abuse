@@ -5,8 +5,11 @@ import { Metrics } from "../components/sections/metrics/Metrics";
 import { RatedServer } from "../components/cards/RatedServer";
 import { FaSkull } from "react-icons/fa";
 import { EulaPopup } from "@/components/popups/EulaPopup";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Home: React.FC = () => {
+    const { user } = useAuth();
+  
     return (
     <>
         <Section className="py-20 bg-[url('/topography.svg')] bg-repeat bg-center bg-[length:500px] flex justify-center">
@@ -68,7 +71,7 @@ export const Home: React.FC = () => {
           </div>
         </Section>
 
-        <EulaPopup />
+        <EulaPopup open={!(user?.eula)}/>
     </>
         
     )

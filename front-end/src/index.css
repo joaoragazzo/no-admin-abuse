@@ -41,3 +41,8 @@ body {
 .animate-fadeUp {
   animation: fadeUp 1.5s ease-in-out forwards;
 }
+
+.btn-primary {
+  @apply 
+    bg-blue-600 px-3 rounded cursor-pointer hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed;
+}

@@ -1,6 +1,8 @@
 package com.noadminabuse.alpha.errors.enums;
 
-public enum AuthErrorMessage implements ErrorMessage{
+import com.noadminabuse.alpha.messages.Feedback;
+
+public enum AuthErrorMessage implements Feedback{
     INVALID_STEAM_RESPONSE("INVALID_STEAM_RESPONSE"),
     INVALID_STEAM_ID("INVALID_STEAM_ID"),
     COULD_NOT_CONFIRM_OPENID_SIGNATURE("COULD_NOT_CONFIRM_OPENID_SIGNATURE"),

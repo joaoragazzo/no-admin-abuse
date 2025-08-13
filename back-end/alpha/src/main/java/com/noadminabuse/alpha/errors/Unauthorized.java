@@ -1,9 +1,9 @@
 package com.noadminabuse.alpha.errors;
 
-import com.noadminabuse.alpha.errors.enums.ErrorMessage;
+import com.noadminabuse.alpha.messages.Feedback;
 
 public class Unauthorized extends RuntimeException {
-    public Unauthorized(ErrorMessage error) {
+    public Unauthorized(Feedback error) {
         super(error.getMessage());
     }
 }

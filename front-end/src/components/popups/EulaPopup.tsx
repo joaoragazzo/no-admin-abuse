@@ -1,12 +1,35 @@
 import type React from "react";
 import { PopupSkeleton } from "./PopupSkeleton";
 import { FaFile } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import UserService from "@/services/UserService";
 
-export const EulaPopup: React.FC = () => {
+interface EulaPopup {
+    open: boolean;
+} 
+
+export const EulaPopup: React.FC<EulaPopup> = ({open}) => {
+    useEffect(() => {
+        if (open) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+    
+        return () => {
+          document.body.style.overflow = '';
+        }
+      }, [open]
+    );
+
+    const [acceptedEula, setAcceptedEula] = useState<boolean>(false);
+    const [openedPopup, setOpenedPopup] = useState<boolean>(open);
+
     return <PopupSkeleton
         title={<><FaFile /> Termos de Uso e Políticas de Privacidade</>}
-        open={false}
+        open={openedPopup}
         onClose={() => {}}
+        closeDocumentOnClick={false}
     >
         <div className="mb-5 mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">
             <div className="absolute -top-2.5 left-3 bg-gray-900 px-2 text-white text-sm">
@@ -154,17 +177,21 @@ export const EulaPopup: React.FC = () => {
 
         <div className="mt-4">
             <div className="text-sm mb-2">
-                <input type="checkbox" /> Eu afirmo que li e concordo com os <strong>Termos e Condições de Uso</strong>{" "}e{" "} 
+                <input type="checkbox" checked={acceptedEula} onChange={(e) => {setAcceptedEula(e.target.checked)}}/> Eu afirmo que li e concordo com os <strong>Termos e Condições de Uso</strong>{" "}e{" "} 
                 <strong>Políticas de Privacidade</strong> acima.
             </div>
-            <div className="text-sm">
-                <input type="checkbox" /> Eu entendo que possíveis alterações nos <strong>Termos e 
-                Condições de Uso</strong> e <strong>Políticas de Privacidade</strong> podem ocorrer.
-            </div>
+            
         </div>
         
         <div className="mt-4 flex justify-end">
-            <button className="bg-blue-600 px-3 rounded cursor-pointer hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed" disabled>Continuar</button>
+            <button 
+                className="btn-primary" 
+                disabled={!acceptedEula}
+                onClick={async () => {
+                    await UserService.acceptEula();
+                    setOpenedPopup(false);
+                }}
+            >Continuar</button>
         </div>
             
             

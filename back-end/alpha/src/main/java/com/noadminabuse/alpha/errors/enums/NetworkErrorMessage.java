@@ -1,6 +1,8 @@
 package com.noadminabuse.alpha.errors.enums;
 
-public enum NetworkErrorMessage implements ErrorMessage{
+import com.noadminabuse.alpha.messages.Feedback;
+
+public enum NetworkErrorMessage implements Feedback{
     NETWORK_NOT_FOUND("NETWORK_NOT_FOUND");
 
     private String message;

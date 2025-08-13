@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.UserErrorMessage;
+import com.noadminabuse.alpha.mapper.FeedbackMapper;
+import com.noadminabuse.alpha.messages.UserMessage;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.UserRepository;
+import com.noadminabuse.alpha.web.dto.MessageDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -18,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class UserService {
     
     private final UserRepository userRepository;
+    private final FeedbackMapper feedbackMapper;
 
     public User createOrUpdate(String steamId, String username, String avatarUrl) {
         Optional<User> user = userRepository.findBySteamId(steamId);
@@ -40,12 +44,13 @@ public class UserService {
         );
     }
 
-    public void userConsentEula(UUID uuid) {
+    public MessageDTO userConsentEula(UUID uuid) {
         User user = getUser(uuid);
         user.setAcceptedEula(true);
         user.setAcceptedEulaAt(Instant.now());
         userRepository.save(user);
+
+        return feedbackMapper.success(UserMessage.SUCCESS_ACCEPTED_EULA.getMessage());
     }
 
-    
 }

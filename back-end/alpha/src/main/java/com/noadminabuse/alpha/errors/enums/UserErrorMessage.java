@@ -1,6 +1,8 @@
 package com.noadminabuse.alpha.errors.enums;
 
-public enum UserErrorMessage implements ErrorMessage {
+import com.noadminabuse.alpha.messages.Feedback;
+
+public enum UserErrorMessage implements Feedback {
     USER_NOT_FOUND("USER_NOT_FOUND");
 
     private String message;

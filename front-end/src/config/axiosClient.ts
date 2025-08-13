@@ -1,3 +1,4 @@
+import { MessageType } from "@/enums/MessageType";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -26,6 +27,17 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
+    const message = response?.data?.message;
+    const type: MessageType = response?.data?.type;
+
+    if (type === MessageType.SUCCESS ) {
+      toast.success(message);
+    } else if (type === MessageType.INFO ) {
+      toast.info(message);
+    } else if (type === MessageType.WARNING) {
+      toast.warn(message);
+    }
+    
     return response;
   },
   (error) => {
