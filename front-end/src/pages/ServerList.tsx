@@ -11,6 +11,7 @@ import type { Pageable } from "@/interfaces/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
 import { Region } from "@/enums/Region";
+import { CountUp } from "@/components/misc/CountUp";
 
 
 export const ServerList: React.FC = () => {
@@ -212,7 +213,7 @@ export const ServerList: React.FC = () => {
                             Servidores
                         </div>
                         <div className="text-xl text-white font-bold">
-                            1,248
+                            <CountUp end={1000} separator="." />
                         </div> 
                     </div>
                 </div>
@@ -226,7 +227,7 @@ export const ServerList: React.FC = () => {
                             Jogadores Online
                         </div>
                         <div className="text-xl text-white font-bold">
-                            24,678
+                            <CountUp end={8192} separator="."/>
                         </div> 
                     </div>
                 </div>
@@ -240,7 +241,7 @@ export const ServerList: React.FC = () => {
                             Avaliações
                         </div>
                         <div className="text-xl text-white font-bold">
-                            3,721
+                            <CountUp end={3721} separator="."/>
                         </div> 
                     </div>
                 </div>
@@ -254,7 +255,7 @@ export const ServerList: React.FC = () => {
                             Regiões
                         </div>
                         <div className="text-xl text-white font-bold">
-                            5
+                            <CountUp end={5} separator="."/>
                         </div> 
                     </div>
                 </div>
