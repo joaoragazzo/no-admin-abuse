@@ -7,7 +7,8 @@ import { FaX } from "react-icons/fa6"
 
 export const NetworkMakeReview = () => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    
+    const [starCounter, setStarCounter] = useState<number>(0);
+
     const toogleTag = (id: string):void => {
         if (selectedTags.includes(id)) {
             setSelectedTags(prev => prev.filter(prev => prev != id));
@@ -22,7 +23,7 @@ export const NetworkMakeReview = () => {
     return (
         <div className="flex flex-col gap-2 mt-3">             
             <div className="flex flex-row gap-3 text-gray-200">
-                Nota: <Rating rating={3}/>
+                Nota: <Rating rating={starCounter} editable onChange={setStarCounter} />
             </div>
 
             <div className="mb-2">

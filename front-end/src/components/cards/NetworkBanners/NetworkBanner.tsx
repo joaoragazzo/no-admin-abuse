@@ -82,8 +82,8 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                                 
                     <div className="flex flex-row gap-2 text-xs">
                        <Rating rating={1} />
-                        <div className="text-blue-500 flex flex-row items-center border-b-1 mb-0.5 cursor-pointer">
-                            ({feedbackCount} avaliações) <FaAngleRight size={11} />
+                        <div className="text-gray-400 flex flex-row items-center">
+                            ({feedbackCount} avaliações)
                         </div>
                     </div>
                     
