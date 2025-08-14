@@ -4,7 +4,7 @@ import type { NetworkDTO } from "@/interfaces/NetworkDTO"
 import type { FiltersDTO } from "@/interfaces/FiltersDTO";
 
 
-const fetchAllServers = async (
+const fetchAllNetworks = async (
     { 
         page, 
         tags, 
@@ -16,7 +16,7 @@ const fetchAllServers = async (
         search: string, 
         region: string|null 
     }): Promise<Pageable<NetworkDTO>> => {
-    const response =  await api.post<Pageable<NetworkDTO>>(`/server/`, {
+    const response =  await api.post<Pageable<NetworkDTO>>(`/network/`, {
         page: page, 
         tags: tags, 
         search: search, 
@@ -30,4 +30,4 @@ const fetchAllTags = async (): Promise<FiltersDTO> => {
     return response.data;
 }
 
-export default { fetchAllServers, fetchAllTags };
+export default { fetchAllNetworks, fetchAllTags };

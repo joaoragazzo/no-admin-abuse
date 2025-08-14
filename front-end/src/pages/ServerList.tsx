@@ -54,7 +54,7 @@ export const ServerList: React.FC = () => {
             return;
           }
 
-        serverService.fetchAllServers({
+        serverService.fetchAllNetworks({
             page: currentPage - 1,
             tags: Array.from(activeTags),
             search: searchText,
@@ -255,7 +255,7 @@ export const ServerList: React.FC = () => {
                             Regiões
                         </div>
                         <div className="text-xl text-white font-bold">
-                            <CountUp end={5} separator="."/>
+                            <CountUp end={7} />
                         </div> 
                     </div>
                 </div>
