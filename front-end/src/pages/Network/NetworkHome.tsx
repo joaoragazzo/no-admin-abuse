@@ -11,6 +11,7 @@ import { FaUserGroup, FaX } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
+import { Tag } from "@/components/misc/Tag";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
@@ -120,18 +121,18 @@ export const NetworkHome: React.FC = () => {
                                 </div>
 
                                 <div className="flex flex-row flex-wrap gap-3">
-                                    <div className="border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">
+                                    <Tag color="green">
                                         Staff imparcial
-                                    </div>
-                                    <div className="border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">
+                                    </Tag>
+                                    <Tag color="green">
                                         Eventos
-                                    </div>
-                                    <div className="border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">
+                                    </Tag>
+                                    <Tag color="green">
                                         Baixa latência
-                                    </div>
-                                    <div className="border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">
+                                    </Tag>
+                                    <Tag color="green">
                                         Suporte rápido
-                                    </div>
+                                    </Tag>
                                 </div>
                             </div>
                             
@@ -142,18 +143,18 @@ export const NetworkHome: React.FC = () => {
                                 </div>
 
                                 <div className="flex flex-row flex-wrap gap-3">
-                                    <div className="border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">
+                                    <Tag color="red">
                                         Pay-2-win
-                                    </div>
-                                    <div className="border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">
+                                    </Tag>
+                                    <Tag color="red">
                                         VIPs muitos caros
-                                    </div>
-                                    <div className="border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">
+                                    </Tag>
+                                    <Tag color="red">
                                         Comunidade tóxica
-                                    </div>
-                                    <div className="border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">
+                                    </Tag>
+                                    <Tag color="red">
                                         Favoritismo
-                                    </div>
+                                    </Tag>
                                 </div>
                             </div>
                         </Card.Content>

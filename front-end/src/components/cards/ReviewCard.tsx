@@ -3,6 +3,7 @@ import { Rating } from "../misc/Rating";
 import { GoDotFill } from "react-icons/go";
 import { FaAngleDown, FaThumbsUp } from "react-icons/fa";
 import { IoIosReturnRight } from "react-icons/io";
+import { Tag } from "../misc/Tag";
 
 export const ReviewCard: React.FC = () => {
     return (
@@ -29,8 +30,8 @@ export const ReviewCard: React.FC = () => {
                 </div>
                 
                 <div className="mt-3 flex flex-wrap flex-row gap-3">
-                    <div className="w-fit border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">Staff imparcial</div>
-                    <div className="w-fit border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">VIPs caros</div>
+                    <Tag color="red">Staff parcial</Tag>
+                    <Tag color="green">Muitos eventos</Tag>
                 </div>
 
                 <div className="text-sm mt-1 items-center flex flex-row gap-3">
