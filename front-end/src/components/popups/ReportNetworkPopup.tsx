@@ -1,8 +1,8 @@
-import { useState } from "react"
 import { BiInfoCircle } from "react-icons/bi"
 import { FaHammer } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 import { PopupSkeleton } from "./PopupSkeleton"
+import { TextArea } from "../inputs/TextArea"
 
 interface ReportNetworkPopup {
     open: boolean;
@@ -11,7 +11,6 @@ interface ReportNetworkPopup {
 }
 
 export const ReportNetworkPopup: React.FC<ReportNetworkPopup> = ({open, onClose, name}) => {
-    const [characters, setCharacters] = useState<number>(0);
     
     return (
         <PopupSkeleton
@@ -53,14 +52,11 @@ export const ReportNetworkPopup: React.FC<ReportNetworkPopup> = ({open, onClose,
                     </div>
                     
                     <div className="flex flex-col mt-5">
-                        <div className="text-sm">Mais detalhes</div>
-                        <textarea 
-                            placeholder="Ofereça mais detalhes..." 
-                            className="rounded border-white/60 border-1 p-2 resize-none h-30" 
-                            onChange={(e) => {setCharacters(e.target.value.length)}}
-                            maxLength={300}
+                        <TextArea 
+                            label="Mais detalhes"
+                            placeholder="Ofereça mais detalhes"
+                            maxCharacters={300}
                         />
-                        <div className="text-right text-sm text-gray-400 mt-1">{characters}/300</div>
                     </div>
                 </div>
                 <div className="mt-4 flex justify-between">

@@ -1,12 +1,12 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 
-interface PaginatiionProps {
+interface PaginationProps {
     currentPage: number,
     totalPages: number | undefined,
     onPageChange: (page: number) => void,
 }
 
-export const Pagination: React.FC<PaginatiionProps> = ({currentPage, totalPages, onPageChange}) => {
+export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, onPageChange}) => {
     const generatePagination = (current: number, total: number): (number | string)[] => {
         const range: (number | string)[] = [];
         const visiblePages = 7;

@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
-import { ImBubbles } from "react-icons/im";
 import { MdVerified } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { NetworkReviews } from "./NetworkReviews";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
@@ -165,7 +165,7 @@ export const NetworkHome: React.FC = () => {
                         </Card.Title>   
 
                         <Card.Content>
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3 mt-3">
                                 {networkDetails?.servers.slice(0, visibleCount).map((content, key) => (
                                     <div className="border-1 rounded-md border-gray-600">
                                         <NetworkServer
@@ -179,7 +179,7 @@ export const NetworkHome: React.FC = () => {
                             {networkDetails.servers.length > 3 && 
                                 <div 
                                     onClick={() => {setVisibleCount(prev => prev === 3 ? 999 : 3)}}
-                                    className="cursor-pointer hover:bg-blue-700 bg-blue-800 transition-all font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
+                                    className="cursor-pointer hover:bg-blue-800 bg-blue-900 transition-all font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
                                     Ver {visibleCount === 3 ? <>mais <FaAngleDown /></> : <>menos <FaAngleUp /></>}
                                 </div>
                             }
@@ -319,80 +319,8 @@ export const NetworkHome: React.FC = () => {
                     </Card>
                 </div>
             </div>
-            <div className="px-10 md:px-20 mb-10">
-                <Card>
-                    <Card.Title>
-                        <div className="flex flex-row items-center gap-3 font-bold text-md">
-                            <ImBubbles className="text-blue-700"/> Avaliações
-                        </div>
-                        <button className="font-bold text-xs bg-amber-500 px-2 py-1 rounded-md flex flex-row gap-1.5 items-center">
-                            <FaStar /> Fazer avaliação
-                        </button>
-                    </Card.Title>
-
-                    <Card.Content>
-                        <div className="mt-3 flex flex-col gap-3">
-                            <div className="bg-gray-800 px-5 rounded-md py-5">
-                                <div className="flex flex-row items-center gap-3 mb-2">
-                                    <div className="bg-green-700 rounded-full w-10 h-10 items-center flex justify-center">
-                                        VP
-                                    </div>
-                                    <div className="flex flex-col w-full">
-                                        <div className="flex flex-row justify-between w-full">
-                                            <div className="font-bold">Vovô Penisvaldo</div>
-                                            <div className="text-xs text-gray-300">Há 1 semana</div>
-                                        </div>
-                                        <Rating rating={2} size={14}/>
-                                    </div>
-                                </div>
-                                <div className="text-justify text-sm text-gray-200">
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                                    Reiciendis error deserunt quas expedita iure incidunt quia 
-                                    quod architecto, ullam saepe? Enim quae aperiam repellat 
-                                    voluptate dicta reprehenderit! Ut, vero aspernatur.
-                                </div>
-                                
-                                <div className="mt-3 flex flex-wrap flex-row gap-3">
-                                    <div className="w-fit border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">Staff imparcial</div>
-                                    <div className="w-fit border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">VIPs caros</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-3 flex flex-col gap-3">
-                            <div className="bg-gray-800 px-5 rounded-md py-5">
-                                <div className="flex flex-row items-center gap-3 mb-2">
-                                    <div className="bg-green-700 rounded-full w-10 h-10 items-center flex justify-center">
-                                        VP
-                                    </div>
-                                    <div className="flex flex-col w-full">
-                                        <div className="flex flex-row justify-between w-full">
-                                            <div className="font-bold">Vovô Penisvaldo</div>
-                                            <div className="text-xs text-gray-300">Há 1 semana</div>
-                                        </div>
-                                        <Rating rating={2} size={14}/>
-                                    </div>
-                                </div>
-                                <div className="text-justify text-sm text-gray-200">
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                                    Reiciendis error deserunt quas expedita iure incidunt quia 
-                                    quod architecto, ullam saepe? Enim quae aperiam repellat 
-                                    voluptate dicta reprehenderit! Ut, vero aspernatur.
-                                </div>
-                                
-                                <div className="mt-3 flex flex-wrap flex-row gap-3">
-                                    <div className="w-fit border-1 rounded-full border-green-600 text-xs px-3 py-0.5 text-green-600 bg-green-100 font-medium">Staff imparcial</div>
-                                    <div className="w-fit border-1 rounded-full border-red-600 text-xs px-3 py-0.5 text-red-600 bg-red-100 font-medium">VIPs caros</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-blue-950 font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
-                            Ver mais <FaAngleDown />
-                        </div>
-                    </Card.Content>
-                </Card>
-            </div>
+            
+            <NetworkReviews />
         </div>
     </>   
     );

@@ -44,7 +44,7 @@ body {
 
 .btn-primary {
   @apply 
-    bg-blue-600 px-3 rounded cursor-pointer hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed;
+    bg-blue-800 px-5 text-sm py-1.5 rounded cursor-pointer hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all;
 }
 
 @keyframes spin-slow {

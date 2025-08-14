@@ -15,7 +15,7 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
     const { t: tagsTranslation } = useTranslation('tags');
 
     return (
-        <div className="flex flex-col bg-blue-980 px-4 py-3 text-sm rounded-md text-gray-200">
+        <div className="flex flex-col bg-gray-900 px-4 py-3 text-sm rounded-md text-gray-200">
             <div className="flex flex-row justify-between">
                 <div className="font-bold">
                     {server.name}

@@ -24,7 +24,7 @@ interface CardComposition {
 
 const Card: React.FC<CardProps> & CardComposition = ({ children }) => {
     return (
-        <div className="bg-gray-900 px-5 py-3 rounded-md">
+        <div className="bg-gray-980 py-3 rounded-md">
             {children}
         </div>
     );
