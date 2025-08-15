@@ -8,7 +8,7 @@ import { NetworkMakeReview } from "./NetworkMakeReview";
 
 export const NetworkReviews: React.FC = () => {
     return (
-        <div className="px-10 md:px-20 mb-10">
+        <div className=" px-10 md:px-20 xl:px-50 0 mb-10 max-w-400">
             <Card.Title>
                 <div className="flex flex-row justify-between w-full items-center">
                     <div className="flex flex-row items-center gap-3 font-bold text-md">

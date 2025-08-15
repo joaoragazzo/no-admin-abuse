@@ -41,7 +41,7 @@ export const NetworkHome: React.FC = () => {
     return (
     <>   
         {/* Header */}
-        <div className="bg-gray-950 py-20 flex flex-row justify-center">
+        <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
             <div className="flex max-w-400 gap-5 flex-grow px-10 md:px-20 xl:px-50">
                 <div className="border-2 text-blue-800 border-blue-800 bg-blue-980 w-fit h-fit p-8 rounded-md">
                     <FaSkullCrossbones size={33}/>
@@ -87,7 +87,7 @@ export const NetworkHome: React.FC = () => {
         </div>
         
         {/* Content */}
-        <div className="w-full flex justify-center flex-col">
+        <div className="w-full flex justify-center items-center flex-col">
             <div className="flex flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
                 <div className="flex flex-col basis-2/3 gap-8">
                     <Card>
