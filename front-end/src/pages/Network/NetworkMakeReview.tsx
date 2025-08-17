@@ -1,13 +1,17 @@
 import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
+import { useNetworkHome } from "@/contexts/NetworkHomeContext"
+import ReviewService from "@/services/ReviewService"
 import { useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 
 export const NetworkMakeReview = () => {
+    const { networkId } = useNetworkHome();
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [starCounter, setStarCounter] = useState<number>(0);
+    const [text, setText] = useState<string>("");
 
     const toogleTag = (id: string):void => {
         if (selectedTags.includes(id)) {
@@ -17,11 +21,23 @@ export const NetworkMakeReview = () => {
         }
     }
 
+    const handleSubmit = () => {
+        if (!networkId)
+            return;
+        
+        ReviewService.makeReview({
+            networkId: networkId,
+            text: text,
+            rating: starCounter,
+            anonymous: false
+        })
+    }
+
     const mockedGoodTags = ["Staff imparcial", "Eventos", "Baixa latência", "Suporte rápido"]
     const mockedBadTags = ["Pay-2-win", "VIPs muitos caros", "Comunidade tóxica", "Favoritismo"]
 
     return (
-        <div className="flex flex-col gap-2 mt-3">             
+        <div className="flex flex-col gap-2 mt-3 w-full">             
             <div className="flex flex-row gap-3 text-gray-200">
                 Nota: <Rating rating={starCounter} editable onChange={setStarCounter} />
             </div>
@@ -55,10 +71,11 @@ export const NetworkMakeReview = () => {
             <TextArea
                 placeholder="Faça sua avaliação a rede"
                 maxCharacters={3000}
+                onChange={setText}
             />
                 
             <div className="w-full flex items-end justify-end gap-3">
-                <button className="btn-primary">
+                <button className="btn-primary" onClick={handleSubmit}>
                     Publicar avaliação
                 </button>
             </div>  

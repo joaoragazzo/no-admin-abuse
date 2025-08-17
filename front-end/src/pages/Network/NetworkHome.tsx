@@ -2,7 +2,6 @@ import { NetworkServer } from "@/components/cards/NetworkBanners/NetworkServer";
 import { Rating } from "@/components/misc/Rating";
 import { Card } from "@/components/template/Card";
 import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
-import { fetchNetworkDetails } from "@/services/NetworkService";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
@@ -12,12 +11,17 @@ import { MdVerified } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
 import { Tag } from "@/components/misc/Tag";
+import NetworkService from "@/services/NetworkService";
+import ReviewService from "@/services/ReviewService";
+import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
+    const { setNetworkId, setReviews } = useNetworkHome();
     const { networkId } = useParams<{ networkId: string }>();
     const [ networkDetails, setNetworkDetails ] = useState<NetworkDetailsDTO>();
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
+    const [ loading, setLoading ] = useState<boolean>(true);
 
     const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
     const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
@@ -28,10 +32,22 @@ export const NetworkHome: React.FC = () => {
             return;
         }
 
-        fetchNetworkDetails({id: networkId})
-            .then(response => setNetworkDetails(response))
-            .catch(_ => navigate("/"));
+        setNetworkId(networkId);
+        NetworkService.fetchNetworkDetails({id: networkId})
+            .then(response => {
+                setNetworkDetails(response);
+                setLoading(false)
+            }).catch(_ => navigate("/"));
+
+        ReviewService.fetchReview({ networkId: networkId })
+            .then(response => {
+                setReviews(response);
+            });
     }, [])
+
+    if (loading) {
+        return <>Carregando...</>
+    }
 
     if (!networkDetails) {
         navigate("/"); 
@@ -321,7 +337,9 @@ export const NetworkHome: React.FC = () => {
                 </div>
             </div>
             
-            <NetworkReviews />
+            <div className="w-full px-10 md:px-20 xl:px-50 max-w-400">
+                <NetworkReviews />
+            </div>
         </div>
     </>   
     );

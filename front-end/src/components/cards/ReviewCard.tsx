@@ -4,29 +4,29 @@ import { GoDotFill } from "react-icons/go";
 import { FaAngleDown, FaThumbsUp } from "react-icons/fa";
 import { IoIosReturnRight } from "react-icons/io";
 import { Tag } from "../misc/Tag";
+import type { ReviewDisplayDTO } from "@/interfaces/ReviewDisplayDTO";
 
-export const ReviewCard: React.FC = () => {
+interface ReviewCardProps {
+    content: ReviewDisplayDTO
+}
+
+export const ReviewCard: React.FC<ReviewCardProps> = ({ content }) => {
     return (
         <div className="mt-3 flex flex-col gap-3">
             <div className="bg-gray-980 rounded-md py-5">
                 <div className="flex flex-row items-center gap-3 mb-2">
-                    <div className="bg-green-700 rounded-full w-10 h-10 items-center flex justify-center">
-                        VP
-                    </div>
+                    <img src={content.author.avatarUrl} className="rounded-full w-10 h-10 items-center flex justify-center" />
                     <div className="flex flex-col w-full">
                         <div className="flex flex-row items-center w-full gap-3">
-                            <div className="font-bold">Lorem Ipsum</div>
+                            <div className="font-bold">{content.author.name}</div>
                             <GoDotFill size={12}/>
                             <div className="text-xs text-gray-300">Há 1 semana</div>
                         </div>
-                        <Rating rating={2} size={14}/>
+                        <Rating rating={content.rating} size={14}/>
                     </div>
                 </div>
                 <div className="text-justify text-sm text-gray-200">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                    Reiciendis error deserunt quas expedita iure incidunt quia 
-                    quod architecto, ullam saepe? Enim quae aperiam repellat 
-                    voluptate dicta reprehenderit! Ut, vero aspernatur.
+                    {content.text}
                 </div>
                 
                 <div className="mt-3 flex flex-wrap flex-row gap-3">

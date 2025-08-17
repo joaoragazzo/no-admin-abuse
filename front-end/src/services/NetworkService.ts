@@ -9,4 +9,4 @@ const fetchNetworkDetails = async (
     return response.data;
 }
 
-export { fetchNetworkDetails }
+export default { fetchNetworkDetails }

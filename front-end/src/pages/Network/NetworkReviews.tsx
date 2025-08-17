@@ -5,10 +5,13 @@ import type React from "react";
 import { FaFilter } from "react-icons/fa";
 import { ImBubbles } from "react-icons/im";
 import { NetworkMakeReview } from "./NetworkMakeReview";
+import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 export const NetworkReviews: React.FC = () => {
+    const { reviews } = useNetworkHome();
+    
     return (
-        <div className=" px-10 md:px-20 xl:px-50 0 mb-10 max-w-400">
+        <>
             <Card.Title>
                 <div className="flex flex-row justify-between w-full items-center">
                     <div className="flex flex-row items-center gap-3 font-bold text-md">
@@ -21,13 +24,12 @@ export const NetworkReviews: React.FC = () => {
             </Card.Title>
 
             <NetworkMakeReview />
-                      
-            <ReviewCard />
-            <ReviewCard /> 
-            <ReviewCard /> 
-            <ReviewCard />
+
+            {reviews.map((content, index) => (
+                <ReviewCard content={content} key={index}/>
+            ))}
 
             <Pagination currentPage={1} totalPages={10} onPageChange={() => {}}/>
-        </div>
+        </>
     )
 }
