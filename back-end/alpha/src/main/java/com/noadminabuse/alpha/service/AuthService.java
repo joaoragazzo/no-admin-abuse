@@ -17,7 +17,7 @@ import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.web.dto.auth.SteamQueryDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
-import com.noadminabuse.alpha.web.dto.auth.UserInfoDTO;
+import com.noadminabuse.alpha.web.dto.auth.UserFullInfoDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -63,7 +63,7 @@ public class AuthService {
         String jwt = jwtService.generateToken(user.getId());
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(user.getId(), user.isAcceptedEula(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserFullInfoDTO(user.getId(), user.isAcceptedEula(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 
@@ -74,7 +74,7 @@ public class AuthService {
 
         return new SuccessLoginDTO(
             jwt,
-            new UserInfoDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserFullInfoDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), steamQueryDTO.name(), steamQueryDTO.avatarfull())
         );
     }
 

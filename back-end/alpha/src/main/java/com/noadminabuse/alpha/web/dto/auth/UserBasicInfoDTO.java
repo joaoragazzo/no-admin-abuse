@@ -2,11 +2,8 @@ package com.noadminabuse.alpha.web.dto.auth;
 
 import java.util.UUID;
 
-public record UserInfoDTO(
+public record UserBasicInfoDTO(
     UUID id,
-    Boolean eula,
-    String steam64id,
-    String username,
+    String name,
     String avatarUrl
-) {
-} 
+) {}
