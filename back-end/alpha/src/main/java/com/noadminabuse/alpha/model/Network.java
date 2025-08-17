@@ -55,4 +55,8 @@ public class Network {
     public Network(String name) {
         this.name = name;
     }
+
+    public Network(UUID uuid) {
+        this.id = uuid;
+    }
 }

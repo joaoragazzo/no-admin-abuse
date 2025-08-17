@@ -65,6 +65,10 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
+    public User(UUID uuid) {
+        this.id = uuid;
+    }
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {

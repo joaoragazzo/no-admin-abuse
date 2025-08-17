@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.service.NetworkService;
-import com.noadminabuse.alpha.service.ServerService;
 import com.noadminabuse.alpha.web.dto.NetworkDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
 
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 @RequestMapping("/server")
 public class ServerController {
-    private final ServerService serverService;
     private final NetworkService networkService;
 
     @PutMapping("/bulk")

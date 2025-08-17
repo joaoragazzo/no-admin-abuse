@@ -38,4 +38,10 @@ public class GlobalExceptionHandler {
         MessageDTO error = feedbackMapper.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
+
+    @ExceptionHandler(Conflict.class) 
+    public ResponseEntity<MessageDTO> handleConflict(Conflict ex) {
+        MessageDTO error = feedbackMapper.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
 }
