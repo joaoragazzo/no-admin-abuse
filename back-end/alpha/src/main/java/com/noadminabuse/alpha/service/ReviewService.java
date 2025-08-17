@@ -25,7 +25,7 @@ public class ReviewService {
             throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_EXISTS);
 
         Review review = reviewMapper.toReviewEntity(reviewDTO, userId, networkId);
-        return review;
+        return reviewRepository.save(review);
     }
 
     private boolean alreadyHasANetworkReview(UUID userId, UUID networkId) {
