@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,10 +24,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ReviewController {
     private final ReviewService reviewService;
     
-    @PostMapping("/{network}")
-    public ResponseEntity<?> createReview(@RequestBody @Valid ReviewDTO dto) {
+    @PostMapping("/{networkId}")
+    public ResponseEntity<?> createReview(
+        @PathVariable UUID networkId,
+        @RequestBody @Valid ReviewDTO dto
+    ) {
         UUID authorId = SecurityUtils.getCurrentUserId();
-        reviewService.createReview(dto, authorId, authorId);
+        reviewService.createReview(dto, authorId, networkId);
         
         return ResponseEntity.ok().body("Ok!");
     }
