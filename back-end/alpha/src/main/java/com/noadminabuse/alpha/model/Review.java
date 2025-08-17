@@ -48,4 +48,13 @@ public class Review {
 
     @Column(nullable = false)
     private Instant createdAt;
+
+    public Review(String text, Integer rating, boolean anonymous, User author, Network network) {
+        this.text = text;
+        this.rating = rating;
+        this.anonymous = anonymous;
+        this.network = network;
+        this.author = author;
+        this.createdAt = Instant.now();
+    }
 }
