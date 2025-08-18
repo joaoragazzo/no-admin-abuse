@@ -1,27 +1,27 @@
-import type { ReviewDisplayDTO } from "@/interfaces/ReviewDisplayDTO";
+import type { ReviewDisplayResponseDTO } from "@/interfaces/ReviewResponseDTO";
 import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface NetworkHomeContextType {
     networkId: string | undefined,
     setNetworkId: (value: string | undefined) => void,
 
-    reviews: ReviewDisplayDTO[],
-    setReviews: React.Dispatch<React.SetStateAction<ReviewDisplayDTO[]>>
+    reviewsResponse: ReviewDisplayResponseDTO | undefined,
+    setReviewsResponse: React.Dispatch<React.SetStateAction<ReviewDisplayResponseDTO | undefined>>
 }
 
 const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undefined);
 
 export const NetworkHomeProvider = ({ children } : {children: ReactNode}) => {
     const [networkId, setNetworkId] = useState<string|undefined>(undefined);
-    const [reviews, setReviews] = useState<ReviewDisplayDTO[]>([]);
+    const [reviewsResponse, setReviewsResponse] = useState<ReviewDisplayResponseDTO | undefined>(undefined);
 
 
     const value: NetworkHomeContextType = {
         networkId,
         setNetworkId,
 
-        reviews,
-        setReviews,
+        reviewsResponse,
+        setReviewsResponse,
     }
 
     return (

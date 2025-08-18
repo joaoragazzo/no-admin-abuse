@@ -8,7 +8,7 @@ import { NetworkMakeReview } from "./NetworkMakeReview";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 export const NetworkReviews: React.FC = () => {
-    const { reviews } = useNetworkHome();
+    const { reviewsResponse } = useNetworkHome();
     
     return (
         <>
@@ -25,7 +25,7 @@ export const NetworkReviews: React.FC = () => {
 
             <NetworkMakeReview />
 
-            {reviews.map((content, index) => (
+            {reviewsResponse?.reviews.content.map((content, index) => (
                 <ReviewCard content={content} key={index}/>
             ))}
 

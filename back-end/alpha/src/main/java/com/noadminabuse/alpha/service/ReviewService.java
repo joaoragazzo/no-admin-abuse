@@ -37,31 +37,19 @@ public class ReviewService {
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        
-        Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, userId, pageable)
-            .map(review -> reviewMapper.toReviewDisplayDTO(
-                review, userMapper.toUserBasicInfoDTO(review.getAuthor())
-            ))
-            .map(this::hideAnonymousReviews);
-       
+        Page<ReviewDisplayDTO> reviews = getReviewsPage(networkId, page, userId);
+    
         ReviewDisplayDTO ownReview = reviewRepository.findByNetworkIdAndAuthorId(networkId, userId)
             .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
             .orElse(null);
-     
-        return reviewMapper.toReviewDisplayResponse(ownReview, reviews);        
+    
+        return reviewMapper.toReviewDisplayResponse(ownReview, reviews);
     }
-
+    
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, Integer page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        
-        Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkId(networkId, pageable)
-            .map(review -> reviewMapper.toReviewDisplayDTO(
-                review, userMapper.toUserBasicInfoDTO(review.getAuthor())
-            ))
-            .map(this::hideAnonymousReviews);
-     
-        return reviewMapper.toReviewDisplayResponse(null, reviews);        
+        Page<ReviewDisplayDTO> reviews = getReviewsPage(networkId, page, null);
+    
+        return reviewMapper.toReviewDisplayResponse(null, reviews);
     }
 
     public Optional<ReviewDisplayDTO> getUserNetworkReview(UUID networkId, UUID userId)  {
@@ -85,6 +73,20 @@ public class ReviewService {
             review.rating(), 
             review.createdAt()
         );
+    }
+
+    private Page<ReviewDisplayDTO> getReviewsPage(UUID networkId, Integer page, UUID excludeUserId) {
+        Pageable pageable = PageRequest.of(page, 10);
+        
+        if (excludeUserId != null) {
+            return reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, excludeUserId, pageable)
+                .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+                .map(this::hideAnonymousReviews);
+        }
+
+        return reviewRepository.findByNetworkId(networkId, pageable)
+            .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+            .map(this::hideAnonymousReviews);
     }
 
 

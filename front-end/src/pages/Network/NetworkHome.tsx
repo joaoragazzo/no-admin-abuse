@@ -17,7 +17,7 @@ import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
-    const { setNetworkId, setReviews } = useNetworkHome();
+    const { setNetworkId, setReviewsResponse } = useNetworkHome();
     const { networkId } = useParams<{ networkId: string }>();
     const [ networkDetails, setNetworkDetails ] = useState<NetworkDetailsDTO>();
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
@@ -41,7 +41,7 @@ export const NetworkHome: React.FC = () => {
 
         ReviewService.fetchReview({ networkId: networkId })
             .then(response => {
-                setReviews(response);
+                setReviewsResponse(response);
             });
     }, [])
 
