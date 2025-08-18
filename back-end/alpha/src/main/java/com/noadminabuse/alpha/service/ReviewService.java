@@ -37,7 +37,7 @@ public class ReviewService {
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
-        Pageable pageable = PageRequest.of(0, page);
+        Pageable pageable = PageRequest.of(page, 10);
         
         Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, userId, pageable)
             .map(review -> reviewMapper.toReviewDisplayDTO(
@@ -53,7 +53,7 @@ public class ReviewService {
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, Integer page) {
-        Pageable pageable = PageRequest.of(0, page);
+        Pageable pageable = PageRequest.of(page, 10);
         
         Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkId(networkId, pageable)
             .map(review -> reviewMapper.toReviewDisplayDTO(
