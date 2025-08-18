@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.Conflict;
+import com.noadminabuse.alpha.errors.Unauthorized;
 import com.noadminabuse.alpha.errors.enums.ReviewErrorMessage;
 import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.mapper.UserMapper;
@@ -34,6 +35,14 @@ public class ReviewService {
 
         Review review = reviewMapper.toReviewCreationEntity(reviewDTO, userId, networkId);
         return reviewRepository.save(review);
+    }
+
+    public void deleteReview(UUID reviewId, UUID userId) {
+        if (!this.checkOwnership(reviewId, userId)) {
+            throw new Unauthorized(ReviewErrorMessage.CANNOT_DELETE_THIS_REVIEW);
+        }
+
+        reviewRepository.deleteById(reviewId);
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
@@ -89,5 +98,7 @@ public class ReviewService {
             .map(this::hideAnonymousReviews);
     }
 
-
+    private boolean checkOwnership(UUID reviewId, UUID userId) {
+        return reviewRepository.existsByIdAndAuthorId(reviewId, userId);
+    }
 }

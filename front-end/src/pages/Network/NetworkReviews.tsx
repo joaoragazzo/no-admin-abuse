@@ -2,7 +2,7 @@ import { ReviewCard } from "@/components/cards/ReviewCard";
 import { Pagination } from "@/components/table/Pagination";
 import { Card } from "@/components/template/Card";
 import type React from "react";
-import { FaFilter } from "react-icons/fa";
+import { FaAngleRight, FaFilter } from "react-icons/fa";
 import { ImBubbles } from "react-icons/im";
 import { NetworkMakeReview } from "./NetworkMakeReview";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
@@ -13,7 +13,7 @@ export const NetworkReviews: React.FC = () => {
     return (
         <>
             <Card.Title>
-                <div className="flex flex-row justify-between w-full items-center">
+                <div className="flex flex-row justify-between w-full items-center mb-3">
                     <div className="flex flex-row items-center gap-3 font-bold text-md">
                         <ImBubbles className="text-blue-700"/> Avaliações
                     </div>
@@ -23,8 +23,19 @@ export const NetworkReviews: React.FC = () => {
                 </div>
             </Card.Title>
 
-            <NetworkMakeReview />
-
+            {
+                reviewsResponse?.ownReview ?
+                <div>
+                    <div className="mb-1.5 font-bold flex items-center gap-2">
+                        Sua avaliação <FaAngleRight />
+                    </div>
+                    <ReviewCard content={reviewsResponse.ownReview} editable/>
+                </div>
+                :
+                <NetworkMakeReview />
+            
+            }
+            
             {reviewsResponse?.reviews.content.map((content, index) => (
                 <ReviewCard content={content} key={index}/>
             ))}

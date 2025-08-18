@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 
 export const EulaPopup: React.FC = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
 
     useEffect(() => {
         if (!!user && !user.eula) {
@@ -189,6 +189,7 @@ export const EulaPopup: React.FC = () => {
                 onClick={async () => {
                     await UserService.acceptEula();
                     setOpenedPopup(false);
+                    setUser(prev => prev ? { ...prev, eula: true } : undefined);
                 }}
             >Continuar</button>
         </div>
