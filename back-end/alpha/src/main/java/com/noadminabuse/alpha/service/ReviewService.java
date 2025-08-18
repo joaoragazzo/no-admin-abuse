@@ -1,8 +1,11 @@
 package com.noadminabuse.alpha.service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.Conflict;
@@ -11,8 +14,9 @@ import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.mapper.UserMapper;
 import com.noadminabuse.alpha.model.Review;
 import com.noadminabuse.alpha.repository.ReviewRepository;
-import com.noadminabuse.alpha.web.dto.review.ReviewDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -24,40 +28,51 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
     private final UserMapper userMapper;
 
-    public Review createReview(ReviewDTO reviewDTO, UUID userId, UUID networkId) {
+    public Review createReview(ReviewCreationDTO reviewDTO, UUID userId, UUID networkId) {
         if (alreadyHasANetworkReview(userId, networkId)) 
             throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_EXISTS);
 
-        Review review = reviewMapper.toReviewEntity(reviewDTO, userId, networkId);
+        Review review = reviewMapper.toReviewCreationEntity(reviewDTO, userId, networkId);
         return reviewRepository.save(review);
     }
 
-    public List<ReviewDisplayDTO> getAllReviewsDisplay(UUID networkId) {
-        List<Review> reviews = reviewRepository.findByNetworkId(networkId);
-        List<ReviewDisplayDTO> reviewsDTO = reviews.stream().map((review) -> {
-            return reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor()));
-        }).toList();
-        List<ReviewDisplayDTO> result = this.hideAnonymousReviews(reviewsDTO);
-        return result;
+    public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
+        Pageable pageable = PageRequest.of(0, page);
         
+        Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, userId, pageable)
+            .map(review -> reviewMapper.toReviewDisplayDTO(
+                review, userMapper.toUserBasicInfoDTO(review.getAuthor())
+            ))
+            .map(this::hideAnonymousReviews);
+       
+        ReviewDisplayDTO ownReview = reviewRepository.findByNetworkIdAndAuthorId(networkId, userId)
+            .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+            .orElse(null);
+     
+        return reviewMapper.toReviewDisplayResponse(ownReview, reviews);        
+    }
+
+    public Optional<ReviewDisplayDTO> getUserNetworkReview(UUID networkId, UUID userId)  {
+        return reviewRepository
+            .findByNetworkIdAndAuthorId(networkId, userId)
+            .map((review) -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())));
     }
 
     private boolean alreadyHasANetworkReview(UUID userId, UUID networkId) {
         return reviewRepository.findByNetworkIdAndAuthorId(networkId, userId).isPresent();
     }
 
-    private List<ReviewDisplayDTO> hideAnonymousReviews(List<ReviewDisplayDTO> reviews) {
-        return reviews.stream().map((review) -> {
-            if (!review.isAnonymous()) return review;
-            return new ReviewDisplayDTO(
-                review.id(), 
-                null, 
-                true, 
-                review.text(), 
-                review.rating(), 
-                review.createdAt()
-            );
-        }).toList();
+    private ReviewDisplayDTO hideAnonymousReviews(ReviewDisplayDTO review) {
+        if (!review.isAnonymous()) return review;
+    
+        return new ReviewDisplayDTO(
+            review.id(), 
+            null, 
+            true, 
+            review.text(), 
+            review.rating(), 
+            review.createdAt()
+        );
     }
 
 

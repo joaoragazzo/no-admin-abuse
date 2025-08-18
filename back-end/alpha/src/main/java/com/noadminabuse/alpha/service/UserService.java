@@ -50,7 +50,7 @@ public class UserService {
         user.setAcceptedEulaAt(Instant.now());
         userRepository.save(user);
 
-        return feedbackMapper.success(UserMessage.SUCCESS_ACCEPTED_EULA.getMessage());
+        return feedbackMapper.success(UserMessage.SUCCESS_ACCEPTED_EULA);
     }
 
 }

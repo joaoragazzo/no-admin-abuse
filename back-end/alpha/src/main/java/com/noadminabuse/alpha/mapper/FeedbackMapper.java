@@ -2,6 +2,7 @@ package com.noadminabuse.alpha.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.noadminabuse.alpha.messages.Feedback;
 import com.noadminabuse.alpha.messages.MessageType;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
 
@@ -12,15 +13,15 @@ public class FeedbackMapper {
         return new MessageDTO(message, MessageType.ERROR);
     }
 
-    public MessageDTO success(String message) {
-        return new MessageDTO(message, MessageType.SUCCESS);
+    public MessageDTO success(Feedback message) {
+        return new MessageDTO(message.getMessage(), MessageType.SUCCESS);
     }
 
-    public MessageDTO warning(String message) {
-        return new MessageDTO(message, MessageType.WARNING);
+    public MessageDTO warning(Feedback message) {
+        return new MessageDTO(message.getMessage(), MessageType.WARNING);
     }
 
-    public MessageDTO info(String message) { 
-        return new MessageDTO(message, MessageType.INFO);
+    public MessageDTO info(Feedback message) { 
+        return new MessageDTO(message.getMessage(), MessageType.INFO);
     }
 }
