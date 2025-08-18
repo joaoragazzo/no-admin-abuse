@@ -1,27 +1,66 @@
+import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
+import type { ReviewCreationDTO } from "@/interfaces/ReviewCreationDTO";
 import type { ReviewDisplayResponseDTO } from "@/interfaces/ReviewResponseDTO";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import NetworkService from "@/services/NetworkService";
+import ReviewService from "@/services/ReviewService";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface NetworkHomeContextType {
-    networkId: string | undefined,
-    setNetworkId: (value: string | undefined) => void,
-
+    loading: boolean,
+    networkId: string,
+    networkDetails: NetworkDetailsDTO | undefined
     reviewsResponse: ReviewDisplayResponseDTO | undefined,
     setReviewsResponse: React.Dispatch<React.SetStateAction<ReviewDisplayResponseDTO | undefined>>
+    handleReviewPublish: ({data}:{data:ReviewCreationDTO}) => void
+    handleReviewDelete: ({id}:{id: string}) => void
 }
 
 const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undefined);
 
-export const NetworkHomeProvider = ({ children } : {children: ReactNode}) => {
-    const [networkId, setNetworkId] = useState<string|undefined>(undefined);
+export const NetworkHomeProvider = ({ networkId, children } : {networkId: string, children: ReactNode}) => {
+    const navigate = useNavigate();
     const [reviewsResponse, setReviewsResponse] = useState<ReviewDisplayResponseDTO | undefined>(undefined);
+    const [networkDetails, setNetworkDetails] = useState<NetworkDetailsDTO|undefined>(undefined);
+    const [loading, setLoading] = useState<boolean>(true);
 
+    const fetchReview = async ({ networkId }:{networkId: string}) => {
+        const response = await ReviewService.fetchReview({ networkId: networkId });
+        setReviewsResponse(response)
+    }
+
+    const handleReviewDelete = async ({id}:{id: string}) => {
+        await ReviewService.deleteReview({ reviewId: id });
+        fetchReview({networkId : networkId})
+    }
+
+    const handleReviewPublish = async ({ data }:{ data:ReviewCreationDTO }) => {
+        await ReviewService.makeReview({ networkId: networkId, data: data });
+        fetchReview({networkId : networkId})
+    }
+
+    useEffect(() => {
+            console.log(networkId)
+            NetworkService.fetchNetworkDetails({id: networkId})
+                .then(response => {
+                    setNetworkDetails(response);
+                    setLoading(false)
+                }).catch(_ => navigate("/"));
+    
+            ReviewService.fetchReview({ networkId: networkId })
+                .then(response => {
+                    setReviewsResponse(response);
+                });
+        }, [])
 
     const value: NetworkHomeContextType = {
+        loading,
         networkId,
-        setNetworkId,
-
+        networkDetails,
         reviewsResponse,
         setReviewsResponse,
+        handleReviewDelete,
+        handleReviewPublish
     }
 
     return (

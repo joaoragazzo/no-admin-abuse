@@ -1,49 +1,24 @@
 import { NetworkServer } from "@/components/cards/NetworkBanners/NetworkServer";
 import { Rating } from "@/components/misc/Rating";
 import { Card } from "@/components/template/Card";
-import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
 import { Tag } from "@/components/misc/Tag";
-import NetworkService from "@/services/NetworkService";
-import ReviewService from "@/services/ReviewService";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
-    const { setNetworkId, setReviewsResponse } = useNetworkHome();
-    const { networkId } = useParams<{ networkId: string }>();
-    const [ networkDetails, setNetworkDetails ] = useState<NetworkDetailsDTO>();
+    const { networkDetails, loading } = useNetworkHome();
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
-    const [ loading, setLoading ] = useState<boolean>(true);
 
     const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
     const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
-
-    useEffect(() => {
-        if (!networkId) {
-            navigate("/");
-            return;
-        }
-
-        setNetworkId(networkId);
-        NetworkService.fetchNetworkDetails({id: networkId})
-            .then(response => {
-                setNetworkDetails(response);
-                setLoading(false)
-            }).catch(_ => navigate("/"));
-
-        ReviewService.fetchReview({ networkId: networkId })
-            .then(response => {
-                setReviewsResponse(response);
-            });
-    }, [])
 
     if (loading) {
         return <>Carregando...</>

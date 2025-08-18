@@ -2,13 +2,12 @@ import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
 import { useNetworkHome } from "@/contexts/NetworkHomeContext"
-import ReviewService from "@/services/ReviewService"
 import { useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 
 export const NetworkMakeReview = () => {
-    const { networkId } = useNetworkHome();
+    const { handleReviewPublish } = useNetworkHome();
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [starCounter, setStarCounter] = useState<number>(0);
     const [text, setText] = useState<string>("");
@@ -22,15 +21,11 @@ export const NetworkMakeReview = () => {
     }
 
     const handleSubmit = () => {
-        if (!networkId)
-            return;
-        
-        ReviewService.makeReview({
-            networkId: networkId,
+        handleReviewPublish({data: {
             text: text,
             rating: starCounter,
             anonymous: false
-        })
+        }})
     }
 
     const mockedGoodTags = ["Staff imparcial", "Eventos", "Baixa latência", "Suporte rápido"]

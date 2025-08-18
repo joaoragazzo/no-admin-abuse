@@ -10,6 +10,7 @@ import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 export const NetworkReviews: React.FC = () => {
     const { reviewsResponse } = useNetworkHome();
     
+    
     return (
         <>
             <Card.Title>

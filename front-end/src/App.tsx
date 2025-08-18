@@ -5,12 +5,11 @@ import { Header } from "./components/layout/Header"
 import { Footer } from "./components/layout/Footer"
 import { ServerList } from "./pages/ServerList"
 import { LLMTrain } from "./pages/LLMTrain"
-import { NetworkHome } from "./pages/Network/NetworkHome"
 import { ScrollToTop } from "./utils/ScrollToTop"
 import { AuthProvider } from "./contexts/AuthContext"
 import { SteamLogin } from "./pages/SteamLogin"
 import { ToastContainer } from 'react-toastify';
-import { NetworkHomeProvider } from "./contexts/NetworkHomeContext"
+import { NetworkHomeWrapper } from "./pages/Network/NetworkHomeWrapper"
 
 function App() {
   return (
@@ -31,11 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<GameList />} />
           <Route path="/servers/:game" element={<ServerList />} />
-          <Route path="/network/:networkId" element={
-            <NetworkHomeProvider>
-              <NetworkHome />
-            </NetworkHomeProvider>
-            } />
+          <Route path="/network/:networkId" element={<NetworkHomeWrapper />} />
           <Route path="/auth/steam/callback" element={<SteamLogin />} />
           <Route path="/llm-train" element={<LLMTrain />} />
           <Route path="*" element={<Home />} />

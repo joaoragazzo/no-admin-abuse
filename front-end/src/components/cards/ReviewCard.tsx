@@ -6,6 +6,7 @@ import { IoIosReturnRight } from "react-icons/io";
 import { Tag } from "../misc/Tag";
 import type { ReviewDisplayDTO } from "@/interfaces/ReviewDisplayDTO";
 import Popup from "reactjs-popup";
+import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
 interface ReviewCardProps {
     content: ReviewDisplayDTO
@@ -13,6 +14,8 @@ interface ReviewCardProps {
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false }) => {
+    const { handleReviewDelete } = useNetworkHome();
+    
     return (
         <div className="flex flex-col gap-3">
             <div className="bg-gray-980 rounded-md">
@@ -30,7 +33,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                                     trigger={
                                         <FaTrash 
                                             className="cursor-pointer transition-all hover:scale-110"
-                                            onClick={() => {}}
+                                            onClick={() => {handleReviewDelete({id: content.id })}}
                                         />
                                     }
                                     on={"hover"}
