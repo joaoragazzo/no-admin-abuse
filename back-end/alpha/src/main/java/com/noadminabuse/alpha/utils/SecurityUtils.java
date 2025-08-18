@@ -14,11 +14,16 @@ public class SecurityUtils {
     public static UUID getCurrentUserId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     
-        if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
+        if (isLogged()) {
             String uuidString = auth.getName();
             return UUID.fromString(uuidString);
         } else {
             throw new Unauthorized(AuthErrorMessage.UNAUTHENTICATED_REQUEST);
         }
+    }
+
+    public static boolean isLogged() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken));
     }
 }

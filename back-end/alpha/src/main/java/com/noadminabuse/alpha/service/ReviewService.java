@@ -52,6 +52,18 @@ public class ReviewService {
         return reviewMapper.toReviewDisplayResponse(ownReview, reviews);        
     }
 
+    public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, Integer page) {
+        Pageable pageable = PageRequest.of(0, page);
+        
+        Page<ReviewDisplayDTO> reviews = reviewRepository.findByNetworkId(networkId, pageable)
+            .map(review -> reviewMapper.toReviewDisplayDTO(
+                review, userMapper.toUserBasicInfoDTO(review.getAuthor())
+            ))
+            .map(this::hideAnonymousReviews);
+     
+        return reviewMapper.toReviewDisplayResponse(null, reviews);        
+    }
+
     public Optional<ReviewDisplayDTO> getUserNetworkReview(UUID networkId, UUID userId)  {
         return reviewRepository
             .findByNetworkIdAndAuthorId(networkId, userId)

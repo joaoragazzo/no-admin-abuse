@@ -41,8 +41,14 @@ public class ReviewController {
 
     @GetMapping("/{networkId}")
     public ResponseEntity<ReviewDisplayResponseDTO> getReview(@PathVariable UUID networkId) {
-        UUID userId = SecurityUtils.getCurrentUserId();
-        return ResponseEntity.ok().body(reviewService.getAllReviewsDisplay(networkId, userId, 0));
+        
+        if (SecurityUtils.isLogged()) {
+            UUID userId = SecurityUtils.getCurrentUserId();
+            return ResponseEntity.ok().body(reviewService.getAllReviewsDisplay(networkId, userId, 0));
+        }
+
+        return ResponseEntity.ok().body(reviewService.getAllReviewsDisplay(networkId, 0));
+        
     }
     
     
