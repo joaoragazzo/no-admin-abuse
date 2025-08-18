@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
-import com.noadminabuse.alpha.web.dto.ServerDTO;
-import com.noadminabuse.alpha.web.dto.NetworkDTO;
-import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
 @Component
 public class NetworkMapper {

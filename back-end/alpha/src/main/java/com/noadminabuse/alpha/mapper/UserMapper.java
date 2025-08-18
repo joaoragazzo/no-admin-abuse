@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.mapper;
 import org.springframework.stereotype.Component;
 
 import com.noadminabuse.alpha.model.User;
-import com.noadminabuse.alpha.web.dto.auth.UserBasicInfoDTO;
+import com.noadminabuse.alpha.web.dto.user.UserBasicInfoDTO;
 
 @Component
 public class UserMapper {

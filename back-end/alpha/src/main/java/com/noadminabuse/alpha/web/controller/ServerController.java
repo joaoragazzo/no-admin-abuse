@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.service.NetworkService;
-import com.noadminabuse.alpha.web.dto.NetworkDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

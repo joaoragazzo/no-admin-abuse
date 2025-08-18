@@ -21,9 +21,9 @@ import com.noadminabuse.alpha.model.enums.Region;
 import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
-import com.noadminabuse.alpha.web.dto.ServerDTO;
-import com.noadminabuse.alpha.web.dto.NetworkDTO;
-import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
 import lombok.AllArgsConstructor;
 

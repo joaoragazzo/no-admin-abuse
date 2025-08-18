@@ -11,8 +11,8 @@ import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.mapper.UserMapper;
 import com.noadminabuse.alpha.model.Review;
 import com.noadminabuse.alpha.repository.ReviewRepository;
-import com.noadminabuse.alpha.web.dto.ReviewDTO;
-import com.noadminabuse.alpha.web.dto.ReviewDisplayDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 
 import lombok.AllArgsConstructor;
 

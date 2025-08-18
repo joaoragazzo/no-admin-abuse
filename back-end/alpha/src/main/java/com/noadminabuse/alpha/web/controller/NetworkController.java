@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.service.NetworkService;
-import com.noadminabuse.alpha.web.dto.NetworkDTO;
-import com.noadminabuse.alpha.web.dto.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.dayz.DayZSearchDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

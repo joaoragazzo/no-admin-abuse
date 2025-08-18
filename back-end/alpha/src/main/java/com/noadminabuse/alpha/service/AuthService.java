@@ -17,7 +17,7 @@ import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.web.dto.auth.SteamQueryDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
-import com.noadminabuse.alpha.web.dto.auth.UserFullInfoDTO;
+import com.noadminabuse.alpha.web.dto.user.UserFullInfoDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 

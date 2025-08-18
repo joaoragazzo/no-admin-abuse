@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noadminabuse.alpha.mapper.FeedbackMapper;
 import com.noadminabuse.alpha.service.ReviewService;
 import com.noadminabuse.alpha.utils.SecurityUtils;
-import com.noadminabuse.alpha.web.dto.ReviewDTO;
-import com.noadminabuse.alpha.web.dto.ReviewDisplayDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

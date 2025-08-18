@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.Review;
 import com.noadminabuse.alpha.model.User;
-import com.noadminabuse.alpha.web.dto.ReviewDTO;
-import com.noadminabuse.alpha.web.dto.ReviewDisplayDTO;
-import com.noadminabuse.alpha.web.dto.auth.UserBasicInfoDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
+import com.noadminabuse.alpha.web.dto.user.UserBasicInfoDTO;
 
 @Component
 public class ReviewMapper {

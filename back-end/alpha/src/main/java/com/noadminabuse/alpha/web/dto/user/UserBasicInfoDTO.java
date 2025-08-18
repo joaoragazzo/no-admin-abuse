@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.web.dto.auth;
+package com.noadminabuse.alpha.web.dto.user;
 
 import java.util.UUID;
 
