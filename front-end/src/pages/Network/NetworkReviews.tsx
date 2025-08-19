@@ -27,7 +27,7 @@ export const NetworkReviews: React.FC = () => {
             {
                 reviewsResponse?.ownReview ?
                 <div>
-                    <div className="mb-1.5 font-bold flex items-center gap-2">
+                    <div className="mb-3 font-bold flex items-center gap-2">
                         Sua avaliação <FaAngleRight />
                     </div>
                     <ReviewCard content={reviewsResponse.ownReview} editable/>
@@ -37,11 +37,19 @@ export const NetworkReviews: React.FC = () => {
             
             }
             
+            <div className="flex items-center my-6">
+                <div className="w-3 border-t border-gray-300"></div>
+                <span className="mx-4 text-gray-300 text-md">Avaliações de outros jogadores</span>
+                <div className="flex-grow border-t border-gray-300"></div>
+            </div>
+
             {reviewsResponse?.reviews.content.map((content, index) => (
                 <ReviewCard content={content} key={index}/>
             ))}
 
-            <Pagination currentPage={1} totalPages={10} onPageChange={() => {}}/>
+            <div className="mt-5">
+                <Pagination currentPage={1} totalPages={10} onPageChange={() => {}}/>
+            </div>
         </>
     )
 }
