@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^12.23.12",
     "i18next": "^25.3.2",
     "path": "^0.12.7",

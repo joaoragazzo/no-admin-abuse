@@ -8,14 +8,26 @@ import type { ReviewDisplayDTO } from "@/interfaces/ReviewDisplayDTO";
 import Popup from "reactjs-popup";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/pt-br';
+
 interface ReviewCardProps {
     content: ReviewDisplayDTO
     editable?: boolean
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false }) => {
+    dayjs.locale('pt-br');
+    dayjs.extend(relativeTime);
     const { handleReviewDelete } = useNetworkHome();
     
+    const getRelativeDatenow = () => {
+        const text = dayjs(new Date(content.createdAt)).fromNow(); 
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+
     return (
         <div className="flex flex-col gap-3">
             <div className="bg-gray-980 rounded-md">
@@ -23,10 +35,10 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                     <img src={content.author.avatarUrl} className="rounded-full w-10 h-10 items-center flex justify-center" />
                     <div className="flex flex-col w-full">    
                         <div className="w-full flex flex-row justify-between items-center">
-                            <div className="flex flex-row items-center gap-3">
+                            <div className="flex flex-row items-center gap-1.5">
                                 <div className="font-bold">{content.author.name}</div>
                                 <GoDotFill size={12}/>
-                                <div className="text-xs text-gray-300">Há 1 semana</div>
+                                <div className="text-xs text-gray-300">{getRelativeDatenow()}</div>
                             </div>
                             {editable &&
                                 <Popup 
