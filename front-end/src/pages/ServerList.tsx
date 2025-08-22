@@ -99,207 +99,210 @@ export const ServerList: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-center gap-5 mb-20">
-                <button className="bg-blue-500 items-center px-5 cursor-pointer hover:bg-blue-600 rounded py-2 text-sm font-semibold flex flex-row gap-2">
-                    <FaServer /> Registrar um novo servidor
-                </button>
-                <button className="bg-gray-800 px-5 rounded cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
-                    <FaInfoCircle /> Como Funciona o Raking
-                </button>
-            </div>
-
-            <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
-                <div className="flex flex-row justify-between items-center mb-5">
-                    <div className="font-bold">
-                        Filtros
-                    </div>
-                    <div className="flex flex-row gap-3">
-                        <button className="py-1 px-5 bg-blue-500 cursor-pointer hover:bg-blue-600 rounded text-sm">Mais populares</button>
-                        <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Melhor Avaliados</button>
-                        <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Mais Recentes</button>
-                    </div>  
+        <div className="flex justify-center">
+            <div className="max-w-400">
+                <div className="flex flex-row justify-center gap-5 mb-20">
+                    <button className="bg-blue-500 items-center px-5 cursor-pointer hover:bg-blue-600 rounded py-2 text-sm font-semibold flex flex-row gap-2">
+                        <FaServer /> Registrar um novo servidor
+                    </button>
+                    <button className="bg-gray-800 px-5 rounded cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
+                        <FaInfoCircle /> Como Funciona o Raking
+                    </button>
                 </div>
 
-                <div className="mb-5 flex flex-row gap-5">
-                    <div className="flex flex-col w-full">
-                        <div className="text-xs text-gray-500 mb-2">
-                            Buscar Servidor
+                <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
+                    <div className="flex flex-row justify-between items-center mb-5">
+                        <div className="font-bold">
+                            Filtros
                         </div>
-                        <div className="relative">
-                            <input onChange={(e) => (setSearchText(e.target.value))} className="border-1 border-gray-700 text-sm px-4 py-2 pl-10 bg-gray-800 rounded w-full" placeholder="Nome ou IP do servidor..." />
-                            <div className="text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3" >
-                                <FaSearch />
+                        <div className="flex flex-row gap-3">
+                            <button className="py-1 px-5 bg-blue-500 cursor-pointer hover:bg-blue-600 rounded text-sm">Mais populares</button>
+                            <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Melhor Avaliados</button>
+                            <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Mais Recentes</button>
+                        </div>  
+                    </div>
+
+                    <div className="mb-5 flex flex-row gap-5">
+                        <div className="flex flex-col w-full">
+                            <div className="text-xs text-gray-500 mb-2">
+                                Buscar Servidor
+                            </div>
+                            <div className="relative">
+                                <input onChange={(e) => (setSearchText(e.target.value))} className="border-1 border-gray-700 text-sm px-4 py-2 pl-10 bg-gray-800 rounded w-full" placeholder="Nome ou IP do servidor..." />
+                                <div className="text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3" >
+                                    <FaSearch />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div className="flex flex-col w-full">
-                        <div className="text-xs text-gray-500 mb-2">
-                            Região
-                        </div>
-                        <div>
-                            <select 
-                                onChange={
-                                    (e) => {
-                                        const value = e.target.value;
-                                        setRegion(value === "" ? null : value)}
-                                } 
-                                className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" 
-                                value={region!} 
-                            >
-                                <option value="">{regionsTranslation("ALL_REGIONS")}</option>
-                                {
-                                Object.values(Region)
-                                .filter(value => typeof value === 'string')
-                                .map(region => (
-                                  <option value={region} key={region}>
-                                    {regionsTranslation(region)}
-                                  </option>
-                                ))
-                                }
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div className="flex flex-col w-full">
-                        <div className="text-xs text-gray-500 mb-2">
-                            Mapa
-                        </div>
-                        <div>
-                            <select className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" value={"aaa"}>
-                                <option value="all">Todas os mapas</option>
-                                <option value="all">Chernarus</option>
-                                <option value="all">Namalsk</option>
-                                <option value="all">Deer isle</option>
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div className="flex flex-col">
-                    <div className="text-xs text-gray-500 mb-1">
-                        Tags
-                    </div>
-                    <div className="flex flex-wrap text-nowrap flex-row gap-2">
-                        {
-                            tagsLoading ? 
-                                [...Array(10)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
-                            : 
-                            tags.map((value, key) => (
-                                <div
-                                    key={key} 
-                                    onClick={() => {toggleTag(value)}}
-                                    className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}
+                        <div className="flex flex-col w-full">
+                            <div className="text-xs text-gray-500 mb-2">
+                                Região
+                            </div>
+                            <div>
+                                <select 
+                                    onChange={
+                                        (e) => {
+                                            const value = e.target.value;
+                                            setRegion(value === "" ? null : value)}
+                                    } 
+                                    className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" 
+                                    value={region!} 
                                 >
-                                    {tagsTranslation(value)}
-                                </div>
-                            ))
-                        }
-                        
-                    </div>
-                </div>
-            </div>
+                                    <option value="">{regionsTranslation("ALL_REGIONS")}</option>
+                                    {
+                                    Object.values(Region)
+                                    .filter(value => typeof value === 'string')
+                                    .map(region => (
+                                    <option value={region} key={region}>
+                                        {regionsTranslation(region)}
+                                    </option>
+                                    ))
+                                    }
+                                </select>
+                            </div>
 
-            <div className="flex flex-row gap-4 mx-10 mb-10">
-                <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
-                    <div className="p-3 rounded-full bg-blue-950 w-fit">
-                        <FaServer className="text-blue-400" />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="text-xs text-gray-400">
-                            Servidores
                         </div>
-                        <div className="text-xl text-white font-bold">
-                            <CountUp end={1000} separator="." />
-                        </div> 
-                    </div>
-                </div>
 
-                <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
-                    <div className="p-3 rounded-full bg-green-950 w-fit">
-                        <FaPeopleGroup className="text-green-400" />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="text-xs text-gray-400">
-                            Jogadores Online
+                        <div className="flex flex-col w-full">
+                            <div className="text-xs text-gray-500 mb-2">
+                                Mapa
+                            </div>
+                            <div>
+                                <select className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" value={"aaa"}>
+                                    <option value="all">Todas os mapas</option>
+                                    <option value="all">Chernarus</option>
+                                    <option value="all">Namalsk</option>
+                                    <option value="all">Deer isle</option>
+                                </select>
+                            </div>
+
                         </div>
-                        <div className="text-xl text-white font-bold">
-                            <CountUp end={8192} separator="."/>
-                        </div> 
                     </div>
-                </div>
 
-                <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
-                    <div className="p-3 rounded-full bg-yellow-950 w-fit">
-                        <FaStar className="text-yellow-400" />
-                    </div>
                     <div className="flex flex-col">
-                        <div className="text-xs text-gray-400">
-                            Avaliações
+                        <div className="text-xs text-gray-500 mb-1">
+                            Tags
                         </div>
-                        <div className="text-xl text-white font-bold">
-                            <CountUp end={3721} separator="."/>
-                        </div> 
+                        <div className="flex flex-wrap text-nowrap flex-row gap-2">
+                            {
+                                tagsLoading ? 
+                                    [...Array(10)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
+                                : 
+                                tags.map((value, key) => (
+                                    <div
+                                        key={key} 
+                                        onClick={() => {toggleTag(value)}}
+                                        className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}
+                                    >
+                                        {tagsTranslation(value)}
+                                    </div>
+                                ))
+                            }
+                            
+                        </div>
                     </div>
                 </div>
 
-                <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
-                    <div className="p-3 rounded-full bg-purple-950 w-fit">
-                        <FaGlobe className="text-purple-400" />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="text-xs text-gray-400">
-                            Regiões
+                <div className="flex flex-row gap-4 mx-10 mb-10">
+                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                        <div className="p-3 rounded-full bg-blue-950 w-fit">
+                            <FaServer className="text-blue-400" />
                         </div>
-                        <div className="text-xl text-white font-bold">
-                            <CountUp end={7} />
-                        </div> 
+                        <div className="flex flex-col">
+                            <div className="text-xs text-gray-400">
+                                Servidores
+                            </div>
+                            <div className="text-xl text-white font-bold">
+                                <CountUp end={1000} separator="." />
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                        <div className="p-3 rounded-full bg-green-950 w-fit">
+                            <FaPeopleGroup className="text-green-400" />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="text-xs text-gray-400">
+                                Jogadores Online
+                            </div>
+                            <div className="text-xl text-white font-bold">
+                                <CountUp end={8192} separator="."/>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                        <div className="p-3 rounded-full bg-yellow-950 w-fit">
+                            <FaStar className="text-yellow-400" />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="text-xs text-gray-400">
+                                Avaliações
+                            </div>
+                            <div className="text-xl text-white font-bold">
+                                <CountUp end={3721} separator="."/>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                        <div className="p-3 rounded-full bg-purple-950 w-fit">
+                            <FaGlobe className="text-purple-400" />
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="text-xs text-gray-400">
+                                Regiões
+                            </div>
+                            <div className="text-xl text-white font-bold">
+                                <CountUp end={7} />
+                            </div> 
+                        </div>
                     </div>
                 </div>
+                
+                <div className="flex flex-row items-center mx-10 gap-3 font-bold my-2.5">
+                    <FaCrown className="text-yellow-400 text-2xl animate-swing"/>Servidor em Destaque
+                </div>
+
+                <BestServerCard 
+                    name="DayZ Apocalypse"
+                    rating={5}
+                    ratings={1.245}
+                    description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
+                    tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
+                    region={Region.EUROPE}
+                    uptime={99.4}
+                    administrationTeam="DayZ Administration Team"
+                    ms={32}
+                    verified
+                />
+
+                <div className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
+                    Top Servidores de DayZ
+                </div>
+                
+                <div className="flex flex-col mx-10 gap-5 mb-5">
+
+                    {serverList?.content.map((content, key) => (
+                        <NetworkBanner
+                            key={key}
+                            id={content.id}
+                            name={content.name}
+                            description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
+                            rating={4.0}
+                            feedbackCount={327}
+                            servers={content.servers}
+                        />
+                    ))}
+                
+                    <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={(number) => {setCurrentPage(number)}}/>
+
+                </div>
             </div>
-            
-            <div className="flex flex-row items-center mx-10 gap-3 font-bold my-2.5">
-                <FaCrown className="text-yellow-400 text-2xl animate-swing"/>Servidor em Destaque
-            </div>
-
-            <BestServerCard 
-                name="DayZ Apocalypse"
-                rating={5}
-                ratings={1.245}
-                description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
-                tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
-                region={Region.EUROPE}
-                uptime={99.4}
-                administrationTeam="DayZ Administration Team"
-                ms={32}
-                verified
-            />
-
-            <div className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
-                Top Servidores de DayZ
-            </div>
-            
-            <div className="flex flex-col mx-10 gap-5 mb-5">
-
-                {serverList?.content.map((content, key) => (
-                    <NetworkBanner
-                        key={key}
-                        id={content.id}
-                        name={content.name}
-                        description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
-                        rating={4.0}
-                        feedbackCount={327}
-                        servers={content.servers}
-                    />
-                ))}
-            
-                <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={(number) => {setCurrentPage(number)}}/>
-
-            </div>
-
+        </div>
         </>
     );
 }

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
 import { Tag } from "@/components/misc/Tag";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
+import { Loading } from "@/components/misc/Loading";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
@@ -21,7 +22,13 @@ export const NetworkHome: React.FC = () => {
     const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
 
     if (loading) {
-        return <>Carregando...</>
+        return ( 
+        <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
+            <Loading>
+                Carregando informações
+            </Loading>
+        </div>
+        )
     }
 
     if (!networkDetails) {
