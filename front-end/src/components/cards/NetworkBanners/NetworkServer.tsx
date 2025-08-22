@@ -20,12 +20,16 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
                 <div className="font-bold">
                     {server.name}
                 </div>
-                <div className="flex flex-row gap-4 items-center">
-                    <div className="md:block none text-blue-100 flex flex-row items-center gap-1 font-bold">
-                        <FaGlobeAmericas /> {countryTranslation(server.country)}
+                <div className="flex flex-row gap-4">
+                    <div className="text-blue-100 flex flex-col gap-1 font-bold text-nowrap">
+                        <div className="flex flex-row items-center order-first gap-2 h-fit">
+                            <FaGlobeAmericas /> {countryTranslation(server.country)}
+                        </div>
                     </div>
-                    <div className="text-green-500 flex-row flex items-center gap-1 text-sm">
-                        <FaPeopleGroup /> {server.onlinePlayers}/{server.maxPlayers}
+                    <div className="text-green-500 flex-row flex gap-1 text-sm">
+                        <div className="flex flex-row items-center order-first gap-2 h-fit">
+                            <FaPeopleGroup /> {server.onlinePlayers}/{server.maxPlayers}
+                        </div>
                     </div>
                 </div>
                 
