@@ -61,13 +61,12 @@ export const Header: React.FC = () => {
             </div>
         </header>
 
-        <div className={`${menuOpen ? 'flex' : 'hidden'} lg:hidden flex-col absolute w-full bg-blue-980`}>
+        <div className={`${menuOpen ? 'flex' : 'hidden'} mt-18 lg:hidden flex-col absolute w-full bg-blue-980`}>
             {items.map((content, key) => (
-                <div key={key} className="flex flex-row items-center gap-3 w-full border-b-1 border-gray-950/30 py-4 px-10 hover:bg-blue-950/50 hover:text-blue-400 cursor-pointer">
+                <div key={key} className="flex flex-row items-center gap-3 w-full border-b-1 border-white/10 py-4 px-10 hover:bg-blue-950/50 hover:text-blue-400 cursor-pointer">
                     {content.content}
                 </div>
             ))}
-            
         </div>
     
         <SafeLoginPopup 
