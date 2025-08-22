@@ -9,7 +9,7 @@ interface PaginationProps {
 export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, onPageChange}) => {
     const generatePagination = (current: number, total: number): (number | string)[] => {
         const range: (number | string)[] = [];
-        const visiblePages = 7;
+        const visiblePages = Math.floor(window.innerWidth / 200);;
         const totalNumbers = visiblePages;
         const totalBlocks = totalNumbers + 2;
     

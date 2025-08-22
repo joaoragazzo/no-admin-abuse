@@ -1,9 +1,8 @@
 import type React from "react";
-import { FaCrown, FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
+import { FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
-import { BestServerCard } from "../components/cards/BestServerCard";
 import type { NetworkDTO } from "@/interfaces/NetworkDTO";
 import { useEffect, useState } from "react";
 import serverService from "@services/ServerService";
@@ -83,46 +82,50 @@ export const ServerList: React.FC = () => {
 
     return (
         <>
-            <div className="flex flex-col my-10 items-center justify-center gap-5">
+        <div className="flex flex-col items-center justify-center gap-5">
+            <div className="max-w-200 flex items-center flex-col gap-5 p-10">
                 <div className="font-bold items-center flex flex-row gap-4 text-3xl">
                     <div className="text-lg bg-blue-500 px-2 rounded">
                         {getGameName(game)[0]}
                     </div>
                     {getGameName(game)}
                 </div>
-                <div className="font-bold text-4xl w-150 flex justify-center text-center">
-                    Ranking dos Melhores Servidores
+                <div>
+                    <div className="font-bold text-4xl  flex justify-center text-center">
+                        Ranking dos Melhores Servidores
+                    </div>
+                    <div className="font-normal text-md text-gray-300 flex justify-center text-center">
+                        Descubra os servidores de DayZ mais bem avaliados pela comunidade. 
+                        Sobreviva, explore e encontre o servidor perfeito para sua jogatina.
+                    </div>
                 </div>
-                <div className="font-normal text-md text-gray-300 w-150 flex justify-center text-center">
-                    Descubra os servidores de DayZ mais bem avaliados pela comunidade. 
-                    Sobreviva, explore e encontre o servidor perfeito para sua jogatina.
-                </div>
-            </div>
-
-        <div className="flex justify-center">
-            <div className="max-w-400">
-                <div className="flex flex-row justify-center gap-5 mb-20">
-                    <button className="bg-blue-500 items-center px-5 cursor-pointer hover:bg-blue-600 rounded py-2 text-sm font-semibold flex flex-row gap-2">
+                <div className="flex flex-col md:flex-row justify-center gap-5 w-full md:w-fit">
+                    <button className="justify-center bg-blue-500 items-center w-full md:w-fit px-5 cursor-pointer hover:bg-blue-600 rounded py-2 text-sm font-semibold flex flex-row gap-2">
                         <FaServer /> Registrar um novo servidor
                     </button>
-                    <button className="bg-gray-800 px-5 rounded cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
+                    <button className="justify-center bg-gray-800 px-5 rounded w-full md:w-fit cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
                         <FaInfoCircle /> Como Funciona o Raking
                     </button>
                 </div>
+            </div>
+            
+        </div>
 
+        <div className="flex justify-center">
+            <div>
                 <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
-                    <div className="flex flex-row justify-between items-center mb-5">
+                    <div className="flex flex-row justify-between mb-5">
                         <div className="font-bold">
                             Filtros
                         </div>
-                        <div className="flex flex-row gap-3">
+                        <div className="flex flex-wrap flex-col md:flex-nowrap md:flex-row gap-3">
                             <button className="py-1 px-5 bg-blue-500 cursor-pointer hover:bg-blue-600 rounded text-sm">Mais populares</button>
                             <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Melhor Avaliados</button>
                             <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Mais Recentes</button>
                         </div>  
                     </div>
 
-                    <div className="mb-5 flex flex-row gap-5">
+                    <div className="mb-5 flex flex-col md:flex-row gap-5">
                         <div className="flex flex-col w-full">
                             <div className="text-xs text-gray-500 mb-2">
                                 Buscar Servidor
@@ -205,7 +208,7 @@ export const ServerList: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row gap-4 mx-10 mb-10">
+                <div className="flex flex-row md:flex-nowrap flex-wrap gap-4 mx-10 mb-10">
                     <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-blue-950 w-fit">
                             <FaServer className="text-blue-400" />
@@ -261,24 +264,7 @@ export const ServerList: React.FC = () => {
                             </div> 
                         </div>
                     </div>
-                </div>
-                
-                <div className="flex flex-row items-center mx-10 gap-3 font-bold my-2.5">
-                    <FaCrown className="text-yellow-400 text-2xl animate-swing"/>Servidor em Destaque
-                </div>
-
-                <BestServerCard 
-                    name="DayZ Apocalypse"
-                    rating={5}
-                    ratings={1.245}
-                    description="Servidor hardcore PvP com economia balanceada, eventos semanais e uma comunidade ativa. Mods cuidadosamente selecionados para melhorar a experiência sem comprometer a essência do DayZ."
-                    tags={["PvP", "Modded", "Alta população", "Eventos", "HardCore"]}
-                    region={Region.EUROPE}
-                    uptime={99.4}
-                    administrationTeam="DayZ Administration Team"
-                    ms={32}
-                    verified
-                />
+                </div>                
 
                 <div className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
                     Top Servidores de DayZ

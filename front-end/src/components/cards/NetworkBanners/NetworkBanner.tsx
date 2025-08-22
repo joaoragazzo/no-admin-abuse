@@ -1,8 +1,7 @@
 import type { ServerDTO } from "@/interfaces/ServerDTO"
 import { useState } from "react"
-import { FaAngleRight, FaCrown, FaFlag, FaServer } from "react-icons/fa"
-import { FaPeopleGroup, FaX } from "react-icons/fa6"
-import Popup from "reactjs-popup"
+import { FaAngleRight, FaServer } from "react-icons/fa"
+import { FaPeopleGroup } from "react-icons/fa6"
 import { NetworkServer } from "./NetworkServer"
 import { Rating } from "@/components/misc/Rating"
 import { useNavigate } from "react-router-dom"
@@ -28,12 +27,12 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
 }) => {
     const navigate = useNavigate();
     const [showServers, setShowServers] = useState<boolean>(false);
-    const [moreOptions, setMoreOptions] = useState<boolean>(false);
+    // const [moreOptions, setMoreOptions] = useState<boolean>(false);
     const reportPopup = usePopup();
     return (
         <>
-        <div className="flex flex-row border-1 border-blue-500 p-4 rounded">
-            <div className="mr-3 font-bold w-50 h-maxcontent bg-blue-950 rounded items-center flex justify-center text-center">
+        <div className="flex flex-row border-1 border-blue-500 p-4 rounded md:w-full">
+            <div className="hidden md:flex w-80 mr-3 font-bold h-maxcontent bg-blue-950 rounded items-center justify-center text-center">
                 {name}
             </div>
             <div className="flex flex-col justify-between w-full">
@@ -41,12 +40,13 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                     <div>
                         <div className="flex flex-row justify-between">
                             <div className="font-bold text-md flex items-center">
+                                
                                 <div className="flex items-center text-gray-200 hover:text-white cursor-pointer" onClick={() => { navigate(`/network/${id}`) }}>
                                     {name} 
                                     <FaAngleRight size={13} className="ml-1"/>
                                 </div>
                                 
-                                <Popup
+                                {/* <Popup
                                     trigger={<FaFlag  onClick={() => {setMoreOptions(!moreOptions)}} size={13} className="ml-3 text-gray-300 hover:text-white cursor-pointer"/>}
                                     position={'top center'}
                                     on={['hover']}
@@ -64,7 +64,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                                     <button className="text-nowrap rounded bg-green-500 px-3 flex items-center gap-1.5 py-1 cursor-pointer hover:bg-green-600">
                                         <FaCrown /> Reivindicar marca
                                     </button>
-                                </div>
+                                </div> */}
                                 
                             </div>
             
@@ -89,14 +89,15 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                     
                     <div className="text-sm text-gray-400">
                         {description}
-                        <div className="flex justify-end flex-row gap-3 text-white">
-                            <button 
-                                onClick={() => {setShowServers(!showServers)}}
-                                className="flex items-center gap-2 text-xs bg-blue-600 rounded px-3 py-1 font-semibold hover:bg-blue-700 cursor-pointer">
-                                <FaServer /> Ver servidores
-                            </button>
-                        </div>
                     </div>
+
+                    <div className="flex justify-end flex-row gap-3 text-white">
+                        <button 
+                            onClick={() => {setShowServers(!showServers)}}
+                            className="flex items-center gap-2 text-xs bg-blue-600 rounded px-3 py-1 font-semibold hover:bg-blue-700 cursor-pointer">
+                            <FaServer /> Ver servidores
+                        </button>
+                     </div>
                 </div>
                 
                 <div

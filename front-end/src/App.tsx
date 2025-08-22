@@ -4,7 +4,6 @@ import { GameList } from "./pages/GameList"
 import { Header } from "./components/layout/Header"
 import { Footer } from "./components/layout/Footer"
 import { ServerList } from "./pages/ServerList"
-import { LLMTrain } from "./pages/LLMTrain"
 import { ScrollToTop } from "./utils/ScrollToTop"
 import { AuthProvider } from "./contexts/AuthContext"
 import { SteamLogin } from "./pages/SteamLogin"
@@ -32,7 +31,6 @@ function App() {
           <Route path="/servers/:game" element={<ServerList />} />
           <Route path="/network/:networkId" element={<NetworkHomeWrapper />} />
           <Route path="/auth/steam/callback" element={<SteamLogin />} />
-          <Route path="/llm-train" element={<LLMTrain />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

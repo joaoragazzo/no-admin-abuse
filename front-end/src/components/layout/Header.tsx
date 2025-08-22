@@ -1,6 +1,6 @@
 import { FaBars, FaGamepad } from "react-icons/fa"
 import { LoginSteamButton } from "../button/LoginSteamButton"
-import { FaFileShield, FaFileSignature, FaShield } from "react-icons/fa6"
+import { FaShield } from "react-icons/fa6"
 import { useState } from "react";
 import { Brand } from "../Brand";
 import { Link } from "react-router-dom";
@@ -18,13 +18,7 @@ export const Header: React.FC = () => {
 
     const items = [
         {
-            content: <Link to="/games" className="flex flex-row items-center gap-3"><FaGamepad />Jogos</Link> 
-        },
-        {
-            content: <><FaFileShield />Termos de Uso</>
-        },
-        {
-            content: <><FaFileSignature /> Nosso Manifesto</>
+            content: <Link to="/games" onClick={() => {setMenuOpen(false)}} className="flex flex-row items-center gap-3"><FaGamepad />Jogos</Link> 
         },
         {
             content: 

@@ -21,7 +21,7 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
                     {server.name}
                 </div>
                 <div className="flex flex-row gap-4 items-center">
-                    <div className="text-blue-100 flex flex-row items-center gap-1 font-bold">
+                    <div className="md:block none text-blue-100 flex flex-row items-center gap-1 font-bold">
                         <FaGlobeAmericas /> {countryTranslation(server.country)}
                     </div>
                     <div className="text-green-500 flex-row flex items-center gap-1 text-sm">
