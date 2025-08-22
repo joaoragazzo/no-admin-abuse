@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.components;
+package com.noadminabuse.alpha.config.client;
 
 import java.time.Duration;
 import java.util.Map;

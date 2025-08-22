@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.config;
+package com.noadminabuse.alpha.config.security;
 
 import java.util.List;
 
@@ -12,9 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import com.noadminabuse.alpha.components.JwtAuthEntryPoint;
-import com.noadminabuse.alpha.components.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
 

@@ -14,11 +14,12 @@ public enum DayZGameTags {
     DUO,
     TRIO,
     SQUAD,
+    FMAX,
     FULLMOD,
     FULLPVP,
     DEATHMATCH,
     NOBASE,
     NORAID,
     WIPE,
-    ROLEPLAY;
+    ROLEPLAY,;
 }

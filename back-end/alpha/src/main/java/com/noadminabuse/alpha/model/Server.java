@@ -34,6 +34,9 @@ public class Server {
     @UuidGenerator
     private UUID id;
 
+    @Column(nullable = false, unique = true)
+    private String battleMetricsId;
+
     @Column(nullable = false)
     private String name;
     
@@ -41,7 +44,7 @@ public class Server {
     private String ip;
     
     @Column(nullable = false)
-    private String port;
+    private Integer port;
     
     @Column(nullable = false)
     private Integer maxPlayers;
@@ -64,11 +67,12 @@ public class Server {
     public Server(UUID id, 
         String name, 
         String ip, 
-        String port, 
+        Integer port, 
         List<DayZGameTags> tags, 
         Country country,
         Integer maxPlayers,
-        Integer onlinePlayers) {
+        Integer onlinePlayers,
+        String battleMetricsId) {
 
         this.id=id;
         this.name=name;
@@ -78,5 +82,6 @@ public class Server {
         this.country=country;
         this.maxPlayers = maxPlayers;
         this.onlinePlayers = onlinePlayers;
+        this.battleMetricsId = battleMetricsId;
     }
 }

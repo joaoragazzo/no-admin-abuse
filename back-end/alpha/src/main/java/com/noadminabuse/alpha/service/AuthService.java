@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.noadminabuse.alpha.components.SteamApiClient;
+import com.noadminabuse.alpha.config.client.SteamApiClient;
 import com.noadminabuse.alpha.errors.BadRequest;
 import com.noadminabuse.alpha.errors.Unauthorized;
 import com.noadminabuse.alpha.errors.UnprocessableEntity;

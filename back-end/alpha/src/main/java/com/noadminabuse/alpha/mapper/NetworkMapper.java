@@ -1,12 +1,16 @@
 package com.noadminabuse.alpha.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import com.noadminabuse.alpha.config.client.dto.battlemetrics.ServerData;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
+import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
@@ -24,19 +28,22 @@ public class NetworkMapper {
             serverDTO.tags(),
             country,
             serverDTO.maxPlayers(),
-            serverDTO.onlinePlayers()
+            serverDTO.onlinePlayers(),
+            serverDTO.battlemetricsId()
         );
     }
 
     public ServerDTO toServerDTO(Server entity) {
-        return new ServerDTO(entity.getId(), 
+        return new ServerDTO(
+            entity.getId(), 
             entity.getName(), 
             entity.getIp(), 
             entity.getPort(),
             entity.getTags(),
             entity.getCountry().getCode(),
             entity.getMaxPlayers(),
-            entity.getOnlinePlayers()
+            entity.getOnlinePlayers(),
+            entity.getBattleMetricsId()
         );
     }
 
@@ -68,5 +75,28 @@ public class NetworkMapper {
             network.getYoutube(),
             network.getWebsite()
         );
+    }
+
+    public ServerDTO toServerDTO(UUID id, ServerData server, List<DayZGameTags> tags) {
+        return new ServerDTO(
+            id, 
+            server.attributes().name(), 
+            server.attributes().ip(), 
+            server.attributes().port(), 
+            tags, 
+            server.attributes().country(), 
+            server.attributes().maxPlayers(), 
+            server.attributes().players(), 
+            server.id()
+        );
+    }
+
+    public List<NetworkDTO> toNetworkDTO(HashMap<String, List<ServerDTO>> servers) {
+        ArrayList<NetworkDTO> networks = new ArrayList<>();
+        for(String key : servers.keySet()) {   
+            NetworkDTO networkDTO = new NetworkDTO(null, key, servers.get(key));
+            networks.add(networkDTO);
+        }
+        return networks;
     }
 }

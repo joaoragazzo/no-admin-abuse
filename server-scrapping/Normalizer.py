@@ -11,8 +11,8 @@ class Normalizer:
         
         # Tags mais abrangentes e organizadas por categoria
         self.gameplayTagsRegex = re.compile(
-            r'(vanilla\+{2}|vanilla\+(?!\+)|vanilla(?!\+)|no-?raid|v\+{2}|v\+(?!\+)|deathmatch|dm|pvp\+?|pve\+?|pvevp|rp|roleplay|'
-            r'hardcore\+{2}|hardcore\+(?!\+)|hardcore(?!\+)|hc|survival|adventure|quest|quests|trader|trading|'
+            r'(vanilla\+{2}|vanilla\+(?!\+)|vanilla(?!\+)|no-?raid|v\+{2}|v\+(?!\+)|deathmatch|dm|pvp\+?|pve\+?|pvevp|rp|roleplay|loot\+|loot\+\+'
+            r'hardcore\+{2}|hardcore\+(?!\+)|hardcore(?!\+)|hc|survival|adventure|quest|quests|trader|trading|aventura\+|aventura\+\+|'
             r'friendly|modded|casual|softcore|no pvp|fpp|tpp|3pp|1pp|no-base|lite|no base|solo/duo/trio|solo-duo-trio|solo|duo|trio)',
             re.IGNORECASE
         )

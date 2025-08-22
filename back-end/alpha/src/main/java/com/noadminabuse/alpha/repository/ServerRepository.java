@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ public interface ServerRepository extends JpaRepository<Server, UUID> {
     
     @Query("SELECT SUM(s.onlinePlayers) FROM Server s")
     public Long countAllOnlyPlayers();
+
+    Optional<Server> findByBattleMetricsId(String battleMetricsId);
 }

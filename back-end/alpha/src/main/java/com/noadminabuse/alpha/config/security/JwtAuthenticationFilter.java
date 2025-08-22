@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.components;
+package com.noadminabuse.alpha.config.security;
 
 import java.io.IOException;
 import java.util.List;

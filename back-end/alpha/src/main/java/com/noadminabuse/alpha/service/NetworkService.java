@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -80,11 +81,55 @@ public class NetworkService {
         return network;
     }
 
-    public List<Network> createNetwork(List<NetworkDTO> networkDTOss) {
-        return networkDTOss
+    public List<Network> createNetwork(List<NetworkDTO> networkDTOs) {
+        return networkDTOs
             .stream()
             .map(this::createNetwork).toList();
     }
+
+    public Network createOrUpdateNetwork(NetworkDTO networkDTO) {
+        Network network = networkRepository.findByName(networkDTO.name())
+            .orElseGet(() -> networkRepository.save(new Network(networkDTO.name())));
+
+        List<CountryCode> countryCodes = new ArrayList<>();
+        for (ServerDTO serverDTO : networkDTO.servers()) {
+            countryCodes.add(serverDTO.country());
+        }
+        
+        countryService.findOrCreate(countryCodes);
+
+        List<Server> servers = new ArrayList<>();
+        for (ServerDTO dto : networkDTO.servers()) {
+            Country country = new Country(dto.country());
+
+            Server server = serverRepository.findByBattleMetricsId(dto.battlemetricsId())
+                .map(existing -> {
+                    existing.setName(dto.name());
+                    existing.setOnlinePlayers(dto.onlinePlayers());
+                    existing.setNetwork(network);
+                    return existing;
+                })
+                .orElseGet(() -> {
+                    Server newServer = networkMapper.toServerEntity(dto, country);
+                    newServer.setNetwork(network);
+                    return newServer;
+                });
+
+            servers.add(server);
+        }
+
+        serverRepository.saveAll(servers);
+        return network;
+    }
+
+public List<Network> createOrUpdateNetworks(List<NetworkDTO> networkDTOs) {
+    List<Network> result = new ArrayList<>();
+    for (NetworkDTO dto : networkDTOs) {
+        Network network = createOrUpdateNetwork(dto);
+        result.add(network);
+    }
+    return result;
+}
 
     public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
         Pageable pageagle = PageRequest.of(page, size);

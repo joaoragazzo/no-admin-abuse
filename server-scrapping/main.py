@@ -61,7 +61,6 @@ if __name__ == '__main__':
 
     normalizer = Normalizer()
     fingerprinter = Fingerprinter()
-    tagNormalizer = TagNormalizer()
     regionNormalizer = RegionNormalizer()
 
     servers = bm.fetchServers(size=1000)
