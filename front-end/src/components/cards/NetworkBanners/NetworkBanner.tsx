@@ -87,7 +87,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                         </div>
                     </div>
                     
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-gray-400 line-clamp-2">
                         {description}
                     </div>
 

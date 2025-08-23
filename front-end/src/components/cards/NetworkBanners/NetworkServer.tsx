@@ -16,8 +16,8 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
 
     return (
         <div className="flex flex-col bg-gray-900 px-4 py-3 text-sm rounded-md text-gray-200">
-            <div className="flex flex-row justify-between">
-                <div className="font-bold">
+            <div className="flex flex-col md:flex-row gap-1n justify-between">
+                <div className="font-bold line-clamp-1">
                     {server.name}
                 </div>
                 <div className="flex flex-row gap-4">
@@ -32,13 +32,13 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
                         </div>
                     </div>
                 </div>
-                
             </div>
+
             <div className="text-xs flex flex-row items-center gap-2">
                 {server.ip}:{server.port} <CopyButtonWithPopup textToCopy={`${server.ip}:${server.port}`}/>
             </div>
             {server.tags.length > 0 && 
-                <div className="flex flex-row gap-1 mt-3">
+                <div className="flex flex-row gap-1 mt-3 flex-wrap">
                     {server.tags.map((tag, index) => (
                         <div key={index} className="text-xs w-fit rounded-full bg-blue-800 text-blue-300 py-0.5 px-2">{tagsTranslation(tag)}</div>
                     ))}

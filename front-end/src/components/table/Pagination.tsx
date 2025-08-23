@@ -9,7 +9,7 @@ interface PaginationProps {
 export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, onPageChange}) => {
     const generatePagination = (current: number, total: number): (number | string)[] => {
         const range: (number | string)[] = [];
-        const visiblePages = Math.floor(window.innerWidth / 200);;
+        const visiblePages = Math.floor(window.innerWidth / 200);
         const totalNumbers = visiblePages;
         const totalBlocks = totalNumbers + 2;
     
@@ -53,7 +53,7 @@ export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, 
             <FaAngleLeft /> Anterior
           </div>
     
-          <div className="flex gap-2 bg-gray-900 px-6 rounded-full">
+          <div className="hidden gap-2 bg-gray-900 px-6 rounded-full sm:flex">
             {pages.map((p, idx) => (
               <div
                 key={idx}

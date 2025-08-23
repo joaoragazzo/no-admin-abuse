@@ -270,7 +270,7 @@ export const ServerList: React.FC = () => {
                     Top Servidores de DayZ
                 </div>
                 
-                <div className="flex flex-col mx-10 gap-5 mb-5">
+                <div className="flex flex-col sm:mx-10 sm:gap-5 mb-5">
 
                     {serverList?.content.map((content, key) => (
                         <NetworkBanner
