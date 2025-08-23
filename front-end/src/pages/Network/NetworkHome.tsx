@@ -1,25 +1,21 @@
 import { NetworkServer } from "@/components/cards/NetworkBanners/NetworkServer";
-import { Rating } from "@/components/misc/Rating";
 import { Card } from "@/components/template/Card";
 import type React from "react";
 import { useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import { FaAngleDown, FaAngleUp, FaArrowRight, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaSkullCrossbones, FaStar, FaTags, FaYoutube } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
-import { MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
 import { Tag } from "@/components/misc/Tag";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 import { Loading } from "@/components/misc/Loading";
+import { NetworkHeader } from "./NetworkHeader";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
-    const { networkDetails, loading } = useNetworkHome();
+    const { networkDetails, loading, maxPlayersCount, onlinePlayersCount } = useNetworkHome();
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
-
-    const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
-    const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
 
     if (loading) {
         return ( 
@@ -38,56 +34,12 @@ export const NetworkHome: React.FC = () => {
 
     return (
     <>   
-        {/* Header */}
-        <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
-            <div className="flex max-w-400 gap-5 flex-grow px-10 md:px-20 xl:px-50">
-                <div className="border-2 text-blue-800 border-blue-800 bg-blue-980 w-fit h-fit p-8 rounded-md">
-                    <FaSkullCrossbones size={33}/>
-                </div>
-                <div className="flex flex-col gap-2.5 w-full">
-                    <div className="flex flex-row justify-between items-center">
-                        <h2 className="font-extrabold text-3xl">
-                            {networkDetails?.name}
-                        </h2>
-                        <h2 
-                            onClick={() => {navigate(-1)}}
-                            className="font-bold text-1xl flex items-center gap-2 cursor-pointer text-gray-200 hover:text-white">
-                            Voltar <FaArrowRight />
-                        </h2>
-                    </div>
-                    
-                    
-                    <div className="flex flex-row gap-4 text-sm">
-                        <div className="flex flex-row gap-3">
-                            <Rating rating={4}/>
-                            (342 avaliações)
-                        </div>
-                        •
-                        <div>
-                            {networkDetails.servers.length} servidores ativos
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center gap-6">
-                        <div className="bg-green-600 px-2.5 py-1 w-fit rounded-full text-xs font-semibold flex items-center gap-1.5">
-                            <MdVerified /> Servidor verificado
-                        </div>
-                        <div className="flex flex-row items-center gap-1.5 text-xs">
-                            <div className="p-1 bg-green-600 rounded-full w-fit h-fit">
-                            </div>
-                            <div className="text-green-600 flex items-center">
-                                {onlinePlayersCount}/{maxPlayersCount} jogadores online
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+        <NetworkHeader />
         
         {/* Content */}
         <div className="w-full flex justify-center items-center flex-col">
-            <div className="flex flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
-                <div className="flex flex-col basis-2/3 gap-8">
+            <div className="flex flex-col md:flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
+                <div className="flex flex-col md:basis-2/3 gap-8">
                     <Card>
                         <Card.Title>
                             <FaInfoCircle className="text-blue-700"/> Sobre a Rede
@@ -186,7 +138,7 @@ export const NetworkHome: React.FC = () => {
                     </Card>
                 </div>
 
-                <div className="flex flex-col basis-1/3 gap-8">
+                <div className="flex flex-col md:basis-1/3 gap-8">
                     <Card>
                         <Card.Title>
                             <FaFile className="text-blue-700"/> Estatísticas Rápidas

@@ -7,13 +7,15 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import { useNavigate } from "react-router-dom";
 
 interface NetworkHomeContextType {
-    loading: boolean,
-    networkId: string,
+    loading: boolean
+    networkId: string
     networkDetails: NetworkDetailsDTO | undefined
-    reviewsResponse: ReviewDisplayResponseDTO | undefined,
+    reviewsResponse: ReviewDisplayResponseDTO | undefined
     setReviewsResponse: React.Dispatch<React.SetStateAction<ReviewDisplayResponseDTO | undefined>>
     handleReviewPublish: ({data}:{data:ReviewCreationDTO}) => void
     handleReviewDelete: ({id}:{id: string}) => void
+    maxPlayersCount: number
+    onlinePlayersCount: number
 }
 
 const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undefined);
@@ -23,6 +25,9 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
     const [reviewsResponse, setReviewsResponse] = useState<ReviewDisplayResponseDTO | undefined>(undefined);
     const [networkDetails, setNetworkDetails] = useState<NetworkDetailsDTO|undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
+
+    const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
+    const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
 
     const fetchReview = async ({ networkId }:{networkId: string}) => {
         const response = await ReviewService.fetchReview({ networkId: networkId });
@@ -60,7 +65,9 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
         reviewsResponse,
         setReviewsResponse,
         handleReviewDelete,
-        handleReviewPublish
+        handleReviewPublish,
+        maxPlayersCount,
+        onlinePlayersCount
     }
 
     return (
