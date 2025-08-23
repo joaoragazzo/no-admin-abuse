@@ -122,14 +122,14 @@ public class NetworkService {
         return network;
     }
 
-public List<Network> createOrUpdateNetworks(List<NetworkDTO> networkDTOs) {
-    List<Network> result = new ArrayList<>();
-    for (NetworkDTO dto : networkDTOs) {
-        Network network = createOrUpdateNetwork(dto);
-        result.add(network);
+    public List<Network> createOrUpdateNetworks(List<NetworkDTO> networkDTOs) {
+        List<Network> result = new ArrayList<>();
+        for (NetworkDTO dto : networkDTOs) {
+            Network network = createOrUpdateNetwork(dto);
+            result.add(network);
+        }
+        return result;
     }
-    return result;
-}
 
     public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
         Pageable pageagle = PageRequest.of(page, size);
