@@ -62,7 +62,7 @@ export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, 
                   rounded-md font-extrabold text-xs
                   ${p === currentPage ? "bg-blue-900" : typeof(p) === "number" && "hover:bg-blue-950 cursor-pointer"}
                 `}
-                onClick={() => typeof p === "number" && onPageChange(p)}
+                onClick={() => {typeof p === "number" && onPageChange(p)}}
               >
                 {p}
               </div>
