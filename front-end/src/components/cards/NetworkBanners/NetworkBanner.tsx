@@ -4,7 +4,7 @@ import { FaAngleRight, FaServer } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 import { NetworkServer } from "./NetworkServer"
 import { Rating } from "@/components/misc/Rating"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { ReportNetworkPopup } from "@/components/popups/ReportNetworkPopup"
 import { usePopup } from "@/hooks/usePopup"
 
@@ -20,7 +20,7 @@ interface NetworkBannerProps {
 export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     id,
     name,
-    // rating,
+    rating,
     feedbackCount,
     description,
     servers,
@@ -28,6 +28,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     const navigate = useNavigate();
     const [showServers, setShowServers] = useState<boolean>(false);
     // const [moreOptions, setMoreOptions] = useState<boolean>(false);
+    const { game } = useParams();
     const reportPopup = usePopup();
     return (
         <>
@@ -41,7 +42,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                         <div className="flex flex-row justify-between">
                             <div className="font-bold text-md flex items-center">
                                 
-                                <div className="flex items-center text-gray-200 hover:text-white cursor-pointer" onClick={() => { navigate(`/network/${id}`) }}>
+                                <div className="flex items-center text-gray-200 hover:text-white cursor-pointer" onClick={() => { navigate(`/${game}/networks/${id}`) }}>
                                     {name} 
                                     <FaAngleRight size={13} className="ml-1"/>
                                 </div>
@@ -81,7 +82,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                     </div>
                                 
                     <div className="flex flex-row gap-2 text-xs">
-                       <Rating rating={1} />
+                       <Rating rating={rating} />
                         <div className="text-gray-400 flex flex-row items-center">
                             ({feedbackCount} avaliações)
                         </div>

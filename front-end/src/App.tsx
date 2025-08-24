@@ -3,7 +3,7 @@ import { Home } from "./pages/Home"
 import { GameList } from "./pages/GameList"
 import { Header } from "./components/layout/Header"
 import { Footer } from "./components/layout/Footer"
-import { ServerList } from "./pages/ServerList"
+import { NetworkList } from "./pages/NetworkList"
 import { ScrollToTop } from "./utils/ScrollToTop"
 import { AuthProvider } from "./contexts/AuthContext"
 import { SteamLogin } from "./pages/SteamLogin"
@@ -28,8 +28,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<GameList />} />
-          <Route path="/servers/:game" element={<ServerList />} />
-          <Route path="/network/:networkId" element={<NetworkHomeWrapper />} />
+          <Route path="/:game/networks" element={<NetworkList />} />
+          <Route path="/:game/networks/:networkId" element={<NetworkHomeWrapper />} />
           <Route path="/auth/steam/callback" element={<SteamLogin />} />
           <Route path="*" element={<Home />} />
         </Routes>

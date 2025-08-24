@@ -4,5 +4,7 @@ export interface NetworkDTO {
     id: string,
     name: string,
     description: string,
+    reviewsCount: number,
+    reviewsAvg: number,
     servers: ServerDTO[],
 }

@@ -13,7 +13,7 @@ import { Region } from "@/enums/Region";
 import { CountUp } from "@/components/misc/CountUp";
 
 
-export const ServerList: React.FC = () => {
+export const NetworkList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const [serverList, setServerList] = useState<Pageable<NetworkDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -28,9 +28,6 @@ export const ServerList: React.FC = () => {
     const [searchText, setSearchText] = useState<string>("");
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
     const [region, setRegion] = useState<string|null>(null);
-
-    
-    useEffect(() => {console.log(serverList)},[serverList])
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -155,13 +152,13 @@ export const ServerList: React.FC = () => {
                                 >
                                     <option value="">{regionsTranslation("ALL_REGIONS")}</option>
                                     {
-                                    Object.values(Region)
-                                    .filter(value => typeof value === 'string')
-                                    .map(region => (
-                                    <option value={region} key={region}>
-                                        {regionsTranslation(region)}
-                                    </option>
-                                    ))
+                                        Object.values(Region)
+                                        .filter(value => typeof value === 'string')
+                                        .map(region => (
+                                            <option value={region} key={region}>
+                                                {regionsTranslation(region)}
+                                            </option>
+                                        ))
                                     }
                                 </select>
                             </div>
@@ -277,9 +274,9 @@ export const ServerList: React.FC = () => {
                             key={key}
                             id={content.id}
                             name={content.name}
-                            description="Servidor focado em roleplay imersivo com regras rígidas e uma comunidade dedicada. Experiência hardcore com foco em sobrevivência e interações realistas entre jogadores."
-                            rating={4.0}
-                            feedbackCount={327}
+                            description={content.description}
+                            rating={content.reviewsAvg}
+                            feedbackCount={content.reviewsCount}
                             servers={content.servers}
                         />
                     ))}

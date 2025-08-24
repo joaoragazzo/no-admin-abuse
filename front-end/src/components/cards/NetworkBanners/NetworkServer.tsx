@@ -9,7 +9,6 @@ interface NetworkServerProps {
     server: ServerDTO
 }
 
-
 export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => { 
     const { t: countryTranslation} = useTranslation('countries');
     const { t: tagsTranslation } = useTranslation('tags');

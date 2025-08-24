@@ -33,7 +33,7 @@ export const GameCard: React.FC<GameCardProps> = ({ id, gameName, networkCount, 
                     </div>
                 </div>
                         
-                <Link to={`/servers/${id}`} className="mt-6 w-full flex items-center justify-center">
+                <Link to={`/${id}/networks/`} className="mt-6 w-full flex items-center justify-center">
                     <button className="bg-blue-500 px-10 py-2 rounded hover:bg-blue-600 cursor-pointer text-sm">Ver Redes de Servidores</button>
                 </Link>
             </div>
