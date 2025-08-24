@@ -12,6 +12,8 @@ public record NetworkDetailsDTO(
     UUID id,
     @NotBlank String name,
     @NotBlank String description,
+    Long reviewsCount,
+    Long reviewsAvg,
     List<String> positiveTags,
     List<String> negativeTags,
     @NotEmpty List<ServerDTO> servers,

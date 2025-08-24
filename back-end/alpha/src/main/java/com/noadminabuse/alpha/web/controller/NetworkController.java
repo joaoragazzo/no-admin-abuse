@@ -33,7 +33,8 @@ public class NetworkController {
 
     @GetMapping("/{id}")
     public ResponseEntity<NetworkDetailsDTO> fetchNetworkDetails(@PathVariable("id") UUID id) {
-        NetworkDetailsDTO response = networkService.fetchNetworkDetails(id);
+        Network network = networkService.fetchNetworkDetails(id);
+        NetworkDetailsDTO response = networkMapper.toNetworkDetailsDTO(network); 
         return ResponseEntity.ok().body(response);
     }
     

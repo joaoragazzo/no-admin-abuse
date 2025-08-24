@@ -78,7 +78,9 @@ public class NetworkMapper {
         return new NetworkDetailsDTO(
             network.getId(),
             network.getName(),
-            network.getDescription(), 
+            network.getDescription(),
+            network.getReviewsAmount(),
+            network.getReviewsAvg(),
             new ArrayList<>(), 
             new ArrayList<>(), 
             servers, 

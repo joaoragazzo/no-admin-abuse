@@ -142,12 +142,11 @@ public class NetworkService {
         return networkRepository.findAll(spec, pageagle);
     }
 
-    public NetworkDetailsDTO fetchNetworkDetails(UUID id) {
-        Network network = networkRepository
+    public Network fetchNetworkDetails(UUID id) {
+        return networkRepository
             .findById(id)
             .orElseThrow(
                 () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
-        return networkMapper.toNetworkDetailsDTO(network);
     }
 }
