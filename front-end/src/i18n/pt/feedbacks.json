@@ -1,3 +1,4 @@
 {
-    "UNAUTHENTICATED_REQUEST": "Você precisa estar autenticado para fazer isso!"
+    "UNAUTHENTICATED_REQUEST": "Você precisa estar autenticado para fazer isso!",
+    "NETWORK_NOT_FOUND": "Rede de servidores não encontedada!"
 }
