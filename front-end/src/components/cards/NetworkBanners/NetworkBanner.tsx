@@ -13,7 +13,7 @@ interface NetworkBannerProps {
     name: string,
     rating: number,
     feedbackCount: number,
-    description: string,
+    description: string | undefined,
     servers: ServerDTO[]
 }
 
@@ -89,7 +89,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                     </div>
                     
                     <div className="text-sm text-gray-400 line-clamp-2">
-                        {description}
+                        {description || "(Nenhuma descrição disponível)"}
                     </div>
 
                     <div className="flex justify-end flex-row gap-3 text-white">

@@ -37,26 +37,19 @@ export const NetworkHome: React.FC = () => {
         <NetworkHeader />
         
         {/* Content */}
-        <div className="w-full flex justify-center items-center flex-col">
-            <div className="flex flex-col md:flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
+        <div className="flex justify-center items-center flex-col">
+            <div className="w-full flex flex-col md:flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
                 <div className="flex flex-col md:basis-2/3 gap-8">
                     <Card>
                         <Card.Title>
                             <FaInfoCircle className="text-blue-700"/> Sobre a Rede
                         </Card.Title>
                         <Card.Content>
-                            <div className="mt-3 text-sm text-justify text-gray-300">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam optio, consequuntur labore ab 
-                                maiores officiis voluptate aliquid maxime sapiente natus et, 
-                                architecto vitae dolor accusamus! Beatae hic odit inventore qui.
-                            </div>
-                            <div className="mt-3 text-sm text-justify text-gray-300">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam optio, consequuntur labore ab 
-                                maiores officiis voluptate aliquid maxime sapiente natus et, 
-                                architecto vitae dolor accusamus! Beatae hic odit inventore qui.
-                            </div>
+                           {networkDetails.description || "Não há nenhuma descrição disponível."}
                         </Card.Content>
                     </Card>
+                    
+                    
 
                     <Card>
                         <Card.Title>
@@ -159,7 +152,7 @@ export const NetworkHome: React.FC = () => {
                                         <FaStar /> Avaliação média:
                                     </span>
                                     <span>
-                                        4/5
+                                        {networkDetails.reviewsAvg}/5
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">
@@ -167,7 +160,7 @@ export const NetworkHome: React.FC = () => {
                                         <FaArrowUp /> Total de avaliações:
                                     </span>
                                     <span>
-                                        392
+                                        {networkDetails.reviewsCount}
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">

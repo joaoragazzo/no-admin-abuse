@@ -13,7 +13,7 @@ export const GameList: React.FC = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mx-4 sm:mx-8 lg:mx-12 mb-10 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 sm:mx-8 lg:mx-12 mb-10 max-w-7xl mx-auto">
         <GameCard
           id="dayz"
           gameName="DayZ"

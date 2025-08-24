@@ -30,9 +30,9 @@ export const NetworkHeader: React.FC = () => {
                     
                     <div className="flex flex-row gap-4 text-sm">
                         <div className="sm:flex flex-row gap-3">
-                            <Rating rating={4}/>
+                            <Rating rating={networkDetails!.reviewsAvg}/>
                             <div className="hidden sm:flex">
-                                (342 avaliações)
+                                ({networkDetails?.reviewsCount} avaliações)
                             </div>
                         </div>
                         <div className="sm:flex hidden">

@@ -109,7 +109,7 @@ export const NetworkList: React.FC = () => {
         </div>
 
         <div className="flex justify-center">
-            <div>
+            <div className="w-full">
                 <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
                     <div className="flex flex-row justify-between mb-5">
                         <div className="font-bold">
@@ -188,7 +188,7 @@ export const NetworkList: React.FC = () => {
                         <div className="flex flex-wrap text-nowrap flex-row gap-2">
                             {
                                 tagsLoading ? 
-                                    [...Array(10)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
+                                    [...Array(20)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
                                 : 
                                 tags.map((value, key) => (
                                     <div
