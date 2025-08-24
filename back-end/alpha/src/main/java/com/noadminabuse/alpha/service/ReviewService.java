@@ -53,9 +53,9 @@ public class ReviewService {
             throw new Unauthorized(ReviewErrorMessage.CANNOT_DELETE_THIS_REVIEW);
         
         UUID networkId = review.getNetwork().getId();
-
+        
+        updateStatsOnRemoveReview(networkId, review.getRating());
         reviewRepository.deleteById(reviewId);
-        updateStatsOnRemoveReview(networkId);
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
@@ -117,29 +117,34 @@ public class ReviewService {
 
     private void updateStatsOnAddReview(UUID networkId, ReviewCreationDTO reviewDTO) {
         Network network = networkRepository.findById(networkId)
-            .orElseThrow(
-                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
-            );
-        
-        Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
-        Long newReviewRating = (network.getReviewsAvg() + reviewDTO.rating()) / (reviewsCount + 1);
+            .orElseThrow(() -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND));
     
-        network.setReviewsAmount(reviewsCount + 1);
-        network.setReviewsAvg(newReviewRating);
+        Long oldCount = network.getReviewsAmount();
+        Long oldAvg = network.getReviewsAvg();
+    
+        Long newAvg = (oldAvg * oldCount + reviewDTO.rating()) / (oldCount + 1);
+    
+        network.setReviewsAmount(oldCount + 1);
+        network.setReviewsAvg(newAvg);
         networkRepository.save(network);
     }
 
-    private void updateStatsOnRemoveReview(UUID networkId) {
+    private void updateStatsOnRemoveReview(UUID networkId, int removedRating) {
         Network network = networkRepository.findById(networkId)
-            .orElseThrow(
-                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
-            );
-        
-        Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
-        Long newReviewRating = network.getReviewsAvg() / (reviewsCount == 0 ? 1 : reviewsCount);
+            .orElseThrow(() -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND));
     
-        network.setReviewsAmount(reviewsCount - 1);
-        network.setReviewsAvg(newReviewRating);
+        Long oldCount = network.getReviewsAmount();
+        Long oldAvg =  network.getReviewsAvg();
+    
+        if (oldCount <= 1) {
+            network.setReviewsAmount(0L);
+            network.setReviewsAvg(0L);
+        } else {
+            Long newAvg = (oldAvg * oldCount - removedRating) / (oldCount - 1);
+            network.setReviewsAmount(oldCount - 1);
+            network.setReviewsAvg(newAvg);
+        }
+    
         networkRepository.save(network);
     }
 }
