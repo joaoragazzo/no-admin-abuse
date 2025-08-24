@@ -14,8 +14,8 @@ interface NetworkHomeContextType {
     setReviewsResponse: React.Dispatch<React.SetStateAction<ReviewDisplayResponseDTO | undefined>>
     handleReviewPublish: ({data}:{data:ReviewCreationDTO}) => void
     handleReviewDelete: ({id}:{id: string}) => void
-    maxPlayersCount: number
-    onlinePlayersCount: number
+    maxPlayersCount: number | 0
+    onlinePlayersCount: number | 0
 }
 
 const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undefined);
@@ -26,8 +26,8 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
     const [networkDetails, setNetworkDetails] = useState<NetworkDetailsDTO|undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0)
-    const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0)
+    const maxPlayersCount = networkDetails?.servers.reduce((sum,acc) => sum += acc.maxPlayers, 0) ?? 0
+    const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0) ?? 0
 
     const fetchReview = async ({ networkId }:{networkId: string}) => {
         const response = await ReviewService.fetchReview({ networkId: networkId });
