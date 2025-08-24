@@ -37,6 +37,7 @@ public class ReviewService {
     public Review createReview(ReviewCreationDTO reviewDTO, UUID userId, UUID networkId) {
         if (alreadyHasANetworkReview(userId, networkId)) 
             throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_EXISTS);
+        
         updateStatsOnAddReview(networkId, reviewDTO);
 
         Review review = reviewMapper.toReviewCreationEntity(reviewDTO, userId, networkId);
@@ -121,7 +122,7 @@ public class ReviewService {
             );
         
         Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
-        Long newReviewRating = network.getReviewsAvg() + reviewDTO.rating() / reviewsCount + 1;
+        Long newReviewRating = (network.getReviewsAvg() + reviewDTO.rating()) / (reviewsCount + 1);
     
         network.setReviewsAmount(reviewsCount + 1);
         network.setReviewsAvg(newReviewRating);
@@ -135,7 +136,7 @@ public class ReviewService {
             );
         
         Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
-        Long newReviewRating = network.getReviewsAvg() / reviewsCount ;
+        Long newReviewRating = network.getReviewsAvg() / (reviewsCount == 0 ? 1 : reviewsCount);
     
         network.setReviewsAmount(reviewsCount - 1);
         network.setReviewsAvg(newReviewRating);
