@@ -45,7 +45,7 @@ export const NetworkHome: React.FC = () => {
                             <FaInfoCircle className="text-blue-700"/> Sobre a Rede
                         </Card.Title>
                         <Card.Content>
-                           {networkDetails.description || "Não há nenhuma descrição disponível."}
+                           {networkDetails.description || "(Nenhuma descrição disponível)"}
                         </Card.Content>
                     </Card>
                     
