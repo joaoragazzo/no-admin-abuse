@@ -10,4 +10,5 @@ import com.noadminabuse.alpha.model.Network;
 
 public interface NetworkRepository extends JpaRepository<Network, UUID>, JpaSpecificationExecutor<Network> {
     Optional<Network> findByName(String name);
+    
 }

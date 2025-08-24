@@ -12,7 +12,8 @@ import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Network;
-import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
@@ -51,12 +52,23 @@ public class NetworkMapper {
         return entities.stream().map(this::toServerDTO).toList();
     }
 
-    public NetworkDTO toNetworkDTO(Network entity) {
+    public NetworkCreationDTO toNetworkDTO(Network entity) {
         List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
-        return new NetworkDTO(entity.getId(), entity.getName(), serverDTOs);
+        return new NetworkCreationDTO(entity.getId(), entity.getName(), serverDTOs);
     }
 
-    public List<NetworkDTO> toNetworkDTO(List<Network> entities) {
+    public NetworkBannerDTO toNetworkBanner(Network entity) {
+        List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
+        return new NetworkBannerDTO(
+            entity.getId(), 
+            entity.getName(), 
+            entity.getDescription(),
+            entity.getReviewsAmount(),
+            entity.getReviewsAvg(),
+            serverDTOs);
+    }
+
+    public List<NetworkCreationDTO> toNetworkDTO(List<Network> entities) {
         return entities.stream().map(this::toNetworkDTO).toList();
     }
 
@@ -91,10 +103,10 @@ public class NetworkMapper {
         );
     }
 
-    public List<NetworkDTO> toNetworkDTO(HashMap<String, List<ServerDTO>> servers) {
-        ArrayList<NetworkDTO> networks = new ArrayList<>();
+    public List<NetworkCreationDTO> toNetworkDTO(HashMap<String, List<ServerDTO>> servers) {
+        ArrayList<NetworkCreationDTO> networks = new ArrayList<>();
         for(String key : servers.keySet()) {   
-            NetworkDTO networkDTO = new NetworkDTO(null, key, servers.get(key));
+            NetworkCreationDTO networkDTO = new NetworkCreationDTO(null, key, servers.get(key));
             networks.add(networkDTO);
         }
         return networks;

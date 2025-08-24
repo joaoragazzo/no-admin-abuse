@@ -43,6 +43,8 @@ public class Network {
 
     @OneToMany(mappedBy = "network")
     private List<Review> reviews = new ArrayList<>();
+    private Long reviewsAvg;
+    private Long reviewsAmount;
 
     @OneToOne(mappedBy = "network")
     private User owner;
@@ -54,6 +56,8 @@ public class Network {
 
     public Network(String name) {
         this.name = name;
+        this.reviewsAvg = 0L;
+        this.reviewsAmount = 0L;
     }
 
     public Network(UUID uuid) {

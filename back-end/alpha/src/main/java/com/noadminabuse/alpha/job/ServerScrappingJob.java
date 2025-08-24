@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.scrapping.BattleMetricsScrapper;
 import com.noadminabuse.alpha.service.NetworkService;
-import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -21,7 +21,7 @@ public class ServerScrappingJob {
     @Scheduled(fixedRate = 70000)
     public void dayZScrapping() {
         System.out.println("Inicando cronjob...");
-        List<NetworkDTO> networks = battleMetricsScrapper.run();
+        List<NetworkCreationDTO> networks = battleMetricsScrapper.run();
         networkService.createOrUpdateNetworks(networks);
         System.out.println("Finalizando cronjob...");
     }

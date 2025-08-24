@@ -8,7 +8,7 @@ import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-public record NetworkDTO(
+public record NetworkCreationDTO(
     UUID id,
     @NotBlank String name,
     @NotEmpty List<ServerDTO> servers

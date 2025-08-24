@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.service.NetworkService;
 import com.noadminabuse.alpha.web.dto.dayz.DayZFiltersDTO;
-import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class ServerController {
     private final NetworkService networkService;
 
     @PutMapping("/bulk")
-    public ResponseEntity<String> bulk(@RequestBody @Valid List<NetworkDTO> dtos) {
+    public ResponseEntity<String> bulk(@RequestBody @Valid List<NetworkCreationDTO> dtos) {
         networkService.createNetwork(dtos);
         return ResponseEntity.ok().body("ok");
     }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.noadminabuse.alpha.model.Review;
 
@@ -22,4 +23,10 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
     Page<Review> findByNetworkId(UUID networkId, Pageable pageable);
 
     Boolean existsByIdAndAuthorId(UUID id, UUID authorId);
+
+    @Query("SELECT AVG(r.rating) FROM Review r WHERE r.network.id = :networkId")
+    Double getAvgRatingByNetwork(UUID networkId);
+
+    @Query("SELECT COUNT(r) FROM Review r WHERE r.network.id = :networkId")
+    Long getReviewCountByNetwork(UUID networkId);
 }

@@ -9,11 +9,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.Conflict;
+import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.Unauthorized;
+import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
 import com.noadminabuse.alpha.errors.enums.ReviewErrorMessage;
 import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.mapper.UserMapper;
+import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.Review;
+import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ReviewRepository;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
@@ -26,23 +30,31 @@ import lombok.AllArgsConstructor;
 public class ReviewService {
     
     private final ReviewRepository reviewRepository;
+    private final NetworkRepository networkRepository;
     private final ReviewMapper reviewMapper;
     private final UserMapper userMapper;
 
     public Review createReview(ReviewCreationDTO reviewDTO, UUID userId, UUID networkId) {
         if (alreadyHasANetworkReview(userId, networkId)) 
             throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_EXISTS);
+        updateStatsOnAddReview(networkId, reviewDTO);
 
         Review review = reviewMapper.toReviewCreationEntity(reviewDTO, userId, networkId);
         return reviewRepository.save(review);
     }
 
     public void deleteReview(UUID reviewId, UUID userId) {
-        if (!this.checkOwnership(reviewId, userId)) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(
+            () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
+        );
+        
+        if (!this.checkOwnership(reviewId, userId)) 
             throw new Unauthorized(ReviewErrorMessage.CANNOT_DELETE_THIS_REVIEW);
-        }
+        
+        UUID networkId = review.getNetwork().getId();
 
         reviewRepository.deleteById(reviewId);
+        updateStatsOnRemoveReview(networkId);
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
@@ -100,5 +112,33 @@ public class ReviewService {
 
     private boolean checkOwnership(UUID reviewId, UUID userId) {
         return reviewRepository.existsByIdAndAuthorId(reviewId, userId);
+    }
+
+    private void updateStatsOnAddReview(UUID networkId, ReviewCreationDTO reviewDTO) {
+        Network network = networkRepository.findById(networkId)
+            .orElseThrow(
+                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
+            );
+        
+        Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
+        Long newReviewRating = network.getReviewsAvg() + reviewDTO.rating() / reviewsCount + 1;
+    
+        network.setReviewsAmount(reviewsCount + 1);
+        network.setReviewsAvg(newReviewRating);
+        networkRepository.save(network);
+    }
+
+    private void updateStatsOnRemoveReview(UUID networkId) {
+        Network network = networkRepository.findById(networkId)
+            .orElseThrow(
+                () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
+            );
+        
+        Long reviewsCount = reviewRepository.getReviewCountByNetwork(networkId);
+        Long newReviewRating = network.getReviewsAvg() / reviewsCount ;
+    
+        network.setReviewsAmount(reviewsCount - 1);
+        network.setReviewsAvg(newReviewRating);
+        networkRepository.save(network);
     }
 }

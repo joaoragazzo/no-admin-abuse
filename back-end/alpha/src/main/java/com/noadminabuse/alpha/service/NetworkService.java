@@ -22,7 +22,7 @@ import com.noadminabuse.alpha.model.enums.Region;
 import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
-import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
@@ -75,19 +75,19 @@ public class NetworkService {
         return serverRepository.saveAll(servers);
     }
 
-    public Network createNetwork(NetworkDTO networkDTOs) {
+    public Network createNetwork(NetworkCreationDTO networkDTOs) {
         Network network = networkRepository.save(new Network(networkDTOs.name()));
         this.createServer(network.getId(), networkDTOs.servers());
         return network;
     }
 
-    public List<Network> createNetwork(List<NetworkDTO> networkDTOs) {
+    public List<Network> createNetwork(List<NetworkCreationDTO> networkDTOs) {
         return networkDTOs
             .stream()
             .map(this::createNetwork).toList();
     }
 
-    public Network createOrUpdateNetwork(NetworkDTO networkDTO) {
+    public Network createOrUpdateNetwork(NetworkCreationDTO networkDTO) {
         Network network = networkRepository.findByName(networkDTO.name())
             .orElseGet(() -> networkRepository.save(new Network(networkDTO.name())));
 
@@ -122,9 +122,9 @@ public class NetworkService {
         return network;
     }
 
-    public List<Network> createOrUpdateNetworks(List<NetworkDTO> networkDTOs) {
+    public List<Network> createOrUpdateNetworks(List<NetworkCreationDTO> networkDTOs) {
         List<Network> result = new ArrayList<>();
-        for (NetworkDTO dto : networkDTOs) {
+        for (NetworkCreationDTO dto : networkDTOs) {
             Network network = createOrUpdateNetwork(dto);
             result.add(network);
         }

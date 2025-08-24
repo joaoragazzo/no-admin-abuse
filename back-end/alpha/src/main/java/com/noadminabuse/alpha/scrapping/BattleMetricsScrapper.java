@@ -11,7 +11,7 @@ import com.noadminabuse.alpha.config.client.BattleMetricsClient;
 import com.noadminabuse.alpha.config.client.dto.battlemetrics.ServerData;
 import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
-import com.noadminabuse.alpha.web.dto.network.NetworkDTO;
+import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
 
@@ -27,7 +27,7 @@ public class BattleMetricsScrapper {
         this.networkMapper = networkMapper;
     }
 
-    public List<NetworkDTO> run() {
+    public List<NetworkCreationDTO> run() {
         List<ServerData> servers = battleMetricsClient.fetchServers("dayz", 1000).data();
         HashMap<String, List<ServerData>> networks = agroupServers(servers);
         return processToDto(networks);
@@ -51,8 +51,8 @@ public class BattleMetricsScrapper {
         return networks;
     }
 
-    private List<NetworkDTO> processToDto(HashMap<String, List<ServerData>> networks) {
-        List<NetworkDTO> result = new ArrayList<>();
+    private List<NetworkCreationDTO> processToDto(HashMap<String, List<ServerData>> networks) {
+        List<NetworkCreationDTO> result = new ArrayList<>();
         
         for(String key : networks.keySet()) {
             List<ServerDTO> servers = new ArrayList<>();
@@ -64,7 +64,7 @@ public class BattleMetricsScrapper {
             }
 
             if (!(Objects.isNull(key) || key.isEmpty() || key.isBlank()))
-                result.add(new NetworkDTO(null, key, servers));
+                result.add(new NetworkCreationDTO(null, key, servers));
         }
 
         return result;

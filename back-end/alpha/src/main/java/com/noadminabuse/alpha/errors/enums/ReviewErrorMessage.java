@@ -4,6 +4,7 @@ import com.noadminabuse.alpha.messages.Feedback;
 
 public enum ReviewErrorMessage implements Feedback {
     REVIEW_ALREADY_EXISTS("REVIEW_ALREADY_EXISTS"),
+    REVIEW_NOT_FOUND("REVIEW_NOT_FOUND"),
     CANNOT_DELETE_THIS_REVIEW("CANNOT_DELETE_THIS_REVIEW");
 
     private String message;
