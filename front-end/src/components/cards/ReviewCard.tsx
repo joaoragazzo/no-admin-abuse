@@ -11,6 +11,7 @@ import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/pt-br';
+import { useState } from "react";
 
 interface ReviewCardProps {
     content: ReviewDisplayDTO
@@ -20,13 +21,30 @@ interface ReviewCardProps {
 export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false }) => {
     dayjs.locale('pt-br');
     dayjs.extend(relativeTime);
+
     const { handleReviewDelete } = useNetworkHome();
+    const [showMore, setShowMore] = useState<boolean>(false);
     
     const getRelativeDatenow = () => {
         const text = dayjs(new Date(content.createdAt)).fromNow(); 
         return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
+    const handleWithDescription = () => {
+        if (content.text.length > 600 && !showMore)
+            return (
+            <>{content.text.slice(0, 400)}... 
+                <span 
+                    className="text-blue-500 hover:text-blue-600 cursor-pointer hover:decoration-1 hover:underline"
+                    onClick={() => {setShowMore(true)}}
+                >
+                    {" "}Ler mais
+                </span>
+            </>
+            )
+        
+        return content.text;
+    }
 
     return (
         <div className="flex flex-col gap-3">
@@ -62,7 +80,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                 </div>
 
                 <div className="text-justify text-sm text-gray-200 break-words">
-                    {content.text}
+                    {handleWithDescription()}
                 </div>
                 
                 <div className="mt-3 flex flex-wrap flex-row gap-3">
