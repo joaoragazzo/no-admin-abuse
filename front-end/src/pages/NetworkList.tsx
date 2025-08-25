@@ -11,11 +11,13 @@ import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
 import { Region } from "@/enums/Region";
 import { CountUp } from "@/components/misc/CountUp";
+import { useQuery } from "@tanstack/react-query";
+import { TagSkeleton } from "@/components/skeletons/TagSkeleton";
+import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
 
 
 export const NetworkList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
-    const [serverList, setServerList] = useState<Pageable<NetworkDTO> | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isFilterChange, setIsFilterChange] = useState<boolean>(false);
 
@@ -44,20 +46,23 @@ export const NetworkList: React.FC = () => {
         setCurrentPage(1);
     }, [activeTags, searchText, region]);
 
-    useEffect(() => {
-        if (isFilterChange) {
-            setIsFilterChange(false);
-            return;
-          }
-
-        serverService.fetchAllNetworks({
+    const { data: serverList, isLoading } = useQuery<Pageable<NetworkDTO>> ({
+        queryKey: ["servers", currentPage, activeTags, searchText, region],
+        queryFn: () =>
+          serverService.fetchAllNetworks({
             page: currentPage - 1,
             tags: Array.from(activeTags),
             search: searchText,
-            region: region
-        }).then(response => setServerList(response));
+            region: region,
+          }),
+        enabled: !isFilterChange, 
+    });
 
-    }, [currentPage, activeTags, searchText, region, isFilterChange]);
+    useEffect(() => {
+        if (isFilterChange) {
+          setIsFilterChange(false);
+        }
+      }, [isFilterChange]);
 
     const getGameName = (name: string | undefined): string => {
         switch (name) {
@@ -109,7 +114,7 @@ export const NetworkList: React.FC = () => {
         </div>
 
         <div className="flex justify-center">
-            <div className="w-full">
+            <div className="max-w-400 w-full">
                 <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
                     <div className="flex flex-row justify-between mb-5">
                         <div className="font-bold">
@@ -188,7 +193,7 @@ export const NetworkList: React.FC = () => {
                         <div className="flex flex-wrap text-nowrap flex-row gap-2">
                             {
                                 tagsLoading ? 
-                                    [...Array(20)].map((_, i) => (<div key={i} className="bg-gray-700 animate-pulse w-16 h-6 rounded-full"></div>))
+                                    [...Array(20)].map(() => (<TagSkeleton />))
                                 : 
                                 tags.map((value, key) => (
                                     <div
@@ -268,7 +273,8 @@ export const NetworkList: React.FC = () => {
                 </div>
                 
                 <div className="flex flex-col sm:mx-10 sm:gap-5 mb-5">
-
+                    {isLoading && [...Array(10)].map(() => (<CardSkeleton className="w-full h-45 rounded-md"/>))}
+                    
                     {serverList?.content.map((content, key) => (
                         <NetworkBanner
                             key={key}
