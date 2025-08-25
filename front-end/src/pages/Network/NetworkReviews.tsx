@@ -6,9 +6,11 @@ import { FaAngleRight, FaFilter } from "react-icons/fa";
 import { ImBubbles } from "react-icons/im";
 import { NetworkMakeReview } from "./NetworkMakeReview";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const NetworkReviews: React.FC = () => {
     const { reviewsResponse } = useNetworkHome();
+    const { isAuthenticated } = useAuth();
     
     
     return (
@@ -26,23 +28,36 @@ export const NetworkReviews: React.FC = () => {
 
             {
                 reviewsResponse?.ownReview ?
-                <div>
-                    <div className="mb-3 font-bold flex items-center gap-2">
-                        Sua avaliação <FaAngleRight />
+                    <div>
+                        <div className="mb-3 font-bold flex items-center gap-2">
+                            Sua avaliação <FaAngleRight />
+                        </div>
+                        <ReviewCard content={reviewsResponse.ownReview} editable/>
                     </div>
-                    <ReviewCard content={reviewsResponse.ownReview} editable/>
-                </div>
-                :
-                <NetworkMakeReview />
+                    
+                    : (
+                        isAuthenticated ? 
+                            <NetworkMakeReview /> 
+                        : 
+                        <div className="p-4 rounded-md bg-gray-800/60 text-center text-gray-200 text-sm shadow-md">
+                            <span className="font-medium text-white">
+                                Faça login
+                            </span>{" "}
+                                para deixar sua avaliação.
+                        </div>
+                    )
             
             }
             
-            <div className="flex items-center my-6">
-                <div className="w-3 border-t border-gray-300"></div>
-                <span className="mx-4 text-gray-300 text-md">Avaliações de outros jogadores</span>
-                <div className="flex-grow border-t border-gray-300"></div>
-            </div>
-
+            {
+                (reviewsResponse?.reviews.content?.length ?? 0) > 0 &&
+                    <div className="flex items-center my-6">
+                        <div className="w-3 border-t border-gray-300"></div>
+                        <span className="mx-4 text-gray-300 text-md">Avaliações de outros jogadores</span>
+                        <div className="flex-grow border-t border-gray-300"></div>
+                    </div> 
+            }
+            
             {reviewsResponse?.reviews.content.map((content, index) => (
                 <ReviewCard content={content} key={index}/>
             ))}

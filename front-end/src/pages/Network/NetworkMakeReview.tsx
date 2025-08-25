@@ -64,7 +64,7 @@ export const NetworkMakeReview = () => {
             </div>
                 
             <TextArea
-                placeholder="Faça sua avaliação a rede"
+                placeholder="Escreva aqui sua avaliação"
                 maxCharacters={3000}
                 onChange={setText}
             />

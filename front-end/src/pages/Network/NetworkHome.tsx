@@ -36,7 +36,6 @@ export const NetworkHome: React.FC = () => {
     <>   
         <NetworkHeader />
         
-        {/* Content */}
         <div className="flex justify-center items-center flex-col">
             <div className="w-full flex flex-col md:flex-row gap-10 px-10 md:px-20 xl:px-50 py-10 max-w-400">
                 <div className="flex flex-col md:basis-2/3 gap-8">
