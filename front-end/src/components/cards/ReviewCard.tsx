@@ -61,7 +61,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                     </div>
                 </div>
 
-                <div className="text-justify text-sm text-gray-200">
+                <div className="text-justify text-sm text-gray-200 break-words">
                     {content.text}
                 </div>
                 
