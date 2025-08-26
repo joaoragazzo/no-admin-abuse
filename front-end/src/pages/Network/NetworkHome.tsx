@@ -57,7 +57,7 @@ export const NetworkHome: React.FC = () => {
 
                         <Card.Content>
                             
-                            <div className="mt-3 mb-2">
+                            <div className="mb-2">
                                 <div className="text-green-500 text-sm mb-2 flex flex-row gap-2 items-center">
                                     <FaCheck /> Características positivas
                                 </div>
@@ -108,7 +108,7 @@ export const NetworkHome: React.FC = () => {
                         </Card.Title>   
 
                         <Card.Content>
-                            <div className="flex flex-col gap-3 mt-3">
+                            <div className="flex flex-col gap-3">
                                 {networkDetails?.servers.slice(0, visibleCount).map((content, key) => (
                                     <div className="border-1 rounded-md border-gray-600">
                                         <NetworkServer
