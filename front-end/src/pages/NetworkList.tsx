@@ -14,6 +14,7 @@ import { CountUp } from "@/components/misc/CountUp";
 import { useQuery } from "@tanstack/react-query";
 import { TagSkeleton } from "@/components/skeletons/TagSkeleton";
 import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
+import { useDebounce } from "@/hooks/useDebounce";
 
 
 export const NetworkList: React.FC = () => {
@@ -46,16 +47,17 @@ export const NetworkList: React.FC = () => {
         setCurrentPage(1);
     }, [activeTags, searchText, region]);
 
-    const { data: serverList, isLoading } = useQuery<Pageable<NetworkDTO>> ({
-        queryKey: ["servers", currentPage, activeTags, searchText, region],
-        queryFn: () =>
-          serverService.fetchAllNetworks({
-            page: currentPage - 1,
-            tags: Array.from(activeTags),
-            search: searchText,
-            region: region,
-          }),
-        enabled: !isFilterChange, 
+    const debouncedSearch = useDebounce(searchText, 500);
+    const { data: serverList, isLoading } = useQuery<Pageable<NetworkDTO>>({
+    queryKey: ["servers", currentPage, activeTags, debouncedSearch, region],
+    queryFn: () =>
+        serverService.fetchAllNetworks({
+        page: currentPage - 1,
+        tags: Array.from(activeTags),
+        search: debouncedSearch,
+        region: region,
+        }),
+    enabled: !isFilterChange,
     });
 
     useEffect(() => {
