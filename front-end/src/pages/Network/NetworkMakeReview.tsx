@@ -1,3 +1,4 @@
+import { Switch } from "@/components/inputs/Switch"
 import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
@@ -10,6 +11,7 @@ export const NetworkMakeReview = () => {
     const { handleReviewPublish } = useNetworkHome();
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [starCounter, setStarCounter] = useState<number>(0);
+    const [anonymous, setAnonymous] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
 
     const toogleTag = (id: string):void => {
@@ -24,7 +26,7 @@ export const NetworkMakeReview = () => {
         handleReviewPublish({data: {
             text: text,
             rating: starCounter,
-            anonymous: false
+            anonymous: anonymous
         }})
     }
 
@@ -69,7 +71,11 @@ export const NetworkMakeReview = () => {
                 onChange={setText}
             />
                 
-            <div className="w-full flex items-end justify-end gap-3">
+            <div className="w-full flex items-center justify-end gap-10">
+                <div className="flex flex-row gap-3">
+                    Enviar avaliação anônima
+                    <Switch checked={anonymous} onChange={setAnonymous}/>
+                </div>
                 <button className="btn-primary" onClick={handleSubmit}>
                     Publicar avaliação
                 </button>

@@ -1,7 +1,7 @@
 import type React from "react";
 import { Rating } from "../misc/Rating";
 import { GoDotFill } from "react-icons/go";
-import { FaAngleDown, FaThumbsUp, FaTrash } from "react-icons/fa";
+import { FaAngleDown, FaThumbsUp, FaTrash, FaUserSecret } from "react-icons/fa";
 import { IoIosReturnRight } from "react-icons/io";
 import { Tag } from "../misc/Tag";
 import type { ReviewDisplayDTO } from "@/interfaces/ReviewDisplayDTO";
@@ -50,11 +50,18 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
         <div className="flex flex-col gap-3">
             <div className="bg-gray-980 rounded-md">
                 <div className="flex flex-row items-center gap-3 mb-2">
-                    <img src={content.author.avatarUrl} className="rounded-full w-10 h-10 items-center flex justify-center" />
+                    {content.author &&
+                        <img src={content.author?.avatarUrl} className="rounded-full w-10 h-10 items-center flex justify-center" />
+                    }
+                    {content.isAnonymous &&
+                        <div className="rounded-full w-10 h-10 flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-600 to-gray-400 shadow-md">
+                            <FaUserSecret className="text-white text-xl" />
+                        </div>
+                    }
                     <div className="flex flex-col w-full">    
                         <div className="w-full flex flex-row justify-between items-center">
                             <div className="flex flex-row items-center gap-1.5">
-                                <div className="font-bold">{content.author.name}</div>
+                                <div className="font-bold">{content.author?.name || "Usuário Anônimo"}</div>
                                 <GoDotFill size={12}/>
                                 <div className="text-xs text-gray-300">{getRelativeDatenow()}</div>
                             </div>
