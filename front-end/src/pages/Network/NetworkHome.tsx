@@ -3,7 +3,7 @@ import { Card } from "@/components/template/Card";
 import type React from "react";
 import { useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaClock, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaStar, FaTags, FaYoutube } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
@@ -139,35 +139,27 @@ export const NetworkHome: React.FC = () => {
                         <Card.Content>
                             <div className="mt-3 text-md flex flex-col gap-2">
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex  items-center gap-3 text-gray-400">
-                                        <FaUserGroup /> Jogadores online:
+                                    <span className="flex  items-center gap-3 text-gray-300">
+                                        <FaUserGroup className="text-green-400"/> Jogadores online:
                                     </span>
                                     <span>
                                         {onlinePlayersCount}/{maxPlayersCount}
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex items-center gap-3  text-gray-400">
-                                        <FaStar /> Avaliação média:
+                                    <span className="flex items-center gap-3  text-gray-300">
+                                        <FaStar className="text-amber-400"/> Avaliação média:
                                     </span>
                                     <span>
                                         {networkDetails.reviewsAvg}/5
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex items-center gap-3  text-gray-400">
-                                        <FaArrowUp /> Total de avaliações:
+                                    <span className="flex items-center gap-3  text-gray-300">
+                                        <FaArrowUp className="text-purple-400"/> Total de avaliações:
                                     </span>
                                     <span>
                                         {networkDetails.reviewsCount}
-                                    </span>
-                                </div>
-                                <div className="flex flex-row justify-between">
-                                    <span className="flex items-center gap-3  text-gray-400">
-                                        <FaClock /> Uptime:
-                                    </span>
-                                    <span>
-                                        97.4%
                                     </span>
                                 </div>
                             </div>

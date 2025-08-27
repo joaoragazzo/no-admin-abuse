@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,8 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.noadminabuse.alpha.model.Review;
+import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
     
@@ -29,4 +32,12 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
     @Query("SELECT COUNT(r) FROM Review r WHERE r.network.id = :networkId")
     Long getReviewCountByNetwork(UUID networkId);
+
+
+    @Query("SELECT new com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO(r.rating, COUNT(r)) " +
+       "FROM Review r " +
+       "WHERE r.network.id = :networkId " +
+       "GROUP BY r.rating " +
+       "ORDER BY r.rating")
+    List<ReviewStatsDTO> getReviewStats(@Param("networkId") UUID networkId);
 }

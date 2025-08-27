@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ import com.noadminabuse.alpha.repository.ReviewRepository;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -78,6 +80,10 @@ public class ReviewService {
         return reviewRepository
             .findByNetworkIdAndAuthorId(networkId, userId)
             .map((review) -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())));
+    }
+
+    public List<ReviewStatsDTO> getReviewStats(UUID networkId) {
+        return reviewRepository.getReviewStats(networkId);
     }
 
     private boolean alreadyHasANetworkReview(UUID userId, UUID networkId) {

@@ -23,7 +23,6 @@ import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
 import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
-import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
 import lombok.AllArgsConstructor;

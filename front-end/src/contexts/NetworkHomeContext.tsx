@@ -1,3 +1,4 @@
+import { useToast } from "@/hooks/useToast";
 import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
 import type { ReviewCreationDTO } from "@/interfaces/ReviewCreationDTO";
 import type { ReviewDisplayResponseDTO } from "@/interfaces/ReviewResponseDTO";
@@ -22,6 +23,7 @@ const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undef
 
 export const NetworkHomeProvider = ({ networkId, children } : {networkId: string, children: ReactNode}) => {
     const navigate = useNavigate();
+    const {success} = useToast();
     const [reviewsResponse, setReviewsResponse] = useState<ReviewDisplayResponseDTO | undefined>(undefined);
     const [networkDetails, setNetworkDetails] = useState<NetworkDetailsDTO|undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
@@ -36,20 +38,20 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
 
     const handleReviewDelete = async ({id}:{id: string}) => {
         await ReviewService.deleteReview({ reviewId: id });
-        fetchReview({networkId : networkId})
+        success("REVIEW_SUCCESS_POSTED");
+        fetchReview({networkId : networkId});
     }
 
     const handleReviewPublish = async ({ data }:{ data:ReviewCreationDTO }) => {
-        await ReviewService.makeReview({ networkId: networkId, data: data });
-        fetchReview({networkId : networkId})
+        await ReviewService.postReview({ networkId: networkId, data: data });
+        fetchReview({networkId : networkId});
     }
 
     useEffect(() => {
-            console.log(networkId)
             NetworkService.fetchNetworkDetails({id: networkId})
                 .then(response => {
                     setNetworkDetails(response);
-                    setLoading(false)
+                    setLoading(false);
                 }).catch(_ => navigate("/"));
     
             ReviewService.fetchReview({ networkId: networkId })

@@ -1,7 +1,8 @@
 import { MessageType } from "@/enums/MessageType";
 import axios from "axios";
-import { toast } from "react-toastify";
-import i18n from "../i18n/index";
+import { useToast } from "@/hooks/useToast";
+
+const {warning, info, error: toastError, success} = useToast();
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -32,11 +33,11 @@ api.interceptors.response.use(
     const type: MessageType = response?.data?.type;
 
     if (type === MessageType.SUCCESS ) {
-      toast.success(i18n.t(`feedbacks:${message}`));
+      success(message);
     } else if (type === MessageType.INFO ) {
-      toast.info(i18n.t(`feedbacks:${message}`));
+      info(message);
     } else if (type === MessageType.WARNING) {
-      toast.warn(i18n.t(`feedbacks:${message}`));
+      warning(message);
     }
     
     return response;
@@ -46,11 +47,11 @@ api.interceptors.response.use(
     const message = error.response?.data?.message;
 
     if (status >= 500) {
-      toast.error(i18n.t(`feedbacks:${message}`))
+      error(message);
     } else if (status >= 400) {
-      toast.warn(i18n.t(`feedbacks:${message}`))
+      warning(message);
     } else {
-      toast.error("ERROR")
+      toastError("ERROR");
     }
   }
 )

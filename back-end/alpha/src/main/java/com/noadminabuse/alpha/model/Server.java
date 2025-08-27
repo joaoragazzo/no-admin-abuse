@@ -74,12 +74,12 @@ public class Server {
         Integer onlinePlayers,
         String battleMetricsId) {
 
-        this.id=id;
-        this.name=name;
-        this.ip=ip;
-        this.port=port;
-        this.tags=tags;
-        this.country=country;
+        this.id = id;
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+        this.tags = tags;
+        this.country = country;
         this.maxPlayers = maxPlayers;
         this.onlinePlayers = onlinePlayers;
         this.battleMetricsId = battleMetricsId;

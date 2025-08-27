@@ -3,7 +3,7 @@ import type { MessageDTO } from "@/interfaces/MessageDTO";
 import type { ReviewCreationDTO } from "@/interfaces/ReviewCreationDTO";
 import type { ReviewDisplayResponseDTO } from "@/interfaces/ReviewResponseDTO";
 
-const makeReview = async (
+const postReview = async (
     {networkId, data}: {networkId: string, data: ReviewCreationDTO }
 ): Promise<MessageDTO> => {
     const response = await api.post<MessageDTO>(`/review/${networkId}`, data)
@@ -30,4 +30,4 @@ const deleteReview = async (
     return response.data;
 }
 
-export default { makeReview, fetchReview, deleteReview };
+export default { postReview, fetchReview, deleteReview };
