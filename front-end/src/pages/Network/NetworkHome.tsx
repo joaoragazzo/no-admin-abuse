@@ -32,6 +32,12 @@ export const NetworkHome: React.FC = () => {
         return;
     }
 
+    const handleReviewStats = (n: number) => {
+        
+        const result = (networkDetails.stats.find((s) => s.rating === n)?.total || 0) / (networkDetails.reviewsCount || 1);
+        return  `${result*100}%`;
+    }
+
     return (
     <>   
         <NetworkHeader />
@@ -211,7 +217,12 @@ export const NetworkHome: React.FC = () => {
                                     <span className="min-w-3">5</span> <FaStar size={12}/>
                                 </div>
                                 <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div className="rounded-full w-[20%] h-2 bg-blue-700"></div>
+                                    <div 
+                                        className={`rounded-full h-2 bg-blue-700`}
+                                        style={{
+                                            width: handleReviewStats(5)
+                                        }}
+                                    />
                                 </div>
                             </div>
 
@@ -220,7 +231,12 @@ export const NetworkHome: React.FC = () => {
                                     <span className="min-w-3">4</span> <FaStar size={12}/>
                                 </div>
                                 <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div className="rounded-full w-[20%] h-2 bg-blue-700"></div>
+                                    <div 
+                                        className={`rounded-full h-2 bg-blue-700`} 
+                                        style={{
+                                            width: handleReviewStats(4)
+                                        }}
+                                    />
                                 </div>
                             </div>
 
@@ -229,7 +245,12 @@ export const NetworkHome: React.FC = () => {
                                     <span className="min-w-3">3</span> <FaStar size={12}/>
                                 </div>
                                 <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div className="rounded-full w-[20%] h-2 bg-blue-700"></div>
+                                    <div 
+                                        className={`rounded-full h-2 bg-blue-700`} 
+                                        style={{
+                                            width: handleReviewStats(3)
+                                        }}
+                                    />
                                 </div>
                             </div>
 
@@ -238,7 +259,12 @@ export const NetworkHome: React.FC = () => {
                                     <span className="min-w-3">2</span> <FaStar size={12}/>
                                 </div>
                                 <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div className="rounded-full w-[20%] h-2 bg-blue-700"></div>
+                                    <div 
+                                        className={`rounded-full h-2 bg-blue-700`} 
+                                        style={{
+                                            width: handleReviewStats(2)
+                                        }}
+                                    />
                                 </div>
                             </div>
 
@@ -247,7 +273,12 @@ export const NetworkHome: React.FC = () => {
                                     <span className="min-w-3">1</span> <FaStar size={12}/>
                                 </div>
                                 <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div className="rounded-full w-[20%] h-2 bg-blue-700"></div>
+                                    <div 
+                                        className={`rounded-full h-2 bg-blue-700`} 
+                                        style={{
+                                            width: handleReviewStats(1)
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </Card.Content>
