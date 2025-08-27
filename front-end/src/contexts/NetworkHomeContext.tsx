@@ -38,12 +38,13 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
 
     const handleReviewDelete = async ({id}:{id: string}) => {
         await ReviewService.deleteReview({ reviewId: id });
-        success("REVIEW_SUCCESS_POSTED");
+        success("REVIEW_SUCCESS_DELETED");
         fetchReview({networkId : networkId});
     }
 
     const handleReviewPublish = async ({ data }:{ data:ReviewCreationDTO }) => {
         await ReviewService.postReview({ networkId: networkId, data: data });
+        success("REVIEW_SUCCESS_POSTED");
         fetchReview({networkId : networkId});
     }
 

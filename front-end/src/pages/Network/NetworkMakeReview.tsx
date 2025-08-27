@@ -12,6 +12,7 @@ export const NetworkMakeReview = () => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [starCounter, setStarCounter] = useState<number>(0);
     const [anonymous, setAnonymous] = useState<boolean>(false);
+    const [starError, setStarError] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
 
     const toogleTag = (id: string):void => {
@@ -23,6 +24,11 @@ export const NetworkMakeReview = () => {
     }
 
     const handleSubmit = () => {
+        if (starCounter == 0) {
+            setStarError(true);
+            return;
+        }
+
         handleReviewPublish({data: {
             text: text,
             rating: starCounter,
@@ -37,6 +43,10 @@ export const NetworkMakeReview = () => {
         <div className="flex flex-col gap-2 mt-3 w-full">             
             <div className="flex flex-row gap-3 text-gray-200">
                 Nota: <Rating rating={starCounter} editable onChange={setStarCounter} />
+                {starError && 
+                <div className="text-xs text-red-700">
+                    * Você precisa escolher uma nota de 1 a 5 estrelas.
+                </div>}
             </div>
 
             <div className="mb-2">
