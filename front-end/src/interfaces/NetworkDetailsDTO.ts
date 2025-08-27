@@ -1,3 +1,4 @@
+import type { ReviewStatsDTO } from "./ReviewStatsDTO";
 import type { ServerDTO } from "./ServerDTO";
 
 export interface NetworkDetailsDTO {
@@ -6,6 +7,7 @@ export interface NetworkDetailsDTO {
     description: string,
     reviewsCount: number,
     reviewsAvg: number,
+    stats: ReviewStatsDTO[],
     positiveTags: string[],
     negativeTags: string[],
     servers: ServerDTO[],

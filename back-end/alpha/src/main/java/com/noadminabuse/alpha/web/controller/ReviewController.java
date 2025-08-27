@@ -10,12 +10,10 @@ import com.noadminabuse.alpha.utils.SecurityUtils;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
-import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -54,12 +52,6 @@ public class ReviewController {
         return ResponseEntity.ok().body(reviewService.getAllReviewsDisplay(networkId, 0));
         
     }
-    
-    @GetMapping("/{networkId}/stats")
-    public List<ReviewStatsDTO> getMethodName(@PathVariable UUID networkId) {
-        return reviewService.getReviewStats(networkId);
-    }
-    
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<MessageDTO> deleteReview(@PathVariable UUID reviewId) {

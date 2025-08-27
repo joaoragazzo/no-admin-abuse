@@ -15,6 +15,7 @@ import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
 @Component
@@ -72,7 +73,7 @@ public class NetworkMapper {
         return entities.stream().map(this::toNetworkDTO).toList();
     }
 
-    public NetworkDetailsDTO toNetworkDetailsDTO(Network network) {
+    public NetworkDetailsDTO toNetworkDetailsDTO(Network network, List<ReviewStatsDTO> stats) {
         List<ServerDTO> servers = this.toServerDTO(network.getServers());
         
         return new NetworkDetailsDTO(
@@ -81,6 +82,7 @@ public class NetworkMapper {
             network.getDescription(),
             network.getReviewsAmount(),
             network.getReviewsAvg(),
+            stats,
             new ArrayList<>(), 
             new ArrayList<>(), 
             servers, 

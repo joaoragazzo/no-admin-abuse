@@ -2,6 +2,7 @@ import api from "@/config/axiosClient";
 import type { MessageDTO } from "@/interfaces/MessageDTO";
 import type { ReviewCreationDTO } from "@/interfaces/ReviewCreationDTO";
 import type { ReviewDisplayResponseDTO } from "@/interfaces/ReviewResponseDTO";
+import type { ReviewStatsDTO } from "@/interfaces/ReviewStatsDTO";
 
 const postReview = async (
     {networkId, data}: {networkId: string, data: ReviewCreationDTO }
@@ -30,4 +31,9 @@ const deleteReview = async (
     return response.data;
 }
 
-export default { postReview, fetchReview, deleteReview };
+const getReviewsStats = async ({networkId}:{networkId: string}): Promise<ReviewStatsDTO[]> => {
+    const response = await api.get<ReviewStatsDTO[]>(`/review/${networkId}/stats`);
+    return response.data;
+}
+
+export default { postReview, fetchReview, deleteReview, getReviewsStats };
