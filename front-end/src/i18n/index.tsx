@@ -18,7 +18,7 @@ i18n
             }
         },
         lng: 'pt',
-        fallbackLng: 'en',
+        fallbackLng: 'pt',
         ns: ['tags', 'regions', 'countries', 'feedbacks'],
         defaultNS: 'tags',
         interpolation: { 

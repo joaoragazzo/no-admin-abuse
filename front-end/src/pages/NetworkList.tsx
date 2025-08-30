@@ -26,6 +26,7 @@ export const NetworkList: React.FC = () => {
     
     const { t: tagsTranslation } = useTranslation('tags');
     const { t: regionsTranslation } = useTranslation('regions');
+    
     const [tagsLoading, setTagsLoading] = useState<boolean>(true);
     
     const [searchText, setSearchText] = useState<string>("");

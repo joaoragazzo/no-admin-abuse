@@ -6,9 +6,10 @@ interface TagProps {
     color: "red" | "green" | "blue" | "yellow" | "gray",
     id?: string,
     onClick?: (id: string) => void
+    className?: string
 }
 
-export const Tag: React.FC <TagProps> = ({ children, color, id, onClick }) => {
+export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, className }) => {
     const handleClick = () => {
         if (onClick && id) {
             onClick(id);
@@ -19,7 +20,8 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick }) => {
     <div
         onClick={handleClick}
         className={clsx(
-            "border-1 rounded-full text-xs px-3 py-0.5", 
+            "border-1 rounded-full text-xs px-3 py-0.5",
+            className,
             {
                 "border-red-600 text-red-600 bg-red-100": color === "red",
                 "border-green-700 text-green-700 bg-green-100": color === "green",

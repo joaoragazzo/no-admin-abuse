@@ -1,4 +1,4 @@
-import { FaBars, FaGamepad } from "react-icons/fa"
+import { FaBars, FaCrown, FaGamepad } from "react-icons/fa"
 import { LoginSteamButton } from "../button/LoginSteamButton"
 import { FaShield } from "react-icons/fa6"
 import { useEffect, useRef, useState } from "react";
@@ -11,9 +11,10 @@ import { SafeLoginPopup } from "../popups/SafeLoginPopup";
 
 
 export const Header: React.FC = () => {
+    const navigate = useNavigate();
+
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const [safeLoginPopup, setSafeLoginPopup] = useState<boolean>(false);
-    const navigate = useNavigate();
     const { user, isAuthenticated } = useAuth();
     
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -42,6 +43,22 @@ export const Header: React.FC = () => {
 
     const items = [
         {
+            content:
+            <>
+                {isAuthenticated &&
+                    <Link
+                        to="/admin"
+                        onClick={() => {setMenuOpen(false)}}
+                        className="flex flex-row gap-3 items-center"
+                    >
+                        <FaCrown /> Administrador
+                    </Link>
+                }
+            </>,
+            link: "/admin"
+            
+        },
+        {
             content: 
                 <Link 
                     to="/games" 
@@ -69,7 +86,8 @@ export const Header: React.FC = () => {
             }
             </>,
             link: "/games"
-        }
+        },
+        
     ]
 
     const handleMenuClick = (path: string) => {
