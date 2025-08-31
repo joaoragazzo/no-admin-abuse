@@ -20,7 +20,7 @@ export const Switch: React.FC<SwitchProps> = ({
       aria-checked={checked}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex items-center h-6 w-11 rounded-full transition-colors duration-200 ${
+      className={`cursor-pointer relative inline-flex items-center h-6 w-11 rounded-full transition-colors duration-200 ${
         checked ? "bg-blue-600" : "bg-gray-400"
       } ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
     >
