@@ -35,7 +35,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
         <div className="flex flex-col border-1 border-neutral-700 p-4 rounded md:w-full">
             <div className="flex flex-col justify-between w-full">
                 <div className="flex flex-row gap-3">
-                    <div className="bg-neutral-900 max-w-34 aspect-square items-center flex justify-center uppercase font-bold rounded-md text-center overflow-hidden text-ellipsis ">
+                    <div className="bg-neutral-900 max-w-34 aspect-square items-center flex justify-center uppercase font-bold rounded-md text-center overflow-hidden text-ellipsis">
                         {name}
                     </div>
                     <div className="flex flex-col justify-between gap-3 w-full">
