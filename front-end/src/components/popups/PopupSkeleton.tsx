@@ -38,13 +38,11 @@ export const PopupSkeleton: React.FC<PopupSkeletonProps> = ({
           overflow-hidden
         "
       >
-        {/* Header */}
         <div className="bg-neutral-800 px-5 py-2 flex items-center justify-between">
           <div className="flex flex-row items-center gap-3">{title}</div>
           {onClose && <FaX className="cursor-pointer" onClick={onClose} />}
         </div>
 
-        {/* Content (scrollable se precisar) */}
         <div
           className="
             bg-neutral-900 
