@@ -7,7 +7,6 @@ import { AuthProvider } from "./contexts/AuthContext"
 import { SteamLogin } from "./pages/SteamLogin"
 import { ToastContainer } from 'react-toastify';
 import { NetworkHomeWrapper } from "./pages/Network/NetworkHomeWrapper"
-import { AdminHome } from "./pages/Admin/AdminHome"
 import { AdminTags } from "./pages/Admin/AdminTags"
 import { AdminLayout } from "./pages/Admin/AdminLayout"
 import { AdminTranslations } from "./pages/Admin/AdminTranslations"
@@ -35,7 +34,7 @@ function App() {
         </Route>
         
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminHome />} />
+          <Route index />
           <Route path="tags" element={<AdminTags />} />
           <Route path="users" />
           <Route path="reviews" />

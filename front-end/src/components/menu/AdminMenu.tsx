@@ -52,16 +52,19 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ title, Icon, onClick, selecte
 export const AdminMenu: React.FC = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [expanded, setExpanded] = useState<boolean>(true);
+    const [expanded, setExpanded] = useState<boolean>(false);
     const [currentPath, setCurrentPath] = useState<string>("/admin");
 
     return (
     <div className="flex flex-col border-r-1 border-neutral-600">
         <div className="relative">
-            <div className={clsx(
-                "p-5 flex text-nowrap font-extrabold text-2xl border-b-1 border-neutral-600",
-                {"justify-center" : !expanded}
-            )}>
+            <div 
+                className={clsx(
+                    "cursor-pointer p-5 flex text-nowrap font-extrabold text-2xl border-b-1 border-neutral-600",
+                    {"justify-center" : !expanded}
+                )}
+                onClick={() => {navigate("/")}}
+            >
                 {expanded ? <div className="leading-none">No Admin Abuse</div> : <FaShield/>}
             </div>
             <div
@@ -85,19 +88,22 @@ export const AdminMenu: React.FC = () => {
                 ))}
             </div>
 
-            <div className="px-3 py-5 flex flex-row mt-1 border-neutral-600 border-t-1 gap-3">
-                <img src={user?.avatarUrl} className="rounded-full w-10"/> 
-                    {expanded && 
-                        <div className="flex flex-col justify-between">
-                            <div className="leading-none font-bold">
-                            {user?.username}
+            <div className="flex flex-col">
+                <div className="px-3 py-5 flex flex-row mt-1 border-neutral-600 border-t-1 gap-3">
+                    <img src={user?.avatarUrl} className="rounded-full w-10"/> 
+                        {expanded && 
+                            <div className="flex flex-col justify-between">
+                                <div className="leading-none font-bold">
+                                {user?.username}
+                                </div>
+                                <div className="leading-none text-sm font-semibold items-center flex cursor-pointer">
+                                    Deslogar <FaAngleRight />
+                                </div>
                             </div>
-                            <div className="leading-none text-sm font-semibold items-center flex cursor-pointer">
-                                Deslogar <FaAngleRight />
-                            </div>
-                        </div>
-                    }
+                        }
+                </div>
             </div>
+            
         </div>        
     </div>
     )
