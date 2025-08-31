@@ -9,7 +9,6 @@ import serverService from "@services/ServerService";
 import type { Pageable } from "@/interfaces/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
-import { Region } from "@/enums/Region";
 import { CountUp } from "@/components/misc/CountUp";
 import { useQuery } from "@tanstack/react-query";
 import { TagSkeleton } from "@/components/skeletons/TagSkeleton";
@@ -17,6 +16,7 @@ import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Tag } from "@/components/misc/Tag";
 import { Input } from "@/components/inputs/Input";
+import { Select } from "@/components/inputs/Select";
 
 
 export const NetworkList: React.FC = () => {
@@ -27,7 +27,6 @@ export const NetworkList: React.FC = () => {
     const [tags, setTags] = useState<string[]>([]);
     
     const { t: tagsTranslation } = useTranslation('tags');
-    const { t: regionsTranslation } = useTranslation('regions');
     const [tagsLoading, setTagsLoading] = useState<boolean>(true);
     
     const [searchText, setSearchText] = useState<string>("");
@@ -134,59 +133,38 @@ export const NetworkList: React.FC = () => {
                     <div className="mb-5 flex flex-col md:flex-row gap-5">
                         <Input 
                             Icon={FaSearch}
-                            placeholder="Nome ou IP do servidor..."
+                            placeholder="Nome do servidor..."
                             label="Buscar servidor"
                             onChange={setSearchText}
-                            value={searchText}
                             className="w-full"
                         />
-                        
-                        
 
-
-                        <div className="flex flex-col w-full">
-                            <div className="text-xs text-gray-500 mb-2">
-                                Região
-                            </div>
-                            <div>
-                                <select 
-                                    onChange={
-                                        (e) => {
-                                            const value = e.target.value;
-                                            setRegion(value === "" ? null : value)}
-                                    } 
-                                    className="border-1 border-neutral-700 text-sm px-4 py-2  bg-neutral-900/55 rounded w-full" 
-                                    value={region!} 
-                                >
-                                    <option value="">{regionsTranslation("ALL_REGIONS")}</option>
-                                    {
-                                        Object.values(Region)
-                                        .filter(value => typeof value === 'string')
-                                        .map(region => (
-                                            <option value={region} key={region}>
-                                                {regionsTranslation(region)}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div className="flex flex-col w-full">
-                            <div className="text-xs text-gray-500 mb-2">
-                                Mapa
-                            </div>
-                            <div>
-                                <select className="border-1 border-neutral-700 text-sm px-4 py-2  bg-neutral-900/55 rounded w-full" value={"aaa"}>
-                                    <option value="all">Todas os mapas</option>
-                                    <option value="all">Chernarus</option>
-                                    <option value="all">Namalsk</option>
-                                    <option value="all">Deer isle</option>
-                                </select>
-                            </div>
-
-                        </div>
+                        <Select 
+                            label="Região"
+                            options={[
+                                {value: "AFRICA", label: "África"},
+                                {value: "ASIA", label: "Ásia"},
+                                {value: "EUROPE", label: "Europa"},
+                                {value: "NORTH_AMERICA", label: "América do Norte"},
+                                {value: "SOUTH_AMERICA", label: "América do Sul"},
+                                {value: "OCEANIA", label: "Oceania"},
+                                {value: "ANTARCTICA", label: "Antártida"}
+                            ]}
+                            placeholder="Todas as regiões"
+                            className="w-full"
+                            onChange={setRegion}
+                        />
+                        <Select 
+                            label="Mapa"
+                            placeholder="Todos os mapas"
+                            options={[
+                                {value: "all", label: "Chernarus"},
+                                {value: "all", label: "Namalsk"},
+                                {value: "all", label: "Deer Isle"},
+                            ]}
+                            className="w-full"
+                            disabled
+                        />
                     </div>
 
                     <div className="flex flex-col">

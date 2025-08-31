@@ -38,7 +38,6 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
 
     const handleReviewDelete = async ({id}:{id: string}) => {
         await ReviewService.deleteReview({ reviewId: id });
-        success("REVIEW_SUCCESS_DELETED");
         fetchReview({networkId : networkId});
     }
 
