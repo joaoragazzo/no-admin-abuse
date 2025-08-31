@@ -1,5 +1,3 @@
-import { AdminMenu } from "@/components/menu/AdminMenu";
-import { PageTitle } from "./PageTitle";
 
 export const AdminHome = () => {
     return (
