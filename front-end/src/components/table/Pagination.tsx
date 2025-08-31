@@ -53,14 +53,14 @@ export const Pagination: React.FC<PaginationProps> = ({currentPage, totalPages, 
             <FaAngleLeft /> Anterior
           </div>
     
-          <div className="hidden gap-2 bg-gray-900 px-6 rounded-full sm:flex">
+          <div className="hidden gap-2 px-6 rounded-full sm:flex">
             {pages.map((p, idx) => (
               <div
                 key={idx}
                 className={`
                   w-8 aspect-square flex items-center justify-center 
                   rounded-md font-extrabold text-xs
-                  ${p === currentPage ? "bg-blue-900" : typeof(p) === "number" && "hover:bg-blue-950 cursor-pointer"}
+                  ${p === currentPage ? "bg-neutral-900" : typeof(p) === "number" && "hover:bg-neutral-900 cursor-pointer"}
                 `}
                 onClick={() => {typeof p === "number" && onPageChange(p)}}
               >

@@ -20,16 +20,18 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, classNa
     <div
         onClick={handleClick}
         className={clsx(
-            "border-1 rounded-full text-xs px-3 py-0.5",
-            className,
+            "rounded-full text-xs px-3.5 py-0.5 font-semibold",
+            
             {
-                "border-red-600 text-red-600 bg-red-100": color === "red",
-                "border-green-700 text-green-700 bg-green-100": color === "green",
-                "border-blue-600 text-blue-600 bg-blue-100": color === "blue",
-                "border-yellow-600 text-yellow-600 bg-yellow-100": color === "yellow",
-                "border-gray-600 text-gray-600 bg-gray-300": color === "gray",
+                "text-white bg-red-600": color === "red",
+                "text-white bg-green-600": color === "green",
+                "text-white bg-blue-600": color === "blue",
+                "text-white bg-yellow-600": color === "yellow",
+                "text-white bg-gray-800/70": color === "gray",
                 "cursor-pointer": onClick,
-            }
+            },
+            className,
+            
             )}>
         {children}
     </div>

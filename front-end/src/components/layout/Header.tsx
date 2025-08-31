@@ -97,7 +97,7 @@ export const Header: React.FC = () => {
     
     return (
     <>
-        <header className="items-center flex justify-between w-full bg-gray-950 border-gray-700 border-b p-5 px-10">
+        <header className="items-center flex justify-between w-full bg-neutral-950 border-neutral-700 border-b p-5 px-10">
             <Brand />
             <div className="hidden lg:flex items-center font-semibold font-1x1 flex-row gap-8">
                 {items.map((content, key) => (

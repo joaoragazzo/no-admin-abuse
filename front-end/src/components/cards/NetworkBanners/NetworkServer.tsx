@@ -1,4 +1,5 @@
 import { CopyButtonWithPopup } from "@/components/button/CopyButttonWithPopup"
+import { Tag } from "@/components/misc/Tag"
 import type { ServerDTO } from "@/interfaces/ServerDTO"
 import type React from "react"
 import { useTranslation } from "react-i18next"
@@ -6,7 +7,8 @@ import { FaGlobeAmericas } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 
 interface NetworkServerProps { 
-    server: ServerDTO
+    server: ServerDTO,
+    className?: string
 }
 
 export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => { 
@@ -14,7 +16,7 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
     const { t: tagsTranslation } = useTranslation('tags');
 
     return (
-        <div className="flex flex-col bg-gray-900 px-4 py-3 text-sm rounded-md text-gray-200">
+        <div className="flex flex-col bg-neutral-900/50 px-4 py-3 text-sm rounded-md text-gray-200 min-h-23">
             <div className="flex flex-col md:flex-row gap-1n justify-between">
                 <div className="font-bold line-clamp-1">
                     {server.name}
@@ -37,9 +39,9 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
                 {server.ip}:{server.port} <CopyButtonWithPopup textToCopy={`${server.ip}:${server.port}`}/>
             </div>
             {server.tags.length > 0 && 
-                <div className="flex flex-row gap-1 mt-3 flex-wrap">
-                    {server.tags.map((tag, index) => (
-                        <div key={index} className="text-xs w-fit rounded-full bg-blue-800 text-blue-300 py-0.5 px-2">{tagsTranslation(tag)}</div>
+                <div className="flex flex-row gap-2 mt-3 flex-wrap">
+                    {server.tags.map((tag) => (
+                        <Tag color={"blue"}>{tagsTranslation(tag)}</Tag>
                     ))}
                 </div>
             }

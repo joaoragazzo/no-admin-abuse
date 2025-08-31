@@ -1,4 +1,5 @@
 import type React from "react";
+import { FaSteam } from "react-icons/fa";
 
 export const LoginSteamButton: React.FC = () => {
     
@@ -7,8 +8,24 @@ export const LoginSteamButton: React.FC = () => {
     }
 
     return (
-        <button onClick={handleLogin} className="cursor-pointer">
-            <img src="https://community.akamai.steamstatic.com/public/images/signinthroughsteam/sits_01.png" alt="Logar com Steam"/>
+        <button
+        onClick={handleLogin}
+        className="
+            cursor-pointer 
+            flex flex-row items-center justify-center gap-2 
+            px-4 py-2
+            rounded-lg 
+            border border-neutral-700
+            text-gray-300 
+            font-medium
+            transition 
+            hover:border-neutral-500
+            hover:text-white
+            active:scale-95
+        "
+        >
+            <FaSteam className="text-lg group-hover:text-white" />
+            Entre com a Steam
         </button>
     )
 }

@@ -4,7 +4,7 @@ import { FaDiscord, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
 export const Footer: React.FC = () => {
     return (
-        <div className="items-center w-full px-7 py-3 border-t-1 border-gray-700/60 bg-gray-950 flex flex-col gap-3 mt-10">
+        <div className="items-center w-full px-7 py-3 border-t-1 border-gray-700/60 bg-neutral-950 flex flex-col gap-3 mt-10">
             <div className="items-center flex flex-row justify-between w-full">
                 <div>
                     <Brand />
@@ -14,10 +14,10 @@ export const Footer: React.FC = () => {
                 </div>
                 
                 <div className="flex flex-row gap-5">
-                    <div className="p-3 bg-blue-950 rounded-full w-fit h-fit cursor-pointer">
+                    <div className="p-3 bg-neutral-900 rounded-full w-fit h-fit cursor-pointer">
                         <FaDiscord />
                     </div>
-                    <div className="p-3 bg-blue-950 rounded-full w-fit h-fit cursor-pointer">
+                    <div className="p-3 bg-neutral-900 rounded-full w-fit h-fit cursor-pointer">
                         <FaGithub />
                     </div>
                 </div>

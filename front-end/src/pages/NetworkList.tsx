@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TagSkeleton } from "@/components/skeletons/TagSkeleton";
 import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
+import { Tag } from "@/components/misc/Tag";
 
 
 export const NetworkList: React.FC = () => {
@@ -26,7 +27,6 @@ export const NetworkList: React.FC = () => {
     
     const { t: tagsTranslation } = useTranslation('tags');
     const { t: regionsTranslation } = useTranslation('regions');
-    
     const [tagsLoading, setTagsLoading] = useState<boolean>(true);
     
     const [searchText, setSearchText] = useState<string>("");
@@ -105,10 +105,10 @@ export const NetworkList: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex flex-col md:flex-row justify-center gap-5 w-full md:w-fit">
-                    <button className="justify-center bg-blue-500 items-center w-full md:w-fit px-5 cursor-pointer hover:bg-blue-600 rounded py-2 text-sm font-semibold flex flex-row gap-2">
+                    <button className="btn-primary">
                         <FaServer /> Registrar um novo servidor
                     </button>
-                    <button className="justify-center bg-gray-800 px-5 rounded w-full md:w-fit cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
+                    <button className="justify-center bg-gray-900 px-5 rounded w-full md:w-fit cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
                         <FaInfoCircle /> Como Funciona o Raking
                     </button>
                 </div>
@@ -118,15 +118,15 @@ export const NetworkList: React.FC = () => {
 
         <div className="flex justify-center">
             <div className="max-w-400 w-full">
-                <div className="border-1 border-blue-500 mx-10 my-5 rounded p-5">
+                <div className="border-1 border-neutral-700 mx-10 my-5 rounded p-5">
                     <div className="flex flex-row justify-between mb-5">
                         <div className="font-bold">
                             Filtros
                         </div>
                         <div className="flex flex-wrap flex-col md:flex-nowrap md:flex-row gap-3">
-                            <button className="py-1 px-5 bg-blue-500 cursor-pointer hover:bg-blue-600 rounded text-sm">Mais populares</button>
-                            <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Melhor Avaliados</button>
-                            <button className="py-1 px-5 bg-gray-800 cursor-pointer hover:bg-gray-600 rounded text-sm">Mais Recentes</button>
+                            <button className="btn-primary">Mais populares</button>
+                            <button className="btn-primary" disabled>Melhor Avaliados</button>
+                            <button className="btn-primary" disabled>Mais Recentes</button>
                         </div>  
                     </div>
 
@@ -136,7 +136,7 @@ export const NetworkList: React.FC = () => {
                                 Buscar Servidor
                             </div>
                             <div className="relative">
-                                <input onChange={(e) => (setSearchText(e.target.value))} className="border-1 border-gray-700 text-sm px-4 py-2 pl-10 bg-gray-800 rounded w-full" placeholder="Nome ou IP do servidor..." />
+                                <input onChange={(e) => (setSearchText(e.target.value))} className="border-1 border-neutral-700 text-sm px-4 py-2 pl-10 bg-neutral-900/55 rounded w-full" placeholder="Nome ou IP do servidor..." />
                                 <div className="text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3" >
                                     <FaSearch />
                                 </div>
@@ -155,7 +155,7 @@ export const NetworkList: React.FC = () => {
                                             const value = e.target.value;
                                             setRegion(value === "" ? null : value)}
                                     } 
-                                    className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" 
+                                    className="border-1 border-neutral-700 text-sm px-4 py-2  bg-neutral-900/55 rounded w-full" 
                                     value={region!} 
                                 >
                                     <option value="">{regionsTranslation("ALL_REGIONS")}</option>
@@ -178,7 +178,7 @@ export const NetworkList: React.FC = () => {
                                 Mapa
                             </div>
                             <div>
-                                <select className="border-1 border-gray-700 text-sm px-4 py-2  bg-gray-800 rounded w-full" value={"aaa"}>
+                                <select className="border-1 border-neutral-700 text-sm px-4 py-2  bg-neutral-900/55 rounded w-full" value={"aaa"}>
                                     <option value="all">Todas os mapas</option>
                                     <option value="all">Chernarus</option>
                                     <option value="all">Namalsk</option>
@@ -198,14 +198,15 @@ export const NetworkList: React.FC = () => {
                                 tagsLoading ? 
                                     [...Array(20)].map(() => (<TagSkeleton />))
                                 : 
-                                tags.map((value, key) => (
-                                    <div
-                                        key={key} 
+                                tags.map((value) => (
+                                    <Tag
+                                        color="gray"
+                                        id={value} 
                                         onClick={() => {toggleTag(value)}}
-                                        className={`cursor-pointer text-xs ${activeTags.has(value) ? "bg-blue-700" : "bg-gray-800"}  py-0.5 px-3 rounded-full`}
+                                        className={activeTags.has(value) ? "!bg-blue-700" : ""}
                                     >
                                         {tagsTranslation(value)}
-                                    </div>
+                                    </Tag>
                                 ))
                             }
                             
@@ -214,7 +215,7 @@ export const NetworkList: React.FC = () => {
                 </div>
 
                 <div className="flex flex-row md:flex-nowrap flex-wrap gap-4 mx-10 mb-10">
-                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-blue-950 w-fit">
                             <FaServer className="text-blue-400" />
                         </div>
@@ -228,7 +229,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-green-950 w-fit">
                             <FaPeopleGroup className="text-green-400" />
                         </div>
@@ -242,7 +243,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-yellow-950 w-fit">
                             <FaStar className="text-yellow-400" />
                         </div>
@@ -256,7 +257,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-blue-500 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-purple-950 w-fit">
                             <FaGlobe className="text-purple-400" />
                         </div>

@@ -10,7 +10,7 @@ export const NetworkHeader: React.FC = () => {
     const navigate = useNavigate();
     
     return (
-        <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
+        <div className="bg-neutral-900/50 py-20 flex flex-row justify-center items-center">
             <div className="flex max-w-400 gap-5 flex-grow px-10 md:px-20 xl:px-50">
                 <div className="border-2 text-blue-800 border-blue-800 bg-blue-980 w-fit h-fit p-8 rounded-md">
                     <FaSkullCrossbones size={33}/>
@@ -22,7 +22,7 @@ export const NetworkHeader: React.FC = () => {
                         </h2>
                         <h2 
                             onClick={() => {navigate(-1)}}
-                            className="font-bold text-1xl flex items-center gap-2 cursor-pointer text-gray-200 hover:text-white">
+                            className="font-bold text-1xl flex items-center gap-2 cursor-pointer text-white hover:scale-102 transition-all">
                             Voltar <FaArrowRight />
                         </h2>
                     </div>

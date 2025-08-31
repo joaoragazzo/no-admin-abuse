@@ -116,19 +116,17 @@ export const NetworkHome: React.FC = () => {
                         <Card.Content>
                             <div className="flex flex-col gap-3">
                                 {networkDetails?.servers.slice(0, visibleCount).map((content, key) => (
-                                    <div className="border-1 rounded-md border-gray-600">
-                                        <NetworkServer
-                                            key={key}
-                                            server={content}
-                                        />
-                                    </div>
+                                    <NetworkServer
+                                        key={key}
+                                        server={content}
+                                    />
                                 ))}
                             </div>
 
                             {networkDetails.servers.length > 3 && 
                                 <div 
                                     onClick={() => {setVisibleCount(prev => prev === 3 ? 999 : 3)}}
-                                    className="cursor-pointer hover:bg-blue-800 bg-blue-900 transition-all font-semibold mt-3 rounded-md gap-3 w-full p-3 flex flex-row items-center justify-center">
+                                    className="btn-primary mt-3 flex justify-center h-10 font-bold text-white">
                                     Ver {visibleCount === 3 ? <>mais <FaAngleDown /></> : <>menos <FaAngleUp /></>}
                                 </div>
                             }
@@ -145,24 +143,24 @@ export const NetworkHome: React.FC = () => {
                         <Card.Content>
                             <div className="mt-3 text-md flex flex-col gap-2">
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex  items-center gap-3 text-gray-300">
-                                        <FaUserGroup className="text-green-400"/> Jogadores online:
+                                    <span className="flex  items-center gap-3 text-gray-100 font-semibold">
+                                        <FaUserGroup className="text-green-500"/> Jogadores online
                                     </span>
                                     <span>
                                         {onlinePlayersCount}/{maxPlayersCount}
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex items-center gap-3  text-gray-300">
-                                        <FaStar className="text-amber-400"/> Avaliação média:
+                                    <span className="flex items-center gap-3  text-gray-100 font-semibold">
+                                        <FaStar className="text-yellow-500"/> Avaliação média
                                     </span>
                                     <span>
                                         {networkDetails.reviewsAvg}/5
                                     </span>
                                 </div>
                                 <div className="flex flex-row justify-between">
-                                    <span className="flex items-center gap-3  text-gray-300">
-                                        <FaArrowUp className="text-purple-400"/> Total de avaliações:
+                                    <span className="flex items-center gap-3  text-gray-100 font-semibold">
+                                        <FaArrowUp className="text-red-500"/> Total de avaliações
                                     </span>
                                     <span>
                                         {networkDetails.reviewsCount}
@@ -212,75 +210,78 @@ export const NetworkHome: React.FC = () => {
                         </Card.Title>
 
                         <Card.Content>
-                            <div className="mt-3 flex flex-row justify-between gap-3 items-center">
-                                <div className="flex flex-row items-center gap-1">
-                                    <span className="min-w-3">5</span> <FaStar size={12}/>
+                            <div className="flex flex-col gap-1.5 text-white mt-3">
+                                <div className="flex flex-row justify-between gap-3 items-center">
+                                    <div className="flex flex-row items-center gap-1">
+                                        <span className="min-w-3 text-sm font-bold">5</span> <FaStar className="text-yellow-400" size={12}/>
+                                    </div>
+                                    <div className="rounded-full w-full h-2 bg-neutral-900">
+                                        <div 
+                                            className={`rounded-full h-2 bg-blue-700`}
+                                            style={{
+                                                width: handleReviewStats(5)
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div 
-                                        className={`rounded-full h-2 bg-blue-700`}
-                                        style={{
-                                            width: handleReviewStats(5)
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="mt-1 flex flex-row justify-between gap-3 items-center">
-                                <div className="flex flex-row items-center gap-1">
-                                    <span className="min-w-3">4</span> <FaStar size={12}/>
+                                <div className="flex flex-row justify-between gap-3 items-center">
+                                    <div className="flex flex-row items-center gap-1 text-sm font-bold">
+                                        <span className="min-w-3">4</span> <FaStar className="text-yellow-400" size={12}/>
+                                    </div>
+                                    <div className="rounded-full w-full h-2 bg-neutral-900">
+                                        <div 
+                                            className={`rounded-full h-2 bg-blue-700`} 
+                                            style={{
+                                                width: handleReviewStats(4)
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div 
-                                        className={`rounded-full h-2 bg-blue-700`} 
-                                        style={{
-                                            width: handleReviewStats(4)
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="mt-1 flex flex-row justify-between gap-3 items-center">
-                                <div className="flex flex-row items-center gap-1">
-                                    <span className="min-w-3">3</span> <FaStar size={12}/>
+                                <div className="flex flex-row justify-between gap-3 items-center">
+                                    <div className="flex flex-row items-center gap-1 text-sm font-bold">
+                                        <span className="min-w-3">3</span> <FaStar className="text-yellow-400" size={12}/>
+                                    </div>
+                                    <div className="rounded-full w-full h-2 bg-neutral-900">
+                                        <div 
+                                            className={`rounded-full h-2 bg-blue-700`} 
+                                            style={{
+                                                width: handleReviewStats(3)
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div 
-                                        className={`rounded-full h-2 bg-blue-700`} 
-                                        style={{
-                                            width: handleReviewStats(3)
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="mt-1 flex flex-row justify-between gap-3 items-center">
-                                <div className="flex flex-row items-center gap-1">
-                                    <span className="min-w-3">2</span> <FaStar size={12}/>
+                                <div className="flex flex-row justify-between gap-3 items-center">
+                                    <div className="flex flex-row items-center gap-1 text-sm font-bold">
+                                        <span className="min-w-3">2</span> <FaStar className="text-yellow-400" size={12}/>
+                                    </div>
+                                    <div className="rounded-full w-full h-2 bg-neutral-900">
+                                        <div 
+                                            className={`rounded-full h-2 bg-blue-700`} 
+                                            style={{
+                                                width: handleReviewStats(2)
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div 
-                                        className={`rounded-full h-2 bg-blue-700`} 
-                                        style={{
-                                            width: handleReviewStats(2)
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="mt-1 flex flex-row justify-between gap-3 items-center">
-                                <div className="flex flex-row items-center gap-1">
-                                    <span className="min-w-3">1</span> <FaStar size={12}/>
-                                </div>
-                                <div className="rounded-full w-full h-2 bg-blue-950">
-                                    <div 
-                                        className={`rounded-full h-2 bg-blue-700`} 
-                                        style={{
-                                            width: handleReviewStats(1)
-                                        }}
-                                    />
+                                <div className="flex flex-row justify-between gap-3 items-center">
+                                    <div className="flex flex-row items-center gap-1 text-sm font-bold">
+                                        <span className="min-w-3">1</span> <FaStar className="text-yellow-400" size={12}/>
+                                    </div>
+                                    <div className="rounded-full w-full h-2 bg-neutral-900">
+                                        <div 
+                                            className={`rounded-full h-2 bg-blue-700`} 
+                                            style={{
+                                                width: handleReviewStats(1)
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
+                            
                         </Card.Content>
                     </Card>
                 </div>

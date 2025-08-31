@@ -12,14 +12,14 @@ interface GameCardProps {
 
 export const GameCard: React.FC<GameCardProps> = ({ id, gameName, networkCount, ratingCount, bgImage}) => {
     return (
-        <div className="hover:translate-y-[-3px] transition-transform duration-200 rounded bg-gray-900 overflow-hidden flex flex-col justify-between">
+        <div className="hover:translate-y-[-3px] transition-transform duration-200 rounded-xl bg-neutral-950 border-1 border-neutral-700 overflow-hidden flex flex-col justify-between">
             <div
                 className="w-full h-40 bg-cover bg-center rounded-t"
                 style={{ backgroundImage: `url('/${bgImage}')` }}
             />
 
             <div className="p-5">
-                <div className="bg-gray-900 text-center font-bold text-2xl">
+                <div className="text-center font-bold text-2xl">
                     {gameName}
                 </div>
                 <div className="mt-4 flex flex-col gap-1">
@@ -34,7 +34,7 @@ export const GameCard: React.FC<GameCardProps> = ({ id, gameName, networkCount, 
                 </div>
                         
                 <Link to={`/${id}/networks/`} className="mt-6 w-full flex items-center justify-center">
-                    <button className="bg-blue-500 px-10 py-2 rounded hover:bg-blue-600 cursor-pointer text-sm">Ver Redes de Servidores</button>
+                    <button className="btn-primary">Ver Redes de Servidores</button>
                 </Link>
             </div>
         </div>            
