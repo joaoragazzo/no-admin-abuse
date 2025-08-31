@@ -31,7 +31,7 @@ export const EulaPopup: React.FC = () => {
         closeDocumentOnClick={false}
     >
         <div className="mb-5 mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">
-            <div className="absolute -top-2.5 left-3 bg-gray-900 px-2 text-white text-sm">
+            <div className="absolute -top-2.5 left-3 bg-neutral-900 px-2 text-white text-sm">
                 Termos e Condições de Uso
             </div>
             <div className="flex flex-col gap-2">
@@ -123,7 +123,7 @@ export const EulaPopup: React.FC = () => {
         </div>
 
         <div className="mt-2 relative border border-white/30 rounded px-3 py-4 text-sm">
-            <div className="absolute -top-2.5 left-3 bg-gray-900 px-2 text-white text-md">
+            <div className="absolute -top-2.5 left-3 bg-neutral-900 px-2 text-white text-md">
                 Políticas de Privacidade
             </div>
             <div className="flex flex-col gap-2">
