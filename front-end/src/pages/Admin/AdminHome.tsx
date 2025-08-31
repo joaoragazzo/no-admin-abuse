@@ -4,11 +4,11 @@ import { PageTitle } from "./PageTitle";
 export const AdminHome = () => {
     return (
         <div>
-            <PageTitle 
+            {/* <PageTitle 
                 main="Painel"
                 emphasis="Administrativo"
             /> 
-            <AdminMenu />
+            <AdminMenu /> */}
         </div>
         
     );

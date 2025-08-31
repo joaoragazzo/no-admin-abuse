@@ -1,10 +1,14 @@
+import { useAuth } from "@/contexts/AuthContext";
 import type React from "react";
 import { Outlet } from "react-router-dom";
+import { AdminMenu } from "@/components/menu/AdminMenu";
 
-export const AdminLayout: React.FC = ({  }) => {
+export const AdminLayout: React.FC = () => {
+    const { user } = useAuth();
+    
     return (
-        <main className="px-25 py-10">
-            
+        <main className="flex flex-row gap-10 h-full">
+            <AdminMenu />
             <Outlet />
         </main>
     );
