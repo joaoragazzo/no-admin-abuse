@@ -9,12 +9,11 @@ export const AdminTags: React.FC = () => {
             <PageTitle 
                 main="Configurações de"
                 emphasis="Tags"
-                backlink
             /> 
-            
+
             <div className="flex flex-row gap-5">
                 
-            <div className="w-full">
+                <div className="w-full">
                 <div className="flex flex-col gap-0.5 w-full">
                     <div className="relative flex flex-row justify-end items-center py-2 rounded-md w-full">
                         <button className="btn-primary">

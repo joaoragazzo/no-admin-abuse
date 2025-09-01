@@ -25,7 +25,10 @@ export const Input: React.FC<InputProps> = ({ label, className, readOnly, value,
                 <input 
                     onChange={(e) => (onChange?.(e.target.value))} 
                     value={value}
-                    className="border-1 border-neutral-700 text-sm px-4 py-2 pl-10 bg-neutral-900/55 rounded w-full" 
+                    className={clsx(
+                        "border-1 border-neutral-700 text-sm px-4 py-2 bg-neutral-900/55 rounded w-full",
+                        {"pl-10" : Icon}
+                    )} 
                     placeholder={placeholder}
                     disabled={disabled}
                     readOnly={readOnly}

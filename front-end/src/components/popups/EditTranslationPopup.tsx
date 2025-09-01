@@ -60,7 +60,7 @@ export const EditTranslationPopup: React.FC<EditTranslationPopupProps> = ({ tran
                     className="btn-primary mt-4"
                     onClick={handleNewTranslationSave}
                 >   
-                    <FaSave /> <strong>Confirmar e Salvar</strong>
+                    <FaSave /> Confirmar e Salvar
                 </button>
             </div>
         </PopupSkeleton>

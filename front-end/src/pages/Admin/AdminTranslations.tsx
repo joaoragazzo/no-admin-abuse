@@ -1,70 +1,75 @@
-import { FaPen, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { PageTitle } from "./PageTitle";
 import { useEffect, useState } from "react";
-import type { TranslationDetailsDTO } from "@/interfaces/TranslationDetailsDTO";
+import { Input } from "@/components/inputs/Input";
+import type { TranslationTableDTO } from "@/interfaces/TranslationTableDTO";
 import TranslationService from "@/services/TranslationService";
-import { EditTranslationPopup } from "@/components/popups/EditTranslationPopup";
 
 export const AdminTranslations: React.FC = () => {
-    const [translationList, setTranslationList] = useState<TranslationDetailsDTO[]>([])
-    const [editPopupOpen, setEditPopupOpen] = useState<boolean>(false);
-    const [selectedTranslation, setSelectedTranslation] = useState<TranslationDetailsDTO>();
+  const [translationTable, setTranslationTable] = useState<TranslationTableDTO | null>(null);
 
-    useEffect(() => {
-        TranslationService.fetchAllTranslations().then(
-            (response) => {setTranslationList(response)}
-        )
-    },[]);
-
-    return (
-        <>
-            <PageTitle 
-                main="Traduções"
-                backlink
-            />
-            <div>
-                <table className="min-w-full rounded-md border border-slate-300 border-separate border-spacing-0 overflow-hidden">
-                    <thead>
-                        <tr className="text-left text-xs font-semibold text-slate-200 uppercase">
-                            <th className="px-6 py-3 tracking-wider border-b border-slate-200">ID</th>
-                            <th className="px-6 py-3 tracking-wider border-b border-slate-200">Idioma</th>
-                            <th className="px-6 py-3 tracking-wider border-b border-slate-200">Chave</th>
-                            <th className="px-6 py-3 tracking-wider border-b border-slate-200">Valor</th>
-                            <th className="px-6 py-3 tracking-wider border-b border-slate-200">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-200">
-                        {translationList.map((content) => (
-                            <tr className="transition-colors duration-150 text-slate-200">
-                                <td className="px-6 py-4">
-                                    {`${content.id.slice(0, 8)}...${content.id.slice(-8)}`}
-                                </td>
-                                <td className="px-6 py-4 uppercase">
-                                    {content.lang}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {content.tKey}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {content?.tValue}
-                                </td>
-                                <td className="px-6 py-4 text-sm flex items-center h-14 gap-4">
-                                    <FaTrash className="cursor-pointer"/>
-                                    <FaPen className="cursor-pointer"
-                                        onClick={() => {setSelectedTranslation(content);setEditPopupOpen(true)}}
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                        
-                    </tbody>
-                </table>
-            </div>
-            <EditTranslationPopup 
-                open={editPopupOpen}
-                onClose={() => setEditPopupOpen(false)}
-                translation={selectedTranslation!}
-            />
-        </>
+  useEffect(() => {
+    TranslationService.fetchTranslationTable().then(
+      (response) => setTranslationTable(response)
     );
-}
+  }, []);
+
+  if (!translationTable) return <div>Carregando...</div>;
+
+  return (
+    <>
+      <PageTitle main="Traduções" />
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full rounded-md border border-slate-300 border-separate border-spacing-0 overflow-hidden table-fixed">
+          <thead>
+            <tr className="text-left text-xs font-semibold text-slate-200 uppercase">
+              <th className="w-40 pl-5 py-3 tracking-wider border-b border-slate-200">
+                Chave
+              </th>
+              {translationTable.langs.map((lang) => (
+                <th
+                  key={lang}
+                  className="py-3 tracking-wider border-b border-slate-200"
+                >
+                  {lang.toUpperCase()}
+                </th>
+              ))}
+              <th className="w-10 py-3 tracking-wider border-b border-slate-200">
+                Ações
+              </th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-slate-200">
+            {translationTable.content.map((row) => (
+              <tr
+                key={row.key}
+                className="transition-colors duration-150 text-slate-200"
+              >
+                <td className="pl-5 py-4 !font-mono">{row.key}</td>
+
+                {translationTable.langs.map((lang) => {
+                  const cell = row.translations[lang];
+                  return (
+                    <td key={lang} className="py-4">
+                      <Input
+                        className="w-fit"
+                        value={cell?.value ?? ""}
+                        onChange={() => {}} // aqui você pluga edição futura
+                      />
+                    </td>
+                  );
+                })}
+
+                <td className="py-4 text-sm flex items-center h-14 gap-4">
+                  <FaTrash className="cursor-pointer" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};

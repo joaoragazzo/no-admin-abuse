@@ -9,9 +9,6 @@ export const AdminLayout: React.FC = () => {
             <AdminMenu />
             <div className="px-5 py-5 w-full">
                 <Outlet />
-                <div className="w-full h-full">
-
-                </div>
             </div>
         </main>
     );

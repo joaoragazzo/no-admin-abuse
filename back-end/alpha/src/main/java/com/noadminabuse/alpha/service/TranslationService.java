@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.TranslationErrorMessage;
 import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.repository.TranslationRepository;
+import com.noadminabuse.alpha.web.dto.translation.TranslationCellDTO;
+import com.noadminabuse.alpha.web.dto.translation.TranslationRowDTO;
+import com.noadminabuse.alpha.web.dto.translation.TranslationTableDTO;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -43,6 +47,32 @@ public class TranslationService {
 
     public List<Translation> getTranslationEntity() {
         return translationRepository.findAll();
+    }
+
+    public TranslationTableDTO getTranslationTable() {
+        List<Translation> allTranslations = translationRepository.findAll();
+
+        List<String> langs = allTranslations.stream()
+                .map(Translation::getLang)
+                .distinct()
+                .toList();
+
+        Map<String, List<Translation>> groupedByKey = allTranslations.stream()
+                .collect(Collectors.groupingBy(Translation::getTKey));
+
+        List<TranslationRowDTO> rows = groupedByKey.entrySet().stream()
+                .map(entry -> {
+                    String key = entry.getKey();
+                    Map<String, TranslationCellDTO> translations = entry.getValue().stream()
+                            .collect(Collectors.toMap(
+                                    Translation::getLang,
+                                    t -> new TranslationCellDTO(t.getId(), t.getTValue())
+                            ));
+                    return new TranslationRowDTO(key, translations);
+                })
+                .toList();
+
+        return new TranslationTableDTO(langs, rows);
     }
 
     @Transactional
@@ -87,7 +117,7 @@ public class TranslationService {
 
     @PostConstruct
     @Transactional
-    public void initDefaultTranslation() {
+    private void initDefaultTranslation() {
         if (translationRepository.count() == 0) {
             Translation t = new Translation();
             t.setLang("pt");

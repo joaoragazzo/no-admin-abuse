@@ -13,12 +13,14 @@ import com.noadminabuse.alpha.mapper.TranslationMapper;
 import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.service.TranslationService;
 import com.noadminabuse.alpha.web.dto.translation.TranslationDetailsDTO;
+import com.noadminabuse.alpha.web.dto.translation.TranslationTableDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationUpdateDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -35,6 +37,11 @@ public class TranslationAdminController {
         return ResponseEntity.ok().body(translationMapper.toDTO(translations));
     }
 
+    @GetMapping("/table")
+    public ResponseEntity<TranslationTableDTO> getTranslationTable() {
+        return ResponseEntity.ok().body(translationService.getTranslationTable());
+    }
+    
     @PatchMapping
     public ResponseEntity<TranslationDetailsDTO> saveTranslation(@RequestBody @Valid TranslationUpdateDTO dto) {
         Translation newTranslation = translationService.saveTranslation(
@@ -53,4 +60,5 @@ public class TranslationAdminController {
         return ResponseEntity.ok().body(null);
     }
     
+
 }
