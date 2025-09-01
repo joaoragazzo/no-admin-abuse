@@ -1,6 +1,6 @@
 import { FaAngleLeft, FaAngleRight, FaChartBar, FaGavel, 
     FaHome, FaLanguage, FaLock, FaServer, 
-    FaSitemap, FaTag, FaUsers } from "react-icons/fa"
+    FaSitemap, FaSpider, FaTag, FaUsers } from "react-icons/fa"
 import { FaMessage, FaShield } from "react-icons/fa6"
 import { useNavigate } from "react-router-dom"
 import type { IconType } from "react-icons/lib"
@@ -18,16 +18,17 @@ interface SidebarItemProps {
 }
 
 const items = [
-    { title: "Home", Icon: FaHome, path: "/admin", selected:false },
-    { title: "Usuários", Icon: FaUsers, path: "/admin/users", selected:false },
-    { title: "Reviews", Icon: FaMessage, path: "/admin/reviews", selected:false },
-    { title: "Tags", Icon: FaTag, path: "/admin/tags", selected:false },
-    { title: "Denúncias", Icon: FaGavel, path: "/admin/reports", selected:false },
-    { title: "Segurança", Icon: FaLock, path: "/admin/security", selected:false },
-    { title: "Estatísticas", Icon: FaChartBar, path: "/admin/statistics", selected:false },
-    { title: "Servidores", Icon: FaServer, path: "/admin/servers", selected:false },
-    { title: "Redes", Icon: FaSitemap, path: "/admin/networks", selected:false },
-    { title: "Traduções", Icon: FaLanguage, path: "/admin/translations", selected:false },
+    { title: "Home", Icon: FaHome, path: "/admin" },
+    { title: "Usuários", Icon: FaUsers, path: "/admin/users" },
+    { title: "Reviews", Icon: FaMessage, path: "/admin/reviews" },
+    { title: "Tags", Icon: FaTag, path: "/admin/tags" },
+    { title: "Denúncias", Icon: FaGavel, path: "/admin/reports" },
+    { title: "Segurança", Icon: FaLock, path: "/admin/security" },
+    { title: "Estatísticas", Icon: FaChartBar, path: "/admin/statistics" },
+    { title: "Servidores", Icon: FaServer, path: "/admin/servers" },
+    { title: "Redes", Icon: FaSitemap, path: "/admin/networks" },
+    { title: "Traduções", Icon: FaLanguage, path: "/admin/translations" },
+    { title: "Scrapping", Icon: FaSpider, path: "/admin/scrapping" }
 ]
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ title, Icon, onClick, selected, expanded }) => {    
