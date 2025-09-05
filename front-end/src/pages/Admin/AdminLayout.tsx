@@ -7,7 +7,7 @@ export const AdminLayout: React.FC = () => {
     return (
         <main className="flex flex-row h-full">
             <AdminMenu />
-            <div className="px-5 py-5 w-full">
+            <div className="px-5 py-5 flex-1 w-1">
                 <Outlet />
             </div>
         </main>

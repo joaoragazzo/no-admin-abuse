@@ -3,11 +3,11 @@ package com.noadminabuse.alpha.web.controller.admin;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.TranslationMapper;
 import com.noadminabuse.alpha.model.Translation;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/admin/i18n")
 public class TranslationAdminController {

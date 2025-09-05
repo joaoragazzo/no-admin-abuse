@@ -1,4 +1,4 @@
 export interface TranslationUpdateDTO { 
     id: string,
-    value: string
+    value: string | null
 }

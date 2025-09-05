@@ -13,7 +13,7 @@ const fetchTranslationTable = async (): Promise<TranslationTableDTO> => {
     return response.data;
 }
 
-const saveTranslation = async ({translation}: {translation: TranslationUpdateDTO}) => {
+const saveTranslation = async (translation: TranslationUpdateDTO) => {
     const response = await api.patch("/admin/i18n", translation);
     return response.data;
 }
