@@ -18,7 +18,7 @@ export const AdminTranslations: React.FC = () => {
   return (
     <>
       <PageTitle main="Traduções" />
-      <div className="overflow-x-auto border rounded-md border-slate-300">
+      <div className="overflow-x-auto rounded-md">
         <TranslationTable data={translationTable} />
       </div>
     </>

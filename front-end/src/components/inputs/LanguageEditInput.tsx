@@ -1,6 +1,5 @@
 import type { TranslationCellDTO } from "@/interfaces/TranslationTableDTO";
 import { Input } from "./Input";
-import clsx from "clsx";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import TranslationService from "@/services/TranslationService";
@@ -23,7 +22,6 @@ export const LanguageEditInput: React.FC<LanguageEditInputProps> = ({ translatio
       <Input
         value={translationValue ?? ""}
         onChange={(value) => setTranslationValue(value === "" ? null : value)}
-        className={clsx("text-sm min-w-50")}
         type={translationValue == null ? "warning" : undefined}
       />
       {initialValue != translationValue && 

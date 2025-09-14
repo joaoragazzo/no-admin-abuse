@@ -1,3 +1,4 @@
+import { Button } from "antd"
 import type React from "react"
 import { Link } from "react-router-dom"
 
@@ -34,7 +35,7 @@ export const GameCard: React.FC<GameCardProps> = ({ id, gameName, networkCount, 
                 </div>
                         
                 <Link to={`/${id}/networks/`} className="mt-6 w-full flex items-center justify-center">
-                    <button className="btn-primary">Ver Redes de Servidores</button>
+                    <Button type="primary">Ver Redes de Servidores</Button>
                 </Link>
             </div>
         </div>            

@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import type React from "react";
 import { FaShieldAlt } from "react-icons/fa";
 
@@ -16,8 +17,8 @@ export const HeroSection: React.FC = () => {
                 justos e seguros. 
               </span>
               <div className="flex flex-row gap-5">
-                <button className="px-7 py-2 cursor-pointer font-semibold bg-blue-500 hover:bg-blue-600 text-white rounded-md">Fazer uma denúncia</button>
-                <button className="px-7 py-2 cursor-pointer border-1 border-blue-500 rounded-md">Ver lista de servidores</button>
+                <Button type="primary" className="py-5 font-semibold">Fazer uma avaliação</Button>
+                <Button className="py-5">Ver lista de servidores</Button>
               </div>
             </div>
           </div>

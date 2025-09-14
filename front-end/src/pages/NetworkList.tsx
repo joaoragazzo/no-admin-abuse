@@ -17,6 +17,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { Tag } from "@/components/misc/Tag";
 import { Input } from "@/components/inputs/Input";
 import { Select } from "@/components/inputs/Select";
+import { Button } from "antd";
 
 
 export const NetworkList: React.FC = () => {
@@ -105,12 +106,12 @@ export const NetworkList: React.FC = () => {
                     </div>
                 </div>
                 <div className="flex flex-col md:flex-row justify-center gap-5 w-full md:w-fit">
-                    <button className="btn-primary">
+                    <Button type="primary">
                         <FaServer /> Registrar um novo servidor
-                    </button>
-                    <button className="justify-center bg-gray-900 px-5 rounded w-full md:w-fit cursor-pointer hover:bg-gray-700 flex flex-row py-2 gap-2 text-sm font-semibold items-center">
+                    </Button>
+                    <Button>
                         <FaInfoCircle /> Como Funciona o Raking
-                    </button>
+                    </Button>
                 </div>
             </div>
             
@@ -124,9 +125,9 @@ export const NetworkList: React.FC = () => {
                             Filtros
                         </div>
                         <div className="flex flex-wrap flex-col md:flex-nowrap md:flex-row gap-3">
-                            <button className="btn-primary">Mais populares</button>
-                            <button className="btn-primary" disabled>Melhor Avaliados</button>
-                            <button className="btn-primary" disabled>Mais Recentes</button>
+                            <Button>Mais populares</Button>
+                            <Button disabled>Melhor Avaliados</Button>
+                            <Button disabled>Mais Recentes</Button>
                         </div>  
                     </div>
 
@@ -136,6 +137,7 @@ export const NetworkList: React.FC = () => {
                             placeholder="Nome do servidor..."
                             label="Buscar servidor"
                             onChange={setSearchText}
+                            value={searchText}
                             className="w-full"
                         />
 
@@ -153,6 +155,7 @@ export const NetworkList: React.FC = () => {
                             placeholder="Todas as regiões"
                             className="w-full"
                             onChange={setRegion}
+                            value={region}
                         />
                         <Select 
                             label="Mapa"
@@ -164,6 +167,7 @@ export const NetworkList: React.FC = () => {
                             ]}
                             className="w-full"
                             disabled
+                            value={null}
                         />
                     </div>
 

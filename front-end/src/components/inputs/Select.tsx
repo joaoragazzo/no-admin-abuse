@@ -1,11 +1,12 @@
 import clsx from "clsx"
+import { Select as AntDSelect } from "antd";
 
 interface SelectProps {
     label?:string,
     onChange?: (key: string) => void
     options: {value: string, label: string}[]
     placeholder?: string
-    value?: string
+    value?: string | null | undefined
     disabled?:boolean
     className?: string
 }
@@ -23,13 +24,13 @@ export const Select: React.FC<SelectProps> = ({className, label, onChange, optio
                 </div>
             }
             <div>
-                <select 
+                <AntDSelect 
                     onChange={
                         (e) => {
-                            onChange?.(e.target.value)
+                            onChange?.(e)
                         }
-                    } 
-                    className="border-1 border-neutral-700 text-sm px-4 py-2  bg-neutral-900/55 rounded w-full" 
+                    }
+                    className="w-full"
                     value={value}
                     disabled={disabled}
                 >
@@ -39,7 +40,7 @@ export const Select: React.FC<SelectProps> = ({className, label, onChange, optio
                     {options.map((content) => (
                         <option value={content.value}>{content.label}</option>
                     ))}
-                </select>
+                </AntDSelect>
             </div>
         </div>
     )

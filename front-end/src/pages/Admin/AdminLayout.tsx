@@ -5,7 +5,7 @@ import { AdminMenu } from "@/components/menu/AdminMenu";
 export const AdminLayout: React.FC = () => {
     
     return (
-        <main className="flex flex-row h-full">
+        <main className="flex flex-row h-full bg-neutral-900">
             <AdminMenu />
             <div className="px-5 py-5 flex-1 w-1">
                 <Outlet />

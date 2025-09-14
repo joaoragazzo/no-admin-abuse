@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { IconType } from "react-icons/lib";
+import { Input as AntDInput } from "antd";
 
 interface InputProps {
     value?: string | undefined | null,
@@ -23,25 +24,14 @@ export const Input: React.FC<InputProps> = ({ label, className, readOnly, value,
             }
             
             <div className="relative">
-                <input 
-                    onChange={(e) => (onChange?.(e.target.value))} 
+                <AntDInput 
+                    onChange={(e) => {onChange?.(e.target.value)}} 
                     value={value || ""}
-                    className={clsx(
-                        "outline-none focus:border-blue-400/80 border-1 border-neutral-700 text-sm px-4 py-2 bg-neutral-900/55 rounded w-full",
-                        {"pl-10" : Icon},
-                        {"border-yellow-500/50" : type==="warning"}
-
-                    )} 
                     placeholder={placeholder}
                     disabled={disabled}
                     readOnly={readOnly}
+                    {...(Icon ? { prefix: <Icon className="mr-2"/> } : {})}
                 />
-                {Icon && 
-                    <div className="text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-3" >
-                        <Icon />
-                    </div>
-                }
-                
             </div>
         </div>
         

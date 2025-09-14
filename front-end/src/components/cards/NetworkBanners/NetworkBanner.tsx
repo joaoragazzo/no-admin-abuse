@@ -7,6 +7,7 @@ import { Rating } from "@/components/misc/Rating"
 import { useNavigate, useParams } from "react-router-dom"
 import { ReportNetworkPopup } from "@/components/popups/ReportNetworkPopup"
 import { usePopup } from "@/hooks/usePopup"
+import { Button } from "antd"
 
 interface NetworkBannerProps {
     id: string,
@@ -73,11 +74,13 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                         </div>
 
                         <div className="flex justify-end flex-row gap-3 text-white">
-                            <button 
+                            <Button
                                 onClick={() => {setShowServers(!showServers)}}
-                                className="flex items-center gap-2 text-xs bg-blue-600 rounded px-3 py-1 font-semibold hover:bg-blue-700 cursor-pointer">
-                                <FaServer /> Ver servidores
-                            </button>
+                                size="small"
+                                icon={<FaServer />}
+                            >
+                                Ver servidores
+                            </Button>
                         </div>
                     </div>
                 </div>
