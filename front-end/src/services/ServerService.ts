@@ -1,33 +1,9 @@
-import type { Pageable } from "@/interfaces/Pageable";
 import api from "../config/axiosClient"
-import type { NetworkDTO } from "@/interfaces/NetworkDTO"
 import type { FiltersDTO } from "@/interfaces/FiltersDTO";
-
-
-const fetchAllNetworks = async (
-    { 
-        page, 
-        tags, 
-        search, 
-        region 
-    } : { 
-        page: number, 
-        tags: string[], 
-        search: string, 
-        region: string|null 
-    }): Promise<Pageable<NetworkDTO>> => {
-    const response =  await api.post<Pageable<NetworkDTO>>(`/network/`, {
-        page: page, 
-        tags: tags, 
-        search: search, 
-        region: region
-    });
-    return response.data;
-}
 
 const fetchAllTags = async (): Promise<FiltersDTO> => {
     const response = await api.get<FiltersDTO>(`/server/filters`)
     return response.data;
 }
 
-export default { fetchAllNetworks, fetchAllTags };
+export default { fetchAllTags };

@@ -14,6 +14,7 @@ import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
 import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Country;
+import com.noadminabuse.alpha.model.Game;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.enums.CountryCode;
@@ -34,6 +35,7 @@ public class NetworkService {
     private final CountryService countryService;
     private final NetworkRepository networkRepository;
     private final NetworkMapper networkMapper;
+    private final GameService gameService;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
         Country country = countryService.findOrCreate(serverDTO.country());
@@ -74,21 +76,11 @@ public class NetworkService {
         return serverRepository.saveAll(servers);
     }
 
-    public Network createNetwork(NetworkCreationDTO networkDTOs) {
-        Network network = networkRepository.save(new Network(networkDTOs.name()));
-        this.createServer(network.getId(), networkDTOs.servers());
-        return network;
-    }
-
-    public List<Network> createNetwork(List<NetworkCreationDTO> networkDTOs) {
-        return networkDTOs
-            .stream()
-            .map(this::createNetwork).toList();
-    }
-
     public Network createOrUpdateNetwork(NetworkCreationDTO networkDTO) {
+        Game game = gameService.getGameByName("DAYZ");
+        
         Network network = networkRepository.findByName(networkDTO.name())
-            .orElseGet(() -> networkRepository.save(new Network(networkDTO.name())));
+            .orElseGet(() -> networkRepository.save(new Network(networkDTO.name(), game)));
 
         List<CountryCode> countryCodes = new ArrayList<>();
         for (ServerDTO serverDTO : networkDTO.servers()) {
@@ -130,13 +122,14 @@ public class NetworkService {
         return result;
     }
 
-    public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region) {
+    public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region, String game) {
         Pageable pageagle = PageRequest.of(page, size);
         Specification<Network> spec = Specification
             .where(ServerSearchSpecification.hasTags(tags))
             .and(ServerSearchSpecification.hasSearch(search))
             .and(ServerSearchSpecification.hasRegion(region))
-            .and(ServerSearchSpecification.withPopularityOrder());
+            .and(ServerSearchSpecification.withPopularityOrder())
+            .and(ServerSearchSpecification.withGameName(game));
 
         return networkRepository.findAll(spec, pageagle);
     }

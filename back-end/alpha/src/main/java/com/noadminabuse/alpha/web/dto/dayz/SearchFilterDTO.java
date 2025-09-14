@@ -9,14 +9,15 @@ import jakarta.validation.constraints.Min;
 
 import com.noadminabuse.alpha.model.enums.Region;
 
-public record DayZSearchDTO(
+public record SearchFilterDTO(
     List<DayZGameTags> tags,
     @Min(0) Integer page,
     String search,
     Region region,
-    Integer size
+    Integer size,
+    String game
 ) {
-    public DayZSearchDTO {
+    public SearchFilterDTO {
         
         if (size == null) { 
             size = 10;

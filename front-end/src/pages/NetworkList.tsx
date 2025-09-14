@@ -18,6 +18,7 @@ import { Tag } from "@/components/misc/Tag";
 import { Input } from "@/components/inputs/Input";
 import { Select } from "@/components/inputs/Select";
 import { Button } from "antd";
+import NetworkService from "@/services/NetworkService";
 
 
 export const NetworkList: React.FC = () => {
@@ -53,11 +54,12 @@ export const NetworkList: React.FC = () => {
     const { data: serverList, isLoading } = useQuery<Pageable<NetworkDTO>>({
     queryKey: ["servers", currentPage, activeTags, debouncedSearch, region],
     queryFn: () =>
-        serverService.fetchAllNetworks({
+        NetworkService.fetchAllNetworks({
         page: currentPage - 1,
         tags: Array.from(activeTags),
         search: debouncedSearch,
         region: region,
+        game: "dayz"
         }),
     enabled: !isFilterChange,
     });

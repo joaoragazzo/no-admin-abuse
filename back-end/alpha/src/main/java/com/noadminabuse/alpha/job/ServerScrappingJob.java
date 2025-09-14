@@ -21,8 +21,10 @@ public class ServerScrappingJob {
     @Scheduled(fixedRate = 70000)
     public void dayZScrapping() {
         System.out.println("Inicando cronjob...");
+        
         List<NetworkCreationDTO> networks = battleMetricsScrapper.run();
         networkService.createOrUpdateNetworks(networks);
+
         System.out.println("Finalizando cronjob...");
     }
 }

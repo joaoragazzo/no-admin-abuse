@@ -109,4 +109,17 @@ public class ServerSearchSpecification {
             return builder.conjunction();
         };
     }
+
+    public static Specification<Network> withGameName(String gameName) {
+        return (root, query, builder) -> {
+            if (gameName == null || gameName.isBlank() || gameName.isEmpty()) {
+                return null;
+            }
+
+            return builder.equal(
+                builder.upper(root.get("game").get("name")),
+                gameName.toUpperCase()
+            );
+        };
+    }
 }

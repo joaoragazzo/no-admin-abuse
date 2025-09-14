@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -49,15 +51,20 @@ public class Network {
     @OneToOne(mappedBy = "network")
     private User owner;
 
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     public Network(UUID id,String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Network(String name) {
+    public Network(String name, Game game) {
         this.name = name;
         this.reviewsAvg = 0L;
         this.reviewsAmount = 0L;
+        this.game = game;
     }
 
     public Network(UUID uuid) {

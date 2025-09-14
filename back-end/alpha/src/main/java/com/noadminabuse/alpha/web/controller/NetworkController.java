@@ -7,7 +7,7 @@ import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.service.NetworkService;
 import com.noadminabuse.alpha.service.ReviewService;
-import com.noadminabuse.alpha.web.dto.dayz.DayZSearchDTO;
+import com.noadminabuse.alpha.web.dto.dayz.SearchFilterDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
@@ -44,13 +44,14 @@ public class NetworkController {
     }
     
     @PostMapping("/")
-    public ResponseEntity<Page<NetworkBannerDTO>> fetchAllServers(@RequestBody @Valid DayZSearchDTO filter) {
+    public ResponseEntity<Page<NetworkBannerDTO>> fetchAllServers(@RequestBody @Valid SearchFilterDTO filter) {
         Page<Network> networks = networkService.findAll(
             filter.page(), 
             filter.size(), 
             filter.tags(), 
             filter.search(),
-            filter.region()
+            filter.region(),
+            filter.game()
         );
         Page<NetworkBannerDTO> response = networks.map(networkMapper::toNetworkBanner);
         return ResponseEntity.ok().body(response);
