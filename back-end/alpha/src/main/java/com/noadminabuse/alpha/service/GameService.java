@@ -1,11 +1,14 @@
 package com.noadminabuse.alpha.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.GameErrorMessage;
 import com.noadminabuse.alpha.model.Game;
 import com.noadminabuse.alpha.repository.GameRepository;
+import com.noadminabuse.alpha.web.dto.game.GameBannerDTO;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -17,10 +20,14 @@ public class GameService {
     
     private final GameRepository gameRepository;
 
-    public Game getGameByName(String name) {
-        return gameRepository.findByName(name).orElseThrow(
+    public Game getGameBySlug(String slug) {
+        return gameRepository.findBySlug(slug).orElseThrow(
             () -> new NotFound(GameErrorMessage.GAME_NOT_FOUND)
         );
+    }
+
+    public List<GameBannerDTO> getAllGamesBanner() {
+        return gameRepository.getAllGameBannerDTOs();
     }
 
     @PostConstruct
@@ -28,7 +35,8 @@ public class GameService {
     private void initDefaultTranslation() {
         if (gameRepository.count() == 0) {
             Game g = new Game();
-            g.setName("DAYZ");
+            g.setName("DayZ");
+            g.setSlug("dayz");
             gameRepository.save(g);
         }
     }

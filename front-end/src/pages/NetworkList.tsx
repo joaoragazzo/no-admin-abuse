@@ -59,7 +59,7 @@ export const NetworkList: React.FC = () => {
         tags: Array.from(activeTags),
         search: debouncedSearch,
         region: region,
-        game: "dayz"
+        gameSlug: "dayz"
         }),
     enabled: !isFilterChange,
     });

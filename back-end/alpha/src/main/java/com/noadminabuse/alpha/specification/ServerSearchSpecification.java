@@ -110,15 +110,15 @@ public class ServerSearchSpecification {
         };
     }
 
-    public static Specification<Network> withGameName(String gameName) {
+    public static Specification<Network> withGameSlug(String gameSlug) {
         return (root, query, builder) -> {
-            if (gameName == null || gameName.isBlank() || gameName.isEmpty()) {
+            if (gameSlug == null || gameSlug.isBlank() || gameSlug.isEmpty()) {
                 return null;
             }
 
             return builder.equal(
-                builder.upper(root.get("game").get("name")),
-                gameName.toUpperCase()
+                builder.upper(root.get("game").get("slug")),
+                gameSlug
             );
         };
     }

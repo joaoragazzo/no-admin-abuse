@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/network")
+@RequestMapping("/networks")
 public class NetworkController {
     private final NetworkService networkService;
     private final ReviewService reviewService;
@@ -51,7 +51,7 @@ public class NetworkController {
             filter.tags(), 
             filter.search(),
             filter.region(),
-            filter.game()
+            filter.gameSlug()
         );
         Page<NetworkBannerDTO> response = networks.map(networkMapper::toNetworkBanner);
         return ResponseEntity.ok().body(response);

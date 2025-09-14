@@ -9,20 +9,20 @@ const fetchAllNetworks = async (
         tags, 
         search, 
         region,
-        game
+        gameSlug
     } : { 
         page: number, 
         tags: string[], 
         search: string, 
         region: string|null,
-        game: string
+        gameSlug: string
     }): Promise<Pageable<NetworkDTO>> => {
-    const response =  await api.post<Pageable<NetworkDTO>>(`/network/`, {
+    const response =  await api.post<Pageable<NetworkDTO>>(`/networks/`, {
         page: page, 
         tags: tags, 
         search: search, 
         region: region,
-        game: game
+        gameSlug: gameSlug
     });
     return response.data;
 }
@@ -30,7 +30,7 @@ const fetchAllNetworks = async (
 const fetchNetworkDetails = async (
     { id } : {id: string}
 ): Promise<NetworkDetailsDTO> => {
-    const response = await api.get<NetworkDetailsDTO>(`/network/${id}`);
+    const response = await api.get<NetworkDetailsDTO>(`/networks/${id}`);
     return response.data;
 }
 

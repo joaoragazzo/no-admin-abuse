@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/server")
+@RequestMapping("/servers")
 public class ServerController {
 
     @GetMapping("/filters")

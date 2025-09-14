@@ -28,6 +28,9 @@ public class Game {
     private UUID id;
 
     @Column(nullable = false)
+    private String slug;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "game")

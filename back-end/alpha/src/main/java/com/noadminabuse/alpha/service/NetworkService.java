@@ -77,7 +77,7 @@ public class NetworkService {
     }
 
     public Network createOrUpdateNetwork(NetworkCreationDTO networkDTO) {
-        Game game = gameService.getGameByName("DAYZ");
+        Game game = gameService.getGameBySlug("dayz");
         
         Network network = networkRepository.findByName(networkDTO.name())
             .orElseGet(() -> networkRepository.save(new Network(networkDTO.name(), game)));
@@ -122,14 +122,14 @@ public class NetworkService {
         return result;
     }
 
-    public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region, String game) {
+    public Page<Network> findAll(Integer page, Integer size, List<DayZGameTags> tags, String search, Region region, String gameSlug) {
         Pageable pageagle = PageRequest.of(page, size);
         Specification<Network> spec = Specification
             .where(ServerSearchSpecification.hasTags(tags))
             .and(ServerSearchSpecification.hasSearch(search))
             .and(ServerSearchSpecification.hasRegion(region))
             .and(ServerSearchSpecification.withPopularityOrder())
-            .and(ServerSearchSpecification.withGameName(game));
+            .and(ServerSearchSpecification.withGameSlug(gameSlug));
 
         return networkRepository.findAll(spec, pageagle);
     }

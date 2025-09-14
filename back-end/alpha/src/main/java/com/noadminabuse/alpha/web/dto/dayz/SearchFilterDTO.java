@@ -15,7 +15,7 @@ public record SearchFilterDTO(
     String search,
     Region region,
     Integer size,
-    String game
+    String gameSlug
 ) {
     public SearchFilterDTO {
         

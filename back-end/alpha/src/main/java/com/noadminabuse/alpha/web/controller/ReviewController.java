@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/review")
+@RequestMapping("/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
     private final FeedbackMapper feedbackMapper;
