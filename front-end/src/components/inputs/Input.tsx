@@ -11,7 +11,7 @@ interface InputProps {
     label?: string
     Icon?: IconType
     placeholder?:string
-    type?: "warning" | undefined
+    type?: string
 }
 
 export const Input: React.FC<InputProps> = ({ label, className, readOnly, value, disabled, onChange, Icon, placeholder, type }) => {
@@ -30,6 +30,7 @@ export const Input: React.FC<InputProps> = ({ label, className, readOnly, value,
                     placeholder={placeholder}
                     disabled={disabled}
                     readOnly={readOnly}
+                    type={type}
                     {...(Icon ? { prefix: <Icon className="mr-2"/> } : {})}
                 />
             </div>
