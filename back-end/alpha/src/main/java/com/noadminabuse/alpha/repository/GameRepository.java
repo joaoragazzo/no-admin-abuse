@@ -17,15 +17,11 @@ public interface GameRepository extends JpaRepository<Game, UUID> {
         SELECT new com.noadminabuse.alpha.web.dto.game.GameBannerDTO(
             g.name,
             g.slug,
-            COUNT(DISTINCT n.id),
-            COUNT(DISTINCT s.id),
-            COUNT(r.id)
+            (SELECT COUNT(DISTINCT n.id) FROM Network n WHERE n.game = g),
+            (SELECT COUNT(DISTINCT s.id) FROM Server s WHERE s.network.game = g),
+            (SELECT COUNT(r.id) FROM Review r WHERE r.network.game = g)
         )
-            FROM Game g
-            LEFT JOIN g.networks n
-            LEFT JOIN n.servers s
-            LEFT JOIN n.reviews r
-            GROUP BY g.id, g.name
+        FROM Game g
     """)
     List<GameBannerDTO> getAllGameBannerDTOs();
 
