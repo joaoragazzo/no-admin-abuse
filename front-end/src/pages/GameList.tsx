@@ -1,7 +1,16 @@
 import type React from "react"
 import { GameCard } from "../components/cards/GameCard"
+import { useEffect, useState } from "react";
+import type { GameBannerDTO } from "@/interfaces/GameBannerDTO";
+import GameService from "@/services/GameService";
 
 export const GameList: React.FC = () => {
+  const [gameList, setGameList] = useState<GameBannerDTO[]>([]);
+  
+  useEffect(() => {
+    GameService.fetchAllGames().then(res => setGameList(res));
+  },[]);
+
   return (
     <>
       <div className="flex flex-col items-center my-6 sm:my-10 px-4">
@@ -14,13 +23,18 @@ export const GameList: React.FC = () => {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 sm:mx-8 lg:mx-12 mb-10 max-w-7xl mx-auto">
-        <GameCard
-          id="dayz"
-          gameName="DayZ"
-          networkCount="12"
-          ratingCount="453"
-          bgImage="dayz.png"
-        />
+        {gameList.map((content) => (
+          <GameCard
+            id={content.slug}
+            gameName={content.name}
+            networkCount={content.networksCount}
+            serverCount={content.serversCount}
+            ratingCount={content.reviewsCount}
+            bgImage={`${content.slug}.png`}
+          />
+        ))}
+        
+        
       </div>
     </>
   )

@@ -4,6 +4,6 @@ public record GameBannerDTO(
     String name,
     String slug,
     Long networksCount,
-    Long serverCount,
+    Long serversCount,
     Long reviewsCount
 ) {}
