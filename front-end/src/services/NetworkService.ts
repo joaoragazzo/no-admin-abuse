@@ -1,6 +1,6 @@
 import api from "@/config/axiosClient";
-import type { NetworkDetailsDTO } from "@/interfaces/NetworkDetailsDTO";
-import type { NetworkDTO } from "@/interfaces/NetworkDTO";
+import type { NetworkDetailsDTO } from "@/interfaces/network/NetworkDetailsDTO";
+import type { NetworkDTO } from "@/interfaces/network/NetworkDTO";
 import type { Pageable } from "@/interfaces/Pageable";
 
 const fetchAllNetworks = async (

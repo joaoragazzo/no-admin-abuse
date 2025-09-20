@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.noadminabuse.alpha.model.Game;
+import com.noadminabuse.alpha.web.dto.OptionDTO;
 import com.noadminabuse.alpha.web.dto.game.GameBannerDTO;
 
 public interface GameRepository extends JpaRepository<Game, UUID> {
@@ -24,5 +25,15 @@ public interface GameRepository extends JpaRepository<Game, UUID> {
         FROM Game g
     """)
     List<GameBannerDTO> getAllGameBannerDTOs();
+
+
+    @Query("""
+        SELECT new com.noadminabuse.alpha.web.dto.OptionDTO(
+            g.id,
+            g.name
+        )
+        FROM Game g
+    """)
+    List<OptionDTO> getAllGameOptionsDTOs();
 
 }

@@ -1,5 +1,5 @@
-import type { ReviewStatsDTO } from "./ReviewStatsDTO";
-import type { ServerDTO } from "./ServerDTO";
+import type { ReviewStatsDTO } from "../reviews/ReviewStatsDTO";
+import type { ServerDTO } from "../ServerDTO";
 
 export interface NetworkDetailsDTO {
     id: string,

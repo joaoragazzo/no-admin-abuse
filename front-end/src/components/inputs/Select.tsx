@@ -1,18 +1,20 @@
 import clsx from "clsx"
 import { Select as AntDSelect } from "antd";
+import type { Option } from "@/interfaces/Option";
 
 interface SelectProps {
     label?:string,
-    onChange?: (key: string) => void
-    options: {value: string, label: string}[]
+    onChange?: ((key: any) => void) | React.Dispatch<React.SetStateAction<any>>
+    options: Option[]
     placeholder?: string
-    value?: string | null | undefined
+    value?: any
     disabled?:boolean
     className?: string
+    required?: boolean
 }
 
 
-export const Select: React.FC<SelectProps> = ({className, label, onChange, options, placeholder, value, disabled }) => {
+export const Select: React.FC<SelectProps> = ({className, required, label, onChange, options, placeholder, value, disabled }) => {
     return (
         <div className={clsx(
             "flex flex-col", 
@@ -20,7 +22,7 @@ export const Select: React.FC<SelectProps> = ({className, label, onChange, optio
             className)}>
             {label && 
                 <div className="text-xs text-gray-500 mb-2">
-                    {label}
+                    {label} {required && <span className="mr-2 text-red-500">*</span>}
                 </div>
             }
             <div>
@@ -33,14 +35,10 @@ export const Select: React.FC<SelectProps> = ({className, label, onChange, optio
                     className="w-full"
                     value={value}
                     disabled={disabled}
-                >
-                    {placeholder && 
-                        <option>{placeholder}</option>
-                    }
-                    {options.map((content) => (
-                        <option value={content.value}>{content.label}</option>
-                    ))}
-                </AntDSelect>
+                    placeholder={placeholder}
+                    options={options}
+                />
+                
             </div>
         </div>
     )

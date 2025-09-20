@@ -1,4 +1,4 @@
-import type { UserBasicInfoDTO } from "./UserBasicInfoDTO";
+import type { UserBasicInfoDTO } from "../UserBasicInfoDTO";
 
 export interface ReviewDisplayDTO {
     id: string,

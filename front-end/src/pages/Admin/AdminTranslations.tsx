@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PageTitle } from "./PageTitle";
 import TranslationService from "@/services/TranslationService";
-import type { TranslationTableDTO } from "@/interfaces/TranslationTableDTO";
+import type { TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO";
 import { TranslationTable } from "@/components/table/TranslationTable";
 
 export const AdminTranslations: React.FC = () => {

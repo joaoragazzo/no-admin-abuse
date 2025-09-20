@@ -1,5 +1,5 @@
 import type React from "react"
-import type { TranslationTableDTO } from "@/interfaces/TranslationTableDTO"
+import type { TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO"
 import { Button, Input, Space, Table } from "antd"
 import { FaSave } from "react-icons/fa"
 

@@ -8,6 +8,7 @@ import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.GameErrorMessage;
 import com.noadminabuse.alpha.model.Game;
 import com.noadminabuse.alpha.repository.GameRepository;
+import com.noadminabuse.alpha.web.dto.OptionDTO;
 import com.noadminabuse.alpha.web.dto.game.GameBannerDTO;
 
 import jakarta.annotation.PostConstruct;
@@ -28,6 +29,10 @@ public class GameService {
 
     public List<GameBannerDTO> getAllGamesBanner() {
         return gameRepository.getAllGameBannerDTOs();
+    }
+
+    public List<OptionDTO> getAllGamesOptions() {
+        return gameRepository.getAllGameOptionsDTOs();
     }
 
     @PostConstruct

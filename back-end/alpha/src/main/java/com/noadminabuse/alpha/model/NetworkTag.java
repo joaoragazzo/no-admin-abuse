@@ -9,17 +9,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Tag {
+public class NetworkTag {
     
     @Id
     @GeneratedValue
@@ -27,10 +24,21 @@ public class Tag {
     private UUID id;
 
     @Column(nullable = false)
-    private String tag;
+    private String tagSlug;
 
-    private Boolean status;
+    @Column(nullable =  false)
+    private boolean isPositive;
+
     private Instant createdAt;
 
-    
+    @OneToOne(optional = false)
+    private Game game;
+
+    public NetworkTag(String tagSlug, boolean isPositive, Game game) {
+        this.tagSlug = tagSlug;
+        this.game = game;
+        this.createdAt = Instant.now();
+        this.isPositive = isPositive;
+    }
+
 }

@@ -1,4 +1,4 @@
-import type { ServerDTO } from "./ServerDTO";
+import type { ServerDTO } from "../ServerDTO";
 
 export interface NetworkDTO {
     id: string,

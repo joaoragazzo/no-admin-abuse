@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,4 +36,7 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     private List<Network> networks;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NetworkTag> availableNetworkTags;
 }

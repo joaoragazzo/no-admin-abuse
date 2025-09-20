@@ -1,4 +1,4 @@
-import type { TranslationCellDTO } from "@/interfaces/TranslationTableDTO";
+import type { TranslationCellDTO } from "@/interfaces/translation/TranslationTableDTO";
 import { Input } from "./Input";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
