@@ -13,7 +13,8 @@ const dataColums: ColumnsType<NetworkTagInfoDTO> = [
     {
         title: "Slug",
         dataIndex: "tagSlug",
-        key: "tagSlug"
+        key: "tagSlug",
+        render: (slug: string) => <span className="!font-mono border-1 px-3 py-1 rounded-md border-gray-500">{slug}</span>
     },
     {
         title: "Status",
@@ -33,8 +34,12 @@ export const AdminNetworkTags: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tableData, setTableData] = useState<NetworkTagInfoDTO[]>([]);
 
-    useEffect(() => {
+    const updateTable = async () => {
         NetworkTagService.getAllNetworkTags().then((res) => setTableData(res));
+    }
+
+    useEffect(() => {
+        updateTable()
     },[])
 
 
@@ -45,8 +50,7 @@ export const AdminNetworkTags: React.FC = () => {
                 main="Configurações de"
                 emphasis="Tags de Redes"
             /> 
-
-             
+    
             <div className="w-full gap-5 flex flex-col">
                 <div className="flex flex-col w-full">
                     <div className="relative flex flex-row justify-end items-center py-2 rounded-md w-full">
@@ -63,10 +67,11 @@ export const AdminNetworkTags: React.FC = () => {
             </div>
             
         </div>
-        <CreateNetworkTag 
-            open={isModalOpen}
-            onClose={() => {setIsModalOpen(false)}}
-        />
+            <CreateNetworkTag 
+                open={isModalOpen}
+                onClose={() => {setIsModalOpen(false)}}
+                updateTable={updateTable}
+            />
         </>
         
     );

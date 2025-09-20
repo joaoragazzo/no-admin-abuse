@@ -7,18 +7,20 @@ import type { Option } from "@/interfaces/Option";
 import GameService from "@/services/GameService";
 import { Button } from "antd";
 import { FaPlusCircle } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import NetworkTagService from "@/services/NetworkTagService";
 
 interface CreateNetworkTagProps {
     open: boolean
     onClose: () => void;
+    updateTable: () => void
 }
 
-export const CreateNetworkTag: React.FC<CreateNetworkTagProps> = ({open, onClose}) => {
+export const CreateNetworkTag: React.FC<CreateNetworkTagProps> = ({open, onClose, updateTable}) => {
     const [tagSlug, setTagSlug] = useState<string>("");
     const [isPositive, setIsPositive] = useState<boolean|null>();
     const [gameId, setGameId] = useState<string|null>("")
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [gameOptions, setGameOptions] = useState<Option[]>([]);
 
     useEffect(() => {
@@ -76,19 +78,25 @@ export const CreateNetworkTag: React.FC<CreateNetworkTagProps> = ({open, onClose
             <div className="justify-end w-full flex gap-3">
                 <Button 
                     type="primary"
-                    icon={<FaPlusCircle />}
+                    icon={isLoading ? <AiOutlineLoading3Quarters className="animate-spin"/> : <FaPlusCircle /> }
                     onClick={() => {
                         if (!tagSlug || !gameId || typeof(isPositive) !== "boolean")
                             return;
-                        
+                        setIsLoading(true);
+
                         NetworkTagService.createNewNetworkTag({
                             tagSlug: tagSlug,
                             gameId: gameId,
                             isPositive: isPositive
-                        })
+                        }).then(updateTable);
+                        
+                        setIsLoading(false);
+                        onClose();
                     }}
-                >
-                    Criar Nova Tag
+                    disabled={isLoading}
+                    
+                > 
+                    {isLoading ? <>Criando...</>: <>Criar Nova Tag</>}
                 </Button>
                 <Button
                     onClick={onClose}
