@@ -24,4 +24,7 @@ public interface TranslationRepository extends JpaRepository<Translation, UUID>{
 
     @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Translation t WHERE t.lang = :lang AND t.tKey = :tKey")
     boolean existsByLangAndTKey(@Param("lang") String lang, @Param("tKey") String tKey);
+
+    @Query("DELETE FROM Translation t WHERE t.tKey = :tKey")
+    void deleteByTKey(@Param("tKey") String tKey);
 }
