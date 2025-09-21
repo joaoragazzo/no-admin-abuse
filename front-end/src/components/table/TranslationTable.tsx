@@ -1,13 +1,14 @@
 import type React from "react"
-import type { TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO"
-import { Button, Input, Space, Table } from "antd"
-import { FaSave } from "react-icons/fa"
+import type { TranslationCellDTO, TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO"
+import { Table } from "antd"
+import { LanguageEditInput } from "../inputs/LanguageEditInput"
 
 interface TranslationTableProps {
   data: TranslationTableDTO
 }
 
 export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {  
+  
   const tableData = data.content.map((item, index) => {
     const row: any = {
       key: index,
@@ -15,7 +16,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {
     };
 
     data.langs.forEach(lang => {
-      row[lang] = item.translations[lang]?.value || '';
+      row[lang] = item.translations[lang];
     });
 
     return row;
@@ -28,27 +29,14 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {
       key: 'translationKey',
       fixed: 'left' as const,
       width: 150,
-      render: (text: string) => <code>{text}</code>
+      render: (text: string) => <span className="!font-mono">{text}</span>
     },
     ...data.langs.map(lang => ({
       title: lang.toUpperCase(),
       dataIndex: lang,
       key: lang,
-      render: (text: string) => 
-          <Space.Compact 
-            className="z-0 relative w-70"
-          >
-            <Input 
-              value={text}
-              status={text ? undefined : "warning"}
-              className="z-3"
-              
-            />
-            <Button 
-              icon={<FaSave />}
-              variant="outlined"
-            />
-          </Space.Compact>
+      render: (translation: TranslationCellDTO) => 
+          <LanguageEditInput translation={translation}/>
           
     }))
   ];

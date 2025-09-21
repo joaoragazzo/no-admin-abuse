@@ -13,9 +13,10 @@ interface InputProps {
     placeholder?:string
     type?: string
     required?: boolean
+    status?: "" | "warning" | "error"
 }
 
-export const Input: React.FC<InputProps> = ({ label, className, readOnly, value, disabled, onChange, Icon, placeholder, type, required }) => {
+export const Input: React.FC<InputProps> = ({ label, className, readOnly, value, disabled, onChange, Icon, placeholder, type, required, status }) => {
     return (
         <div className={clsx("flex flex-col", className)}>
             {label && 
@@ -33,6 +34,7 @@ export const Input: React.FC<InputProps> = ({ label, className, readOnly, value,
                     disabled={disabled}
                     readOnly={readOnly}
                     type={type}
+                    {...(status ? {status: status} : {})}
                     {...(Icon ? { prefix: <Icon className="mr-2"/> } : {})}
                 />
             </div>
