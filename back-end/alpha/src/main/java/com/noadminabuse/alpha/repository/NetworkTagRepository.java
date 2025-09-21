@@ -16,14 +16,14 @@ public interface NetworkTagRepository extends JpaRepository<NetworkTag, UUID> {
     @Query("SELECT nt FROM NetworkTag nt JOIN FETCH nt.game")
     List<NetworkTag> findAllWithGames();
 
-    @Query("SELECT nt FROM NetworkTag nt WHERE nt.tagSlug = :tagSlug")
-    Optional<NetworkTag> findByTagSlug(@Param("tagSlug") String tagSlug);
+    @Query("SELECT nt FROM NetworkTag nt WHERE nt.slug = :slug")
+    Optional<NetworkTag> findByTagSlug(@Param("slug") String slug);
 
     @Query("""
         SELECT new 
             com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO(
                 nt.id,
-                nt.tagSlug,
+                nt.slug,
                 nt.isPositive
             )
         FROM NetworkTag nt
