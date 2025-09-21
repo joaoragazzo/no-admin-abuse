@@ -17,7 +17,7 @@ export const NetworkMakeReview = () => {
     const [starCounter, setStarCounter] = useState<number>(0);
     const [anonymous, setAnonymous] = useState<boolean>(false);
     const [starError, setStarError] = useState<boolean>(false);
-    const [availableTags, setAvailableTags] = useState<NetworkTagDTO[]>([]);
+    const [_, setAvailableTags] = useState<NetworkTagDTO[]>([]);
     const [text, setText] = useState<string>("");
 
     const toogleTag = (id: string):void => {
