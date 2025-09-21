@@ -14,6 +14,8 @@ import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.UserRepository;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -44,6 +46,12 @@ public class UserService {
         );
     }
 
+    public User getUserBySteamId(String steam64id) {
+        return userRepository.findBySteamId(steam64id).orElseThrow(
+            () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
+        );
+    }
+
     public MessageDTO userConsentEula(UUID uuid) {
         User user = getUser(uuid);
         user.setAcceptedEula(true);
@@ -53,4 +61,22 @@ public class UserService {
         return feedbackMapper.success(UserMessage.SUCCESS_ACCEPTED_EULA);
     }
 
+    @PostConstruct
+    @Transactional
+    private void createDefaultUser() {
+        Optional<User> optionalUser = userRepository.findBySteamId("76561198118616961");
+
+        User user;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+        } else {
+            user = new User();
+            user.setSteamId("76561198118616961");
+        }
+
+        user.setLastLoginAt(Instant.now());
+        user.setUsername("admin user");
+        user.setAvatarUrl("https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg");
+        userRepository.save(user);
+    }
 }

@@ -1,6 +1,8 @@
 package com.noadminabuse.alpha.model;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -10,10 +12,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +26,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class Review {
     
     @Id
@@ -51,6 +53,14 @@ public class Review {
 
     @Column(nullable = false)
     private Instant createdAt;
+
+    @ManyToMany
+    @JoinTable(
+        name = "review_tag",
+        joinColumns = @JoinColumn(name = "review_id"),
+        inverseJoinColumns = @JoinColumn(name = "networktag_id")
+    )
+    private Set<NetworkTag> tags = new HashSet<>();
 
     public Review(String text, Integer rating, boolean anonymous, User author, Network network) {
         this.text = text;

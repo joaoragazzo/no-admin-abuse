@@ -1,7 +1,5 @@
 package com.noadminabuse.alpha.web.controller.admin;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -32,12 +30,6 @@ public class TranslationAdminController {
     private final TranslationMapper translationMapper;
 
     @GetMapping
-    public ResponseEntity<List<TranslationDetailsDTO>> getAllTranslations() {
-        List<Translation> translations = translationService.getTranslationEntity();
-        return ResponseEntity.ok().body(translationMapper.toDTO(translations));
-    }
-
-    @GetMapping("/table")
     public ResponseEntity<TranslationTableDTO> getTranslationTable() {
         return ResponseEntity.ok().body(translationService.getTranslationTable());
     }

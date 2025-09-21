@@ -6,9 +6,14 @@ const steamLoginCallback = async ({ params }: { params:string }): Promise<Authen
     return response.data;
 }
 
+const steamLoginDebugCallback = async (): Promise<AuthenticationDTO> => {
+    const response = await api.get<AuthenticationDTO>("/debug/token");
+    return response.data;
+}
+
 const steamLoginProfile = async (): Promise<AuthenticationDTO> => {
     const response = await api.get<AuthenticationDTO>("auth/steam/profile");
     return response.data;
 }
 
-export default { steamLoginCallback, steamLoginProfile }
+export default { steamLoginCallback, steamLoginProfile, steamLoginDebugCallback }

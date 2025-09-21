@@ -12,13 +12,23 @@ export const SteamLogin = () => {
     useEffect(() => {
         const queryParams = window.location.search;
 
-        AuthenticationService.steamLoginCallback({params: queryParams})
-            .then(res => {
-                localStorage.setItem("token", res.token);
-                localStorage.setItem("user", JSON.stringify(res.user))
-                setUser(res.user);
-                navigate("/");
-            })        
+        if (import.meta.env.PROD)
+            AuthenticationService.steamLoginCallback({params: queryParams})
+                .then(res => {
+                    localStorage.setItem("token", res.token);
+                    localStorage.setItem("user", JSON.stringify(res.user))
+                    setUser(res.user);
+                    navigate("/");
+                })
+
+        if (import.meta.env.DEV)
+            AuthenticationService.steamLoginDebugCallback()
+                .then(res => {
+                    localStorage.setItem("token", res.token);
+                    localStorage.setItem("user", JSON.stringify(res.user))
+                    setUser(res.user);
+                    navigate("/");
+                })
     },[])
 
     return (

@@ -13,8 +13,8 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 const dataColums: ColumnsType<NetworkTagInfoDTO> = [
     {
         title: "Slug",
-        dataIndex: "tagSlug",
-        key: "tagSlug",
+        dataIndex: "slug",
+        key: "slug",
         render: (slug: string) => <span className="!font-mono border-1 px-4 py-1 rounded-md border-gray-500 leading-none items-center">{slug}</span>
     },
     {

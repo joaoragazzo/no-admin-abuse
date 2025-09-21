@@ -3,13 +3,8 @@ import type { TranslationDetailsDTO } from "@/types/translation/TranslationDetai
 import type { TranslationTableDTO } from "@/types/translation/TranslationTableDTO";
 import type { TranslationUpdateDTO } from "@/types/translation/TranslationUpdateDTO";
 
-const fetchAllTranslations = async (): Promise<TranslationDetailsDTO[]> => {
-    const response = await api.get<TranslationDetailsDTO[]>("/admin/i18n");
-    return response.data;
-}
-
 const fetchTranslationTable = async (): Promise<TranslationTableDTO> => {
-    const response = await api.get<TranslationTableDTO>("/admin/i18n/table");
+    const response = await api.get<TranslationTableDTO>("/admin/i18n");
     return response.data;
 }
 
@@ -18,4 +13,4 @@ const saveTranslation = async (translation: TranslationUpdateDTO): Promise<Trans
     return response.data;
 }
 
-export default { fetchAllTranslations, saveTranslation, fetchTranslationTable };
+export default { saveTranslation, fetchTranslationTable };

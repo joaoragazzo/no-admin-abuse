@@ -4,7 +4,10 @@ import { FaSteam } from "react-icons/fa";
 export const LoginSteamButton: React.FC = () => {
     
     const handleLogin = () => {
-        window.location.href="/api/v1/auth/steam";
+        if (import.meta.env.PROD)
+            window.location.href="/api/v1/auth/steam";
+        if (import.meta.env.DEV)
+            window.location.href="/auth/steam/callback";
     }
 
     return (

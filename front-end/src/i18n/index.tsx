@@ -7,11 +7,11 @@ i18n
     .use(initReactI18next)
     .init({     
         backend : {
-            loadPath: "https://no-admin-abuse.joaoragazzo.dev/api/v1/i18n/{{lng}}/{{ns}}"   
+            loadPath: `${import.meta.env.VITE_API_BASE_URL}/i18n/{{lng}}/{{ns}}`   
         },
         lng: 'pt',
         fallbackLng: 'pt',
-        ns: ['network_tag', 'regions', 'countries', 'feedbacks'],
+        ns: ['network_tag'],
         defaultNS: 'tags',
         interpolation: { 
             escapeValue: false

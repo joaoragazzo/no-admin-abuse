@@ -1,7 +1,0 @@
-{
-    "UNAUTHENTICATED_REQUEST": "Você precisa estar autenticado para fazer isso!",
-    "NETWORK_NOT_FOUND": "Rede de servidores não encontedada!",
-    "SUCCESS_ACCEPTED_EULA": "Você aceitou os termos e condições de uso e termos de privacidade com sucesso!",
-    "REVIEW_SUCCESS_DELETED": "Você removeu a avaliação com sucesso!",
-    "REVIEW_SUCCESS_POSTED": "Você publicou a avaliação com sucesso!"
-}

@@ -78,6 +78,19 @@ public class AuthService {
         );
     }
 
+    /**
+     * For development pourpose only
+     */
+    public SuccessLoginDTO _generateSteamLoginBySteamId(String steam64id) {
+        User user = userService.getUserBySteamId(steam64id);
+        String jwt = jwtService.generateToken(user.getId());
+
+        return new SuccessLoginDTO(
+            jwt,
+            new UserFullInfoDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), "admin user", "https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg")
+        );
+    }
+
     private void confirmOpenIdSignature(HttpServletRequest request) {
         Map<String, String> params = new HashMap<>();
         request.getParameterMap().forEach((key, values) -> {
