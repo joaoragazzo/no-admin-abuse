@@ -6,6 +6,7 @@ import { useNetworkHome } from "@/contexts/NetworkHomeContext"
 import { type NetworkTagDTO } from "@/interfaces/networkTag/NetworkTag"
 import NetworkTagService from "@/services/NetworkTagService"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { FaCheck } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 import { useParams } from "react-router-dom"
@@ -17,8 +18,9 @@ export const NetworkMakeReview = () => {
     const [starCounter, setStarCounter] = useState<number>(0);
     const [anonymous, setAnonymous] = useState<boolean>(false);
     const [starError, setStarError] = useState<boolean>(false);
-    const [_, setAvailableTags] = useState<NetworkTagDTO[]>([]);
+    const [availableTag, setAvailableTags] = useState<NetworkTagDTO[]>([]);
     const [text, setText] = useState<string>("");
+    const { t } = useTranslation("network_tag")
 
     const toogleTag = (id: string):void => {
         if (selectedTags.includes(id)) {
@@ -48,7 +50,14 @@ export const NetworkMakeReview = () => {
         NetworkTagService
             .getBasicInfoNetworkTag(game)
             .then(res => setAvailableTags(res));
-    },[])
+    },[]);
+
+    useEffect(() => {
+        for(let key of availableTag) {
+            console.log(key)
+            t(key.slug);
+        }
+    }, [availableTag])
 
     const mockedGoodTags = ["Staff imparcial", "Eventos", "Baixa latência", "Suporte rápido"]
     const mockedBadTags = ["Pay-2-win", "VIPs muitos caros", "Comunidade tóxica", "Favoritismo"]

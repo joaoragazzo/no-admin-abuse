@@ -24,7 +24,7 @@ i18n
         },
         lng: 'pt',
         fallbackLng: 'pt',
-        ns: ['network_tags', 'regions', 'countries', 'feedbacks'],
+        ns: ['network_tag', 'regions', 'countries', 'feedbacks'],
         defaultNS: 'tags',
         interpolation: { 
             escapeValue: false
