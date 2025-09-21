@@ -52,15 +52,6 @@ export const NetworkMakeReview = () => {
             .then(res => setAvailableTags(res));
     },[]);
 
-    useEffect(() => {
-        for(let key of availableTag) {
-            console.log(key)
-            t(key.slug);
-        }
-    }, [availableTag])
-
-    const mockedGoodTags = ["Staff imparcial", "Eventos", "Baixa latência", "Suporte rápido"]
-    const mockedBadTags = ["Pay-2-win", "VIPs muitos caros", "Comunidade tóxica", "Favoritismo"]
 
     return (
         <div className="flex flex-col gap-2 mt-3 w-full">             
@@ -78,9 +69,9 @@ export const NetworkMakeReview = () => {
                 </div>
 
                 <div className="flex flex-row flex-wrap gap-3">
-                    {mockedGoodTags.map((content, _) => (
-                        <Tag color={selectedTags.includes(content) ? "green" : "gray"} onClick={toogleTag} id={content}>
-                            {content}
+                    {availableTag.filter(content => content.isPositive).map((content, _) => (
+                        <Tag color={selectedTags.includes(content.id) ? "green" : "gray"} onClick={toogleTag} id={content.id}>
+                            {t("network_tag." + game + "." + content.slug)}
                         </Tag>
                     ))}
                 </div>
@@ -90,9 +81,9 @@ export const NetworkMakeReview = () => {
                 </div>
                 
                 <div className="flex flex-row flex-wrap gap-3">
-                    {mockedBadTags.map((content, _) => (
-                        <Tag color={selectedTags.includes(content) ? "red" : "gray"} onClick={toogleTag} id={content}>
-                            {content}
+                    {availableTag.filter(content => !content.isPositive).map((content, _) => (
+                        <Tag color={selectedTags.includes(content.id) ? "red" : "gray"} onClick={toogleTag} id={content.id}>
+                            {t("network_tag." + game + "." + content.slug)}
                         </Tag>
                     ))}
                 </div>  
