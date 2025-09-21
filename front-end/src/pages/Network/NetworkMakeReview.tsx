@@ -3,16 +3,21 @@ import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
 import { useNetworkHome } from "@/contexts/NetworkHomeContext"
-import { useState } from "react"
+import { type NetworkTagDTO } from "@/interfaces/networkTag/NetworkTag"
+import NetworkTagService from "@/services/NetworkTagService"
+import { useEffect, useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
+import { useParams } from "react-router-dom"
 
 export const NetworkMakeReview = () => {
+    const { game } = useParams<{ game: string }>();
     const { handleReviewPublish } = useNetworkHome();
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [starCounter, setStarCounter] = useState<number>(0);
     const [anonymous, setAnonymous] = useState<boolean>(false);
     const [starError, setStarError] = useState<boolean>(false);
+    const [availableTags, setAvailableTags] = useState<NetworkTagDTO[]>([]);
     const [text, setText] = useState<string>("");
 
     const toogleTag = (id: string):void => {
@@ -35,6 +40,15 @@ export const NetworkMakeReview = () => {
             anonymous: anonymous
         }})
     }
+
+    useEffect(() => {
+        if (!game)
+            return;
+
+        NetworkTagService
+            .getBasicInfoNetworkTag(game)
+            .then(res => setAvailableTags(res));
+    },[])
 
     const mockedGoodTags = ["Staff imparcial", "Eventos", "Baixa latência", "Suporte rápido"]
     const mockedBadTags = ["Pay-2-win", "VIPs muitos caros", "Comunidade tóxica", "Favoritismo"]

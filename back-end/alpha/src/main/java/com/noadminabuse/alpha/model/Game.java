@@ -28,7 +28,7 @@ public class Game {
     @UuidGenerator
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String slug;
 
     @Column(nullable = false)

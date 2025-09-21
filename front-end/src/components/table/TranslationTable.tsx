@@ -4,7 +4,7 @@ import { Button, Input, Space, Table } from "antd"
 import { FaSave } from "react-icons/fa"
 
 interface TranslationTableProps {
-    data: TranslationTableDTO
+  data: TranslationTableDTO
 }
 
 export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {  
@@ -40,7 +40,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {
           >
             <Input 
               value={text}
-              status="warning"
+              status={text ? undefined : "warning"}
               className="z-3"
               
             />
@@ -58,9 +58,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {
     <Table 
       columns={columns}
       dataSource={tableData}
-      bordered
       scroll={{ x: 'max-content'}}
-      
     />
   )
 }
