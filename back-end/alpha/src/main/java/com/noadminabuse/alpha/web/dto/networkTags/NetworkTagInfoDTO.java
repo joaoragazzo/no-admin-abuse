@@ -6,7 +6,7 @@ import com.noadminabuse.alpha.web.dto.game.GameInfoDTO;
 
 public record NetworkTagInfoDTO(
     UUID id,
-    String tagSlug,
+    String slug,
     boolean isPositive,
     GameInfoDTO game
 ) {}

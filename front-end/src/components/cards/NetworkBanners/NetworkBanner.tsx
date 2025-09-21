@@ -1,4 +1,4 @@
-import type { ServerDTO } from "@/interfaces/ServerDTO"
+import type { ServerDTO } from "@/types/ServerDTO"
 import { useState } from "react"
 import { FaAngleRight, FaServer } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"

@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import { Select as AntDSelect } from "antd";
-import type { Option } from "@/interfaces/Option";
+import type { Option } from "@/types/Option";
 
 interface SelectProps {
     label?:string,

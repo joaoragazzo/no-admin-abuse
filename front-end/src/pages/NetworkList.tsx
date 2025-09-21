@@ -3,10 +3,10 @@ import { FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/f
 import { FaPeopleGroup } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
-import type { NetworkDTO } from "@/interfaces/network/NetworkDTO";
+import type { NetworkDTO } from "@/types/network/NetworkDTO";
 import { useEffect, useState } from "react";
 import serverService from "@services/ServerService";
-import type { Pageable } from "@/interfaces/Pageable";
+import type { Pageable } from "@/types/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
 import { CountUp } from "@/components/misc/CountUp";

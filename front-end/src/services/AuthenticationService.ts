@@ -1,5 +1,5 @@
 import api from "@/config/axiosClient"
-import type { AuthenticationDTO } from "@/interfaces/AuthenticationDTO"
+import type { AuthenticationDTO } from "@/types/AuthenticationDTO"
 
 const steamLoginCallback = async ({ params }: { params:string }): Promise<AuthenticationDTO> => {
     const response = await api.get<AuthenticationDTO>("/auth/steam/callback" + params);

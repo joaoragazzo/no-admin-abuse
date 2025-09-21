@@ -15,7 +15,7 @@ public class NetworkTagMapper {
     public NetworkTagInfoDTO toNetworkTagInfoDTO(NetworkTag entity) {
         return new NetworkTagInfoDTO(
             entity.getId(),
-            entity.getTagSlug(),
+            entity.getSlug(),
             entity.isPositive(),
             new GameInfoDTO(
                 entity.getGame().getId(), 

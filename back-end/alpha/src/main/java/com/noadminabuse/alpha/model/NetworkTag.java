@@ -27,8 +27,8 @@ public class NetworkTag {
     @UuidGenerator
     private UUID id;
 
-    @Column(nullable = false)
-    private String tagSlug;
+    @Column(nullable = false, unique = true)
+    private String slug;
 
     @Column(nullable =  false)
     private boolean isPositive;
@@ -38,8 +38,8 @@ public class NetworkTag {
     @ManyToOne(optional = false)
     private Game game;
 
-    public NetworkTag(String tagSlug, boolean isPositive, Game game) {
-        this.tagSlug = tagSlug;
+    public NetworkTag(String slug, boolean isPositive, Game game) {
+        this.slug = slug;
         this.game = game;
         this.createdAt = Instant.now();
         this.isPositive = isPositive;

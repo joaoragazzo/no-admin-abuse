@@ -1,111 +1,161 @@
-import { FaAngleLeft, FaAngleRight, FaChartBar, FaGavel, 
-    FaHome, FaLanguage, FaLock, FaServer, 
-    FaSitemap, FaSpider, FaTag, FaUsers } from "react-icons/fa"
+import { 
+    FaAngleRight, 
+    FaChartBar, 
+    FaGavel, 
+    FaHome, 
+    FaLanguage, 
+    FaLock, 
+    FaServer, 
+    FaSitemap, 
+    FaSpider, 
+    FaTag, 
+    FaUsers 
+} from "react-icons/fa"
 import { FaMessage, FaShield } from "react-icons/fa6"
 import { useNavigate } from "react-router-dom"
-import type { IconType } from "react-icons/lib"
 import type React from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useState } from "react"
-import clsx from "clsx"
+import { Layout, Menu, Avatar, Typography } from "antd"
+import type { MenuProps } from "antd"
 
-interface SidebarItemProps {
-    title: string
-    Icon: IconType
-    onClick: () => void
-    selected: boolean
-    expanded: boolean
-}
+const { Sider } = Layout
+const { Text } = Typography
 
-const items = [
-    { title: "Home", Icon: FaHome, path: "/admin" },
-    { title: "Usuários", Icon: FaUsers, path: "/admin/users" },
-    { title: "Reviews", Icon: FaMessage, path: "/admin/reviews" },
-    { title: "Tags", Icon: FaTag, path: "/admin/tags" },
-    { title: "Denúncias", Icon: FaGavel, path: "/admin/reports" },
-    { title: "Segurança", Icon: FaLock, path: "/admin/security" },
-    { title: "Estatísticas", Icon: FaChartBar, path: "/admin/statistics" },
-    { title: "Servidores", Icon: FaServer, path: "/admin/servers" },
-    { title: "Redes", Icon: FaSitemap, path: "/admin/networks" },
-    { title: "Traduções", Icon: FaLanguage, path: "/admin/translations" },
-    { title: "Scrapping", Icon: FaSpider, path: "/admin/scrapping" }
+const items: MenuProps['items'] = [
+    {
+        key: '/admin',
+        icon: <FaHome />,
+        label: 'Home',
+    },
+    {
+        key: '/admin/users',
+        icon: <FaUsers />,
+        label: 'Usuários',
+    },
+    {
+        key: '/admin/reviews',
+        icon: <FaMessage />,
+        label: 'Reviews',
+    },
+    {
+        key: '/admin/tags',
+        icon: <FaTag />,
+        label: 'Tags',
+    },
+    {
+        key: '/admin/reports',
+        icon: <FaGavel />,
+        label: 'Denúncias',
+    },
+    {
+        key: '/admin/security',
+        icon: <FaLock />,
+        label: 'Segurança',
+    },
+    {
+        key: '/admin/statistics',
+        icon: <FaChartBar />,
+        label: 'Estatísticas',
+    },
+    {
+        key: '/admin/servers',
+        icon: <FaServer />,
+        label: 'Servidores',
+    },
+    {
+        key: '/admin/networks',
+        icon: <FaSitemap />,
+        label: 'Redes',
+    },
+    {
+        key: '/admin/translations',
+        icon: <FaLanguage />,
+        label: 'Traduções',
+    },
+    {
+        key: '/admin/scrapping',
+        icon: <FaSpider />,
+        label: 'Scrapping',
+    },
 ]
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ title, Icon, onClick, selected, expanded }) => {    
-    return (
-        <div 
-            className={clsx(
-                "w-full h-full py-3 px-5 cursor-pointer border-b-1 border-neutral-600",
-                { "hover:bg-neutral-900": !selected },
-                { "bg-neutral-800/80": selected },
-                { "justify-center flex" : !expanded }
-            )}
-            onClick={onClick}
-        >
-            <div className="flex flex-row items-center gap-8 cursor-pointer ">
-                <Icon className="text-xl"/>
-                {expanded && <span className="font-semibold text-sm">{title}</span>}
-            </div>
-        </div>
-    )
-}
-
 export const AdminMenu: React.FC = () => {
-    const navigate = useNavigate();
-    const { user } = useAuth();
-    const [expanded, setExpanded] = useState<boolean>(false);
-    const [currentPath, setCurrentPath] = useState<string>("/admin");
+    const navigate = useNavigate()
+    const { user } = useAuth()
+    const [collapsed, setCollapsed] = useState(false)
+    const [selectedKey, setSelectedKey] = useState('/admin')
+
+    const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+        navigate(key)
+        setSelectedKey(key)
+    }
+
+    const handleLogoClick = () => {
+        navigate('/')
+    }
+
+    const handleLogout = () => {
+        console.log('Logout')
+    }
 
     return (
-    <div className="flex flex-col border-r-1 border-neutral-600">
-        <div className="relative">
-            <div 
-                className={clsx(
-                    "cursor-pointer p-5 flex text-nowrap font-extrabold text-2xl border-b-1 border-neutral-600",
-                    {"justify-center" : !expanded}
-                )}
-                onClick={() => {navigate("/")}}
-            >
-                {expanded ? <div className="leading-none">No Admin Abuse</div> : <FaShield/>}
-            </div>
-            <div
-                className="absolute bottom-4 -right-4 bg-neutral-950 rounded-full border-1 px-2 py-2 border-neutral-600 cursor-pointer"
-                onClick={() => {setExpanded(!expanded)}}
-            >
-                {expanded ? <FaAngleLeft /> : <FaAngleRight />}
-            </div>
-        </div>
-        
-        <div className="flex flex-col h-full justify-between">
-            <div className="flex flex-col overflow-scroll">
-                {items.map((content) => (
-                    <SidebarItem 
-                        title={content.title} 
-                        Icon={content.Icon} 
-                        onClick={() => {navigate(content.path); setCurrentPath(content.path)}} 
-                        selected={currentPath == content.path}
-                        expanded={expanded}
-                    />
-                ))}
-            </div>
+        <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+            width={180}
+            className="h-screen"
+        >
+            <div className="h-full flex flex-col">
+                
+                <div 
+                    className="flex flex-row items-center p-4 cursor-pointer text-center border-b border-gray-600"
+                    onClick={handleLogoClick}
+                >
+                    <FaShield className="text-2xl text-white mx-auto" />
+                    {!collapsed && 
+                        <Text className="text-white font-bold text-xl leading-4">
+                            No Admin Abuse
+                        </Text>
+                    }
+                </div>
 
-            <div className="flex flex-col">
-                <div className="px-3 py-5 flex flex-row mt-1 border-neutral-600 border-t-1 gap-3">
-                    <img src={user?.avatarUrl} className="rounded-full w-10"/> 
-                        {expanded && 
-                            <div className="flex flex-col justify-between">
-                                <div className="leading-none font-bold">
-                                {user?.username}
+                <div className="flex-1">
+                    <Menu
+                        defaultSelectedKeys={[selectedKey]}
+                        selectedKeys={[selectedKey]}
+                        mode="inline"
+                        items={items}
+                        onClick={handleMenuClick}
+                        className="h-full border-r-0"
+                    />
+                </div>
+
+                <div className="p-4 border-t border-gray-600">
+                    <div className="flex items-center gap-3">
+                        <Avatar 
+                            src={user?.avatarUrl} 
+                            size={40}
+                            className="flex-shrink-0"
+                        />
+                        {!collapsed && (
+                            <div className="flex-1 min-w-0">
+                                <div className="text-white font-semibold text-sm truncate">
+                                    {user?.username}
                                 </div>
-                                <div className="leading-none text-sm font-semibold items-center flex cursor-pointer">
+                                <div 
+                                    className="text-gray-300 text-xs cursor-pointer hover:text-white flex items-center gap-1 mt-1"
+                                    onClick={handleLogout}
+                                >
                                     Deslogar <FaAngleRight />
                                 </div>
                             </div>
-                        }
+                        )}
+                    </div>
                 </div>
+                
             </div>
-            
-        </div>        
-    </div>
+        </Sider>
     )
 }

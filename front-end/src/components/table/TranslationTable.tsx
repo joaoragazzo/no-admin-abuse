@@ -1,27 +1,34 @@
 import type React from "react"
-import type { TranslationCellDTO, TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO"
+import type { TranslationCellDTO, TranslationTableDTO } from "@/types/translation/TranslationTableDTO"
 import { Table } from "antd"
 import { LanguageEditInput } from "../inputs/LanguageEditInput"
 
 interface TranslationTableProps {
-  data: TranslationTableDTO
+  data: TranslationTableDTO | null
 }
 
 export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {  
   
+  if (!data) {
+    return <Table
+      className="h-100"
+      loading
+    />
+  }
+
   const tableData = data.content.map((item, index) => {
     const row: any = {
       key: index,
       translationKey: item.key,
     };
-
+  
     data.langs.forEach(lang => {
       row[lang] = item.translations[lang];
     });
-
+  
     return row;
   });
-
+  
   const columns = [
     {
       title: 'Key',
@@ -41,12 +48,12 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data }) => {
     }))
   ];
 
-
   return (
     <Table 
       columns={columns}
       dataSource={tableData}
       scroll={{ x: 'max-content'}}
+      loading={!data}
     />
   )
 }

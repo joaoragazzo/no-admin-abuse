@@ -4,7 +4,7 @@ import { GoDotFill } from "react-icons/go";
 import { FaAngleDown, FaThumbsUp, FaTrash, FaUserSecret } from "react-icons/fa";
 import { IoIosReturnRight } from "react-icons/io";
 import { Tag } from "../misc/Tag";
-import type { ReviewDisplayDTO } from "@/interfaces/reviews/ReviewDisplayDTO";
+import type { ReviewDisplayDTO } from "@/types/reviews/ReviewDisplayDTO";
 import Popup from "reactjs-popup";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 

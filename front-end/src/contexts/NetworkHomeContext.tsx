@@ -1,7 +1,7 @@
 import { useToast } from "@/hooks/useToast";
-import type { NetworkDetailsDTO } from "@/interfaces/network/NetworkDetailsDTO";
-import type { ReviewCreationDTO } from "@/interfaces/reviews/ReviewCreationDTO";
-import type { ReviewDisplayResponseDTO } from "@/interfaces/reviews/ReviewResponseDTO";
+import type { NetworkDetailsDTO } from "@/types/network/NetworkDetailsDTO";
+import type { ReviewCreationDTO } from "@/types/reviews/ReviewCreationDTO";
+import type { ReviewDisplayResponseDTO } from "@/types/reviews/ReviewResponseDTO";
 import NetworkService from "@/services/NetworkService";
 import ReviewService from "@/services/ReviewService";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";

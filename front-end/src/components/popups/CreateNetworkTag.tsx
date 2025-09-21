@@ -3,7 +3,7 @@ import { PopupSkeleton } from "./PopupSkeleton";
 import { Input } from "../inputs/Input";
 import { Select } from "../inputs/Select";
 import { useEffect, useState } from "react";
-import type { Option } from "@/interfaces/Option";
+import type { Option } from "@/types/Option";
 import GameService from "@/services/GameService";
 import { Button } from "antd";
 import { FaPlusCircle } from "react-icons/fa";
@@ -85,7 +85,7 @@ export const CreateNetworkTag: React.FC<CreateNetworkTagProps> = ({open, onClose
                         setIsLoading(true);
 
                         NetworkTagService.createNewNetworkTag({
-                            tagSlug: tagSlug,
+                            slug: tagSlug,
                             gameId: gameId,
                             isPositive: isPositive
                         }).then(updateTable);

@@ -1,7 +1,7 @@
 import type React from "react"
 import { GameCard } from "../components/cards/GameCard"
 import { useEffect, useState } from "react";
-import type { GameBannerDTO } from "@/interfaces/GameBannerDTO";
+import type { GameBannerDTO } from "@/types/GameBannerDTO";
 import GameService from "@/services/GameService";
 
 export const GameList: React.FC = () => {

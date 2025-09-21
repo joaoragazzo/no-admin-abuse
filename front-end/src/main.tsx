@@ -15,7 +15,13 @@ createRoot(document.getElementById('root')!).render(
     <StyleProvider layer>
       <ConfigProvider
         theme={{
-          algorithm: theme.darkAlgorithm
+          algorithm: theme.darkAlgorithm,
+          components: {
+            Layout: {
+              triggerBg: "#101010",
+              siderBg: "#141414"
+            }
+          }
         }}
       >
       <QueryClientProvider client={queryClient}>

@@ -1,6 +1,6 @@
 import { CopyButtonWithPopup } from "@/components/button/CopyButttonWithPopup"
 import { Tag } from "@/components/misc/Tag"
-import type { ServerDTO } from "@/interfaces/ServerDTO"
+import type { ServerDTO } from "@/types/ServerDTO"
 import type React from "react"
 import { useTranslation } from "react-i18next"
 import { FaGlobeAmericas } from "react-icons/fa"

@@ -1,7 +1,7 @@
 import api from "@/config/axiosClient"
-import type { CreateNewNetworkTag } from "@/interfaces/networkTag/CreateNetworkTagDTO"
-import type { NetworkTagDTO } from "@/interfaces/networkTag/NetworkTag";
-import type { NetworkTagInfoDTO } from "@/interfaces/networkTag/NetworkTagInfoDTO";
+import type { CreateNewNetworkTag } from "@/types/networkTag/CreateNetworkTagDTO"
+import type { NetworkTagDTO } from "@/types/networkTag/NetworkTag";
+import type { NetworkTagInfoDTO } from "@/types/networkTag/NetworkTagInfoDTO";
 
 const createNewNetworkTag = async (dto: CreateNewNetworkTag): Promise<NetworkTagInfoDTO> => {
     const response = await api.post<NetworkTagInfoDTO>("/admin/networktags/", dto)

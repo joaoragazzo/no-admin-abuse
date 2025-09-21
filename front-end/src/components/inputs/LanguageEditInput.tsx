@@ -1,4 +1,4 @@
-import type { TranslationCellDTO } from "@/interfaces/translation/TranslationTableDTO";
+import type { TranslationCellDTO } from "@/types/translation/TranslationTableDTO";
 import { useState } from "react";
 import TranslationService from "@/services/TranslationService";
 import { Button, Space } from "antd";

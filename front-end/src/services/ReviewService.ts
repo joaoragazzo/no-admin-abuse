@@ -1,8 +1,8 @@
 import api from "@/config/axiosClient";
-import type { MessageDTO } from "@/interfaces/MessageDTO";
-import type { ReviewCreationDTO } from "@/interfaces/reviews/ReviewCreationDTO";
-import type { ReviewDisplayResponseDTO } from "@/interfaces/reviews/ReviewResponseDTO";
-import type { ReviewStatsDTO } from "@/interfaces/reviews/ReviewStatsDTO";
+import type { MessageDTO } from "@/types/MessageDTO";
+import type { ReviewCreationDTO } from "@/types/reviews/ReviewCreationDTO";
+import type { ReviewDisplayResponseDTO } from "@/types/reviews/ReviewResponseDTO";
+import type { ReviewStatsDTO } from "@/types/reviews/ReviewStatsDTO";
 
 const postReview = async (
     {networkId, data}: {networkId: string, data: ReviewCreationDTO }

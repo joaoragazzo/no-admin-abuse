@@ -1,4 +1,4 @@
-import type { UserInfoDTO } from "@/interfaces/UserInfoDTO"
+import type { UserInfoDTO } from "@/types/UserInfoDTO"
 import AuthenticationService from "@/services/AuthenticationService";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 

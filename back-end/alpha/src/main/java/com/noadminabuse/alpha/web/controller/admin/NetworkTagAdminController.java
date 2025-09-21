@@ -29,7 +29,7 @@ public class NetworkTagAdminController {
 
     @PostMapping("/")
     public ResponseEntity<NetworkTagInfoDTO> createNewNetworkTag(@RequestBody  CreateNetworkTagDTO dto) {
-        NetworkTag tag = networkTagService.createNewTag(dto.tagSlug(), dto.isPositive(), dto.gameId());
+        NetworkTag tag = networkTagService.createNewTag(dto.slug(), dto.isPositive(), dto.gameId());
         NetworkTagInfoDTO response = networkTagMapper.toNetworkTagInfoDTO(tag);
         
         return ResponseEntity.ok().body(response);

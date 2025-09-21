@@ -1,6 +1,7 @@
 import api from "@/config/axiosClient"
-import { type GameBannerDTO } from "@/interfaces/GameBannerDTO"
-import type { Option } from "@/interfaces/Option";
+import type { GameBannerDTO } from "@/types/GameBannerDTO";
+
+import type { Option } from "@/types/Option";
 
 
 const fetchAllGames = async (): Promise<GameBannerDTO[]> => {

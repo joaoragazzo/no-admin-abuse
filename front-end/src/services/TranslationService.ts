@@ -1,7 +1,7 @@
 import api from "@/config/axiosClient"
-import type { TranslationDetailsDTO } from "@/interfaces/translation/TranslationDetailsDTO";
-import type { TranslationTableDTO } from "@/interfaces/translation/TranslationTableDTO";
-import type { TranslationUpdateDTO } from "@/interfaces/translation/TranslationUpdateDTO";
+import type { TranslationDetailsDTO } from "@/types/translation/TranslationDetailsDTO";
+import type { TranslationTableDTO } from "@/types/translation/TranslationTableDTO";
+import type { TranslationUpdateDTO } from "@/types/translation/TranslationUpdateDTO";
 
 const fetchAllTranslations = async (): Promise<TranslationDetailsDTO[]> => {
     const response = await api.get<TranslationDetailsDTO[]>("/admin/i18n");

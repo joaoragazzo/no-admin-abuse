@@ -3,9 +3,9 @@ import { PageTitle } from "./PageTitle";
 import { Button, Table } from "antd";
 import { CreateNetworkTag } from "@/components/popups/CreateNetworkTag";
 import { useEffect, useState } from "react";
-import type { GameInfoDTO } from "@/interfaces/game/GameInfoDTO";
+import type { GameInfoDTO } from "@/types/game/GameInfoDTO";
 import type { ColumnsType } from "antd/es/table";
-import type { NetworkTagInfoDTO } from "@/interfaces/networkTag/NetworkTagInfoDTO";
+import type { NetworkTagInfoDTO } from "@/types/networkTag/NetworkTagInfoDTO";
 import NetworkTagService from "@/services/NetworkTagService";
 import { Tag } from "@/components/misc/Tag";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
@@ -33,12 +33,14 @@ const dataColums: ColumnsType<NetworkTagInfoDTO> = [
     },
     {
         title: "Ações",
+        dataIndex: "id",
+        key: "id",
         width: 120,
         render: () => (
             <div className="flex flex-row gap-3">
                 <FaEdit className="cursor-pointer hover:scale-115" /> 
                 <FaEye className="cursor-pointer hover:scale-115" /> 
-                <FaTrash className="cursor-pointer hover:scale-115" />
+                <FaTrash className="cursor-pointer hover:scale-115"  />
             </div>
         )
     }
@@ -47,9 +49,14 @@ const dataColums: ColumnsType<NetworkTagInfoDTO> = [
 export const AdminNetworkTags: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [tableData, setTableData] = useState<NetworkTagInfoDTO[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const updateTable = async () => {
-        NetworkTagService.getAllNetworkTags().then((res) => setTableData(res));
+        setIsLoading(true);
+        NetworkTagService.getAllNetworkTags().then((res) => {
+            setTableData(res);
+            setIsLoading(false);
+        });
     }
 
     useEffect(() => {
@@ -77,7 +84,11 @@ export const AdminNetworkTags: React.FC = () => {
                         </Button>
                     </div>
                 </div>
-                <Table columns={dataColums} dataSource={tableData} />
+                <Table 
+                    columns={dataColums} 
+                    dataSource={tableData} 
+                    loading={isLoading}
+                />
             </div>
             
         </div>
@@ -86,7 +97,6 @@ export const AdminNetworkTags: React.FC = () => {
                 onClose={() => {setIsModalOpen(false)}}
                 updateTable={updateTable}
             />
-        </>
-        
+        </>    
     );
 }

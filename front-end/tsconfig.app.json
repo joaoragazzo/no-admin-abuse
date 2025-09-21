@@ -27,7 +27,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@enums/*": ["./src/enums/*"],
-      "@interfaces/*": ["src/interfaces/*"],
+      "@interfaces/*": ["src/types/*"],
       "@services/*": ["src/services/*"],
       "@components/*": ["src/components/*"]
     },
