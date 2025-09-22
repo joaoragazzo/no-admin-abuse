@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.errors.enums;
 import com.noadminabuse.alpha.messages.Feedback;
 
 public enum UserErrorMessage implements Feedback {
-    USER_NOT_FOUND("USER_NOT_FOUND");
+    USER_NOT_FOUND("user_not_found");
 
     private String message;
     UserErrorMessage(String message) {

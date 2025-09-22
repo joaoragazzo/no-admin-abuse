@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.errors.enums;
 import com.noadminabuse.alpha.messages.Feedback;
 
 public enum TranslationErrorMessage implements Feedback{
-    TRANSLATION_NOT_FOUND("TRANSLATION_NOT_FOUND");
+    TRANSLATION_NOT_FOUND("translation_not_found");
 
     String message;
     TranslationErrorMessage(String message) {
