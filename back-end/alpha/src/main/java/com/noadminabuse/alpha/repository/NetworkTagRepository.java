@@ -2,6 +2,7 @@ package com.noadminabuse.alpha.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,4 +32,12 @@ public interface NetworkTagRepository extends JpaRepository<NetworkTag, UUID> {
         WHERE g.slug = :gameSlug
     """)
     List<NetworkTagDTO> findAllBasicInfoDTOsByGameSlug(@Param("gameSlug") String gameSlug);
+
+    @Query("""
+       SELECT COUNT(nt) 
+       FROM NetworkTag nt 
+       JOIN nt.game g 
+       WHERE nt.id IN :tagsIds AND g.id = :gameId
+    """)
+    long countByIdAndGame(@Param("tagsIds") Set<UUID> tagsId, @Param("gameId") UUID gameId);
 }

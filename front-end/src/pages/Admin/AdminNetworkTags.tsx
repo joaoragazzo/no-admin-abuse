@@ -36,11 +36,18 @@ const dataColums: ColumnsType<NetworkTagInfoDTO> = [
         dataIndex: "id",
         key: "id",
         width: 120,
-        render: () => (
+        render: (id: string, record: NetworkTagInfoDTO) => (
             <div className="flex flex-row gap-3">
                 <FaEdit className="cursor-pointer hover:scale-115" /> 
                 <FaEye className="cursor-pointer hover:scale-115" /> 
-                <FaTrash className="cursor-pointer hover:scale-115"  />
+                <FaTrash 
+                    className="cursor-pointer hover:scale-115"
+                    onClick={
+                        () => {
+                            NetworkTagService.deleteNetworkTag(record.game.id, id);
+                        }
+                    }
+                />
             </div>
         )
     }

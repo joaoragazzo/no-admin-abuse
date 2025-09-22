@@ -19,7 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, UUID> {
     @EntityGraph(attributePaths = {"author"})
     Optional<Review> findByNetworkIdAndAuthorId(UUID networkId, UUID authorId);
 
-    @EntityGraph(attributePaths = {"author"})
+    @EntityGraph(attributePaths = {"author", "tags"})
     Page<Review> findByNetworkIdAndAuthorIdNot(UUID networkId, UUID authorId, Pageable pageable);
 
     @EntityGraph(attributePaths = {"author"})

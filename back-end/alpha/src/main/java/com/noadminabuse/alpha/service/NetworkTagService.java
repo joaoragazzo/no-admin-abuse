@@ -1,9 +1,11 @@
 package com.noadminabuse.alpha.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.noadminabuse.alpha.errors.Conflict;
 import com.noadminabuse.alpha.errors.NotFound;
@@ -24,12 +26,12 @@ public class NetworkTagService {
     private final GameRepository gameRepository;
     private final TranslationService translationService;
 
-    public NetworkTag createNewTag(String tagSlug, boolean isPositive, UUID uuid) {
+    public NetworkTag createNewTag(String tagSlug, boolean isPositive, UUID gameId) {
         if (networkTagRepository.findByTagSlug(tagSlug).isPresent()) {
             throw new Conflict(NetworkTagErrorMessage.NETWORK_TAG_ALREADY_EXISTS);
         }
         
-        Game game = gameRepository.findById(uuid).orElseThrow(
+        Game game = gameRepository.findById(gameId).orElseThrow(
             () -> new NotFound(GameErrorMessage.GAME_NOT_FOUND)
         );
 
@@ -41,9 +43,33 @@ public class NetworkTagService {
         return networkTagRepository.save(tag);
     }
 
+    @Transactional
+    public void deleteTag(UUID gameId, UUID tagId) {
+        
+        Game game = gameRepository.findById(gameId).orElseThrow(
+            () -> new NotFound(GameErrorMessage.GAME_NOT_FOUND)
+        );
+        
+        NetworkTag networkTag = networkTagRepository.findById(tagId).orElseThrow(
+            () -> new NotFound(NetworkTagErrorMessage.NETWORK_TAG_NOT_FOUND)
+        );
+
+        networkTagRepository.deleteById(tagId);
+        translationService.deleteAllWithKey("network_tag." + game.getSlug() + "." + networkTag.getSlug());
+    }
+
     public List<NetworkTagDTO> getAllTagsByGame(String gameSlug) {
         return networkTagRepository.findAllBasicInfoDTOsByGameSlug(gameSlug);
     }
+
+    public void ensureAllTagsExists(Set<UUID> tagsId, UUID gameId) {
+        long existingTags = networkTagRepository.countByIdAndGame(tagsId, gameId);
+        
+        if (existingTags != tagsId.size()) 
+            throw new NotFound(NetworkTagErrorMessage.NETWORK_TAG_NOT_FOUND);
+    }
+
+    
 
     public List<NetworkTag> getAllTags() {
         //TODO: Make it pageable

@@ -39,7 +39,8 @@ export const NetworkMakeReview = () => {
         handleReviewPublish({data: {
             text: text,
             rating: starCounter,
-            anonymous: anonymous
+            anonymous: anonymous,
+            tags: selectedTags
         }})
     }
 

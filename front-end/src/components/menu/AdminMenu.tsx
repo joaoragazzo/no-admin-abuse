@@ -83,7 +83,7 @@ const items: MenuProps['items'] = [
 export const AdminMenu: React.FC = () => {
     const navigate = useNavigate()
     const { user } = useAuth()
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true)
     const [selectedKey, setSelectedKey] = useState('/admin')
 
     const handleMenuClick: MenuProps['onClick'] = ({ key }) => {

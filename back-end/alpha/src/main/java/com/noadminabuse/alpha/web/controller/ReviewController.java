@@ -4,7 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.FeedbackMapper;
+import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.messages.ReviewMessage;
+import com.noadminabuse.alpha.model.Game;
+import com.noadminabuse.alpha.model.Review;
+import com.noadminabuse.alpha.service.NetworkService;
+import com.noadminabuse.alpha.service.NetworkTagService;
 import com.noadminabuse.alpha.service.ReviewService;
 import com.noadminabuse.alpha.utils.SecurityUtils;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
@@ -28,7 +33,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
+    private final ReviewMapper reviewMapper;
     private final FeedbackMapper feedbackMapper;
+    private final NetworkService networkService;
+    private final NetworkTagService networkTagService;
     
     @PostMapping("/{networkId}")
     public ResponseEntity<MessageDTO> createReview(
@@ -36,7 +44,12 @@ public class ReviewController {
         @RequestBody @Valid ReviewCreationDTO dto
     ) {
         UUID authorId = SecurityUtils.getCurrentUserId();
-        reviewService.createReview(dto, authorId, networkId);
+        
+        Game game = networkService.getNetworkById(networkId).getGame();
+        networkTagService.ensureAllTagsExists(dto.tags(), game.getId());
+        
+        Review review = reviewMapper.toReviewCreationEntity(dto, authorId, networkId);
+        reviewService.createReview(review);
         
         return ResponseEntity.ok().body(feedbackMapper.success(ReviewMessage.REVIEW_SUCCESS_POSTED));
     }
@@ -50,7 +63,6 @@ public class ReviewController {
         }
 
         return ResponseEntity.ok().body(reviewService.getAllReviewsDisplay(networkId, 0));
-        
     }
 
     @DeleteMapping("/{reviewId}")

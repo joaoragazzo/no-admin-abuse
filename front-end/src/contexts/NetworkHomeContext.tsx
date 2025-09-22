@@ -41,7 +41,7 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
         fetchReview({networkId : networkId});
     }
 
-    const handleReviewPublish = async ({ data }:{ data:ReviewCreationDTO }) => {
+    const handleReviewPublish = async ({ data }:{ data: ReviewCreationDTO }) => {
         await ReviewService.postReview({ networkId: networkId, data: data });
         success("REVIEW_SUCCESS_POSTED");
         fetchReview({networkId : networkId});

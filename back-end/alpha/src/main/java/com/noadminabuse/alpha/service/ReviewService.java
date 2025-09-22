@@ -20,7 +20,6 @@ import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.Review;
 import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ReviewRepository;
-import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
@@ -36,13 +35,16 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
     private final UserMapper userMapper;
 
-    public Review createReview(ReviewCreationDTO reviewDTO, UUID userId, UUID networkId) {
-        if (alreadyHasANetworkReview(userId, networkId)) 
+    public Review createReview(Review review) {
+        if (
+            alreadyHasANetworkReview(
+                review.getAuthor().getId(), 
+                review.getNetwork().getId()
+            )
+        ) 
             throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_EXISTS);
         
-        updateStatsOnAddReview(networkId, reviewDTO);
-
-        Review review = reviewMapper.toReviewCreationEntity(reviewDTO, userId, networkId);
+        updateStatsOnAddReview(review.getNetwork().getId(), review.getRating());
         return reviewRepository.save(review);
     }
 
@@ -99,7 +101,8 @@ public class ReviewService {
             true, 
             review.text(), 
             review.rating(), 
-            review.createdAt()
+            review.createdAt(),
+            review.tags()
         );
     }
 
@@ -121,14 +124,14 @@ public class ReviewService {
         return reviewRepository.existsByIdAndAuthorId(reviewId, userId);
     }
 
-    private void updateStatsOnAddReview(UUID networkId, ReviewCreationDTO reviewDTO) {
+    private void updateStatsOnAddReview(UUID networkId, Integer rating) {
         Network network = networkRepository.findById(networkId)
             .orElseThrow(() -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND));
     
         Long oldCount = network.getReviewsAmount();
         Long oldAvg = network.getReviewsAvg();
     
-        Long newAvg = (oldAvg * oldCount + reviewDTO.rating()) / (oldCount + 1);
+        Long newAvg = (oldAvg * oldCount + rating) / (oldCount + 1);
     
         network.setReviewsAmount(oldCount + 1);
         network.setReviewsAvg(newAvg);

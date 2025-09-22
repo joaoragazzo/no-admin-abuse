@@ -141,4 +141,10 @@ public class NetworkService {
                 () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
     }
+
+    public Network getNetworkById(UUID id) {
+        return networkRepository.findById(id).orElseThrow(
+            () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
+        );
+    }
 }

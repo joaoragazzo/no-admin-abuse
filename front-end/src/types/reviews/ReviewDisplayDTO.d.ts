@@ -1,3 +1,4 @@
+import type { NetworkTagDTO } from "../networkTag/NetworkTag";
 import type { UserBasicInfoDTO } from "../UserBasicInfoDTO";
 
 export interface ReviewDisplayDTO {
@@ -6,5 +7,6 @@ export interface ReviewDisplayDTO {
     isAnonymous: boolean,
     text: string,
     rating: number,
-    createdAt: number
+    createdAt: number,
+    tags: NetworkTagDTO[]
 }

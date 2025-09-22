@@ -1,4 +1,5 @@
 import api from "@/config/axiosClient"
+import type { MessageDTO } from "@/types/MessageDTO";
 import type { CreateNewNetworkTag } from "@/types/networkTag/CreateNetworkTagDTO"
 import type { NetworkTagDTO } from "@/types/networkTag/NetworkTag";
 import type { NetworkTagInfoDTO } from "@/types/networkTag/NetworkTagInfoDTO";
@@ -18,4 +19,12 @@ const getBasicInfoNetworkTag = async (game: string): Promise<NetworkTagDTO[]> =>
     return response.data;
 }
 
-export default { createNewNetworkTag, getAllNetworkTags, getBasicInfoNetworkTag }
+const deleteNetworkTag = async (gameId: string, tagId: string): Promise<MessageDTO> => {
+    const response = await api.delete<MessageDTO>(`/admin/networktags/${gameId}/${tagId}`);
+    return response.data;
+}
+
+export default { 
+    createNewNetworkTag, getAllNetworkTags, 
+    getBasicInfoNetworkTag, deleteNetworkTag 
+}

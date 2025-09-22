@@ -1,7 +1,7 @@
 package com.noadminabuse.alpha.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.noadminabuse.alpha.service.AuthService;
+import com.noadminabuse.alpha.service.DebugService;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/debug")
 public class DebugController {
 
-    private final AuthService authService;
+    private final DebugService debugService;
 
     @GetMapping("/ping")
     public ResponseEntity<String> getMethodName() {
@@ -27,7 +27,7 @@ public class DebugController {
 
     @GetMapping("/token")
     public ResponseEntity<SuccessLoginDTO> generateAdminToken() {
-        SuccessLoginDTO response = authService._generateSteamLoginBySteamId("76561198118616961");
+        SuccessLoginDTO response = debugService.generateSteamLoginBySteamId("76561198118616961");
         return ResponseEntity.ok().body(response);
     }
     

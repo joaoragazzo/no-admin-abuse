@@ -115,6 +115,10 @@ public class TranslationService {
         }
     }
 
+    public void deleteAllWithKey(String key) {
+        translationRepository.deleteByTKey(key);
+    }
+
     @PostConstruct
     @Transactional
     private void initDefaultTranslation() {

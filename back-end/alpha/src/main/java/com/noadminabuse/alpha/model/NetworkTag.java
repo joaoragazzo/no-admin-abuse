@@ -52,4 +52,8 @@ public class NetworkTag {
         this.createdAt = Instant.now();
         this.isPositive = isPositive;
     }
+
+    public NetworkTag(UUID id) {
+        this.id = id;
+    }
 }

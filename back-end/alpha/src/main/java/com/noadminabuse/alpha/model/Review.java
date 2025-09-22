@@ -1,7 +1,8 @@
 package com.noadminabuse.alpha.model;
 
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -60,14 +61,19 @@ public class Review {
         joinColumns = @JoinColumn(name = "review_id"),
         inverseJoinColumns = @JoinColumn(name = "networktag_id")
     )
-    private Set<NetworkTag> tags = new HashSet<>();
+    private List<NetworkTag> tags = new ArrayList<>();
 
-    public Review(String text, Integer rating, boolean anonymous, User author, Network network) {
+    public Review(String text, Integer rating, boolean anonymous, User author, Network network, Set<NetworkTag> tags) {
         this.text = text;
         this.rating = rating;
         this.anonymous = anonymous;
         this.network = network;
         this.author = author;
+
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
+
         this.createdAt = Instant.now();
     }
 }

@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/pt-br';
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface ReviewCardProps {
     content: ReviewDisplayDTO
@@ -21,9 +23,10 @@ interface ReviewCardProps {
 export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false }) => {
     dayjs.locale('pt-br');
     dayjs.extend(relativeTime);
-
+    const { game } = useParams<{game: string}>();
     const { handleReviewDelete } = useNetworkHome();
     const [showMore, setShowMore] = useState<boolean>(false);
+    const { t }  = useTranslation("network_tag");
     
     const getRelativeDatenow = () => {
         const text = dayjs(new Date(content.createdAt)).fromNow(); 
@@ -108,8 +111,14 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                 </div>
                 
                 <div className="mt-3 flex flex-wrap flex-row gap-3">
-                    <Tag color="red">Staff parcial</Tag>
-                    <Tag color="green">Muitos eventos</Tag>
+                    {content.tags.filter((tag) => tag.isPositive).map(tag => (
+                        <Tag color="green">{t("network_tag." + game + "." + tag.slug)}</Tag>
+                    ))}
+
+                    {content.tags.filter((tag) => !tag.isPositive).map(tag => (
+                        <Tag color="red">{t("network_tag." + game + "." + tag.slug)}</Tag>
+                    ))}
+                    
                 </div>
 
                 <div className="text-sm mt-1 items-center flex flex-row gap-3">
