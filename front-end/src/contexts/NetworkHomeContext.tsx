@@ -1,4 +1,3 @@
-import { useToast } from "@/hooks/useToast";
 import type { NetworkDetailsDTO } from "@/types/network/NetworkDetailsDTO";
 import type { ReviewCreationDTO } from "@/types/reviews/ReviewCreationDTO";
 import type { ReviewDisplayResponseDTO } from "@/types/reviews/ReviewResponseDTO";
@@ -23,7 +22,6 @@ const NetworkHomeContext = createContext<NetworkHomeContextType|undefined>(undef
 
 export const NetworkHomeProvider = ({ networkId, children } : {networkId: string, children: ReactNode}) => {
     const navigate = useNavigate();
-    const {success} = useToast();
     const [reviewsResponse, setReviewsResponse] = useState<ReviewDisplayResponseDTO | undefined>(undefined);
     const [networkDetails, setNetworkDetails] = useState<NetworkDetailsDTO|undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
@@ -43,7 +41,6 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
 
     const handleReviewPublish = async ({ data }:{ data: ReviewCreationDTO }) => {
         await ReviewService.postReview({ networkId: networkId, data: data });
-        success("REVIEW_SUCCESS_POSTED");
         fetchReview({networkId : networkId});
     }
 
