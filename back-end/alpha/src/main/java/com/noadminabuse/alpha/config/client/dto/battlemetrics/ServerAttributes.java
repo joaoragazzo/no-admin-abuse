@@ -3,7 +3,7 @@ package com.noadminabuse.alpha.config.client.dto.battlemetrics;
 import java.time.Instant;
 import java.util.List;
 
-import com.noadminabuse.alpha.model.enums.CountryCode;
+import com.noadminabuse.alpha.enums.CountryCode;
 
 public record ServerAttributes(
     String id, 

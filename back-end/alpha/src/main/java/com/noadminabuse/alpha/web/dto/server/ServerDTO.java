@@ -3,8 +3,8 @@ package com.noadminabuse.alpha.web.dto.server;
 import java.util.List;
 import java.util.UUID;
 
-import com.noadminabuse.alpha.model.enums.CountryCode;
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.enums.CountryCode;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.NotBlank;

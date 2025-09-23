@@ -2,8 +2,8 @@ package com.noadminabuse.alpha.utils;
 
 import java.util.Map;
 
-import com.noadminabuse.alpha.model.enums.CountryCode;
-import com.noadminabuse.alpha.model.enums.Region;
+import com.noadminabuse.alpha.enums.CountryCode;
+import com.noadminabuse.alpha.enums.Region;
 
 public class RegionMapper {
     private static final Map<CountryCode, Region> isoToRegionMap = Map.ofEntries(

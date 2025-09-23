@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 
 public class DayZServerParser {
 

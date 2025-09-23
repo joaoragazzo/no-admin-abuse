@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

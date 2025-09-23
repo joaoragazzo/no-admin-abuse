@@ -2,12 +2,10 @@ package com.noadminabuse.alpha.web.dto.dayz;
 
 import java.util.List;
 
-
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
+import com.noadminabuse.alpha.enums.Region;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 
 import jakarta.validation.constraints.Min;
-
-import com.noadminabuse.alpha.model.enums.Region;
 
 public record SearchFilterDTO(
     List<DayZGameTags> tags,

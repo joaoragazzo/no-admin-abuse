@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.common.FeedbackRegistry;
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.TranslationErrorMessage;
 import com.noadminabuse.alpha.model.Translation;
@@ -26,6 +27,7 @@ import lombok.AllArgsConstructor;
 public class TranslationService {
     
     private final TranslationRepository translationRepository;
+    private final FeedbackRegistry feedbackRegistry;
 
     @Transactional
     public Translation saveTranslation(UUID id, String newValue) {
@@ -128,6 +130,34 @@ public class TranslationService {
             t.setTKey("app.welcome");
             t.setTValue("Bem-vindo!");
             translationRepository.save(t);
+        }
+        initDefaultFeedbacks();
+        
+    }
+
+    @Transactional
+    private void initDefaultFeedbacks() {
+        List<String> feedbacks = feedbackRegistry.allMessages();
+        List<String> langs = translationRepository.findAllDistinctLang();
+        List<Translation> toSave = new ArrayList<>();
+
+        for (String fb : feedbacks) {
+            String namespacedKey = "feedback." + fb;
+    
+            for (String lang : langs) {
+                boolean exists = translationRepository.existsByLangAndTKey(lang, namespacedKey);
+                if (!exists) {
+                    Translation t = new Translation();
+                    t.setLang(lang);
+                    t.setTKey(namespacedKey);
+                    t.setTValue(null); 
+                    toSave.add(t);
+                }
+            }
+        }
+    
+        if (!toSave.isEmpty()) {
+            translationRepository.saveAll(toSave);
         }
     }
 }

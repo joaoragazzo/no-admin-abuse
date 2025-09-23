@@ -2,7 +2,7 @@ package com.noadminabuse.alpha.messages;
 
 public enum ReviewMessage implements Feedback {
     REVIEW_SUCCESS_POSTED("review_success_posted"),
-    REVIEW_SUCCESS_DELETED("review_succedd_deleted");
+    REVIEW_SUCCESS_DELETED("review_success_deleted");
 
     private String message;
     ReviewMessage(String message) { 

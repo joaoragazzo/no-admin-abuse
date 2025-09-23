@@ -6,13 +6,16 @@ i18n
     .use(Backend)
     .use(initReactI18next)
     .init({     
-        backend : {
-            loadPath: `${import.meta.env.VITE_API_BASE_URL}/i18n/{{lng}}/{{ns}}`   
-        },
+        backend: {
+            loadPath: `${import.meta.env.VITE_API_BASE_URL}/i18n/{{lng}}/{{ns}}`,
+            parse: (data: any) => {
+              const parsed = JSON.parse(data);
+              return parsed.data || parsed; 
+            }
+          },
         lng: 'pt',
         fallbackLng: 'pt',
-        ns: ['network_tag'],
-        defaultNS: 'tags',
+        ns: ['network_tag', 'feedback'],
         interpolation: { 
             escapeValue: false
         }

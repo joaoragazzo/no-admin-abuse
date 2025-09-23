@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.noadminabuse.alpha.enums.Region;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
-import com.noadminabuse.alpha.model.enums.Region;
 
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;

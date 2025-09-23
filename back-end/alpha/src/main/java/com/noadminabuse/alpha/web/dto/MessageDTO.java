@@ -1,8 +1,8 @@
 package com.noadminabuse.alpha.web.dto;
 
-import com.noadminabuse.alpha.messages.MessageType;
+import com.noadminabuse.alpha.enums.FeedbackType;
 
 public record MessageDTO(
     String message,
-    MessageType type
+    FeedbackType type
 ) {}

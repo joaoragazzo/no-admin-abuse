@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 import com.noadminabuse.alpha.service.AuthService;
 import com.noadminabuse.alpha.utils.SecurityUtils;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
-public class AuthController {
+public class AuthController extends BaseController {
     
     private final AuthService authService;
 
@@ -36,18 +37,18 @@ public class AuthController {
     }
 
     @GetMapping("/steam/callback")
-    public ResponseEntity<SuccessLoginDTO> steamCallback(HttpServletRequest request) {
+    public ApiResponseDTO<SuccessLoginDTO> steamCallback(HttpServletRequest request) {
         SuccessLoginDTO successLoginDTO = authService.confirmSteamLogin(request);
-        return ResponseEntity.ok(successLoginDTO);
+        return ok(successLoginDTO);
     }
 
     @GetMapping("/steam/profile")
-    public ResponseEntity<SuccessLoginDTO> fetchUserInfo() {
+    public ApiResponseDTO<SuccessLoginDTO> fetchUserInfo() {
         UUID uuid = SecurityUtils.getCurrentUserId();
         
         // TODO: Make a refresh token for security
         SuccessLoginDTO successLoginDTO = authService.refreshSteamLogin(uuid);
-        return ResponseEntity.ok(successLoginDTO);
+        return ok(successLoginDTO);
     }
     
 }

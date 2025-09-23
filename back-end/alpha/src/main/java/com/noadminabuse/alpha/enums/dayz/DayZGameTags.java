@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.model.enums.dayz;
+package com.noadminabuse.alpha.enums.dayz;
 
 
 public enum DayZGameTags {

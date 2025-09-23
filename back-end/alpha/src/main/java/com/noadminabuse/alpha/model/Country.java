@@ -1,7 +1,7 @@
 package com.noadminabuse.alpha.model;
 
-import com.noadminabuse.alpha.model.enums.CountryCode;
-import com.noadminabuse.alpha.model.enums.Region;
+import com.noadminabuse.alpha.enums.CountryCode;
+import com.noadminabuse.alpha.enums.Region;
 import com.noadminabuse.alpha.utils.RegionMapper;
 
 import jakarta.persistence.Column;

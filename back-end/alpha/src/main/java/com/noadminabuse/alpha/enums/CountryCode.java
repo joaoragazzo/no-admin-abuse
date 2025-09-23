@@ -1,4 +1,4 @@
-package com.noadminabuse.alpha.model.enums;
+package com.noadminabuse.alpha.enums;
 
 public enum CountryCode {
     AF, AL, DZ, AD, AO, AR, AM, AU, AT, AZ,

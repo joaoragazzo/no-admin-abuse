@@ -8,9 +8,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import com.noadminabuse.alpha.config.client.dto.battlemetrics.ServerData;
+import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Server;
-import com.noadminabuse.alpha.model.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;

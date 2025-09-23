@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.enums.CountryCode;
 import com.noadminabuse.alpha.model.Country;
-import com.noadminabuse.alpha.model.enums.CountryCode;
 import com.noadminabuse.alpha.repository.CountryRepository;
 
 import lombok.AllArgsConstructor;

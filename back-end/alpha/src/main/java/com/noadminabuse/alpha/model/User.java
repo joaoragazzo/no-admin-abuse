@@ -7,8 +7,10 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -43,8 +45,8 @@ public class User {
     private Instant acceptedEulaAt;
     private Instant lastLoginAt;
     
-    @OneToOne
-    @JoinColumn(name = "network_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "network_id", unique = true)
     private Network network;
 
     @Column(nullable = false, updatable = false)
