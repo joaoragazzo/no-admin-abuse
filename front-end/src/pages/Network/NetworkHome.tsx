@@ -33,7 +33,6 @@ export const NetworkHome: React.FC = () => {
     }
 
     const handleReviewStats = (n: number) => {
-        
         const result = (networkDetails.stats.find((s) => s.rating === n)?.total || 0) / (networkDetails.reviewsCount || 1);
         return  `${result*100}%`;
     }
@@ -54,8 +53,6 @@ export const NetworkHome: React.FC = () => {
                         </Card.Content>
                     </Card>
                     
-                    
-
                     <Card>
                         <Card.Title>
                             <FaTags className="text-blue-700"/> Características das avaliações <BiInfoCircle size={15} className="text-gray-300"/>

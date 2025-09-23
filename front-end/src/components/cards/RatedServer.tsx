@@ -1,5 +1,7 @@
 import type React from "react"
 import { FaArrowRight, FaStar } from "react-icons/fa"
+import { Tag } from "../misc/Tag"
+import { ServerStatus } from "../misc/ServerStatus"
 
 interface RatedServerProps {
     serverName: string,
@@ -17,28 +19,20 @@ export const RatedServer: React.FC<RatedServerProps> = ({ serverName, serverIcon
             <div className="flex flex-col gap-5">
                 {/* Cabeçalho */}
                 <div className="flex flex-row gap-5 items-center">
-                    <div className="p-4 bg-blue-200 text-blue-700 w-fit rounded-full">
+                    <div className="p-4 bg-neutral-600 text-neutral-200 w-fit rounded-full">
                         {serverIcon}
                     </div>    
                     <div className="font-bold flex flex-col flex-1 w-full gap-1">
                         <div className="flex flex-row justify-between">
                         <div className="flex flex-row gap-4 items-center">
-                            {serverName} <div className="text-xs px-2 py-0.5 w-fit h-fit bg-blue-200 text-blue-700 rounded font-normal">DayZ</div>
+                            {serverName} <Tag color="blue">DayZ</Tag>
                         </div>
                         </div>
 
                         <div className="flex flex-row gap-2 items-center">
-                            {online ? <>
-                                <div className="bg-green-100 p-1 rounded-full">
-                                    <div className="bg-green-500 p-0.5 rounded-full"></div>
-                                </div>
-                                <small className="font-normal text-green-400">Online</small>
-                            </> : <>
-                                <div className="bg-yellow-100 p-1 rounded-full">
-                                    <div className="bg-yellow-500 p-0.5 rounded-full"></div>
-                                </div>
-                                <small className="font-normal text-yellow-400">Offline</small>
-                            </>
+                            {online ? 
+                                <ServerStatus status="online" text="Online"/>
+                             :  <ServerStatus status="offline" text="Offline" />
                             }
                         </div>
                     </div>    
@@ -55,20 +49,20 @@ export const RatedServer: React.FC<RatedServerProps> = ({ serverName, serverIcon
                 </div>  
                 {/* Tags */}
                 <div className="flex flex-row gap-2">
-                    {badTags.map((content, key) => (
-                        <div key={key} className="text-xs px-2 py-0.5 bg-red-200 text-red-700 rounded">
+                    {badTags.map((content) => (
+                        <Tag color="red">
                             {content}
-                        </div>  
+                        </Tag>  
                     ))}
 
-                    {goodTags.map((content, key) => (
-                        <div key={key} className="text-xs px-2 py-0.5 bg-green-200 text-green-700 rounded">
+                    {goodTags.map((content) => (
+                        <Tag color="green">
                             {content}
-                        </div>  
+                        </Tag>  
                     ))}
                 </div>
                 {/* Description */}
-                <div className="text-pretty">
+                <div className="text-pretty text-gray-300 text-sm">
                 {description}
                 </div>
             </div>

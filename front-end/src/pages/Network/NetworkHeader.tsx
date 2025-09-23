@@ -1,4 +1,5 @@
 import { Rating } from "@/components/misc/Rating";
+import { ServerStatus } from "@/components/misc/ServerStatus";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 import type React from "react";
 import { FaArrowRight, FaSkullCrossbones } from "react-icons/fa";
@@ -46,13 +47,7 @@ export const NetworkHeader: React.FC = () => {
                         <div className="bg-green-600 px-2.5 py-1 w-fit rounded-full text-xs font-semibold flex items-center gap-1.5 text-nowrap">
                             <MdVerified /> Servidor verificado
                         </div>
-                        <div className="flex flex-row items-center gap-1.5 text-xs">
-                            <div className="p-1 bg-green-600 rounded-full w-fit h-fit">
-                            </div>
-                            <div className="text-green-600 flex items-center text-nowrap">
-                                {onlinePlayersCount}/{maxPlayersCount} jogadores online
-                            </div>
-                        </div>
+                        <ServerStatus status="online" text={`${onlinePlayersCount}/${maxPlayersCount} jogadores online`}/>
                         
                     </div>
                 </div>

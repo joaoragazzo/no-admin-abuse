@@ -4,27 +4,25 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
 import type { NetworkDTO } from "@/types/network/NetworkDTO";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import serverService from "@services/ServerService";
 import type { Pageable } from "@/types/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";
 import { CountUp } from "@/components/misc/CountUp";
 import { useQuery } from "@tanstack/react-query";
-import { TagSkeleton } from "@/components/skeletons/TagSkeleton";
-import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Tag } from "@/components/misc/Tag";
 import { Input } from "@/components/inputs/Input";
 import { Select } from "@/components/inputs/Select";
-import { Button } from "antd";
+import { Button, Skeleton } from "antd";
 import NetworkService from "@/services/NetworkService";
 
 
 export const NetworkList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
     const navigate = useNavigate();
-    
+
     if (!game) {
         navigate("/");
         return null;
@@ -41,6 +39,8 @@ export const NetworkList: React.FC = () => {
     const [searchText, setSearchText] = useState<string>("");
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set<string>());
     const [region, setRegion] = useState<string|null>(null);
+
+    const networkListHeader = useRef<HTMLDivElement>(null);
 
     const toggleTag = (tag: string) => {
         const temp = new Set<string>(activeTags);
@@ -187,7 +187,7 @@ export const NetworkList: React.FC = () => {
                         <div className="flex flex-wrap text-nowrap flex-row gap-2">
                             {
                                 tagsLoading ? 
-                                    [...Array(20)].map(() => (<TagSkeleton />))
+                                    [...Array(20)].map(() => (<Skeleton.Node active className="w-17 h-5 rounded-full"/>))
                                 : 
                                 tags.map((value) => (
                                     <Tag
@@ -263,12 +263,12 @@ export const NetworkList: React.FC = () => {
                     </div>
                 </div>                
 
-                <div className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
+                <div ref={networkListHeader} className="flex flex-row items-center mx-10 gap-3 font-bold mb-2">
                     Top Servidores de DayZ
                 </div>
                 
                 <div className="flex flex-col sm:mx-10 sm:gap-5 mb-5">
-                    {isLoading && [...Array(10)].map(() => (<CardSkeleton className="w-full h-45 rounded-md"/>))}
+                    {isLoading && [...Array(10)].map(() => (<Skeleton.Node active className="w-full h-45 rounded-md"/>))}
                     
                     {serverList?.content.map((content, key) => (
                         <NetworkBanner
@@ -282,7 +282,12 @@ export const NetworkList: React.FC = () => {
                         />
                     ))}
                 
-                    <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={(number) => {setCurrentPage(number)}}/>
+                    <Pagination currentPage={currentPage} totalPages={serverList?.totalPages} onPageChange={
+                        (number) => {
+                            setCurrentPage(number)
+                            networkListHeader.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                    }/>
 
                 </div>
             </div>

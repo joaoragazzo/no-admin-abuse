@@ -121,9 +121,9 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                     
                 </div>
 
-                <div className="text-sm mt-1 items-center flex flex-row gap-3">
+                <div className="text-sm items-center flex flex-row gap-3">
                     <div className="flex flex-row gap-1 text-xs items-center">
-                        <FaThumbsUp /> 1.234
+                        <FaThumbsUp className="hover:scale-110 transition-all cursor-pointer"/> 1.234
                     </div>
                     
                     <div className="text-sm text-blue-600 hover:bg-gray-900 px-2 py-1 w-fit rounded-full cursor-pointer">
