@@ -1,5 +1,4 @@
 import { ReviewCard } from "@/components/cards/ReviewCard";
-import { Pagination } from "@/components/table/Pagination";
 import { Card } from "@/components/template/Card";
 import type React from "react";
 import { FaAngleRight, FaFilter } from "react-icons/fa";
@@ -62,9 +61,6 @@ export const NetworkReviews: React.FC = () => {
                 <ReviewCard content={content} key={index}/>
             ))}
 
-            <div className="mt-5">
-                <Pagination currentPage={1} totalPages={10} onPageChange={() => {}}/>
-            </div>
         </>
     )
 }

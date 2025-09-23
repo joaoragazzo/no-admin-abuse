@@ -1,7 +1,7 @@
 import type React from "react";
 import { FaGlobe, FaInfoCircle, FaSearch, FaServer, FaStar } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
 import type { NetworkDTO } from "@/types/network/NetworkDTO";
 import { useEffect, useState } from "react";
@@ -23,6 +23,13 @@ import NetworkService from "@/services/NetworkService";
 
 export const NetworkList: React.FC = () => {
     const { game } = useParams<{ game: string }>();
+    const navigate = useNavigate();
+    
+    if (!game) {
+        navigate("/");
+        return null;
+    }
+
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isFilterChange, setIsFilterChange] = useState<boolean>(false);
 
@@ -59,7 +66,7 @@ export const NetworkList: React.FC = () => {
         tags: Array.from(activeTags),
         search: debouncedSearch,
         region: region,
-        gameSlug: "dayz"
+        gameSlug: game
         }),
     enabled: !isFilterChange,
     });
