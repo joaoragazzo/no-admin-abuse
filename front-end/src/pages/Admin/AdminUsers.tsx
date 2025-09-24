@@ -97,7 +97,7 @@ const dataColumns: ColumnsType<UserFullInfoDTO> = [
 ]
 
 export const AdminUsers: React.FC = () => {
-    const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
+    const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<UserFullInfoDTO[]>([]);
     
     useEffect(() => {
