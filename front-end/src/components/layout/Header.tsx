@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
         {
             content:
             <>
-                {isAuthenticated &&
+                {isAuthenticated && user?.roles.includes("ROOT") &&
                     <Link
                         to="/admin"
                         onClick={() => {setMenuOpen(false)}}

@@ -1,10 +1,10 @@
-import type { UserInfoDTO } from "@/types/UserInfoDTO"
+import type { UserAuthInfoDTO } from "@/types/user/UserAuthInfoDTO"
 import AuthenticationService from "@/services/AuthenticationService";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 interface AuthContextType {
-    user: UserInfoDTO | undefined,
-    setUser: React.Dispatch<React.SetStateAction<UserInfoDTO|undefined>>
+    user: UserAuthInfoDTO | undefined,
+    setUser: React.Dispatch<React.SetStateAction<UserAuthInfoDTO|undefined>>
     isAuthenticated: boolean,
     logout: () => void
 }
@@ -12,7 +12,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
 export const AuthProvider = ({ children } : {children: ReactNode}) => {
-    const [user, setUser] = useState<UserInfoDTO|undefined>(undefined);
+    const [user, setUser] = useState<UserAuthInfoDTO|undefined>(undefined);
 
     useEffect(() => {
         const stokedToken = localStorage.getItem("token");

@@ -30,7 +30,14 @@ public class DebugService {
 
         return new SuccessLoginDTO(
             jwt,
-            new UserAuthDataDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), "admin user", "https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg")
+            new UserAuthDataDTO(
+                user.getId(), 
+                user.isAcceptedEula(), 
+                user.getSteamId(), 
+                "admin user", 
+                "https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg",
+                user.getRoles()
+            )
         );
     }
 

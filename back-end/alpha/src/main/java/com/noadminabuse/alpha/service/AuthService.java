@@ -63,7 +63,14 @@ public class AuthService {
         String jwt = jwtService.generateToken(user.getId());
         return new SuccessLoginDTO(
             jwt,
-            new UserAuthDataDTO(user.getId(), user.isAcceptedEula(), steamId, steamQueryDTO.name(), steamQueryDTO.avatarfull())
+            new UserAuthDataDTO(
+                user.getId(), 
+                user.isAcceptedEula(), 
+                steamId, 
+                steamQueryDTO.name(), 
+                steamQueryDTO.avatarfull(),
+                user.getRoles()
+            )
         );
     }
 
@@ -79,7 +86,8 @@ public class AuthService {
                 user.isAcceptedEula(), 
                 user.getSteamId(), 
                 steamQueryDTO.name(), 
-                steamQueryDTO.avatarfull()
+                steamQueryDTO.avatarfull(),
+                user.getRoles()
             )
         );
     }

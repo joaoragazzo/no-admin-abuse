@@ -1,5 +1,5 @@
 import type { NetworkTagDTO } from "../networkTag/NetworkTag";
-import type { UserBasicInfoDTO } from "../UserBasicInfoDTO";
+import type { UserBasicInfoDTO } from "../user/UserBasicInfoDTO";
 
 export interface ReviewDisplayDTO {
     id: string,

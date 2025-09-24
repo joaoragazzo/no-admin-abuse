@@ -1,4 +1,4 @@
-import type { UserInfoDTO } from "./UserInfoDTO";
+import type { UserInfoDTO } from "./user/UserAuthInfoDTO";
 
 export interface AuthenticationDTO {
     token: string,
