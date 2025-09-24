@@ -4,6 +4,8 @@
 html, body, #root {
   height: 100%;
   background-color: oklch(14.5% 0 0);
+  scrollbar-width: thin;
+  scrollbar-color: #444444 #1a1a1a; 
 }
 
 @theme {
@@ -57,4 +59,28 @@ body {
 
 .spinner {
   animation: spin-slow 2s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 8px;  
+  height: 8px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444444; 
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666666; 
+}
+
+::-webkit-scrollbar-corner {
+  background: #1a1a1a; 
 }
