@@ -65,10 +65,11 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();
 
-    public User(String steamId, String username, String avatarUrl) {
+    public User(String steamId, String username, String avatarUrl, Role role) {
         this.steamId = steamId;
         this.username = username;
         this.avatarUrl = avatarUrl;
+        this.roles.add(role);
     }
 
     public User(UUID uuid) {

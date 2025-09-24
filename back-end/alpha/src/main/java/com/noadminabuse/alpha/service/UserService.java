@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.enums.Role;
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.UserErrorMessage;
 import com.noadminabuse.alpha.model.User;
@@ -31,7 +32,7 @@ public class UserService {
             return userRepository.save(existingUser);
         }
         
-        User newUser = new User(steamId, username, avatarUrl);
+        User newUser = new User(steamId, username, avatarUrl, Role.USER);
         return userRepository.save(newUser);
     }
 
