@@ -3,6 +3,7 @@ import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
 import { useNetworkHome } from "@/contexts/NetworkHomeContext"
+import { backendI18N } from "@/i18n"
 import NetworkTagService from "@/services/NetworkTagService"
 import type { NetworkTagDTO } from "@/types/networkTag/NetworkTag"
 import { useEffect, useState } from "react"
@@ -20,7 +21,7 @@ export const NetworkMakeReview = () => {
     const [starError, setStarError] = useState<boolean>(false);
     const [availableTag, setAvailableTags] = useState<NetworkTagDTO[]>([]);
     const [text, setText] = useState<string>("");
-    const { t } = useTranslation("network_tag")
+    const { t } = useTranslation("network_tag", { i18n: backendI18N })
 
     const toogleTag = (id: string):void => {
         if (selectedTags.includes(id)) {
