@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.noadminabuse.alpha.web.controller.docs.AuthApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
 import com.noadminabuse.alpha.service.AuthService;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
-public class AuthController extends BaseController {
+public class AuthController extends BaseController implements AuthApi {
     
     private final AuthService authService;
 

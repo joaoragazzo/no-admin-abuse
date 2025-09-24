@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.service.NetworkTagService;
+import com.noadminabuse.alpha.web.controller.docs.NetworkTagApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/networktags")
 @AllArgsConstructor
-public class NetworkTagController extends BaseController {
+public class NetworkTagController extends BaseController implements NetworkTagApi {
     
     private final NetworkTagService networkTagService;
 

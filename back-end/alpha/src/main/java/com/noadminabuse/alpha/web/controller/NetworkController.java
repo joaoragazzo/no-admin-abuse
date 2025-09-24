@@ -7,6 +7,7 @@ import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.service.NetworkService;
 import com.noadminabuse.alpha.service.ReviewService;
+import com.noadminabuse.alpha.web.controller.docs.NetworkApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.dayz.SearchFilterDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/networks")
-public class NetworkController extends BaseController {
+public class NetworkController extends BaseController implements NetworkApi {
     private final NetworkService networkService;
     private final ReviewService reviewService;
     private final NetworkMapper networkMapper;

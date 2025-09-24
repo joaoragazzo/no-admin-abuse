@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,8 +40,17 @@ public interface ReviewApi {
             )
         )
     })
+    @Parameter(name="networkId", description = "ID único da rede de servidores a receber a avaliação")
     public ApiResponseDTO<Void> createReview(
         @PathVariable UUID networkId,
         @RequestBody @Valid ReviewCreationDTO dto
     );
+
+    @Operation(summary = "Retorna todas as avaliações da rede")
+    @Parameter(name = "networkId", description = "ID único da rede de servidores para pegar as avaliações")
+    public ApiResponseDTO<ReviewDisplayResponseDTO> getReview(@PathVariable UUID networkId);
+
+    @Operation(summary = "Deleta a avaliação recebida como parâmetro")
+    @Parameter(name = "reviewId", description = "ID único da avaliação a ser deletada")
+    public ApiResponseDTO<Void> deleteReview(@PathVariable UUID reviewId);
 }

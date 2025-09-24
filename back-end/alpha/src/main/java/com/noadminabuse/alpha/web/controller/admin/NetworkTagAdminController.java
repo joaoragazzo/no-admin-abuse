@@ -8,6 +8,7 @@ import com.noadminabuse.alpha.messages.NetworkTagMessage;
 import com.noadminabuse.alpha.model.NetworkTag;
 import com.noadminabuse.alpha.service.NetworkTagService;
 import com.noadminabuse.alpha.web.controller.BaseController;
+import com.noadminabuse.alpha.web.controller.admin.docs.NetworkTagAdminApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.CreateNetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagInfoDTO;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/networktags")
-public class NetworkTagAdminController extends BaseController {
+public class NetworkTagAdminController extends BaseController implements NetworkTagAdminApi {
     private final NetworkTagService networkTagService;
     private final NetworkTagMapper networkTagMapper;
 

@@ -3,6 +3,7 @@ package com.noadminabuse.alpha.web.controller;
 import java.util.Map;
 
 import com.noadminabuse.alpha.service.TranslationService;
+import com.noadminabuse.alpha.web.controller.docs.TranslationApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 
 import lombok.AllArgsConstructor;
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/i18n")
-public class TranslationController extends BaseController {
+public class TranslationController extends BaseController implements TranslationApi{
     
     private final TranslationService translationService;
 
     @GetMapping("/{lang}/{key}")
-    public  ApiResponseDTO<Map<String,String>> getLanguage(@PathVariable String lang, @PathVariable String key) {
+    public ApiResponseDTO<Map<String,String>> getLanguage(@PathVariable String lang, @PathVariable String key) {
         return ok(translationService.getTranslation(lang, key));
     }  
     

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.noadminabuse.alpha.messages.UserMessage;
 import com.noadminabuse.alpha.service.UserService;
 import com.noadminabuse.alpha.utils.SecurityUtils;
+import com.noadminabuse.alpha.web.controller.docs.UserApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
-public class UserController extends BaseController {
+public class UserController extends BaseController implements UserApi {
     
     private final UserService userService;
 
