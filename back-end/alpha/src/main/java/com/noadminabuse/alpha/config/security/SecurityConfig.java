@@ -27,8 +27,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ROOT")
+                .anyRequest().permitAll())
             .cors(cors -> cors.configurationSource(configurationSource()))
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
             .formLogin(login -> login.disable())
             .httpBasic(httpBasic -> httpBasic.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

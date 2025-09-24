@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { NetworkBanner } from "../components/cards/NetworkBanners/NetworkBanner";
 import type { NetworkDTO } from "@/types/network/NetworkDTO";
 import { useEffect, useRef, useState } from "react";
-import serverService from "@services/ServerService";
+import serverService from "@/services/ServerService";
 import type { Pageable } from "@/types/Pageable";
 import { Pagination } from "@/components/table/Pagination";
 import { useTranslation } from "react-i18next";

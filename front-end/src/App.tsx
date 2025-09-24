@@ -45,6 +45,7 @@ function App() {
           <Route path="servers" />
           <Route path="networks" />
           <Route path="translations" element={<AdminTranslations />} />
+          <Route path="scrapping" />
         </Route>
         
       </Routes>

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.NetworkTagMapper;
-import com.noadminabuse.alpha.messages.NetworkTagsMessage;
+import com.noadminabuse.alpha.messages.NetworkTagMessage;
 import com.noadminabuse.alpha.model.NetworkTag;
 import com.noadminabuse.alpha.service.NetworkTagService;
 import com.noadminabuse.alpha.web.controller.BaseController;
@@ -37,7 +37,7 @@ public class NetworkTagAdminController extends BaseController {
         NetworkTag tag = networkTagService.createNewTag(dto.slug(), dto.isPositive(), dto.gameId());
         NetworkTagInfoDTO response = networkTagMapper.toNetworkTagInfoDTO(tag);
         
-        return ok(response);
+        return success(response, NetworkTagMessage.SUCCESS_CREATED_NETWORK_TAG);
     }
 
     @GetMapping("/")
@@ -50,7 +50,7 @@ public class NetworkTagAdminController extends BaseController {
     public ApiResponseDTO<Void> deleteNetworkTag(@PathVariable UUID gameId, @PathVariable UUID tagId) {
         networkTagService.deleteTag(gameId, tagId);
         return success(
-            NetworkTagsMessage.SUCCESS_DELETED_NETWORK_TAG
+            NetworkTagMessage.SUCCESS_DELETED_NETWORK_TAG
         ); 
     }
     

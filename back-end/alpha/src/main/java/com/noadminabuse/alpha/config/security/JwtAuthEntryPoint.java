@@ -7,6 +7,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.noadminabuse.alpha.errors.enums.AuthErrorMessage;
 import com.noadminabuse.alpha.mapper.FeedbackMapper;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
 
@@ -24,10 +25,11 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request,
     HttpServletResponse response,
     AuthenticationException authenticationException) throws IOException {
-        MessageDTO error = feedbackMapper.error(authenticationException.getMessage());
+        MessageDTO error = feedbackMapper.error(AuthErrorMessage.UNAUTHENTICATED_REQUEST.getMessage());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setHeader("Location", "/");
         objectMapper.writeValue(response.getWriter(), error);
         response.getWriter().flush();
     }

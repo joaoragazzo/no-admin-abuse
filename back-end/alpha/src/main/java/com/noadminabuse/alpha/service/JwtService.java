@@ -39,7 +39,7 @@ public class JwtService {
             .compact();
     }
 
-    public String extractSteamId(String token) {
+    public String extractUserId(String token) {
         return Jwts.parser()
             .verifyWith(getSigningKey())
             .build()

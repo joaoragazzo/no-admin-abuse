@@ -2,13 +2,20 @@ package com.noadminabuse.alpha.model;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.noadminabuse.alpha.enums.Role;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -51,11 +58,9 @@ public class User {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean isBanned = false;
-    
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean isSysAdmin = false;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();

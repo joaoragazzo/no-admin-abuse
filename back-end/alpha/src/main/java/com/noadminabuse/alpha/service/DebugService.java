@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import com.noadminabuse.alpha.enums.Role;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.UserRepository;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
@@ -49,6 +50,7 @@ public class DebugService {
         user.setLastLoginAt(Instant.now());
         user.setUsername("admin user");
         user.setAvatarUrl("https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg");
+        user.getRoles().add(Role.ROOT);
         userRepository.save(user);
     }
 }

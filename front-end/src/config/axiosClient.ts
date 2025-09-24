@@ -46,7 +46,7 @@ api.interceptors.response.use(
           break;
       }
     }
-
+    
     response.data = data;
     return response;
   },
@@ -67,15 +67,6 @@ api.interceptors.response.use(
   }
 );
 
-const i18nApi = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 10000,
-});
 
-i18nApi.interceptors.response.use((response: AxiosResponse) => {
-  console.log(response.data.data)
-  return response.data.data;
 
-})
-
-export { api as default, i18nApi };
+export { api as default };

@@ -52,6 +52,23 @@ const items: MenuProps['items'] = [
         key: '/admin/security',
         icon: <FaLock />,
         label: 'Segurança',
+        children: [
+            {
+                key: '/admin/security/logs',
+                icon: <FaLock />,
+                label: 'Logs',
+            },
+            {
+                key: '/admin/security/events',
+                icon: <FaLock />,
+                label: 'Eventos',
+            },
+            {
+                key: '/admin/security/events',
+                icon: <FaLock />,
+                label: 'Eventos',
+            }
+        ]
     },
     {
         key: '/admin/statistics',

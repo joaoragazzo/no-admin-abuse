@@ -10,9 +10,9 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@types/*': path.resolve(__dirname, 'src/types/*'),
-      '@enums': path.resolve(__dirname, 'src/enums'),
-      '@services': path.resolve(__dirname, 'src/services'),
-      '@components': path.resolve(__dirname, 'src/components')
+      '@enums/*': path.resolve(__dirname, 'src/enums/*'),
+      '@services/*': path.resolve(__dirname, 'src/services/*'),
+      '@components/*': path.resolve(__dirname, 'src/components/*')
     }
   }
 })

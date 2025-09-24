@@ -7,7 +7,7 @@ i18n
     .use(initReactI18next)
     .init({     
         backend: {
-            loadPath: `${import.meta.env.VITE_API_BASE_URL}/i18n/{{lng}}/{{ns}}`,
+            loadPath: `${import.meta.env.VITE_API_BASE_URL}i18n/{{lng}}/{{ns}}`,
             parse: (data: any) => {
               const parsed = JSON.parse(data);
               return parsed.data || parsed; 
