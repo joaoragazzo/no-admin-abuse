@@ -10,7 +10,7 @@ import com.noadminabuse.alpha.enums.Role;
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.UserRepository;
 import com.noadminabuse.alpha.web.dto.auth.SuccessLoginDTO;
-import com.noadminabuse.alpha.web.dto.user.UserFullInfoDTO;
+import com.noadminabuse.alpha.web.dto.user.UserAuthDataDTO;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -30,7 +30,7 @@ public class DebugService {
 
         return new SuccessLoginDTO(
             jwt,
-            new UserFullInfoDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), "admin user", "https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg")
+            new UserAuthDataDTO(user.getId(), user.isAcceptedEula(), user.getSteamId(), "admin user", "https://avatars.steamstatic.com/bab2eaea37e9d6b718dd82f388ea9b9d84ad2b2f_full.jpg")
         );
     }
 

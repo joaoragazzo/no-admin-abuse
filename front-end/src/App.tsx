@@ -11,6 +11,7 @@ import { AdminLayout } from "./pages/Admin/AdminLayout"
 import { AdminTranslations } from "./pages/Admin/AdminTranslations"
 import { MainLayout } from "./pages/MainLayout"
 import { AdminNetworkTags } from "./pages/Admin/AdminNetworkTags"
+import { AdminUsers } from "./pages/Admin/AdminUsers"
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index />
           <Route path="tags" element={<AdminNetworkTags />} />
-          <Route path="users" />
+          <Route path="users" element={<AdminUsers />}/>
           <Route path="reviews" />
           <Route path="tags" />
           <Route path="reports" />

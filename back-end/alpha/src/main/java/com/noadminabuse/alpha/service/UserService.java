@@ -1,6 +1,7 @@
 package com.noadminabuse.alpha.service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,6 +39,10 @@ public class UserService {
         return userRepository.findById(uuid).orElseThrow(
             () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
         );
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     public User getUserBySteamId(String steam64id) {
