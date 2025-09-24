@@ -15,15 +15,18 @@ export const Footer: React.FC = () => {
                 
                 <div className="flex flex-row gap-5">
                     <div className="p-3 bg-neutral-900 rounded-full w-fit h-fit cursor-pointer">
-                        <FaDiscord />
+                        <a target="_blank" href="https://discord.gg/tuEpjpYJ9d">
+                            <FaDiscord />
+                        </a>
                     </div>
                     <div className="p-3 bg-neutral-900 rounded-full w-fit h-fit cursor-pointer">
-                        <FaGithub />
+                        <a target="_blank" href="https://github.com/joaoragazzo/no-admin-abuse">
+                            <FaGithub />
+                        </a>
                     </div>
                 </div>
             </div>
             
-
             <div className="text-gray-500 text-xs pt-2 border-t-1 border-gray-700/40 w-full justify-between flex flex-row">
                 <div>
                     © No Admin Abuse | Powered by BattleMetrics
