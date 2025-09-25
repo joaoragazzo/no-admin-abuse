@@ -11,6 +11,7 @@ import com.noadminabuse.alpha.messages.TranslationMessage;
 import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.service.TranslationService;
 import com.noadminabuse.alpha.web.controller.BaseController;
+import com.noadminabuse.alpha.web.controller.admin.docs.TranslationAdminApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationDetailsDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/i18n")
-public class TranslationAdminController extends BaseController {
+public class TranslationAdminController extends BaseController implements TranslationAdminApi {
     private final TranslationService translationService;
     private final TranslationMapper translationMapper;
 
