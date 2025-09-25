@@ -4,11 +4,7 @@ import { Table } from "antd"
 import { LanguageEditInput } from "../inputs/LanguageEditInput"
 import { useAdminTranslation } from "@/contexts/AdminTranslationContext"
 
-interface TranslationTableProps {
-  update?: () => void
-}
-
-export const TranslationTable: React.FC<TranslationTableProps> = ({ update }) => {  
+export const TranslationTable: React.FC = () => {  
   const { translationTable } = useAdminTranslation();
 
   if (!translationTable) {
@@ -55,7 +51,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ update }) =>
       dataIndex: lang,
       key: lang,
       render: (translation: TranslationCellDTO) => 
-          <LanguageEditInput translation={translation} update={update} />
+          <LanguageEditInput translation={translation} />
           
     }))
   ];
