@@ -73,7 +73,7 @@ export const NetworkMakeReview = () => {
                 <div className="flex flex-row flex-wrap gap-3">
                     {availableTag.filter(content => content.isPositive).map((content, _) => (
                         <Tag color={selectedTags.includes(content.id) ? "green" : "gray"} onClick={toogleTag} id={content.id}>
-                            {t("network_tag." + game + "." + content.slug)}
+                            {t(game + "." + content.slug)}
                         </Tag>
                     ))}
                 </div>
@@ -85,7 +85,7 @@ export const NetworkMakeReview = () => {
                 <div className="flex flex-row flex-wrap gap-3">
                     {availableTag.filter(content => !content.isPositive).map((content, _) => (
                         <Tag color={selectedTags.includes(content.id) ? "red" : "gray"} onClick={toogleTag} id={content.id}>
-                            {t("network_tag." + game + "." + content.slug)}
+                            {t(game + "." + content.slug)}
                         </Tag>
                     ))}
                 </div>  

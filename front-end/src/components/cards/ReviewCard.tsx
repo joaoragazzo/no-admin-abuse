@@ -14,6 +14,7 @@ import 'dayjs/locale/pt-br';
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { backendI18N } from "@/i18n";
 
 interface ReviewCardProps {
     content: ReviewDisplayDTO
@@ -26,7 +27,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
     const { game } = useParams<{game: string}>();
     const { handleReviewDelete } = useNetworkHome();
     const [showMore, setShowMore] = useState<boolean>(false);
-    const { t }  = useTranslation("network_tag");
+    const { t }  = useTranslation("network_tag", { i18n: backendI18N });
     
     const getRelativeDatenow = () => {
         const text = dayjs(new Date(content.createdAt)).fromNow(); 
@@ -112,11 +113,11 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                 
                 <div className="mt-3 flex flex-wrap flex-row gap-3">
                     {content.tags.filter((tag) => tag.isPositive).map(tag => (
-                        <Tag color="green">{t("network_tag." + game + "." + tag.slug)}</Tag>
+                        <Tag color="green">{t(game + "." + tag.slug)}</Tag>
                     ))}
 
                     {content.tags.filter((tag) => !tag.isPositive).map(tag => (
-                        <Tag color="red">{t("network_tag." + game + "." + tag.slug)}</Tag>
+                        <Tag color="red">{t(game + "." + tag.slug)}</Tag>
                     ))}
                     
                 </div>

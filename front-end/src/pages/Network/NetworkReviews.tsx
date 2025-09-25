@@ -33,7 +33,6 @@ export const NetworkReviews: React.FC = () => {
                         </div>
                         <ReviewCard content={reviewsResponse.ownReview} editable/>
                     </div>
-                    
                     : (
                         isAuthenticated ? 
                             <NetworkMakeReview /> 
@@ -45,7 +44,6 @@ export const NetworkReviews: React.FC = () => {
                                 para deixar sua avaliação.
                         </div>
                     )
-            
             }
             
             {
