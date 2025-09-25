@@ -16,6 +16,7 @@ import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.repository.TranslationRepository;
 import com.noadminabuse.alpha.web.dto.translation.TranslationCellDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationRowDTO;
+import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationTableDTO;
 
 import jakarta.annotation.PostConstruct;
@@ -65,16 +66,21 @@ public class TranslationService {
         List<TranslationRowDTO> rows = groupedByKey.entrySet().stream()
                 .map(entry -> {
                     String key = entry.getKey();
+                    String namespace = entry.getValue().get(0).getNamespace();
                     Map<String, TranslationCellDTO> translations = entry.getValue().stream()
                             .collect(Collectors.toMap(
                                     Translation::getLang,
                                     t -> new TranslationCellDTO(t.getId(), t.getTValue())
                             ));
-                    return new TranslationRowDTO(key, translations);
+                    return new TranslationRowDTO(key, namespace, translations);
                 })
                 .toList();
 
         return new TranslationTableDTO(langs, rows);
+    }
+
+    public TranslationStatisticsDTO getTranslationStatistics() {
+        return translationRepository.getTranslationStatistics();
     }
 
     @Transactional

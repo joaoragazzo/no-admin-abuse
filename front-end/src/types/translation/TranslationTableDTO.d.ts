@@ -4,6 +4,7 @@ export interface TranslationCellDTO {
 }
 
 export interface TranslationRowDTO {
+  namespace: string;
   key: string;
   translations: {
     [lang: string]: TranslationCellDTO;

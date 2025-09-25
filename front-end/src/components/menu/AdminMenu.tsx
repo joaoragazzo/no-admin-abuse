@@ -122,10 +122,8 @@ export const AdminMenu: React.FC = () => {
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
             width={180}
-            className="h-screen"
         >
-            <div className="h-full flex flex-col">
-                
+            <div className="flex flex-col h-full">
                 <div 
                     className="flex flex-row items-center p-4 cursor-pointer text-center border-b border-gray-600"
                     onClick={handleLogoClick}

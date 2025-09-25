@@ -12,6 +12,7 @@ import { AdminTranslations } from "./pages/Admin/AdminTranslations"
 import { MainLayout } from "./pages/MainLayout"
 import { AdminNetworkTags } from "./pages/Admin/AdminNetworkTags"
 import { AdminUsers } from "./pages/Admin/AdminUsers"
+import { AdminTranslationContextProvider } from "./contexts/AdminTranslationContext"
 
 function App() {
   return (
@@ -45,7 +46,11 @@ function App() {
           <Route path="statistics" />
           <Route path="servers" />
           <Route path="networks" />
-          <Route path="translations" element={<AdminTranslations />} />
+          <Route path="translations" element={
+            <AdminTranslationContextProvider>
+              <AdminTranslations />
+            </AdminTranslationContextProvider>
+          } />
           <Route path="scrapping" />
         </Route>
         

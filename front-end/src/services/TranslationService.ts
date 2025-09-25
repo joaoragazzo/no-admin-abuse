@@ -1,5 +1,6 @@
 import api from "@/config/axiosClient"
 import type { TranslationDetailsDTO } from "@/types/translation/TranslationDetailsDTO";
+import type { TranslationStatisticsDTO } from "@/types/translation/TranslationStatisticsDTO";
 import type { TranslationTableDTO } from "@/types/translation/TranslationTableDTO";
 import type { TranslationUpdateDTO } from "@/types/translation/TranslationUpdateDTO";
 
@@ -13,4 +14,9 @@ const saveTranslation = async (translation: TranslationUpdateDTO): Promise<Trans
     return response.data;
 }
 
-export default { saveTranslation, fetchTranslationTable };
+const getTranslationStatistics = async (): Promise<TranslationStatisticsDTO> => {
+    const response = await api.get<TranslationStatisticsDTO>("/admin/i18n/statistics");
+    return response.data;
+}
+
+export default { saveTranslation, fetchTranslationTable, getTranslationStatistics };

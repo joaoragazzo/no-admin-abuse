@@ -13,6 +13,7 @@ import com.noadminabuse.alpha.service.TranslationService;
 import com.noadminabuse.alpha.web.controller.BaseController;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationDetailsDTO;
+import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationTableDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationUpdateDTO;
 
@@ -20,6 +21,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -34,6 +36,11 @@ public class TranslationAdminController extends BaseController {
     @GetMapping
     public ApiResponseDTO<TranslationTableDTO> getTranslationTable() {
         return ok(translationService.getTranslationTable());
+    }
+
+    @GetMapping("/statistics")
+    public ApiResponseDTO<TranslationStatisticsDTO> getStats() {
+        return ok(translationService.getTranslationStatistics());
     }
     
     @PatchMapping

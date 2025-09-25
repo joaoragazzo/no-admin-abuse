@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.noadminabuse.alpha.model.Translation;
+import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
 
 public interface TranslationRepository extends JpaRepository<Translation, UUID>{
     @Query("SELECT t FROM Translation t WHERE t.lang = :lang AND t.namespace=:namespace")
@@ -29,4 +30,15 @@ public interface TranslationRepository extends JpaRepository<Translation, UUID>{
     @Modifying
     @Query("DELETE FROM Translation t WHERE t.tKey = :tKey")
     void deleteByTKey(@Param("tKey") String tKey);
+
+    @Query("""
+        SELECT new com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO(
+            CAST(COUNT(DISTINCT t.namespace) AS Integer),
+            CAST(COUNT(DISTINCT t.tKey) AS Integer),
+            CAST(COUNT(CASE WHEN t.tValue IS NOT NULL AND TRIM(t.tValue) != '' THEN 1 END) AS Integer),
+            CAST(COUNT(CASE WHEN t.tValue IS NULL OR TRIM(t.tValue) = '' THEN 1 END) AS Integer)
+        )
+        FROM Translation t
+    """)
+    TranslationStatisticsDTO getTranslationStatistics();
 }

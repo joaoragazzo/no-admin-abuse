@@ -4,5 +4,6 @@ import java.util.Map;
 
 public record TranslationRowDTO(
     String key,
+    String namespace,
     Map<String, TranslationCellDTO> translations
 ) {}
