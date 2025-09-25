@@ -38,8 +38,8 @@ public class TranslationService {
         return translationRepository.save(translation);
     }
 
-    public Map<String, String> getTranslation(String lang, String key) {
-        List<Translation> translations = translationRepository.findByLangAndKey(lang, key);
+    public Map<String, String> getTranslation(String lang, String namespace) {
+        List<Translation> translations = translationRepository.findByLangAndNamespace(lang, namespace);
         Map<String, String> map = new HashMap<>();
         for (Translation t : translations) {
             map.put(t.getTKey(), t.getTValue());
@@ -98,7 +98,7 @@ public class TranslationService {
     }
 
     @Transactional
-    public void createNewKey(String key) {
+    public void createNewKey(String namespace, String key) {
         List<String> allLangs = translationRepository.findAllDistinctLang();
         List<Translation> toSave = new ArrayList<>();
         for (String lang : allLangs) {
@@ -108,6 +108,7 @@ public class TranslationService {
                 t.setLang(lang);
                 t.setTKey(key);
                 t.setTValue(null);
+                t.setNamespace(namespace);
                 toSave.add(t);
             }
         }
@@ -127,12 +128,12 @@ public class TranslationService {
         if (translationRepository.count() == 0) {
             Translation t = new Translation();
             t.setLang("pt");
-            t.setTKey("app.welcome");
+            t.setTKey("welcome");
             t.setTValue("Bem-vindo!");
+            t.setNamespace("demo");
             translationRepository.save(t);
         }
         initDefaultFeedbacks();
-        
     }
 
     @Transactional
@@ -142,14 +143,13 @@ public class TranslationService {
         List<Translation> toSave = new ArrayList<>();
 
         for (String fb : feedbacks) {
-            String namespacedKey = "feedback." + fb;
-    
             for (String lang : langs) {
-                boolean exists = translationRepository.existsByLangAndTKey(lang, namespacedKey);
+                boolean exists = translationRepository.existsByLangAndTKey(lang, fb);
                 if (!exists) {
                     Translation t = new Translation();
                     t.setLang(lang);
-                    t.setTKey(namespacedKey);
+                    t.setTKey(fb);
+                    t.setNamespace("feedback");
                     t.setTValue(null); 
                     toSave.add(t);
                 }

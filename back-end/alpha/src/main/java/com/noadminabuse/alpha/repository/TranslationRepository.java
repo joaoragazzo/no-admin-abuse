@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 import com.noadminabuse.alpha.model.Translation;
 
 public interface TranslationRepository extends JpaRepository<Translation, UUID>{
-    @Query("SELECT t FROM Translation t WHERE t.lang = :lang AND t.tKey LIKE CONCAT('%', :key, '%')")
-    List<Translation> findByLangAndKey(@Param("lang") String lang, @Param("key") String key);
+    @Query("SELECT t FROM Translation t WHERE t.lang = :lang AND t.namespace=:namespace")
+    List<Translation> findByLangAndNamespace(@Param("lang") String lang, @Param("namespace") String namespace);
 
     @Query("SELECT DISTINCT t.tKey FROM Translation t")
     List<String> findAllDistinctKeys();

@@ -38,7 +38,7 @@ public class NetworkTagService {
         String treatedSlug = tagSlug.replace(" ", "_");
 
         NetworkTag tag = new NetworkTag(treatedSlug, isPositive, game);
-        translationService.createNewKey("network_tag." + game.getSlug() + "." + treatedSlug);
+        translationService.createNewKey("network_tag", game.getSlug() + "." + treatedSlug);
         
         return networkTagRepository.save(tag);
     }

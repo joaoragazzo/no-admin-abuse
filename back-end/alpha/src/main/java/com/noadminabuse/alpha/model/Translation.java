@@ -40,4 +40,14 @@ public class Translation {
 
     private String tValue;
 
+    @Column(nullable = false)
+    private String namespace;
+
+    public Translation(UUID id, String lang, String tKey, String tValue) {
+        this.id = id;
+        this.lang = lang;
+        this.tKey = tKey;
+        this.tValue = tValue;
+    }
+
 }
