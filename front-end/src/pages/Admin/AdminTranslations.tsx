@@ -4,7 +4,8 @@ import { TranslationTable } from "@/components/table/TranslationTable";
 import { useAdminTranslation } from "@/contexts/AdminTranslationContext";
 
 export const AdminTranslations: React.FC = () => {
-  const { statsLoading, translationStatistics, translationTable } = useAdminTranslation();
+  const { statsLoading, translationStatistics, 
+    translationTable, namespacesOptions, setTableFilter } = useAdminTranslation();
   
   const completionPercentage = Math.round(
     (translationStatistics.completedTranslations / 
@@ -100,15 +101,23 @@ export const AdminTranslations: React.FC = () => {
       <div className="border-1 border-white/20 p-4 mb-6 rounded-lg flex flex-col">
         <h3 className="font-semibold mb-2">Filtros</h3>
         <div className="flex flex-row gap-3">
-          <Select className="w-full" label="Namespace" placeholder={"Todos"} options={[
-            {value: "all", label: "Todos"},
-          ]}/>
+          <Select className="w-full" label="Namespace" placeholder={"Todos"} 
+            options={[
+              {value: "joker", label: "Todos"},
+              ...namespacesOptions
+            ]}
+            onChange={(c) => setTableFilter((prev) => ({...prev, namespace: c}))}
+          />
 
           <Select className="w-full" label="Status" placeholder={"Todos"} options={[
-            {value: "all", label: "Todos"},
-            {value: "empty", label: "Vazio"},
-            {value: "completed", label: "Preenchido"}
-          ]}/>
+            {value: undefined, label: "Todos"},
+            {value: "EMPTY", label: "Vazio"},
+            {value: "FILLED", label: "Preenchido"}
+          ]}
+            disabled
+          />
+
+          <Select className="w-full" label="Jogo" options={[]} disabled/>
 
         </div>
       </div>

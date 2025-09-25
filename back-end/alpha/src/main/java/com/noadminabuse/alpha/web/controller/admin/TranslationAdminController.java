@@ -23,10 +23,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
-
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/i18n")

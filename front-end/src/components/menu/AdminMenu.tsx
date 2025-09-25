@@ -99,7 +99,7 @@ const items: MenuProps['items'] = [
 
 export const AdminMenu: React.FC = () => {
     const navigate = useNavigate()
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
     const [collapsed, setCollapsed] = useState(true)
     const [selectedKey, setSelectedKey] = useState('/admin')
 
@@ -108,12 +108,9 @@ export const AdminMenu: React.FC = () => {
         setSelectedKey(key)
     }
 
-    const handleLogoClick = () => {
-        navigate('/')
-    }
-
     const handleLogout = () => {
-        console.log('Logout')
+        logout();
+        navigate('/');
     }
 
     return (
@@ -126,7 +123,7 @@ export const AdminMenu: React.FC = () => {
             <div className="flex flex-col h-full">
                 <div 
                     className="flex flex-row items-center p-4 cursor-pointer text-center border-b border-gray-600"
-                    onClick={handleLogoClick}
+                    onClick={() => navigate('/')}
                 >
                     <FaShield className="text-2xl text-white mx-auto" />
                     {!collapsed && 

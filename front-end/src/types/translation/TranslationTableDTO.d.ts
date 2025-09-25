@@ -13,6 +13,7 @@ export interface TranslationRowDTO {
 
 export interface TranslationTableDTO {
   langs: string[];
+  namespaces: string[];
   content: TranslationRowDTO[];
 }
   

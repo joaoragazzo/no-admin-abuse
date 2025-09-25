@@ -55,10 +55,8 @@ public class TranslationService {
     public TranslationTableDTO getTranslationTable() {
         List<Translation> allTranslations = translationRepository.findAll();
 
-        List<String> langs = allTranslations.stream()
-                .map(Translation::getLang)
-                .distinct()
-                .toList();
+        List<String> langs = translationRepository.findAllDistinctLang();
+        List<String> namespaces = translationRepository.findAllDistinctNamespace();
 
         Map<String, List<Translation>> groupedByKey = allTranslations.stream()
                 .collect(Collectors.groupingBy(Translation::getTKey));
@@ -76,7 +74,7 @@ public class TranslationService {
                 })
                 .toList();
 
-        return new TranslationTableDTO(langs, rows);
+        return new TranslationTableDTO(langs, namespaces, rows);
     }
 
     public TranslationStatisticsDTO getTranslationStatistics() {

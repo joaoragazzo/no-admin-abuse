@@ -1,4 +1,6 @@
+import type React from "react"
+
 export interface Option {
-    label: string
-    value: boolean | number | string
+    label: any
+    value: any 
 }

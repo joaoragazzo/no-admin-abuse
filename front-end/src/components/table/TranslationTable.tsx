@@ -11,7 +11,6 @@ interface TranslationTableProps {
 export const TranslationTable: React.FC<TranslationTableProps> = ({ update }) => {  
   const { translationTable } = useAdminTranslation();
 
-
   if (!translationTable) {
     return <Table
       className="h-100"
@@ -68,7 +67,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ update }) =>
       size="middle"
       scroll={{ x: 'max-content' }}
       loading={!translationTable}
-      
+      pagination={false}
     />
   )
 }

@@ -1,24 +1,18 @@
 import type { TranslationCellDTO } from "@/types/translation/TranslationTableDTO";
 import { useState } from "react";
-import TranslationService from "@/services/TranslationService";
 import { Button, Space } from "antd";
 import { FaSave } from "react-icons/fa";
 import { Input } from "./Input";
+import { useAdminTranslation } from "@/contexts/AdminTranslationContext";
 
 interface LanguageEditInputProps {
     translation: TranslationCellDTO
-    update?: () => void
+
 }
 
-export const LanguageEditInput: React.FC<LanguageEditInputProps> = ({ translation, update }) => {
+export const LanguageEditInput: React.FC<LanguageEditInputProps> = ({ translation }) => {
+  const { handleTranslationUpdate } = useAdminTranslation();
   const [initialValue, setInitialValue] = useState<string | null>(translation.value)
-
-  const handleSaveEdit = () => {
-    TranslationService.saveTranslation({id: translation.id, value: initialValue})
-      .then((res) => {
-        setInitialValue(res.tValue || "");    
-    }); 
-  }
 
   return (
     <Space.Compact 
@@ -34,7 +28,9 @@ export const LanguageEditInput: React.FC<LanguageEditInputProps> = ({ translatio
       <Button 
         icon={<FaSave />}
         variant="outlined"
-        onClick={() => {handleSaveEdit(); update?.()}}
+        onClick={() => {
+          handleTranslationUpdate({id: translation.id, value: initialValue})
+        }}
       />
     </Space.Compact>
   );

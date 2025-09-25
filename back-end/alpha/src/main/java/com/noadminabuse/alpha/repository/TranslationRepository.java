@@ -24,6 +24,9 @@ public interface TranslationRepository extends JpaRepository<Translation, UUID>{
     @Query("SELECT DISTINCT t.lang FROM Translation t")
     List<String> findAllDistinctLang();
 
+    @Query("SELECT DISTINCT t.namespace FROM Translation t")
+    List<String> findAllDistinctNamespace();
+
     @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Translation t WHERE t.lang = :lang AND t.tKey = :tKey")
     boolean existsByLangAndTKey(@Param("lang") String lang, @Param("tKey") String tKey);
 
