@@ -9,14 +9,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.noadminabuse.alpha.model.Translation;
+import com.noadminabuse.alpha.repository.interfaces.KeyNamespaceDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
 
 public interface TranslationRepository extends JpaRepository<Translation, UUID>{
     @Query("SELECT t FROM Translation t WHERE t.lang = :lang AND t.namespace=:namespace")
     List<Translation> findByLangAndNamespace(@Param("lang") String lang, @Param("namespace") String namespace);
 
-    @Query("SELECT DISTINCT t.tKey FROM Translation t")
-    List<String> findAllDistinctKeys();
+    @Query("""
+        SELECT DISTINCT 
+            new com.noadminabuse.alpha.repository.interfaces.KeyNamespaceDTO(t.tKey, t.namespace) 
+        FROM Translation t
+    """)
+    List<KeyNamespaceDTO> findAllDistinctKeysAndNamespaces();
 
     @Query("SELECT DISTINCT t.lang FROM Translation t")
     List<String> findAllLang();

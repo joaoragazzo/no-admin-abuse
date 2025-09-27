@@ -9,7 +9,6 @@ export const PageTitle: React.FC<PageTitleProps> = ({emphasis, main}) => {
             <h1 className="font-extrabold text-2xl mb-5">
                 {main} {emphasis && <span className="text-blue-500">{emphasis}</span>}
             </h1>
-        </div>
-        
+        </div>   
     )
 }

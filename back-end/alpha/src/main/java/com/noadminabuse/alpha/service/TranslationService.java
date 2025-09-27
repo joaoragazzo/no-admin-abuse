@@ -14,6 +14,7 @@ import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.TranslationErrorMessage;
 import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.repository.TranslationRepository;
+import com.noadminabuse.alpha.repository.interfaces.KeyNamespaceDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationCellDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationRowDTO;
 import com.noadminabuse.alpha.web.dto.translation.TranslationStatisticsDTO;
@@ -83,14 +84,15 @@ public class TranslationService {
 
     @Transactional
     public void createNewLanguage(String lang) {
-        List<String> allKeys = translationRepository.findAllDistinctKeys();
+        List<KeyNamespaceDTO> allKeys = translationRepository.findAllDistinctKeysAndNamespaces();
         List<Translation> toSave = new ArrayList<>();
-        for (String key : allKeys) {
-            boolean exists = translationRepository.existsByLangAndTKey(lang, key);
+        for (KeyNamespaceDTO key : allKeys) {
+            boolean exists = translationRepository.existsByLangAndTKey(lang, key.tKey());
             if (!exists) {
                 Translation t = new Translation();
                 t.setLang(lang);
-                t.setTKey(key);
+                t.setNamespace(key.namespace());
+                t.setTKey(key.tKey());
                 t.setTValue(null);
                 toSave.add(t);
             }
