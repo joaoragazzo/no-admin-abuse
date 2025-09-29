@@ -73,12 +73,29 @@ export const Header: React.FC = () => {
             content: 
             <>
             {isAuthenticated ? 
-                <Popup
-                    trigger={<img src={user?.avatarUrl} width={40} className="rounded-md" />}
-                    position={"bottom right"}
-                >
-                    <LoginPopup />
-                </Popup> : 
+                <div style={{ position: "relative", display: "inline-block" }}>
+                    <Popup
+                        trigger={<img src={user?.avatarUrl} width={40} className="rounded-md" />}
+                        position={"bottom right"}
+                        arrow={false}
+                        contentStyle={{
+                            minWidth: 200,
+                            right: 0,
+                            left: "auto",
+                            marginRight: 0,
+                            marginLeft: "auto",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        }}
+                        overlayStyle={{ background: "transparent" }}
+                        {...{
+                            offsetX: 0,
+                            offsetY: 5
+                        }}
+                    >
+                        <LoginPopup />
+                    </Popup>
+                </div>
+                : 
                 <div className="flex gap-3 items-center">
                     <LoginSteamButton />
                     <FaShield onClick={() => {setSafeLoginPopup(true)}} className="text-black hover:bg-white bg-gray-100 hover:scale-115 transition-all w-6 h-6 p-1.5 rounded-md"/>
