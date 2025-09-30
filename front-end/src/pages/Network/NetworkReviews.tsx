@@ -6,12 +6,12 @@ import { ImBubbles } from "react-icons/im";
 import { NetworkMakeReview } from "./NetworkMakeReview";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { LOGIN_PATH } from "@/constants/paths";
 
 export const NetworkReviews: React.FC = () => {
     const { reviewsResponse } = useNetworkHome();
     const { isAuthenticated } = useAuth();
-    
-    
+
     return (
         <>
             <Card.Title>
@@ -38,9 +38,12 @@ export const NetworkReviews: React.FC = () => {
                             <NetworkMakeReview /> 
                         : 
                         <div className="p-4 rounded-md bg-gray-800/60 text-center text-gray-200 text-sm shadow-md">
-                            <span className="font-medium text-white">
+                            <a 
+                                className="font-medium text-white underline cursor-pointer decoration-1 hover:text-blue-500"
+                                href={LOGIN_PATH}    
+                            >
                                 Faça login
-                            </span>{" "}
+                            </a>{" "}
                                 para deixar sua avaliação.
                         </div>
                     )

@@ -1,0 +1,1 @@
+export const LOGIN_PATH = import.meta.env.PROD ? "/api/v1/auth/steam" : "/auth/steam/callback";
