@@ -53,7 +53,7 @@ export const NetworkHome: React.FC = () => {
                             <FaInfoCircle className="text-blue-700"/> Sobre a Rede
                         </Card.Title>
                         <Card.Content>
-                           {networkDetails.description || "(Nenhuma descrição disponível)"}
+                           {networkDetails.description || <span className="text-sm">(Nenhuma descrição disponível)</span>}
                         </Card.Content>
                     </Card>
                     
@@ -71,7 +71,11 @@ export const NetworkHome: React.FC = () => {
 
                                 <div className="flex flex-row flex-wrap gap-3">
                                     {networkDetails.tags.filter((tag) => tag.isPositive).length === 0 
-                                        && "(Nenhuma tag positiva disponível para essa rede de servidores)"}
+                                        && 
+                                        <span className="text-sm text-slate-300">
+                                            (Nenhuma tag positiva disponível para essa rede de servidores)
+                                        </span>
+                                    }
                                     {networkDetails.tags.filter((tag) => tag.isPositive).map(tag => (
                                         <Tag key={tag.id} color="green">
                                             {t(game + "." + tag.slug)}
@@ -89,7 +93,9 @@ export const NetworkHome: React.FC = () => {
 
                                 <div className="flex flex-row flex-wrap gap-3">
                                     {networkDetails.tags.filter((tag) => !tag.isPositive).length === 0 
-                                        && "(Nenhuma tag negativa disponível para essa rede de servidores)"}
+                                        && <span className="text-sm text-slate-300">
+                                            (Nenhuma tag negativa disponível para essa rede de servidores)
+                                        </span>}
                                     {networkDetails.tags.filter((tag) => !tag.isPositive).map(tag => (
                                         <Tag key={tag.id} color="red">
                                             {t(game + "." + tag.slug)}

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import type React from "react";
-import { useState } from "react";
+import { Input } from 'antd';
+
+const { TextArea: AntDTextArea } = Input;
 
 interface TextAreaProps {
     label?: string,
@@ -8,24 +10,25 @@ interface TextAreaProps {
     maxCharacters?: number,
     className?: string
     onChange?: (text: string) => void;
+    
 }
 
 export const TextArea: React.FC<TextAreaProps> = ({ label, maxCharacters, placeholder, className, onChange }) => {
-    const [characters, setCharacters] = useState<number>(0);
     
     return (
-        <div className={clsx("flex flex-col", className)}>
+        <div className={clsx("flex flex-col mb-5", className)}>
             {label && <div className="text-sm">{label}</div>} 
-            <textarea 
+            <AntDTextArea 
                 placeholder={placeholder} 
-                className="rounded border-white/60 border-1 p-2 resize-none h-30" 
+                className="rounded h-35"
+                style={{ resize: 'none'}}
                 onChange={(e) => {
-                    setCharacters(e.target.value.length); 
                     onChange?.(e.target.value)
                 }}
                 maxLength={maxCharacters}
+                showCount={maxCharacters ? true : false}
+                
             />
-            {maxCharacters && <div className="text-right text-sm text-gray-400 mt-1">{characters}/{maxCharacters}</div>}
         </div>
     );
 }
