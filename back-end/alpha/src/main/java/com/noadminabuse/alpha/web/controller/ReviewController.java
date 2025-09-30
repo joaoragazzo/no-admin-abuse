@@ -43,7 +43,7 @@ public class ReviewController extends BaseController implements ReviewApi {
     ) {
         UUID authorId = SecurityUtils.getCurrentUserId();
         
-        Game game = networkService.getNetworkById(networkId).getGame();
+        Game game = networkService.fetchNetworkDetails(networkId).getGame();
         networkTagService.ensureAllTagsExists(dto.tags(), game.getId());
         
         Review review = reviewMapper.toReviewCreationEntity(dto, authorId, networkId);

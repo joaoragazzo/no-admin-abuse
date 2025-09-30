@@ -21,6 +21,7 @@ import com.noadminabuse.alpha.model.Game;
 import com.noadminabuse.alpha.model.Server;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.repository.NetworkRepository;
+import com.noadminabuse.alpha.repository.NetworkTagRepository;
 import com.noadminabuse.alpha.repository.ServerRepository;
 import com.noadminabuse.alpha.specification.ServerSearchSpecification;
 import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
@@ -34,6 +35,7 @@ public class NetworkService {
     private final ServerRepository serverRepository;
     private final CountryService countryService;
     private final NetworkRepository networkRepository;
+    private final NetworkTagRepository networkTagRepository;
     private final NetworkMapper networkMapper;
     private final GameService gameService;
 
@@ -140,11 +142,5 @@ public class NetworkService {
             .orElseThrow(
                 () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
             );
-    }
-
-    public Network getNetworkById(UUID id) {
-        return networkRepository.findById(id).orElseThrow(
-            () -> new NotFound(NetworkErrorMessage.NETWORK_NOT_FOUND)
-        );
     }
 }

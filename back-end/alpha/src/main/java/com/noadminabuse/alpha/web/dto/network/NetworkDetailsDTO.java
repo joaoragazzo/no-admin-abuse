@@ -1,8 +1,10 @@
 package com.noadminabuse.alpha.web.dto.network;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
@@ -16,8 +18,7 @@ public record NetworkDetailsDTO(
     Long reviewsCount,
     Long reviewsAvg,
     List<ReviewStatsDTO> stats,
-    List<String> positiveTags,
-    List<String> negativeTags,
+    Set<NetworkTagDTO> tags,
     @NotEmpty List<ServerDTO> servers,
     String discord,
     String instagram,

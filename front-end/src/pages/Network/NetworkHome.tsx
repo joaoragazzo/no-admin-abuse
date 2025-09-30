@@ -5,17 +5,21 @@ import { useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NetworkReviews } from "./NetworkReviews";
 import { Tag } from "@/components/misc/Tag";
 import { useNetworkHome } from "@/contexts/NetworkHomeContext";
 import { Loading } from "@/components/misc/Loading";
 import { NetworkHeader } from "./NetworkHeader";
+import { useTranslation } from "react-i18next";
+import { backendI18N } from "@/i18n";
 
 export const NetworkHome: React.FC = () => {
     const navigate = useNavigate();
+    const { game } = useParams<{game: string}>();
     const { networkDetails, loading, maxPlayersCount, onlinePlayersCount } = useNetworkHome();
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
+    const { t } = useTranslation("network_tag", { i18n: backendI18N });
 
     if (loading) {
         return ( 
@@ -66,18 +70,14 @@ export const NetworkHome: React.FC = () => {
                                 </div>
 
                                 <div className="flex flex-row flex-wrap gap-3">
-                                    <Tag color="green">
-                                        Staff imparcial
-                                    </Tag>
-                                    <Tag color="green">
-                                        Eventos
-                                    </Tag>
-                                    <Tag color="green">
-                                        Baixa latência
-                                    </Tag>
-                                    <Tag color="green">
-                                        Suporte rápido
-                                    </Tag>
+                                    {networkDetails.tags.filter((tag) => tag.isPositive).length === 0 
+                                        && "(Nenhuma tag positiva disponível para essa rede de servidores)"}
+                                    {networkDetails.tags.filter((tag) => tag.isPositive).map(tag => (
+                                        <Tag key={tag.id} color="green">
+                                            {t(game + "." + tag.slug)}
+                                        </Tag>
+                                    ))}
+                                    
                                 </div>
                             </div>
                             
@@ -88,18 +88,13 @@ export const NetworkHome: React.FC = () => {
                                 </div>
 
                                 <div className="flex flex-row flex-wrap gap-3">
-                                    <Tag color="red">
-                                        Pay-2-win
-                                    </Tag>
-                                    <Tag color="red">
-                                        VIPs muitos caros
-                                    </Tag>
-                                    <Tag color="red">
-                                        Comunidade tóxica
-                                    </Tag>
-                                    <Tag color="red">
-                                        Favoritismo
-                                    </Tag>
+                                    {networkDetails.tags.filter((tag) => !tag.isPositive).length === 0 
+                                        && "(Nenhuma tag negativa disponível para essa rede de servidores)"}
+                                    {networkDetails.tags.filter((tag) => !tag.isPositive).map(tag => (
+                                        <Tag key={tag.id} color="red">
+                                            {t(game + "." + tag.slug)}
+                                        </Tag>
+                                    ))}
                                 </div>
                             </div>
                         </Card.Content>

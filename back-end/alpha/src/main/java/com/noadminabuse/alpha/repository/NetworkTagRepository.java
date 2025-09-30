@@ -40,4 +40,20 @@ public interface NetworkTagRepository extends JpaRepository<NetworkTag, UUID> {
        WHERE nt.id IN :tagsIds AND g.id = :gameId
     """)
     long countByIdAndGame(@Param("tagsIds") Set<UUID> tagsId, @Param("gameId") UUID gameId);
+
+    @Query("""
+        SELECT t
+        FROM NetworkTag t
+        JOIN t.reviews r
+        WHERE r.network.id = :networkId
+        GROUP BY t
+        HAVING COUNT(r) >= :minReviews
+        AND (COUNT(r) * 100.0 / (SELECT COUNT(r2) FROM Review r2 WHERE r2.network.id = :networkId)) >= :minPercentage
+    """)
+    List<NetworkTag> findTagsToApplyForNetwork(
+        @Param("networkId") UUID networkId,
+        @Param("minReviews") long minReviews,
+        @Param("minPercentage") double minPercentage
+    );
+
 }

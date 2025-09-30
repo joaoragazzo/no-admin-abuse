@@ -70,7 +70,15 @@ public class NetworkTagService {
             throw new NotFound(NetworkTagErrorMessage.NETWORK_TAG_NOT_FOUND);
     }
 
-    
+    public Set<NetworkTag> findTagsToApplyForNetwork(
+        UUID networkId
+    ) {
+        return new HashSet<>(networkTagRepository.findTagsToApplyForNetwork(
+            networkId,
+            1,
+            30.0
+        ));
+    }
 
     public Set<NetworkTag> getAllTags() {
         //TODO: Make it pageable

@@ -3,6 +3,7 @@ package com.noadminabuse.alpha.mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkCreationDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
@@ -73,7 +75,7 @@ public class NetworkMapper {
         return entities.stream().map(this::toNetworkDTO).toList();
     }
 
-    public NetworkDetailsDTO toNetworkDetailsDTO(Network network, List<ReviewStatsDTO> stats) {
+    public NetworkDetailsDTO toNetworkDetailsDTO(Network network, List<ReviewStatsDTO> stats, Set<NetworkTagDTO> tags) {
         List<ServerDTO> servers = this.toServerDTO(network.getServers());
         
         return new NetworkDetailsDTO(
@@ -83,8 +85,7 @@ public class NetworkMapper {
             network.getReviewsAmount(),
             network.getReviewsAvg(),
             stats,
-            new ArrayList<>(), 
-            new ArrayList<>(), 
+            tags, 
             servers, 
             network.getDiscord(), 
             network.getInstagram(), 

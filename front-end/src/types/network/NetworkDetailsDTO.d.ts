@@ -1,3 +1,4 @@
+import type { NetworkTagDTO } from "../networkTag/NetworkTag";
 import type { ReviewStatsDTO } from "../reviews/ReviewStatsDTO";
 import type { ServerDTO } from "../ServerDTO";
 
@@ -8,8 +9,7 @@ export interface NetworkDetailsDTO {
     reviewsCount: number,
     reviewsAvg: number,
     stats: ReviewStatsDTO[],
-    positiveTags: string[],
-    negativeTags: string[],
+    tags: NetworkTagDTO[],
     servers: ServerDTO[],
     discord: string,
     instagram: string,

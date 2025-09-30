@@ -4,20 +4,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.noadminabuse.alpha.mapper.NetworkMapper;
+import com.noadminabuse.alpha.mapper.NetworkTagMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.service.NetworkService;
+import com.noadminabuse.alpha.service.NetworkTagService;
 import com.noadminabuse.alpha.service.ReviewService;
 import com.noadminabuse.alpha.web.controller.docs.NetworkApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.dayz.SearchFilterDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
+import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -35,12 +39,15 @@ public class NetworkController extends BaseController implements NetworkApi {
     private final NetworkService networkService;
     private final ReviewService reviewService;
     private final NetworkMapper networkMapper;
+    private final NetworkTagService networkTagService;
+    private final NetworkTagMapper networkTagMapper;
 
     @GetMapping("/{id}")
     public ApiResponseDTO<NetworkDetailsDTO> fetchNetworkDetails(@PathVariable("id") UUID id) {
         Network network = networkService.fetchNetworkDetails(id);
         List<ReviewStatsDTO> stats = reviewService.getReviewStats(id); 
-        NetworkDetailsDTO response = networkMapper.toNetworkDetailsDTO(network, stats); 
+        Set<NetworkTagDTO> tags = networkTagMapper.toNetworkTagDTO(networkTagService.findTagsToApplyForNetwork(id));
+        NetworkDetailsDTO response = networkMapper.toNetworkDetailsDTO(network, stats, tags); 
         return ok(response);
     }
     
