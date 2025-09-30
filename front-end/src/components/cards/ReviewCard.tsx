@@ -1,8 +1,9 @@
 import type React from "react";
 import { Rating } from "../misc/Rating";
 import { GoDotFill } from "react-icons/go";
-import { FaAngleDown, FaThumbsUp, FaTrash, FaUserSecret } from "react-icons/fa";
-import { IoIosReturnRight } from "react-icons/io";
+// import { FaAngleDown, FaThumbsUp, FaTrash, FaUserSecret } from "react-icons/fa";
+// import { IoIosReturnRight } from "react-icons/io";
+import { FaThumbsUp, FaTrash, FaUserSecret } from "react-icons/fa";
 import { Tag } from "../misc/Tag";
 import type { ReviewDisplayDTO } from "@/types/reviews/ReviewDisplayDTO";
 import Popup from "reactjs-popup";
