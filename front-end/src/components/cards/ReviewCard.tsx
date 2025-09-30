@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { backendI18N } from "@/i18n";
+import ReviewService from "@/services/ReviewService";
 
 interface ReviewCardProps {
     content: ReviewDisplayDTO
@@ -28,7 +29,8 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
     const { handleReviewDelete } = useNetworkHome();
     const [showMore, setShowMore] = useState<boolean>(false);
     const { t }  = useTranslation("network_tag", { i18n: backendI18N });
-    
+    const [liked, setLiked] = useState<boolean>(content.liked);
+
     const getRelativeDatenow = () => {
         const text = dayjs(new Date(content.createdAt)).fromNow(); 
         return text.charAt(0).toUpperCase() + text.slice(1);
@@ -124,7 +126,17 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
 
                 <div className="text-sm items-center flex flex-row gap-3">
                     <div className="flex flex-row gap-1 text-xs items-center">
-                        <FaThumbsUp className="hover:scale-110 transition-all cursor-pointer"/> 1.234
+                        <FaThumbsUp 
+                            className={`hover:scale-110 transition-all cursor-pointer ${liked && "text-blue-500"}`}
+                            onClick={
+                                () => {
+                                    liked ? 
+                                        ReviewService.unlikeReview({reviewId: content.id})
+                                        : 
+                                        ReviewService.likeReview({reviewId: content.id});
+                                    setLiked(!liked)
+                                }}
+                        /> {content.likesCount}
                     </div>
                     
                     <div className="text-sm text-blue-600 hover:bg-gray-900 px-2 py-1 w-fit rounded-full cursor-pointer">

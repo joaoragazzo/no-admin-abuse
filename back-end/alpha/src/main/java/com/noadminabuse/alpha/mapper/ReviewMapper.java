@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 public class ReviewMapper {
     
     private final NetworkTagMapper networkTagMapper;
+    private final UserMapper userMapper;
 
     public Review toReviewCreationEntity(ReviewCreationDTO dto, UUID authorUuid, UUID networkUuid) {
         Set<NetworkTag> tags = new HashSet<>();
@@ -40,15 +41,16 @@ public class ReviewMapper {
         );
     }
 
-    public ReviewDisplayDTO toReviewDisplayDTO(Review review, UserBasicInfoDTO author) {
+    public ReviewDisplayDTO toReviewDisplayDTO(Review review, UUID userId) {
         return new ReviewDisplayDTO(
             review.getId(),
-            author,
+            review.isAnonymous() ? null : userMapper.toUserBasicInfoDTO(review.getAuthor()),
             review.isAnonymous(),
             review.getText(),
             review.getRating(),
             review.getCreatedAt(),
-            review.getLikedByUsers().stream().anyMatch(user -> user.getId().equals(author.id())),
+            review.getLikedByUsers().stream().anyMatch(user -> user.getId().equals(userId)),
+            review.getLikedByUsers().size(),
             networkTagMapper.toNetworkTagDTO(review.getTags())
         );
     }

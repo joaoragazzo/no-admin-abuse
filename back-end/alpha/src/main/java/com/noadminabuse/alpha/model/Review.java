@@ -15,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,7 +51,7 @@ public class Review {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @OneToMany(mappedBy = "likedReviews")
+    @ManyToMany(mappedBy = "likedReviews")
     private Set<User> likedByUsers = new HashSet<>();
 
     @Column(nullable = false)

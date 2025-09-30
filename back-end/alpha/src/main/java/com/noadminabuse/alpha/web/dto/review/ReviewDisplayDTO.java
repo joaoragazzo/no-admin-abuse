@@ -15,5 +15,6 @@ public record ReviewDisplayDTO(
     Integer rating,
     Instant createdAt,
     boolean liked,
+    Integer likesCount,
     Set<NetworkTagDTO> tags
 ) {}

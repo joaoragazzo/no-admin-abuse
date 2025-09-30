@@ -36,4 +36,14 @@ const getReviewsStats = async ({networkId}:{networkId: string}): Promise<ReviewS
     return response.data;
 }
 
-export default { postReview, fetchReview, deleteReview, getReviewsStats };
+const likeReview = async ({reviewId}:{reviewId: string}): Promise<void> => {
+    const response = await api.post<void>(`/reviews/${reviewId}/like`);
+    return response.data;
+}
+
+const unlikeReview = async ({reviewId}:{reviewId: string}): Promise<void> => {
+    const response = await api.delete<void>(`/reviews/${reviewId}/like`);
+    return response.data;
+}
+
+export default { likeReview, unlikeReview, postReview, fetchReview, deleteReview, getReviewsStats };

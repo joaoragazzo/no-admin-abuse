@@ -8,5 +8,7 @@ export interface ReviewDisplayDTO {
     text: string,
     rating: number,
     createdAt: number,
+    liked: boolean,
+    likesCount: number,
     tags: NetworkTagDTO[]
 }

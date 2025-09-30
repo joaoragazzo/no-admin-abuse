@@ -27,6 +27,7 @@ import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -37,7 +38,6 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final NetworkRepository networkRepository;
     private final ReviewMapper reviewMapper;
-    private final UserMapper userMapper;
 
     public Review createReview(Review review) {
         if (
@@ -52,6 +52,7 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
+    @Transactional
     public void deleteReview(UUID reviewId, UUID userId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(
             () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
@@ -66,6 +67,7 @@ public class ReviewService {
         reviewRepository.deleteById(reviewId);
     }
 
+    @Transactional
     public void likeReview(UUID reviewId, UUID userId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(
             () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
@@ -79,10 +81,11 @@ public class ReviewService {
             () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
         );
 
+        user.getLikedReviews().add(review);
         review.getLikedByUsers().add(user);
-        reviewRepository.save(review);
     }
 
+    @Transactional
     public void unlikeReview(UUID reviewId, UUID userId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(
             () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
@@ -92,15 +95,19 @@ public class ReviewService {
             throw new Conflict(ReviewErrorMessage.REVIEW_NOT_LIKED_YET);
         }
 
-        review.getLikedByUsers().removeIf(user -> user.getId().equals(userId));
-        reviewRepository.save(review);
+        User user = userRepository.findById(userId).orElseThrow(
+            () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
+        );
+
+        review.getLikedByUsers().removeIf(_user -> _user.getId().equals(userId));
+        user.getLikedReviews().removeIf(_review -> _review.getId().equals(reviewId));
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
         Page<ReviewDisplayDTO> reviews = getReviewsPage(networkId, page, userId);
     
         ReviewDisplayDTO ownReview = reviewRepository.findByNetworkIdAndAuthorId(networkId, userId)
-            .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+            .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
             .orElse(null);
     
         return reviewMapper.toReviewDisplayResponse(ownReview, reviews);
@@ -115,7 +122,7 @@ public class ReviewService {
     public Optional<ReviewDisplayDTO> getUserNetworkReview(UUID networkId, UUID userId)  {
         return reviewRepository
             .findByNetworkIdAndAuthorId(networkId, userId)
-            .map((review) -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())));
+            .map((review) -> reviewMapper.toReviewDisplayDTO(review, userId));
     }
 
     public List<ReviewStatsDTO> getReviewStats(UUID networkId) {
@@ -137,21 +144,22 @@ public class ReviewService {
             review.rating(), 
             review.createdAt(),
             review.liked(),
+            review.likesCount(),
             review.tags()
         );
     }
 
-    private Page<ReviewDisplayDTO> getReviewsPage(UUID networkId, Integer page, UUID excludeUserId) {
+    private Page<ReviewDisplayDTO> getReviewsPage(UUID networkId, Integer page, UUID userId) {
         Pageable pageable = PageRequest.of(page, 10);
         
-        if (excludeUserId != null) {
-            return reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, excludeUserId, pageable)
-                .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+        if (userId != null) {
+            return reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, userId, pageable)
+                .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
                 .map(this::hideAnonymousReviews);
         }
 
         return reviewRepository.findByNetworkId(networkId, pageable)
-            .map(review -> reviewMapper.toReviewDisplayDTO(review, userMapper.toUserBasicInfoDTO(review.getAuthor())))
+            .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
             .map(this::hideAnonymousReviews);
     }
 
