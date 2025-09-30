@@ -53,4 +53,12 @@ public interface ReviewApi {
     @Operation(summary = "Deleta a avaliação recebida como parâmetro")
     @Parameter(name = "reviewId", description = "ID único da avaliação a ser deletada")
     public ApiResponseDTO<Void> deleteReview(@PathVariable UUID reviewId);
+
+    @Operation(summary = "Deleta a avaliação recebida como parâmetro")
+    @Parameter(name = "reviewId", description = "ID único da avaliação a ser deletada")
+    public ApiResponseDTO<Void> unlikeReview(@PathVariable UUID reviewId);
+    
+    @Operation(summary = "Adiciona um like a avaliação recebida como parâmetro")
+    @Parameter(name = "reviewId", description = "ID único da avaliação a ser deletada")
+    public ApiResponseDTO<Void> likeReview(@PathVariable UUID reviewId);
 }

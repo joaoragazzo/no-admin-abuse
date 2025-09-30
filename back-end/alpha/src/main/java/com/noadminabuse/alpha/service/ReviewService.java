@@ -14,12 +14,15 @@ import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.Unauthorized;
 import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
 import com.noadminabuse.alpha.errors.enums.ReviewErrorMessage;
+import com.noadminabuse.alpha.errors.enums.UserErrorMessage;
 import com.noadminabuse.alpha.mapper.ReviewMapper;
 import com.noadminabuse.alpha.mapper.UserMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.Review;
+import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.repository.NetworkRepository;
 import com.noadminabuse.alpha.repository.ReviewRepository;
+import com.noadminabuse.alpha.repository.UserRepository;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
@@ -31,6 +34,7 @@ import lombok.AllArgsConstructor;
 public class ReviewService {
     
     private final ReviewRepository reviewRepository;
+    private final UserRepository userRepository;
     private final NetworkRepository networkRepository;
     private final ReviewMapper reviewMapper;
     private final UserMapper userMapper;
@@ -60,6 +64,36 @@ public class ReviewService {
         
         updateStatsOnRemoveReview(networkId, review.getRating());
         reviewRepository.deleteById(reviewId);
+    }
+
+    public void likeReview(UUID reviewId, UUID userId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(
+            () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
+        );
+
+        if (review.getLikedByUsers().stream().anyMatch(user -> user.getId().equals(userId))) {
+            throw new Conflict(ReviewErrorMessage.REVIEW_ALREADY_LIKED);
+        }
+
+        User user = userRepository.findById(userId).orElseThrow(
+            () -> new NotFound(UserErrorMessage.USER_NOT_FOUND)
+        );
+
+        review.getLikedByUsers().add(user);
+        reviewRepository.save(review);
+    }
+
+    public void unlikeReview(UUID reviewId, UUID userId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(
+            () -> new NotFound(ReviewErrorMessage.REVIEW_NOT_FOUND)
+        );
+
+        if (review.getLikedByUsers().stream().noneMatch(user -> user.getId().equals(userId))) {
+            throw new Conflict(ReviewErrorMessage.REVIEW_NOT_LIKED_YET);
+        }
+
+        review.getLikedByUsers().removeIf(user -> user.getId().equals(userId));
+        reviewRepository.save(review);
     }
 
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, UUID userId, Integer page) {
@@ -102,6 +136,7 @@ public class ReviewService {
             review.text(), 
             review.rating(), 
             review.createdAt(),
+            review.liked(),
             review.tags()
         );
     }

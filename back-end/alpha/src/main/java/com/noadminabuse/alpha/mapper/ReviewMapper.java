@@ -48,6 +48,7 @@ public class ReviewMapper {
             review.getText(),
             review.getRating(),
             review.getCreatedAt(),
+            review.getLikedByUsers().stream().anyMatch(user -> user.getId().equals(author.id())),
             networkTagMapper.toNetworkTagDTO(review.getTags())
         );
     }

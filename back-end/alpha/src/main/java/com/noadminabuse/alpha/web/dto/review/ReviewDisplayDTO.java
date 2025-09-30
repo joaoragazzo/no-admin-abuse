@@ -1,7 +1,7 @@
 package com.noadminabuse.alpha.web.dto.review;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
@@ -14,5 +14,6 @@ public record ReviewDisplayDTO(
     String text,
     Integer rating,
     Instant createdAt,
-    List<NetworkTagDTO> tags
+    boolean liked,
+    Set<NetworkTagDTO> tags
 ) {}

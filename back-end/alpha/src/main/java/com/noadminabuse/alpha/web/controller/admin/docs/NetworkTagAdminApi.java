@@ -1,6 +1,6 @@
 package com.noadminabuse.alpha.web.controller.admin.docs;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ public interface NetworkTagAdminApi {
     public ApiResponseDTO<NetworkTagInfoDTO> createNewNetworkTag(@RequestBody  CreateNetworkTagDTO dto);
     
     @Operation(summary = "Retorna todas as tags de rede existentes")
-    public ApiResponseDTO<List<NetworkTagInfoDTO>> getAllTags();
+    public ApiResponseDTO<Set<NetworkTagInfoDTO>> getAllTags();
     
     @Operation(summary = "Remove uma tag de rede")
     @Parameters({

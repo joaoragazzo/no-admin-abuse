@@ -1,7 +1,7 @@
 package com.noadminabuse.alpha.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -26,8 +26,8 @@ public class NetworkTagMapper {
         );
     }
 
-    public List<NetworkTagInfoDTO> toNetworkTagInfoDTO(List<NetworkTag> entities) {
-        List<NetworkTagInfoDTO> result = new ArrayList<>();
+    public Set<NetworkTagInfoDTO> toNetworkTagInfoDTO(Set<NetworkTag> entities) {
+        HashSet<NetworkTagInfoDTO> result = new HashSet<>();
 
         for (NetworkTag entity : entities) {
             result.add(this.toNetworkTagInfoDTO(entity));
@@ -44,8 +44,8 @@ public class NetworkTagMapper {
         );
     }
 
-    public List<NetworkTagDTO> toNetworkTagDTO(List<NetworkTag> entities) {
-        List<NetworkTagDTO> result = new ArrayList<>();
+    public Set<NetworkTagDTO> toNetworkTagDTO(Set<NetworkTag> entities) {
+        Set<NetworkTagDTO> result = new HashSet<>();
 
         for (NetworkTag entity : entities) {
             result.add(this.toNetworkTagDTO(entity));

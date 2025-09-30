@@ -1,8 +1,7 @@
 package com.noadminabuse.alpha.model;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,6 +52,9 @@ public class Review {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @OneToMany(mappedBy = "likedReviews")
+    private Set<User> likedByUsers = new HashSet<>();
+
     @Column(nullable = false)
     private Instant createdAt;
 
@@ -61,7 +64,7 @@ public class Review {
         joinColumns = @JoinColumn(name = "review_id"),
         inverseJoinColumns = @JoinColumn(name = "networktag_id")
     )
-    private List<NetworkTag> tags = new ArrayList<>();
+    private Set<NetworkTag> tags = new HashSet<>();
 
     public Review(String text, Integer rating, boolean anonymous, User author, Network network, Set<NetworkTag> tags) {
         this.text = text;

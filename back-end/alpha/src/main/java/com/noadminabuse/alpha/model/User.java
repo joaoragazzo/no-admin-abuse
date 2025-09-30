@@ -20,6 +20,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -64,6 +66,14 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Review> reviews = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_liked_reviews",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "review_id")
+    )
+    private List<Review> likedReviews = new ArrayList<>();
 
     public User(String steamId, String username, String avatarUrl, Role role) {
         this.steamId = steamId;

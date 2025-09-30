@@ -16,13 +16,13 @@ import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
     
-    @EntityGraph(attributePaths = {"author"})
+    @EntityGraph(attributePaths = {"author", "tags", "likedByUsers"})
     Optional<Review> findByNetworkIdAndAuthorId(UUID networkId, UUID authorId);
 
-    @EntityGraph(attributePaths = {"author", "tags"})
+    @EntityGraph(attributePaths = {"author", "tags", "likedByUsers"})
     Page<Review> findByNetworkIdAndAuthorIdNot(UUID networkId, UUID authorId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"author"})
+    @EntityGraph(attributePaths = {"author", "tags", "likedByUsers"})
     Page<Review> findByNetworkId(UUID networkId, Pageable pageable);
 
     Boolean existsByIdAndAuthorId(UUID id, UUID authorId);

@@ -71,5 +71,19 @@ public class ReviewController extends BaseController implements ReviewApi {
         return success(ReviewMessage.REVIEW_SUCCESS_DELETED);
     }
 
+    @PostMapping("/like/{reviewId}")
+    public ApiResponseDTO<Void> likeReview(@PathVariable UUID reviewId) {
+        UUID userId = SecurityUtils.getCurrentUserId();
+        reviewService.likeReview(reviewId, userId);
+        return success(ReviewMessage.REVIEW_LIKED_REVIEW);
+    }
+
+    @DeleteMapping("/unlike/{reviewId}")
+    public ApiResponseDTO<Void> unlikeReview(@PathVariable UUID reviewId) {
+        UUID userId = SecurityUtils.getCurrentUserId();
+        reviewService.unlikeReview(reviewId, userId);
+        return success(ReviewMessage.REVIEW_UNLIKED_REVIEW);
+    }
+    
 
 }

@@ -41,7 +41,7 @@ public class DebugController extends BaseController {
         SuccessLoginDTO response = debugService.generateSteamLoginBySteamId("76561198118616961");
         return ok(response);
     }
-
+    
     @GetMapping("/roles")
     public ApiResponseDTO<String> getUserRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();  

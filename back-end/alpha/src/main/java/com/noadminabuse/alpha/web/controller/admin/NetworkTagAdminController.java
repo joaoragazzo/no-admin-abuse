@@ -15,7 +15,7 @@ import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagInfoDTO;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +42,8 @@ public class NetworkTagAdminController extends BaseController implements Network
     }
 
     @GetMapping("/")
-    public ApiResponseDTO<List<NetworkTagInfoDTO>> getAllTags() {
-        List<NetworkTag> tags = networkTagService.getAllTags();
+    public ApiResponseDTO<Set<NetworkTagInfoDTO>> getAllTags() {
+        Set<NetworkTag> tags = networkTagService.getAllTags();
         return ok(networkTagMapper.toNetworkTagInfoDTO(tags));
     }
 

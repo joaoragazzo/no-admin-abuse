@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -71,10 +72,10 @@ public class NetworkTagService {
 
     
 
-    public List<NetworkTag> getAllTags() {
+    public Set<NetworkTag> getAllTags() {
         //TODO: Make it pageable
         
-        return networkTagRepository.findAll();
+        return new HashSet<>(networkTagRepository.findAll());
     }
 
 }
