@@ -156,7 +156,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                     <div className="text-sm flex items-center gap-1.5 text-gray-400">
                         <IoIosReturnRight /> Resposta da equipe de administração
                     </div>
@@ -186,7 +186,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ content, editable=false 
 
                 <div className="text-sm mt-5 flex items-center gap-1 text-blue-600 w-fit rounded-full cursor-pointer">
                     <FaAngleDown /> 12 respostas
-                </div>
+                </div> */}
             </div>
         </div>
     );

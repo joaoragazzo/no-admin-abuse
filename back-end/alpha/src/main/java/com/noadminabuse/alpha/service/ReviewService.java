@@ -16,7 +16,6 @@ import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
 import com.noadminabuse.alpha.errors.enums.ReviewErrorMessage;
 import com.noadminabuse.alpha.errors.enums.UserErrorMessage;
 import com.noadminabuse.alpha.mapper.ReviewMapper;
-import com.noadminabuse.alpha.mapper.UserMapper;
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.Review;
 import com.noadminabuse.alpha.model.User;

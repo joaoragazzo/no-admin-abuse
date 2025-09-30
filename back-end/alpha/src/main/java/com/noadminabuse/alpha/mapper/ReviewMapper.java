@@ -14,7 +14,6 @@ import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
-import com.noadminabuse.alpha.web.dto.user.UserBasicInfoDTO;
 
 import lombok.AllArgsConstructor;
 
