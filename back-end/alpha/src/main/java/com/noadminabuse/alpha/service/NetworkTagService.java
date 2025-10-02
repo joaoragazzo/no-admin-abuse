@@ -27,7 +27,7 @@ public class NetworkTagService {
     private final GameRepository gameRepository;
     private final TranslationService translationService;
 
-    public NetworkTag createNewTag(String tagSlug, boolean isPositive, UUID gameId) {
+    public NetworkTag createTag(String tagSlug, boolean isPositive, UUID gameId) {
         if (networkTagRepository.findByTagSlug(tagSlug).isPresent()) {
             throw new Conflict(NetworkTagErrorMessage.NETWORK_TAG_ALREADY_EXISTS);
         }
@@ -37,8 +37,8 @@ public class NetworkTagService {
         );
 
         String treatedSlug = tagSlug.replace(" ", "_");
-
         NetworkTag tag = new NetworkTag(treatedSlug, isPositive, game);
+        
         translationService.createNewKey("network_tag", game.getSlug() + "." + treatedSlug);
         
         return networkTagRepository.save(tag);
