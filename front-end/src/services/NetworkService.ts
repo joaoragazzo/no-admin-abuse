@@ -2,6 +2,7 @@ import api from "@/config/axiosClient";
 import type { NetworkDetailsDTO } from "@/types/network/NetworkDetailsDTO";
 import type { NetworkDTO } from "@/types/network/NetworkDTO";
 import type { Pageable } from "@/types/Pageable";
+import type { ReviewDisplayResponseDTO } from "@/types/reviews/ReviewResponseDTO";
 
 const fetchAllNetworks = async (
     { 
@@ -34,4 +35,15 @@ const fetchNetworkDetails = async (
     return response.data;
 }
 
-export default { fetchNetworkDetails, fetchAllNetworks }
+const fetchReviews = async (
+    {networkId} : 
+    {
+        networkId: string
+    }
+): Promise<ReviewDisplayResponseDTO> => {
+    const response = await api.get<ReviewDisplayResponseDTO>(`/networks/${networkId}/reviews`);
+    return response.data;
+}
+
+
+export default { fetchNetworkDetails, fetchAllNetworks, fetchReviews }

@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @AllArgsConstructor
@@ -52,16 +51,6 @@ public class ReviewController extends BaseController implements ReviewApi {
         return success(ReviewMessage.REVIEW_SUCCESS_POSTED);
     }
 
-    @GetMapping("/{networkId}")
-    public ApiResponseDTO<ReviewDisplayResponseDTO> getReview(@PathVariable UUID networkId) {
-        
-        if (SecurityUtils.isLogged()) {
-            UUID userId = SecurityUtils.getCurrentUserId();
-            return ok(reviewService.getAllReviewsDisplay(networkId, userId, 0));
-        }
-
-        return ok(reviewService.getAllReviewsDisplay(networkId, 0));
-    }
 
     @DeleteMapping("/{reviewId}")
     public ApiResponseDTO<Void> deleteReview(@PathVariable UUID reviewId) {

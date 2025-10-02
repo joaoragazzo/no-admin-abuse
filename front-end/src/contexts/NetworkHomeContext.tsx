@@ -30,7 +30,7 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
     const onlinePlayersCount = networkDetails?.servers.reduce((sum, acc) => sum += acc.onlinePlayers, 0) ?? 0
 
     const fetchReview = async ({ networkId }:{networkId: string}) => {
-        const response = await ReviewService.fetchReview({ networkId: networkId });
+        const response = await NetworkService.fetchReviews({ networkId: networkId });
         setReviewsResponse(response)
     }
 
@@ -51,7 +51,7 @@ export const NetworkHomeProvider = ({ networkId, children } : {networkId: string
                     setLoading(false);
                 }).catch(_ => navigate("/"));
     
-            ReviewService.fetchReview({ networkId: networkId })
+            NetworkService.fetchReviews({ networkId: networkId })
                 .then(response => {
                     setReviewsResponse(response);
                 });

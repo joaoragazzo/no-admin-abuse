@@ -9,12 +9,14 @@ import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.service.NetworkService;
 import com.noadminabuse.alpha.service.NetworkTagService;
 import com.noadminabuse.alpha.service.ReviewService;
+import com.noadminabuse.alpha.utils.SecurityUtils;
 import com.noadminabuse.alpha.web.controller.docs.NetworkApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.dayz.SearchFilterDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkBannerDTO;
 import com.noadminabuse.alpha.web.dto.network.NetworkDetailsDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
+import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 
 import jakarta.validation.Valid;
@@ -42,8 +44,8 @@ public class NetworkController extends BaseController implements NetworkApi {
     private final NetworkTagService networkTagService;
     private final NetworkTagMapper networkTagMapper;
 
-    @GetMapping("/{id}")
-    public ApiResponseDTO<NetworkDetailsDTO> fetchNetworkDetails(@PathVariable("id") UUID id) {
+    @GetMapping("/{networkId}")
+    public ApiResponseDTO<NetworkDetailsDTO> fetchNetworkDetails(@PathVariable("networkId") UUID id) {
         Network network = networkService.fetchNetworkDetails(id);
         List<ReviewStatsDTO> stats = reviewService.getReviewStats(id); 
         Set<NetworkTagDTO> tags = networkTagMapper.toNetworkTagDTO(networkTagService.findTagsToApplyForNetwork(id));
@@ -65,7 +67,16 @@ public class NetworkController extends BaseController implements NetworkApi {
         return ok(response);
     }
 
+    @GetMapping("/{networkId}/reviews")
+    public ApiResponseDTO<ReviewDisplayResponseDTO> getReview(@PathVariable UUID networkId) {
+        
+        if (SecurityUtils.isLogged()) {
+            UUID userId = SecurityUtils.getCurrentUserId();
+            return ok(reviewService.getAllReviewsDisplay(networkId, userId, 0));
+        }
 
+        return ok(reviewService.getAllReviewsDisplay(networkId, 0));
+    }
     
 
 }
