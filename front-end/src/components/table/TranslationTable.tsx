@@ -16,7 +16,7 @@ export const TranslationTable: React.FC = () => {
 
   const tableData = translationTable.content.map((item, index) => {
     const row: any = {
-      key: index,
+      key: `${item.namespace}-${item.key}-${index}`,
       translationKey: item.key,
       namespace: item.namespace
     };
