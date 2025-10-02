@@ -14,7 +14,6 @@ import com.noadminabuse.alpha.utils.SecurityUtils;
 import com.noadminabuse.alpha.web.controller.docs.ReviewApi;
 import com.noadminabuse.alpha.web.dto.ApiResponseDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
-import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
