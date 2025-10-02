@@ -35,7 +35,7 @@ public class NetworkTagAdminController extends BaseController implements Network
 
     @PostMapping("/")
     public ApiResponseDTO<NetworkTagInfoDTO> createNewNetworkTag(@RequestBody  CreateNetworkTagDTO dto) {
-        NetworkTag tag = networkTagService.createNewTag(dto.slug(), dto.isPositive(), dto.gameId());
+        NetworkTag tag = networkTagService.createTag(dto.slug(), dto.isPositive(), dto.gameId());
         NetworkTagInfoDTO response = networkTagMapper.toNetworkTagInfoDTO(tag);
         
         return success(response, NetworkTagMessage.SUCCESS_CREATED_NETWORK_TAG);
