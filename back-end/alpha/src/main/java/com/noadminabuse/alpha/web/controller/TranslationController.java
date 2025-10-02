@@ -20,7 +20,7 @@ public class TranslationController extends BaseController implements Translation
     
     private final TranslationService translationService;
 
-    @GetMapping("/{namespace}/{key}")
+    @GetMapping("/{lang}/{namespace}")
     public ApiResponseDTO<Map<String,String>> getLanguage(@PathVariable String lang, @PathVariable String namespace) {
         return ok(translationService.getTranslation(lang, namespace));
     }  
