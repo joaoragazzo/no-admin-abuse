@@ -95,4 +95,5 @@ public class User {
             lastLoginAt = Instant.now();
         }
     }
+
 }
