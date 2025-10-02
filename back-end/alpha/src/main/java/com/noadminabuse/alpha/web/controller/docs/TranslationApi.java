@@ -17,7 +17,7 @@ public interface TranslationApi {
     @Operation(summary = "Retorna a tradução de um namespace")
     @Parameters({
         @Parameter(name = "lang", description = "Tag ISO 639"),
-        @Parameter(name = "key", description = "O namespace do idioma")
+        @Parameter(name = "namespace", description = "O namespace do idioma")
     })
-    public ApiResponseDTO<Map<String,String>> getLanguage(@PathVariable String lang, @PathVariable String key);
+    public ApiResponseDTO<Map<String,String>> getLanguage(@PathVariable String lang, @PathVariable String namespace);
 }
