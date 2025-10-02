@@ -21,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(
+    name = "translation",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = {"tKey", "lang"})
     }
