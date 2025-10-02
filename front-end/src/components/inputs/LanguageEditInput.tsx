@@ -16,13 +16,13 @@ export const LanguageEditInput: React.FC<LanguageEditInputProps> = ({ translatio
 
   return (
     <Space.Compact 
-      className="z-0 relative w-70"
+      className="z-0 relative"
     >
       <Input 
         value={initialValue}
         status={initialValue ? undefined : "warning"}
-        className="z-3"
         onChange={setInitialValue}
+        className="w-63"
         
       />
       <Button 

@@ -50,6 +50,7 @@ export const TranslationTable: React.FC = () => {
       title: lang.toUpperCase(),
       dataIndex: lang,
       key: lang,
+      width: 300,
       render: (translation: TranslationCellDTO) => 
           <LanguageEditInput translation={translation} />
           
@@ -63,7 +64,8 @@ export const TranslationTable: React.FC = () => {
       size="middle"
       scroll={{ x: 'max-content' }}
       loading={!translationTable}
-      pagination={false}
+      bordered
+      
     />
   )
 }

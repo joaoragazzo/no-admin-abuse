@@ -103,7 +103,7 @@ export const AdminTranslations: React.FC = () => {
         <div className="flex flex-row gap-3">
           <Select className="w-full" label="Namespace" placeholder={"Todos"} 
             options={[
-              {value: "joker", label: "Todos"},
+              {value: undefined, label: "Todos"},
               ...namespacesOptions
             ]}
             onChange={(c) => setTableFilter((prev) => ({...prev, namespace: c}))}

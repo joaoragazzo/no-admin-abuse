@@ -56,7 +56,6 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
 
     useEffect(() => {
         initialFetch();
-        
     },[])
 
     const handleTranslationUpdate = async (translation: TranslationUpdateDTO) => {
@@ -67,20 +66,19 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
     }
 
     useEffect(() => {
-        if (tableFilter.namespace) {            
-            if (tableFilter.namespace === "joker")
-                setTableDataExposed(translationTable);
-            else
-                setTableDataExposed(prev => {
-                    if (!prev) return null; 
-                    const result = translationTable?.content.filter(
-                        (content) => content.namespace === tableFilter.namespace
-                    ) ?? [];
-                    return {
-                        ...prev,
-                        content: result, 
-                    };
-                });
+        if (tableFilter.namespace) {                     
+            setTableDataExposed(prev => {
+                if (!prev) return null; 
+                const result = translationTable?.content.filter(
+                    (content) => content.namespace === tableFilter.namespace
+                ) ?? [];
+                return {
+                    ...prev,
+                    content: result, 
+                };
+            });
+        } else {
+            setTableDataExposed(translationTable);
         }
 
     },[tableFilter])
