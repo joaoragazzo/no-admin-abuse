@@ -4,7 +4,7 @@ import type { TranslationStatisticsDTO } from "@/types/translation/TranslationSt
 import type { TranslationTableDTO } from "@/types/translation/TranslationTableDTO";
 import type { TranslationTableFilter } from "@/types/translation/TranslationTableFilter";
 import type { TranslationUpdateDTO } from "@/types/translation/TranslationUpdateDTO";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface AdminTranslationType {
     statsLoading: boolean
@@ -31,7 +31,6 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
       completedTranslations: 0,
       pendingTranslations: 0,
     });
-    const [tableDataExposed, setTableDataExposed] = useState<TranslationTableDTO | null>(null);
     const [tableFilter, setTableFilter] = useState<TranslationTableFilter>({
         namespace: undefined,
         status: undefined,
@@ -39,7 +38,10 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
     }) 
     const [loading, setLoading] = useState(true);
     
-    const namespacesOptions: Option[] = translationTable?.namespaces.map((content) => ({label: <span className="!font-mono">{content}</span>, value: content})) || [];
+    const namespacesOptions: Option[] = translationTable?.namespaces.map((content) => ({
+        label: <span className="!font-mono">{content}</span>, 
+        value: content
+    })) || [];
 
     const initialFetch = async () => {
         setLoading(true);
@@ -49,7 +51,6 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
         ]);
 
         setTranslationTable(translationTable);
-        setTableDataExposed(translationTable);
         setTranslationStatistics(translationStatistics);
         setLoading(false);
     }
@@ -65,23 +66,36 @@ export const AdminTranslationContextProvider: React.FC<AdminTranslationContextPr
         );
     }
 
-    useEffect(() => {
-        if (tableFilter.namespace) {                     
-            setTableDataExposed(prev => {
-                if (!prev) return null; 
-                const result = translationTable?.content.filter(
-                    (content) => content.namespace === tableFilter.namespace
-                ) ?? [];
-                return {
-                    ...prev,
-                    content: result, 
-                };
-            });
-        } else {
-            setTableDataExposed(translationTable);
+    const tableDataExposed = useMemo(() => {
+        if (!translationTable) return null;
+
+        let filtered = translationTable.content;
+
+        if (tableFilter.namespace && tableFilter.namespace !== "") {
+            filtered = filtered.filter(
+                (content) => content.namespace === tableFilter.namespace
+            );
         }
 
-    },[tableFilter])
+        if (tableFilter.status) {
+            filtered = filtered.filter((content) => {
+                const allTranslations = Object.values(content.translations);
+                
+                if (tableFilter.status === 'FILLED') {
+                    return allTranslations.every(t => t.value !== null && t.value !== "");
+                } else if (tableFilter.status === 'EMPTY') {
+                    return allTranslations.some(t => t.value === null || t.value === "");
+                }
+                
+                return true;
+            });
+        }
+
+        return {
+            ...translationTable,
+            content: filtered,
+        };
+    }, [translationTable, tableFilter]);
 
     const value: AdminTranslationType = {
         statsLoading: loading,
@@ -109,4 +123,3 @@ export const useAdminTranslation = () => {
         throw new Error('useAdminTranslation must be used inside a provider');
     return context;
 }
-

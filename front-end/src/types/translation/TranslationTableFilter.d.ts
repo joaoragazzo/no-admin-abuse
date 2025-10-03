@@ -1,5 +1,5 @@
 export interface TranslationTableFilter {
     namespace?: string;
-    status?: "BLANK" | "FILLED";
+    status?: "EMPTY" | "FILLED";
     game?: string;
 }
