@@ -23,12 +23,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserAdminController extends BaseController {
     
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @GetMapping("/")
     public ApiResponseDTO<List<UserFullInfoDTO>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        List<UserFullInfoDTO> response = userMapper.toUserBasicInfoDTO(users);
+        List<UserFullInfoDTO> response = UserMapper.toUserBasicInfoDTO(users);
         return ok(response);
     }
         

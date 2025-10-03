@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.stereotype.Component;
-
 import com.noadminabuse.alpha.config.client.dto.battlemetrics.ServerData;
 import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.model.Country;
@@ -20,7 +18,9 @@ import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewStatsDTO;
 import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 
-@Component
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class NetworkMapper {
     
     public Server toServerEntity(ServerDTO serverDTO, Country country) {        
@@ -52,16 +52,16 @@ public class NetworkMapper {
     }
 
     public List<ServerDTO> toServerDTO(List<Server> entities) {
-        return entities.stream().map(this::toServerDTO).toList();
+        return entities.stream().map(NetworkMapper::toServerDTO).toList();
     }
 
     public NetworkCreationDTO toNetworkDTO(Network entity) {
-        List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
+        List<ServerDTO> serverDTOs = NetworkMapper.toServerDTO(entity.getServers());
         return new NetworkCreationDTO(entity.getId(), entity.getName(), serverDTOs);
     }
 
     public NetworkBannerDTO toNetworkBanner(Network entity) {
-        List<ServerDTO> serverDTOs = this.toServerDTO(entity.getServers());
+        List<ServerDTO> serverDTOs = NetworkMapper.toServerDTO(entity.getServers());
         return new NetworkBannerDTO(
             entity.getId(), 
             entity.getName(), 
@@ -72,11 +72,11 @@ public class NetworkMapper {
     }
 
     public List<NetworkCreationDTO> toNetworkDTO(List<Network> entities) {
-        return entities.stream().map(this::toNetworkDTO).toList();
+        return entities.stream().map(NetworkMapper::toNetworkDTO).toList();
     }
 
     public NetworkDetailsDTO toNetworkDetailsDTO(Network network, List<ReviewStatsDTO> stats, Set<NetworkTagDTO> tags) {
-        List<ServerDTO> servers = this.toServerDTO(network.getServers());
+        List<ServerDTO> servers = NetworkMapper.toServerDTO(network.getServers());
         
         return new NetworkDetailsDTO(
             network.getId(),

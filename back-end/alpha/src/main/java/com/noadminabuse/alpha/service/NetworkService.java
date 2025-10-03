@@ -33,15 +33,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class NetworkService {
     private final ServerRepository serverRepository;
-    private final CountryMapper countryMapper;
     private final NetworkRepository networkRepository;
-    private final NetworkMapper networkMapper;
     private final GameService gameService;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
-        Country country = countryMapper.toEntity(serverDTO.country());
+        Country country = CountryMapper.toEntity(serverDTO.country());
         
-        Server server = networkMapper.toServerEntity(serverDTO, country);
+        Server server = NetworkMapper.toServerEntity(serverDTO, country);
         Network network = networkRepository
             .findById(groupId)
             .orElseThrow(
@@ -57,7 +55,7 @@ public class NetworkService {
             .map(ServerDTO::country)
             .toList();
 
-        countryMapper.toEntity(countryCodes);
+        CountryMapper.toEntity(countryCodes);
         
         Network network = networkRepository
             .findById(groupId)
@@ -68,7 +66,7 @@ public class NetworkService {
         List<Server> servers = serverDTOs.stream().map(
             dto -> {
                 Country c = new Country(dto.country());
-                Server server = networkMapper.toServerEntity(dto, c);
+                Server server = NetworkMapper.toServerEntity(dto, c);
                 server.setNetwork(network);
                 return server;
             }
@@ -88,7 +86,7 @@ public class NetworkService {
             countryCodes.add(serverDTO.country());
         }
         
-        countryMapper.toEntity(countryCodes);
+        CountryMapper.toEntity(countryCodes);
 
         List<Server> servers = new ArrayList<>();
         for (ServerDTO dto : networkDTO.servers()) {
@@ -102,7 +100,7 @@ public class NetworkService {
                     return existing;
                 })
                 .orElseGet(() -> {
-                    Server newServer = networkMapper.toServerEntity(dto, country);
+                    Server newServer = NetworkMapper.toServerEntity(dto, country);
                     newServer.setNetwork(network);
                     return newServer;
                 });

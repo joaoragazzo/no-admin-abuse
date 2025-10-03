@@ -19,12 +19,10 @@ import com.noadminabuse.alpha.web.dto.server.ServerDTO;
 public class BattleMetricsScrapper {
     private final BattleMetricsClient battleMetricsClient;
     private final DayZServerParser dayZServerParser;
-    private final NetworkMapper networkMapper;
 
-    public BattleMetricsScrapper(BattleMetricsClient battleMetricsClient, NetworkMapper networkMapper) {
+    public BattleMetricsScrapper(BattleMetricsClient battleMetricsClient) {
         this.battleMetricsClient = battleMetricsClient;
         this.dayZServerParser = new DayZServerParser();
-        this.networkMapper = networkMapper;
     }
 
     public List<NetworkCreationDTO> run() {
@@ -59,7 +57,7 @@ public class BattleMetricsScrapper {
 
             for(ServerData serverData : networks.get(key)) {
                 List<DayZGameTags> tags = dayZServerParser.extractDayZGameTags(serverData.attributes().name());
-                ServerDTO serverDTO = networkMapper.toServerDTO(null, serverData, tags);
+                ServerDTO serverDTO = NetworkMapper.toServerDTO(null, serverData, tags);
                 servers.add(serverDTO);
             }
 

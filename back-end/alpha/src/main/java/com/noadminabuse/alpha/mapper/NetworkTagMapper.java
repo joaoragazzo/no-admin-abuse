@@ -3,14 +3,14 @@ package com.noadminabuse.alpha.mapper;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.stereotype.Component;
-
 import com.noadminabuse.alpha.model.NetworkTag;
 import com.noadminabuse.alpha.web.dto.game.GameInfoDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagDTO;
 import com.noadminabuse.alpha.web.dto.networkTags.NetworkTagInfoDTO;
 
-@Component
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class NetworkTagMapper {
     
     public NetworkTagInfoDTO toNetworkTagInfoDTO(NetworkTag entity) {
@@ -30,7 +30,7 @@ public class NetworkTagMapper {
         HashSet<NetworkTagInfoDTO> result = new HashSet<>();
 
         for (NetworkTag entity : entities) {
-            result.add(this.toNetworkTagInfoDTO(entity));
+            result.add(NetworkTagMapper.toNetworkTagInfoDTO(entity));
         }
 
         return result;
@@ -48,7 +48,7 @@ public class NetworkTagMapper {
         Set<NetworkTagDTO> result = new HashSet<>();
 
         for (NetworkTag entity : entities) {
-            result.add(this.toNetworkTagDTO(entity));
+            result.add(NetworkTagMapper.toNetworkTagDTO(entity));
         }
         return result;
     }

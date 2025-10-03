@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 
 import com.noadminabuse.alpha.model.Network;
 import com.noadminabuse.alpha.model.NetworkTag;
@@ -15,14 +14,11 @@ import com.noadminabuse.alpha.web.dto.review.ReviewCreationDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayDTO;
 import com.noadminabuse.alpha.web.dto.review.ReviewDisplayResponseDTO;
 
-import lombok.AllArgsConstructor;
+import lombok.experimental.UtilityClass;
 
-@Component
-@AllArgsConstructor
+@UtilityClass
 public class ReviewMapper {
     
-    private final NetworkTagMapper networkTagMapper;
-    private final UserMapper userMapper;
 
     public Review toReviewCreationEntity(ReviewCreationDTO dto, UUID authorUuid, UUID networkUuid) {
         Set<NetworkTag> tags = new HashSet<>();
@@ -43,14 +39,14 @@ public class ReviewMapper {
     public ReviewDisplayDTO toReviewDisplayDTO(Review review, UUID userId) {
         return new ReviewDisplayDTO(
             review.getId(),
-            review.isAnonymous() ? null : userMapper.toUserBasicInfoDTO(review.getAuthor()),
+            review.isAnonymous() ? null : UserMapper.toUserBasicInfoDTO(review.getAuthor()),
             review.isAnonymous(),
             review.getText(),
             review.getRating(),
             review.getCreatedAt(),
             review.getLikedByUsers().stream().anyMatch(user -> user.getId().equals(userId)),
             review.getLikedByUsers().size(),
-            networkTagMapper.toNetworkTagDTO(review.getTags())
+            NetworkTagMapper.toNetworkTagDTO(review.getTags())
         );
     }
 

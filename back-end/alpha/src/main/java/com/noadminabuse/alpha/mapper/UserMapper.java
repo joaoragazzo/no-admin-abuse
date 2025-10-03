@@ -3,13 +3,14 @@ package com.noadminabuse.alpha.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 
 import com.noadminabuse.alpha.model.User;
 import com.noadminabuse.alpha.web.dto.user.UserBasicInfoDTO;
 import com.noadminabuse.alpha.web.dto.user.UserFullInfoDTO;
 
-@Component
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class UserMapper {
     
     public UserBasicInfoDTO toUserBasicInfoDTO(User user) {

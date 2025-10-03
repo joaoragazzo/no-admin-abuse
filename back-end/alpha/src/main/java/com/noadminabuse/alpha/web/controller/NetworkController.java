@@ -40,16 +40,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class NetworkController extends BaseController implements NetworkApi {
     private final NetworkService networkService;
     private final ReviewService reviewService;
-    private final NetworkMapper networkMapper;
     private final NetworkTagService networkTagService;
-    private final NetworkTagMapper networkTagMapper;
 
     @GetMapping("/{networkId}")
     public ApiResponseDTO<NetworkDetailsDTO> fetchNetworkDetails(@PathVariable("networkId") UUID id) {
         Network network = networkService.fetchNetworkDetails(id);
         List<ReviewStatsDTO> stats = reviewService.getReviewStats(id); 
-        Set<NetworkTagDTO> tags = networkTagMapper.toNetworkTagDTO(networkTagService.findTagsToApplyForNetwork(id));
-        NetworkDetailsDTO response = networkMapper.toNetworkDetailsDTO(network, stats, tags); 
+        Set<NetworkTagDTO> tags = NetworkTagMapper.toNetworkTagDTO(networkTagService.findTagsToApplyForNetwork(id));
+        NetworkDetailsDTO response = NetworkMapper.toNetworkDetailsDTO(network, stats, tags); 
         return ok(response);
     }
     
@@ -63,7 +61,7 @@ public class NetworkController extends BaseController implements NetworkApi {
             filter.region(),
             filter.gameSlug()
         );
-        Page<NetworkBannerDTO> response = networks.map(networkMapper::toNetworkBanner);
+        Page<NetworkBannerDTO> response = networks.map(NetworkMapper::toNetworkBanner);
         return ok(response);
     }
 

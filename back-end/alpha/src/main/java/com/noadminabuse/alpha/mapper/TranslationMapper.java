@@ -3,13 +3,13 @@ package com.noadminabuse.alpha.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.noadminabuse.alpha.model.Translation;
 import com.noadminabuse.alpha.web.dto.translation.TranslationDetailsDTO;
 
+import lombok.experimental.UtilityClass;
 
-@Component
+
+@UtilityClass
 public class TranslationMapper {
     
     public TranslationDetailsDTO toDTO(Translation entity) {
@@ -21,7 +21,7 @@ public class TranslationMapper {
         List<TranslationDetailsDTO> translations = new ArrayList<>();
 
         for (Translation translation : entities) {
-            translations.add(this.toDTO(translation));
+            translations.add(TranslationMapper.toDTO(translation));
         }
 
         return translations;

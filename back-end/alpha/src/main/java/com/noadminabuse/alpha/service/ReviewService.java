@@ -36,7 +36,6 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final NetworkRepository networkRepository;
-    private final ReviewMapper reviewMapper;
 
     public Review createReview(Review review) {
         if (
@@ -106,22 +105,22 @@ public class ReviewService {
         Page<ReviewDisplayDTO> reviews = getReviewsPage(networkId, page, userId);
     
         ReviewDisplayDTO ownReview = reviewRepository.findByNetworkIdAndAuthorId(networkId, userId)
-            .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
+            .map(review -> ReviewMapper.toReviewDisplayDTO(review, userId))
             .orElse(null);
     
-        return reviewMapper.toReviewDisplayResponse(ownReview, reviews);
+        return ReviewMapper.toReviewDisplayResponse(ownReview, reviews);
     }
     
     public ReviewDisplayResponseDTO getAllReviewsDisplay(UUID networkId, Integer page) {
         Page<ReviewDisplayDTO> reviews = getReviewsPage(networkId, page, null);
     
-        return reviewMapper.toReviewDisplayResponse(null, reviews);
+        return ReviewMapper.toReviewDisplayResponse(null, reviews);
     }
 
     public Optional<ReviewDisplayDTO> getUserNetworkReview(UUID networkId, UUID userId)  {
         return reviewRepository
             .findByNetworkIdAndAuthorId(networkId, userId)
-            .map((review) -> reviewMapper.toReviewDisplayDTO(review, userId));
+            .map((review) -> ReviewMapper.toReviewDisplayDTO(review, userId));
     }
 
     public List<ReviewStatsDTO> getReviewStats(UUID networkId) {
@@ -153,12 +152,12 @@ public class ReviewService {
         
         if (userId != null) {
             return reviewRepository.findByNetworkIdAndAuthorIdNot(networkId, userId, pageable)
-                .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
+                .map(review -> ReviewMapper.toReviewDisplayDTO(review, userId))
                 .map(this::hideAnonymousReviews);
         }
 
         return reviewRepository.findByNetworkId(networkId, pageable)
-            .map(review -> reviewMapper.toReviewDisplayDTO(review, userId))
+            .map(review -> ReviewMapper.toReviewDisplayDTO(review, userId))
             .map(this::hideAnonymousReviews);
     }
 

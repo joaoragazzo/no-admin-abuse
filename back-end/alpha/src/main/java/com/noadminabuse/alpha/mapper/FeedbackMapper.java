@@ -1,12 +1,12 @@
 package com.noadminabuse.alpha.mapper;
 
-import org.springframework.stereotype.Component;
-
 import com.noadminabuse.alpha.enums.FeedbackType;
 import com.noadminabuse.alpha.messages.Feedback;
 import com.noadminabuse.alpha.web.dto.MessageDTO;
 
-@Component
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class FeedbackMapper {
     
     public MessageDTO error(String message) {

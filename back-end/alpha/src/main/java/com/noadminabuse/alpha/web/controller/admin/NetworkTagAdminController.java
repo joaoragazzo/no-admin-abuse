@@ -31,12 +31,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/admin/networktags")
 public class NetworkTagAdminController extends BaseController implements NetworkTagAdminApi {
     private final NetworkTagService networkTagService;
-    private final NetworkTagMapper networkTagMapper;
 
     @PostMapping("/")
     public ApiResponseDTO<NetworkTagInfoDTO> createNewNetworkTag(@RequestBody  CreateNetworkTagDTO dto) {
         NetworkTag tag = networkTagService.createTag(dto.slug(), dto.isPositive(), dto.gameId());
-        NetworkTagInfoDTO response = networkTagMapper.toNetworkTagInfoDTO(tag);
+        NetworkTagInfoDTO response = NetworkTagMapper.toNetworkTagInfoDTO(tag);
         
         return success(response, NetworkTagMessage.SUCCESS_CREATED_NETWORK_TAG);
     }
@@ -44,7 +43,7 @@ public class NetworkTagAdminController extends BaseController implements Network
     @GetMapping("/")
     public ApiResponseDTO<Set<NetworkTagInfoDTO>> getAllTags() {
         Set<NetworkTag> tags = networkTagService.getAllTags();
-        return ok(networkTagMapper.toNetworkTagInfoDTO(tags));
+        return ok(NetworkTagMapper.toNetworkTagInfoDTO(tags));
     }
 
     @DeleteMapping("/{gameId}/{tagId}")

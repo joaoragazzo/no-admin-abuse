@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 @RequestMapping("/reviews")
 public class ReviewController extends BaseController implements ReviewApi {
     private final ReviewService reviewService;
-    private final ReviewMapper reviewMapper;
     private final NetworkService networkService;
     private final NetworkTagService networkTagService;
     
@@ -44,7 +43,7 @@ public class ReviewController extends BaseController implements ReviewApi {
         Game game = networkService.fetchNetworkDetails(networkId).getGame();
         networkTagService.ensureAllTagsExists(dto.tags(), game.getId());
         
-        Review review = reviewMapper.toReviewCreationEntity(dto, authorId, networkId);
+        Review review = ReviewMapper.toReviewCreationEntity(dto, authorId, networkId);
         reviewService.createReview(review);
         
         return success(ReviewMessage.REVIEW_SUCCESS_POSTED);

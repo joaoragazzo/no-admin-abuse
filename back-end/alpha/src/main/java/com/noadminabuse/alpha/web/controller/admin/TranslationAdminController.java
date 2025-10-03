@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/admin/i18n")
 public class TranslationAdminController extends BaseController implements TranslationAdminApi {
     private final TranslationService translationService;
-    private final TranslationMapper translationMapper;
 
     @GetMapping
     public ApiResponseDTO<TranslationTableDTO> getTranslationTable() {
@@ -47,7 +46,7 @@ public class TranslationAdminController extends BaseController implements Transl
             dto.value()
         );
 
-        return success(translationMapper.toDTO(newTranslation), TranslationMessage.TRANSLATION_SUCCESS_SAVED);
+        return success(TranslationMapper.toDTO(newTranslation), TranslationMessage.TRANSLATION_SUCCESS_SAVED);
     }
 
     @PostMapping("/create/{lang}")

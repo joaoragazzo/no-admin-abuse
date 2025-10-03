@@ -2,18 +2,17 @@ package com.noadminabuse.alpha.mapper;
 
 import java.util.Map;
 
-
-import org.springframework.stereotype.Component;
-
 import com.noadminabuse.alpha.enums.CountryCode;
 import com.noadminabuse.alpha.enums.Region;
 import com.noadminabuse.alpha.model.Country;
+
+import lombok.experimental.UtilityClass;
 
 import static java.util.Map.entry;
 
 import java.util.List;
 
-@Component
+@UtilityClass
 public class CountryMapper {
 
     private static final Map<CountryCode, Region> MAPPING = Map.ofEntries(
@@ -235,7 +234,7 @@ public class CountryMapper {
     public List<Country> toEntity(List<CountryCode> codes) {
         return codes.stream()
             .distinct()
-            .map(this::toEntity)
+            .map(CountryMapper::toEntity)
             .toList();
     }
 
