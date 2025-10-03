@@ -15,6 +15,7 @@ import com.noadminabuse.alpha.enums.Region;
 import com.noadminabuse.alpha.enums.dayz.DayZGameTags;
 import com.noadminabuse.alpha.errors.NotFound;
 import com.noadminabuse.alpha.errors.enums.NetworkErrorMessage;
+import com.noadminabuse.alpha.mapper.CountryMapper;
 import com.noadminabuse.alpha.mapper.NetworkMapper;
 import com.noadminabuse.alpha.model.Country;
 import com.noadminabuse.alpha.model.Game;
@@ -32,13 +33,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class NetworkService {
     private final ServerRepository serverRepository;
-    private final CountryService countryService;
+    private final CountryMapper countryMapper;
     private final NetworkRepository networkRepository;
     private final NetworkMapper networkMapper;
     private final GameService gameService;
 
     public Server createServer(UUID groupId, ServerDTO serverDTO) {
-        Country country = countryService.findOrCreate(serverDTO.country());
+        Country country = countryMapper.toEntity(serverDTO.country());
         
         Server server = networkMapper.toServerEntity(serverDTO, country);
         Network network = networkRepository
@@ -56,7 +57,7 @@ public class NetworkService {
             .map(ServerDTO::country)
             .toList();
 
-        countryService.findOrCreate(countryCodes);
+        countryMapper.toEntity(countryCodes);
         
         Network network = networkRepository
             .findById(groupId)
@@ -87,7 +88,7 @@ public class NetworkService {
             countryCodes.add(serverDTO.country());
         }
         
-        countryService.findOrCreate(countryCodes);
+        countryMapper.toEntity(countryCodes);
 
         List<Server> servers = new ArrayList<>();
         for (ServerDTO dto : networkDTO.servers()) {
