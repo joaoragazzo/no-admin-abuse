@@ -5,9 +5,14 @@ import { RatedServer } from "../components/cards/RatedServer";
 import { FaShieldAlt, FaSkull } from "react-icons/fa";
 import { EulaPopup } from "@/components/popups/EulaPopup";
 import { Button } from "antd";
+import { useEffect } from "react";
 
 export const Home: React.FC = () => {
   
+  useEffect(() => {
+    document.title = `No Admin Abuse`;
+  }, []);
+
     return (
     <>
         <Section className="py-20 bg-[url('/topography.svg')] bg-repeat bg-center bg-[length:500px] flex justify-center">

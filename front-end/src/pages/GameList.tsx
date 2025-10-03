@@ -8,6 +8,10 @@ export const GameList: React.FC = () => {
   const [gameList, setGameList] = useState<GameBannerDTO[]>([]);
   
   useEffect(() => {
+    document.title = `Jogos | No Admin Abuse`;
+  }, []);
+
+  useEffect(() => {
     GameService.fetchAllGames().then(res => setGameList(res));
   },[]);
 

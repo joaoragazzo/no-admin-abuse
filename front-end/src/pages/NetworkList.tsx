@@ -57,6 +57,10 @@ export const NetworkList: React.FC = () => {
         setCurrentPage(1);
     }, [activeTags, searchText, region]);
 
+    useEffect(() => {
+        document.title = `${getGameName(game)} | No Admin Abuse`;
+    }, [game]);
+
     const debouncedSearch = useDebounce(searchText, 500);
     const { data: serverList, isLoading } = useQuery<Pageable<NetworkDTO>>({
     queryKey: ["servers", currentPage, activeTags, debouncedSearch, region],

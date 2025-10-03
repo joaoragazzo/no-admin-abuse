@@ -1,7 +1,7 @@
 import { NetworkServer } from "@/components/cards/NetworkBanners/NetworkServer";
 import { Card } from "@/components/template/Card";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { FaAngleDown, FaAngleUp, FaArrowUp, FaCheck, FaDiscord, FaFile, FaGlobe, FaInfoCircle, FaInstagram, FaLink, FaServer, FaStar, FaTags, FaYoutube } from "react-icons/fa";
 import { FaUserGroup, FaX } from "react-icons/fa6";
@@ -21,19 +21,32 @@ export const NetworkHome: React.FC = () => {
     const [ visibleCount, setVisibleCount ] = useState<number>(3);
     const { t } = useTranslation("network_tag", { i18n: backendI18N });
 
+    useEffect(() => {
+        document.title = `Carregando... | No Admin Abuse`;
+    }, []);
+
+    useEffect(() => {
+        if (!loading && !networkDetails) {
+            navigate("/");
+        }
+    }, [loading, networkDetails, navigate]);
+
+    useEffect(() => {
+        if (networkDetails) {
+            document.title = `${networkDetails.name} | No Admin Abuse`;
+        }
+    }, [networkDetails]);
+
     if (loading) {
-        return ( 
-        <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
-            <Loading>
-                Carregando informações
-            </Loading>
-        </div>
-        )
+        return (
+            <div className="bg-gray-950 py-20 flex flex-row justify-center items-center">
+                <Loading>Carregando informações</Loading>
+            </div>
+        );
     }
 
     if (!networkDetails) {
-        navigate("/"); 
-        return;
+        return null;
     }
 
     const handleReviewStats = (n: number) => {
