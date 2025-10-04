@@ -6,7 +6,7 @@ import Table from "antd/es/table";
 import { useEffect, useState } from "react";
 import UserService from "@/services/UserService";
 import { Avatar, Tooltip } from "antd";
-import { FaEdit, FaEye, FaLock } from "react-icons/fa";
+import { FaEdit, FaEye, FaLock, FaUsers } from "react-icons/fa";
 import { Tag } from "@/components/misc/Tag";
 import { useTranslation } from "react-i18next";
 import { localI18N } from "@/i18n";
@@ -114,7 +114,12 @@ export const AdminUsers: React.FC = () => {
     },[])
 
     return <>
-        <PageTitle main="Lista de " emphasis="Usuários"/>
+        <PageTitle 
+            main="Lista de " 
+            emphasis="Usuários"
+            description="Gerencie os usuários registrados na plataforma."
+            Icon={FaUsers}
+        />
         <Table columns={dataColumns} dataSource={users} loading={isDataLoading}/>
 
     </>

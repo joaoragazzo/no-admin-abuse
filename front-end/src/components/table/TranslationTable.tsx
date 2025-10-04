@@ -137,13 +137,13 @@ export const TranslationTable: React.FC = () => {
     ];
 
     return (
-        <Table
-            columns={columns}
-            dataSource={tableData}
-            size="middle"
-            scroll={{ x: 'max-content' }}
-            loading={!translationTable}
-            bordered
-        />
+      <Table
+        columns={columns}
+        dataSource={tableData}
+        size="middle"
+        scroll={{ x: 'max-content' }}
+        loading={!translationTable}
+        bordered
+      />
     )
 }

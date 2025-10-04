@@ -8,7 +8,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { NetworkTagInfoDTO } from "@/types/networkTag/NetworkTagInfoDTO";
 import NetworkTagService from "@/services/NetworkTagService";
 import { Tag } from "@/components/misc/Tag";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaEdit, FaEye, FaTag, FaTags, FaTrash } from "react-icons/fa";
 
 const dataColums: ColumnsType<NetworkTagInfoDTO> = [
     {
@@ -77,6 +77,8 @@ export const AdminNetworkTags: React.FC = () => {
             <PageTitle 
                 main="Configurações de"
                 emphasis="Tags de Redes"
+                description="Gerencie as tags de redes utilizadas para categorizar servidores."
+                Icon={FaTags}
             /> 
     
             <div className="w-full gap-5 flex flex-col">
