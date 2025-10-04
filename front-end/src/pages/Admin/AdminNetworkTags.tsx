@@ -8,7 +8,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { NetworkTagInfoDTO } from "@/types/networkTag/NetworkTagInfoDTO";
 import NetworkTagService from "@/services/NetworkTagService";
 import { Tag } from "@/components/misc/Tag";
-import { FaEdit, FaEye, FaTag, FaTags, FaTrash } from "react-icons/fa";
+import { FaEdit, FaEye, FaTags, FaTrash } from "react-icons/fa";
 
 const dataColums: ColumnsType<NetworkTagInfoDTO> = [
     {
