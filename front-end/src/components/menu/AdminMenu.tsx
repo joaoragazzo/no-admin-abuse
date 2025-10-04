@@ -7,7 +7,7 @@ import {
     FaServer, 
     FaSitemap, 
     FaSpider, 
-    FaTag, 
+    FaTags, 
     FaUsers 
 } from "react-icons/fa"
 import { FaMessage, FaShield } from "react-icons/fa6"
@@ -39,7 +39,7 @@ const items: MenuProps['items'] = [
     },
     {
         key: '/admin/tags',
-        icon: <FaTag />,
+        icon: <FaTags />,
         label: 'Tags',
     },
     {
