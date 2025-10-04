@@ -88,6 +88,7 @@ export const AdminNetworkTags: React.FC = () => {
                             type="primary"
                             icon={<FaCirclePlus/>}
                             onClick={() => {setIsModalOpen(true)}}
+                            className="ishadow-m bg-gradient-to-br from-blue-700 to-blue-800 hover:from-blue-600 hover:to-blue-700 transition-all duration-300"
                         >
                             Criar nova Tag de Rede
                         </Button>
