@@ -15,7 +15,7 @@ interface GameCardProps {
 
 export const GameCard: React.FC<GameCardProps> = ({ id, gameName, networkCount, serverCount, ratingCount, bgImage}) => {
     return (
-        <div className="hover:translate-y-[-3px] transition-transform duration-200 rounded-xl bg-neutral-950 border-1 border-neutral-700 overflow-hidden flex flex-col justify-between">
+        <div className="hover:translate-y-[-3px] transition-transform duration-200 rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-950 ishadow-l overflow-hidden flex flex-col justify-between">
             <div
                 className="w-full h-40 bg-cover bg-center rounded-t"
                 style={{ backgroundImage: `url('/${bgImage}')` }}

@@ -5,14 +5,12 @@ import { FaStar } from "react-icons/fa";
 interface RatingProps {
   rating: number;
   size?: number;
-  editable?: boolean;
   onChange?: (newRating: number) => void;
 }
 
 export const Rating: React.FC<RatingProps> = ({
   rating,
   size = 16,
-  editable = false,
   onChange,
 }) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
@@ -20,7 +18,7 @@ export const Rating: React.FC<RatingProps> = ({
   const displayedRating = hoverRating ?? rating;
 
   const handleClick = (i: number) => {
-    if (!editable) return;
+    if (!onChange) return;
     onChange?.(i + 1); 
   };
 
@@ -39,12 +37,12 @@ export const Rating: React.FC<RatingProps> = ({
                 "cursor-pointer": onChange
             })}
             onClick={() => handleClick(i)}
-            onMouseEnter={() => editable && setHoverRating(i + 1)}
-            onMouseLeave={() => editable && setHoverRating(null)}
+            onMouseEnter={() => onChange && setHoverRating(i + 1)}
+            onMouseLeave={() => onChange && setHoverRating(null)}
           />
         );
       })}
-      <span className="ml-1">{rating}</span>
+      <span className="ml-1 text-sm font-semibold">{rating}</span>
     </div>
   );
 };

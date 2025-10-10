@@ -18,18 +18,18 @@ export const NetworkHeader: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-2.5 w-full">
                     <div className="flex flex-row justify-between items-center">
-                        <h2 className="font-extrabold sm:text-3xl text-2xl">
+                        <h2 className="font-extrabold sm:text-3xl text-2xl text-neutral-100">
                             {networkDetails?.name}
                         </h2>
                         <h2 
                             onClick={() => {navigate(-1)}}
-                            className="font-bold text-1xl flex items-center gap-2 cursor-pointer text-white hover:scale-102 transition-all">
+                            className="text-neutral-300 hover:text-white font-bold text-1xl flex items-center gap-2 cursor-pointer hover:scale-102 transition-all">
                             Voltar <FaArrowRight />
                         </h2>
                     </div>
                     
                     
-                    <div className="flex flex-row gap-4 text-sm">
+                    <div className="flex flex-row gap-4 text-sm text-neutral-300">
                         <div className="sm:flex flex-row gap-3">
                             <Rating rating={networkDetails!.reviewsAvg}/>
                             <div className="hidden sm:flex">

@@ -15,7 +15,7 @@ interface RatedServerProps {
 
 export const RatedServer: React.FC<RatedServerProps> = ({ serverName, serverIcon, online, description, badTags, goodTags, rating }) => {
     return (
-        <div className="h-full border-1 border-gray-500/100 rounded-md p-5 flex flex-col justify-between gap-5">
+        <div className="h-full ishadow-l bg-gradient-to-br from-neutral-900 to-neutral-950 hover:translate-y-[-3px] transition-all rounded-md p-5 flex flex-col justify-between gap-5">
             <div className="flex flex-col gap-5">
                 {/* Cabeçalho */}
                 <div className="flex flex-row gap-5 items-center">

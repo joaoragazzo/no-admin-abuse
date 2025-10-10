@@ -50,7 +50,7 @@ export const AdminTranslations: React.FC = () => {
         {statsCards.map((card, index) => (
           <div
             key={index}
-            className="relative ishadow-s bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 rounded-xl p-4 hover:border-neutral-600/50 transition-all duration-300 group overflow-hidden"
+            className="relative bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 rounded-xl p-4 hover:border-neutral-600/50 transition-all duration-300 group overflow-hidden"
           >            
             <div className="relative z-10">
               <h3 className="text-gray-400 text-sm font-medium mb-2">
@@ -72,7 +72,7 @@ export const AdminTranslations: React.FC = () => {
       </div>
 
       {translationTable && !statsLoading && (
-        <div className="rounded-lg p-4 mb-6 ishadow-s bg-gradient-to-br from-neutral-800/80 to-neutral-900/50">
+        <div className="rounded-lg p-4 mb-6 bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-white font-semibold mb-1">Resumo</h3>
@@ -80,9 +80,9 @@ export const AdminTranslations: React.FC = () => {
                 {translationStatistics.totalKeys} chaves • {translationTable.langs.length} idiomas • {completionPercentage}% concluído
               </p>
             </div>
-            <div className="w-64 py-2 px-1 items-center flex shadow-inner shadow-black/35 bg-neutral-700 rounded-full h-2">
+            <div className="w-80 py-2 px-1 items-center flex shadow-inner shadow-black/35 bg-neutral-800 rounded-full h-2">
               <div
-                className="bg-green-600 ishadow-l h-2 rounded-full transition-all duration-500"
+                className="bg-green-600 ishadow-s h-2 rounded-full transition-all duration-500"
                 style={{ width: `${completionPercentage}%` }}
               ></div>
             </div>
@@ -106,7 +106,7 @@ export const AdminTranslations: React.FC = () => {
         </div>
       )}
 
-      <div className="ishadow-s p-4 mb-6 rounded-lg flex flex-col bg-gradient-to-br from-neutral-800/40 to-neutral-900">
+      <div className="p-4 mb-6 rounded-lg flex flex-col bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800">
         <h3 className="font-semibold mb-2">Filtros</h3>
         <div className="flex flex-row gap-3">
           <Select className="w-full" label="Namespace" placeholder={"Todos"} 

@@ -20,7 +20,11 @@ createRoot(document.getElementById('root')!).render(
             Layout: {
               triggerBg: "#101010",
               siderBg: "#141414"
-            }
+            },
+            Switch: {
+              colorPrimary: '#2563eb',
+              colorBgContainer: '#262626'
+            },
           }
         }}
       >

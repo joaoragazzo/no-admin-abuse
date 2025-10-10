@@ -16,13 +16,13 @@ export const NetworkServer: React.FC<NetworkServerProps> = ({ server }) => {
     const { t: tagsTranslation } = useTranslation('tags');
 
     return (
-        <div className="flex flex-col bg-neutral-900/50 px-4 py-3 text-sm rounded-md text-gray-200 min-h-23">
+        <div className="flex flex-col border-1 border-neutral-500/40 bg-neutral-950/80 px-4 py-3 text-sm rounded-md text-gray-200 min-h-23">
             <div className="flex flex-col md:flex-row gap-1n justify-between">
                 <div className="font-bold line-clamp-1">
                     {server.name}
                 </div>
                 <div className="flex flex-row gap-4">
-                    <div className="text-blue-100 flex flex-col gap-1 font-bold text-nowrap">
+                    <div className="flex flex-col gap-1 font-bold text-nowrap">
                         <div className="flex flex-row items-center order-first gap-2 h-fit">
                             <FaGlobeAmericas /> {countryTranslation(server.country)}
                         </div>

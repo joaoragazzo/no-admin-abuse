@@ -20,7 +20,7 @@ export const TextArea: React.FC<TextAreaProps> = ({ label, maxCharacters, placeh
             {label && <div className="text-sm">{label}</div>} 
             <AntDTextArea 
                 placeholder={placeholder} 
-                className="rounded h-35"
+                className="rounded h-35 bg-neutral-900/25"
                 style={{ resize: 'none'}}
                 onChange={(e) => {
                     onChange?.(e.target.value)

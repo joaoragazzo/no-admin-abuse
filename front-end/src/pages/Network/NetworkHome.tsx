@@ -63,7 +63,10 @@ export const NetworkHome: React.FC = () => {
                 <div className="flex flex-col md:basis-2/3 gap-8">
                     <Card>
                         <Card.Title>
-                            <FaInfoCircle className="text-blue-700"/> Sobre a Rede
+                            <div className="flex items-center p-2 rounded-md bg-blue-600 ishadow-l">
+                                <FaInfoCircle className="text-sm"/>
+                            </div>
+                            Sobre a Rede
                         </Card.Title>
                         <Card.Content>
                            {networkDetails.description || <span className="text-sm">(Nenhuma descrição disponível)</span>}
@@ -72,13 +75,16 @@ export const NetworkHome: React.FC = () => {
                     
                     <Card>
                         <Card.Title>
-                            <FaTags className="text-blue-700"/> Características das avaliações <BiInfoCircle size={15} className="text-gray-300"/>
+                            <div className="flex items-center p-2 rounded-md bg-blue-600 ishadow-l">
+                                <FaTags className="text-sm" />
+                            </div>
+                            Características das avaliações <BiInfoCircle size={15} className="text-gray-300"/>
                         </Card.Title>
 
                         <Card.Content>
                             
                             <div className="mb-2">
-                                <div className="text-green-500 text-sm mb-2 flex flex-row gap-2 items-center">
+                                <div className="text-green-500 text-sm mb-1 flex flex-row gap-2 items-center">
                                     <FaCheck /> Características positivas
                                 </div>
 
@@ -100,7 +106,7 @@ export const NetworkHome: React.FC = () => {
                             
 
                             <div className="mt-8 mb-2">
-                                <div className="text-red-500 text-sm mb-2 flex flex-row gap-2 items-center">
+                                <div className="text-red-500 text-sm mb-1 flex flex-row gap-2 items-center">
                                     <FaX /> Características negativas
                                 </div>
 
@@ -121,7 +127,9 @@ export const NetworkHome: React.FC = () => {
 
                     <Card>
                         <Card.Title>
-                            <FaServer className="text-blue-700"/> Servidores da Rede
+                            <div className="flex items-center p-2 rounded-md bg-blue-600 ishadow-l">
+                                <FaServer className="text-sm"/>
+                            </div> Servidores da Rede
                         </Card.Title>   
 
                         <Card.Content>
@@ -148,7 +156,9 @@ export const NetworkHome: React.FC = () => {
                 <div className="flex flex-col md:basis-1/3 gap-8">
                     <Card>
                         <Card.Title>
-                            <FaFile className="text-blue-700"/> Estatísticas Rápidas
+                            <div className="flex items-center p-2 rounded-md bg-blue-600 ishadow-l">
+                                <FaFile className="text-sm"/>
+                            </div> Estatísticas Rápidas
                         </Card.Title>
 
                         <Card.Content>
@@ -217,7 +227,9 @@ export const NetworkHome: React.FC = () => {
 
                     <Card>
                         <Card.Title>
-                            <FaStar className="text-blue-700"/> Distribuição das avaliações
+                            <div className="flex items-center p-2 rounded-md bg-blue-600 ishadow-l">
+                                <FaStar className="text-sm"/>
+                            </div> Distribuição das avaliações
                         </Card.Title>
 
                         <Card.Content>

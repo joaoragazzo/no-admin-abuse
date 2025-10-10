@@ -1,4 +1,3 @@
-import { Switch } from "@/components/inputs/Switch"
 import { TextArea } from "@/components/inputs/TextArea"
 import { Rating } from "@/components/misc/Rating"
 import { Tag } from "@/components/misc/Tag"
@@ -6,9 +5,10 @@ import { useNetworkHome } from "@/contexts/NetworkHomeContext"
 import { backendI18N } from "@/i18n"
 import NetworkTagService from "@/services/NetworkTagService"
 import type { NetworkTagDTO } from "@/types/networkTag/NetworkTag"
+import { Checkbox } from "antd"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FaCheck } from "react-icons/fa"
+import { FaCheck, FaUserSecret } from "react-icons/fa"
 import { FaX } from "react-icons/fa6"
 import { useParams } from "react-router-dom"
 
@@ -56,9 +56,16 @@ export const NetworkMakeReview = () => {
 
 
     return (
-        <div className="flex flex-col gap-2 mt-3 w-full">             
+        <div className="flex flex-col gap-2 w-full px-5 py-2.5 rounded-md">             
+            <div className="flex flex-col font-bold text-lg text-neutral-1100 mb-1">
+                Faça a sua avaliação
+                <div className="text-neutral-300 font-normal text-sm">
+                    Fique à vontade para compartilhar sua experiência com a comunidade.
+                </div>
+            </div>
+
             <div className="flex flex-row gap-3 text-gray-200">
-                Nota: <Rating rating={starCounter} editable onChange={setStarCounter} />
+                <Rating rating={starCounter} onChange={setStarCounter} />
                 {starError && 
                 <div className="text-xs text-red-700">
                     * Você precisa escolher uma nota de 1 a 5 estrelas.
@@ -98,9 +105,9 @@ export const NetworkMakeReview = () => {
             />
                 
             <div className="w-full flex items-center justify-end gap-10">
-                <div className="flex flex-row gap-3">
-                    Enviar avaliação anônima
-                    <Switch checked={anonymous} onChange={setAnonymous}/>
+                <div className="flex flex-row gap-2 text-sm text-neutral-300 items-baseline">
+                    <Checkbox checked={anonymous} onChange={(e) => setAnonymous(e.target.checked)}/>
+                    <FaUserSecret /> Desejo ser anônimo
                 </div>
                 <button className="btn-primary" onClick={handleSubmit}>
                     Publicar avaliação

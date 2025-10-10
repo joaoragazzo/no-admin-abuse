@@ -132,7 +132,7 @@ export const NetworkList: React.FC = () => {
 
         <div className="flex justify-center">
             <div className="max-w-400 w-full">
-                <div className="border-1 border-neutral-700 mx-10 my-5 rounded p-5">
+                <div className="bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 mx-10 my-5 rounded p-5">
                     <div className="flex flex-row justify-between mb-5">
                         <div className="font-bold">
                             Filtros
@@ -210,7 +210,7 @@ export const NetworkList: React.FC = () => {
                 </div>
 
                 <div className="flex flex-row md:flex-nowrap flex-wrap gap-4 mx-10 mb-10">
-                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-blue-950 w-fit">
                             <FaServer className="text-blue-400" />
                         </div>
@@ -224,7 +224,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-green-950 w-fit">
                             <FaPeopleGroup className="text-green-400" />
                         </div>
@@ -238,7 +238,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-yellow-950 w-fit">
                             <FaStar className="text-yellow-400" />
                         </div>
@@ -252,7 +252,7 @@ export const NetworkList: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="border-1 border-neutral-700 rounded p-4 items-center w-full gap-4 flex flex-row">
+                    <div className="bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 border-1 border-neutral-800 rounded p-4 items-center w-full gap-4 flex flex-row">
                         <div className="p-3 rounded-full bg-purple-950 w-fit">
                             <FaGlobe className="text-purple-400" />
                         </div>

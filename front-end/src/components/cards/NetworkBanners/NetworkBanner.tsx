@@ -1,6 +1,6 @@
 import type { ServerDTO } from "@/types/ServerDTO"
 import { useState } from "react"
-import { FaAngleRight, FaServer } from "react-icons/fa"
+import { FaAngleRight } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 import { NetworkServer } from "./NetworkServer"
 import { Rating } from "@/components/misc/Rating"
@@ -33,7 +33,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
     const reportPopup = usePopup();
     return (
         <>
-        <div className="flex flex-col border-1 border-neutral-700 p-4 rounded md:w-full">
+        <div className="border-1 border-neutral-900 flex flex-col bg-gradient-to-br from-neutral-900/20 to-neutral-950/50 p-4 rounded md:w-full">
             <div className="flex flex-col justify-between w-full">
                 <div className="flex flex-row gap-3">
                     <div className="bg-neutral-900 max-w-34 min-w-34 aspect-square items-center flex justify-center uppercase font-bold rounded-md text-center overflow-hidden text-ellipsis">
@@ -77,7 +77,7 @@ export const NetworkBanner: React.FC<NetworkBannerProps> = ({
                             <Button
                                 onClick={() => {setShowServers(!showServers)}}
                                 size="small"
-                                icon={<FaServer />}
+                                className="bg-neutral-950 px-5 py-4 text-[14px]"
                             >
                                 Ver servidores
                             </Button>
