@@ -10,14 +10,11 @@ import { DraggableItem } from "@/components/template/DraggableItem";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import type { GameplayTagDTO } from "@/types/scrapping/GameplayTagDTO";
+import ScrappingService from "@/services/ScrappingService";
 
-interface GameplayTag {
-  id: string;
-  slug: string;
-  tags: string[];
-}
 
-const SortableItemWrapper: React.FC<{ item: GameplayTag; onDelete: (id: string) => void }> = ({ item, onDelete }) => {
+const SortableItemWrapper: React.FC<{ item: GameplayTagDTO; onDelete: (id: string) => void }> = ({ item, onDelete }) => {
   const {
     attributes,
     listeners,
@@ -37,7 +34,7 @@ const SortableItemWrapper: React.FC<{ item: GameplayTag; onDelete: (id: string) 
     <div ref={setNodeRef} style={style}>
       <DraggableItem
         slug={item.slug}
-        tags={item.tags}
+        aliases={item.aliases}
         dragHandleProps={{ ...listeners, ...attributes }}
         onDelete={() => onDelete(item.id)}
       />
@@ -48,23 +45,7 @@ const SortableItemWrapper: React.FC<{ item: GameplayTag; onDelete: (id: string) 
 export const AdminScrapping: React.FC = () => {
   const [gameList, setGameList] = useState<Option[]>([]);
   const [gameSelected, setGameSelected] = useState<string>();
-  const [items, setItems] = useState<GameplayTag[]>([
-    {
-      id: '1',
-      slug: 'vanilla',
-      tags: ['vanila', 'van', 'vanilla', 'no-mods', 'no mods']
-    },
-    {
-      id: '2',
-      slug: 'vanillap',
-      tags: ['vanilla+', 'vanilla +', 'vanila+', 'vanillap', 'vanilap']
-    },
-    {
-      id: '3',
-      slug: 'modded',
-      tags: ['mods', 'modded', 'with mods']
-    }
-  ]);
+  const [items, setItems] = useState<GameplayTagDTO[]>([]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -95,7 +76,11 @@ export const AdminScrapping: React.FC = () => {
       setGameList(res);
       setGameSelected(res[0].value);
     });
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    ScrappingService.getAllGameplayTags().then(response => setItems(response));
+  }, []);
 
   return (
     <>

@@ -22,7 +22,7 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, classNa
     <div
         onClick={handleClick}
         className={clsx(
-            "rounded-full text-xs px-4.5 py-1 font-semibold w-fit leading-none flex items-row gap-2 items-center",
+            "rounded-full text-xs px-4.5 py-1 font-semibold w-fit leading-none flex items-row gap-2 items-center text-nowrap",
             {
                 "text-white bg-red-700": color === "red",
                 "text-white bg-green-700": color === "green",
