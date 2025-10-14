@@ -1,5 +1,6 @@
 package com.noadminabuse.alpha.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,8 +11,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,12 +21,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "game")
+@Table(name = "gameplay_tag")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Game {
+public class GameplayTag {
     
     @Id
     @GeneratedValue
@@ -34,16 +36,11 @@ public class Game {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @Column(nullable = false)
-    private String name;
+    @OneToMany(mappedBy = "gameplayTag", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GameplayTagAlias> alias = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game")
-    private List<Network> networks;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "game_id", nullable = false)
+    private Game game;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NetworkTag> availableNetworkTags;
-
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderColumn(name = "position")
-    private List<GameplayTag> availableGameplayTags;
 }

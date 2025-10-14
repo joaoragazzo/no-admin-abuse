@@ -11,8 +11,6 @@ import com.noadminabuse.alpha.repository.GameRepository;
 import com.noadminabuse.alpha.web.dto.OptionDTO;
 import com.noadminabuse.alpha.web.dto.game.GameBannerDTO;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -35,14 +33,4 @@ public class GameService {
         return gameRepository.getAllGameOptionsDTOs();
     }
 
-    @PostConstruct
-    @Transactional
-    private void initDefaultTranslation() {
-        if (gameRepository.count() == 0) {
-            Game g = new Game();
-            g.setName("DayZ");
-            g.setSlug("dayz");
-            gameRepository.save(g);
-        }
-    }
 }
