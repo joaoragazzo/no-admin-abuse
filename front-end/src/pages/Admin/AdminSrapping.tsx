@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import GameService from "@/services/GameService";
 import type { Option } from "@/types/Option";
 import { BordedCard } from "@/components/template/BordedCard";
-import { DraggableItem } from "@/components/template/DraggableItem";
+import { ScrappingData } from "@/components/template/ScrappingData";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -14,7 +14,7 @@ import type { GameplayTagDTO } from "@/types/scrapping/GameplayTagDTO";
 import ScrappingService from "@/services/ScrappingService";
 
 
-const SortableItemWrapper: React.FC<{ item: GameplayTagDTO; onDelete: (id: string) => void }> = ({ item, onDelete }) => {
+const SortableItemWrapper: React.FC<{ data: GameplayTagDTO; }> = ({ data }) => {
   const {
     attributes,
     listeners,
@@ -22,7 +22,7 @@ const SortableItemWrapper: React.FC<{ item: GameplayTagDTO; onDelete: (id: strin
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: item.id });
+  } = useSortable({ id: data.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -32,11 +32,9 @@ const SortableItemWrapper: React.FC<{ item: GameplayTagDTO; onDelete: (id: strin
 
   return (
     <div ref={setNodeRef} style={style}>
-      <DraggableItem
-        slug={item.slug}
-        aliases={item.aliases}
+      <ScrappingData
+        data={data}
         dragHandleProps={{ ...listeners, ...attributes }}
-        onDelete={() => onDelete(item.id)}
       />
     </div>
   );
@@ -65,10 +63,6 @@ export const AdminScrapping: React.FC = () => {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-  };
-
-  const handleDelete = (id: string) => {
-    setItems((items) => items.filter((item) => item.id !== id));
   };
 
   useEffect(() => {
@@ -113,8 +107,7 @@ export const AdminScrapping: React.FC = () => {
                 {items.map((item) => (
                   <SortableItemWrapper
                     key={item.id}
-                    item={item}
-                    onDelete={handleDelete}
+                    data={item}
                   />
                 ))}
               </div>

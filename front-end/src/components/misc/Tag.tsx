@@ -3,8 +3,8 @@ import type React from "react";
 import { FaX } from "react-icons/fa6";
 
 interface TagProps {
-    children: string,
-    color: "red" | "green" | "blue" | "yellow" | "gray",
+    children: React.ReactNode,
+    color: "red" | "green" | "blue" | "yellow" | "gray" | "outlined",
     id?: string,
     onClick?: (id: string) => void
     onDelete?: (id: string) => void
@@ -29,6 +29,7 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, classNa
                 "text-white bg-blue-700": color === "blue",
                 "text-white bg-yellow-700": color === "yellow",
                 "text-white bg-neutral-900": color === "gray",
+                "text-white border-1 border-neutral-600": color === "outlined",
                 "cursor-pointer": onClick,
                 "pr-1.5": onDelete,
             },
