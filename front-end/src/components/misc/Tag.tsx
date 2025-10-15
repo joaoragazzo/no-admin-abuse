@@ -7,11 +7,13 @@ interface TagProps {
     color: "red" | "green" | "blue" | "yellow" | "gray" | "outlined",
     id?: string,
     onClick?: (id: string) => void
-    onDelete?: (id: string) => void
+    onDelete?: () => void
     className?: string
 }
 
 export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, className, onDelete }) => {
+    const Component = onClick ? 'button' : 'div';
+    
     const handleClick = () => {
         if (onClick && id) {
             onClick(id);
@@ -19,7 +21,7 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, classNa
     }
     
     return (
-    <div
+    <Component
         onClick={handleClick}
         className={clsx(
             "rounded-full text-xs px-4.5 py-1 font-semibold w-fit leading-none flex items-row gap-2 items-center text-nowrap",
@@ -38,10 +40,10 @@ export const Tag: React.FC <TagProps> = ({ children, color, id, onClick, classNa
             )}>
         {children}
         {onDelete && 
-            <div className="p-1.5 rounded-full hover:bg-black/30 cursor-pointer transition-colors">
+            <button className="p-1.5 rounded-full hover:bg-black/30 cursor-pointer transition-colors" onClick={onDelete}>
                 <FaX className="text-[10px]" />
-            </div>
+            </button>
         }
-    </div>
+    </Component>
     )
 }

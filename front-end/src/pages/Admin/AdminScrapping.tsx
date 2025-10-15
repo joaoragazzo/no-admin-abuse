@@ -2,16 +2,13 @@
 import { FaSpider } from "react-icons/fa";
 import { PageTitle } from "./PageTitle";
 import { Select } from "@/components/inputs/Select";
-import { useEffect, useState } from "react";
-import GameService from "@/services/GameService";
-import type { Option } from "@/types/Option";
 import { BordedCard } from "@/components/template/BordedCard";
 import { ScrappingData } from "@/components/template/ScrappingData";
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { GameplayTagDTO } from "@/types/scrapping/GameplayTagDTO";
-import ScrappingService from "@/services/ScrappingService";
+import { useAdminScrappingContext } from "@/contexts/AdminScrappingContext";
 
 
 const SortableItemWrapper: React.FC<{ data: GameplayTagDTO; }> = ({ data }) => {
@@ -41,9 +38,7 @@ const SortableItemWrapper: React.FC<{ data: GameplayTagDTO; }> = ({ data }) => {
 };
 
 export const AdminScrapping: React.FC = () => {
-  const [gameList, setGameList] = useState<Option[]>([]);
-  const [gameSelected, setGameSelected] = useState<string>();
-  const [items, setItems] = useState<GameplayTagDTO[]>([]);
+  const {gameList, gameSelected, setGameSelected, gameplayTags, setGameplayTags} = useAdminScrappingContext();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -57,26 +52,13 @@ export const AdminScrapping: React.FC = () => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      setItems((items) => {
+      setGameplayTags((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
   };
-
-  useEffect(() => {
-    GameService.fetchAllGamesOption().then(res => {
-      setGameList(res);
-      setGameSelected(res[0].value);
-      ScrappingService.getAllGameplayTags({game: res[0].value}).then(response => setItems(response));
-    });
-  }, []);
-
-  useEffect(() => {
-    if (gameSelected)
-      ScrappingService.getAllGameplayTags({game: gameSelected}).then(response => setItems(response));
-  }, [gameSelected]);
 
   return (
     <>
@@ -91,6 +73,7 @@ export const AdminScrapping: React.FC = () => {
         <Select
           options={gameList}
           value={gameSelected}
+          onChange={setGameSelected}
           placeholder="Selecione o jogo"
           className="w-50"
         />
@@ -102,9 +85,9 @@ export const AdminScrapping: React.FC = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            <SortableContext items={items.map(item => item.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext items={gameplayTags.map(item => item.id)} strategy={verticalListSortingStrategy}>
               <div className="flex flex-col gap-3">
-                {items.map((item) => (
+                {gameplayTags.map((item) => (
                   <SortableItemWrapper
                     key={item.id}
                     data={item}

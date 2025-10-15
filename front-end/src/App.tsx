@@ -14,6 +14,7 @@ import { AdminNetworkTags } from "./pages/Admin/AdminNetworkTags"
 import { AdminUsers } from "./pages/Admin/AdminUsers"
 import { AdminTranslationContextProvider } from "./contexts/AdminTranslationContext"
 import { AdminScrapping } from "./pages/Admin/AdminScrapping"
+import { AdminScrappingContextProvider } from "./contexts/AdminScrappingContext"
 
 function App() {
   return (
@@ -52,7 +53,11 @@ function App() {
               <AdminTranslations />
             </AdminTranslationContextProvider>
           } />
-          <Route path="scrapping" element={<AdminScrapping />}/>
+          <Route path="scrapping" element={
+            <AdminScrappingContextProvider>
+              <AdminScrapping />
+            </AdminScrappingContextProvider>
+          }/>
         </Route>
         
       </Routes>
