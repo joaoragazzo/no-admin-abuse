@@ -13,7 +13,7 @@ import { MainLayout } from "./pages/MainLayout"
 import { AdminNetworkTags } from "./pages/Admin/AdminNetworkTags"
 import { AdminUsers } from "./pages/Admin/AdminUsers"
 import { AdminTranslationContextProvider } from "./contexts/AdminTranslationContext"
-import { AdminScrapping } from "./pages/Admin/AdminSrapping"
+import { AdminScrapping } from "./pages/Admin/AdminScrapping"
 
 function App() {
   return (
