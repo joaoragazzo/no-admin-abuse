@@ -1,6 +1,7 @@
 package com.noadminabuse.alpha.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,11 @@ import lombok.AllArgsConstructor;
 public class ScrappingService {
     private final GameplayTagRepository gameplayTagRepository;
         
-    public List<GameplayTagDTO> getAllGameplayTags() {
-        return ScrappingMapper.toGameplayTagDTO(gameplayTagRepository.findAll());
+    public List<GameplayTagDTO> getAllGameplayTags(UUID gameId) {
+        return ScrappingMapper
+            .toGameplayTagDTO(
+                gameplayTagRepository.findByGameSlugWithAliases(gameId)
+            );
     }
 
 }

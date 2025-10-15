@@ -36,6 +36,8 @@ public class GameplayTag {
     @Column(nullable = false, unique = true)
     private String slug;
 
+    private Integer position;
+
     @OneToMany(mappedBy = "gameplayTag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GameplayTagAlias> alias = new ArrayList<>();
 

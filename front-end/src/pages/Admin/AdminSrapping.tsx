@@ -75,12 +75,14 @@ export const AdminScrapping: React.FC = () => {
     GameService.fetchAllGamesOption().then(res => {
       setGameList(res);
       setGameSelected(res[0].value);
+      ScrappingService.getAllGameplayTags({game: res[0].value}).then(response => setItems(response));
     });
   }, []);
 
   useEffect(() => {
-    ScrappingService.getAllGameplayTags().then(response => setItems(response));
-  }, []);
+    if (gameSelected)
+      ScrappingService.getAllGameplayTags({game: gameSelected}).then(response => setItems(response));
+  }, [gameSelected]);
 
   return (
     <>
